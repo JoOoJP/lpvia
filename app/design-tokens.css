@@ -90,7 +90,12 @@
   --text-body: 1rem;
   --text-lead: clamp(1rem, 1.2vw, 1.16rem);
   --text-section: clamp(3rem, 5.8vw, 6.5rem);
-  --text-display: clamp(3.8rem, 6.8vw, 7.4rem);
+  /*
+   * O display divide a tela com marca, apoio e ações. Escalar só por largura
+   * fazia a pilha estourar em telas baixas e largas (notebooks), então a
+   * altura entra como teto junto da largura.
+   */
+  --text-display: clamp(2.9rem, min(6.6vw, 9vh), 7rem);
   --leading-body: 1.65;
   --leading-display: 0.92;
   --tracking-display: -0.07em;
