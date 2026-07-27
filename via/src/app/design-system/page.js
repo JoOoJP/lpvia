@@ -157,11 +157,11 @@ export default function DesignSystemPage() {
         >
           <div className={styles.typeSpecimens}>
             <div className={styles.typeDisplay}>
-              <span>DISPLAY / INTER 500</span>
+              <span>DISPLAY / SPACE GROTESK 500</span>
               <p>Direção resolve.</p>
             </div>
             <div className={styles.typeSection}>
-              <span>TÍTULO DE SEÇÃO / INTER 500</span>
+              <span>TÍTULO DE SEÇÃO / SPACE GROTESK 500</span>
               <p>Partes diferentes. Decisões conectadas.</p>
             </div>
             <div className={styles.typeBody}>

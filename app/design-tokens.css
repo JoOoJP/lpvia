@@ -71,6 +71,7 @@
 
   /* 2. Semânticos — tipografia */
   --font-sans: var(--font-inter), Inter, Arial, sans-serif;
+  --font-display: var(--font-space-grotesk), "Space Grotesk", var(--font-sans);
   --font-editorial-accent: var(--font-editorial), Georgia, serif;
   --text-caption: 0.75rem;
   --text-body: 1rem;
@@ -100,6 +101,9 @@
   --card-bg: var(--color-surface-raised);
   --card-border: var(--color-border);
   --card-radius: var(--radius-none);
+  --case-copy-font: var(--font-display);
+  --case-copy-size: clamp(2.1rem, 3vw, 3.35rem);
+  --case-copy-leading: 1.02;
   --focus-width: 3px;
   --focus-offset: 4px;
 

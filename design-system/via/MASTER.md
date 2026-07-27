@@ -30,8 +30,8 @@ O gradiente não é fundo decorativo recorrente. É assinatura.
 
 ## Tipografia
 
-- **Voz principal:** Inter.
-- **Display:** Inter 500–600, tracking fechado, line-height entre `0.90` e `0.98`.
+- **Voz principal e corpo:** Inter.
+- **Display e cases:** Space Grotesk 500–600, tracking fechado, line-height entre `0.90` e `1.02`.
 - **Corpo:** Inter 400, mínimo 16 px, line-height `1.65`.
 - **Rótulos:** Inter 700–750, caixa alta, tracking `0.16em`.
 - **Acento editorial:** Libre Bodoni apenas para frases, conceitos ou citações pertencentes ao cliente. Nunca em títulos institucionais da VIA.
@@ -71,6 +71,6 @@ O gradiente não é fundo decorativo recorrente. É assinatura.
 
 1. Uma ideia forte por seção.
 2. Gradiente como assinatura, nunca como ruído.
-3. Inter fala pela VIA; a serifada cita o cliente.
+3. Space Grotesk cria impacto; Inter explica; a serifada cita o cliente.
 4. Cor de case não vira cor da marca.
 5. Sem sombra, glow ou movimento sem função.

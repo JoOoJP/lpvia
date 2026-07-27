@@ -1,4 +1,4 @@
-import { Inter, Libre_Bodoni } from "next/font/google";
+import { Inter, Libre_Bodoni, Space_Grotesk } from "next/font/google";
 import { headers } from "next/headers";
 import "./design-tokens.css";
 import "./globals.css";
@@ -10,6 +10,11 @@ const inter = Inter({
 
 const libreBodoni = Libre_Bodoni({
   variable: "--font-editorial",
+  subsets: ["latin"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
@@ -51,7 +56,11 @@ export async function generateMetadata() {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.variable} ${libreBodoni.variable}`}>{children}</body>
+      <body
+        className={`${inter.variable} ${spaceGrotesk.variable} ${libreBodoni.variable}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
