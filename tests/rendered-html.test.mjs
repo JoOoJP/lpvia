@@ -1,29 +1,34 @@
 import assert from "node:assert/strict";
-import test from "node:test";
+import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import net from "node:net";
+import test, { after, before } from "node:test";
 
-async function render() {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
+const projectDirectory = fileURLToPath(new URL("..", import.meta.url));
+const nextBin = fileURLToPath(
+  new URL("../node_modules/next/dist/bin/next", import.meta.url),
+);
 
-  return worker.fetch(
-    new Request("http://localhost/", {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
-}
+let server;
+let pageUrl;
+
+before(async () => {
+  const port = await findAvailablePort();
+  pageUrl = `http://127.0.0.1:${port}/`;
+  server = spawn(process.execPath, [nextBin, "start", "-p", String(port)], {
+    cwd: projectDirectory,
+    stdio: "ignore",
+  });
+
+  await waitForServer(pageUrl, server);
+});
+
+after(() => {
+  server?.kill();
+});
 
 test("renderiza a landing page da VIA", async () => {
-  const response = await render();
+  const response = await fetch(pageUrl);
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
@@ -37,7 +42,7 @@ test("renderiza a landing page da VIA", async () => {
 });
 
 test("publica metadados sociais e navegação essenciais", async () => {
-  const response = await render();
+  const response = await fetch(pageUrl);
   const html = await response.text();
 
   assert.match(html, /property="og:image" content="[^"]*\/og-via\.png"/);
@@ -48,3 +53,33 @@ test("publica metadados sociais e navegação essenciais", async () => {
   assert.match(html, /href="#produtos"/);
   assert.match(html, /wa\.me\/5541991014546/);
 });
+
+function findAvailablePort() {
+  return new Promise((resolve, reject) => {
+    const listener = net.createServer();
+    listener.once("error", reject);
+    listener.listen(0, "127.0.0.1", () => {
+      const address = listener.address();
+      listener.close(() => resolve(address.port));
+    });
+  });
+}
+
+async function waitForServer(url, childProcess) {
+  for (let attempt = 0; attempt < 60; attempt += 1) {
+    if (childProcess.exitCode !== null) {
+      throw new Error(`Next.js encerrou com código ${childProcess.exitCode}.`);
+    }
+
+    try {
+      const response = await fetch(url);
+      if (response.ok) return;
+    } catch {
+      // O servidor ainda está iniciando.
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 250));
+  }
+
+  throw new Error("Next.js não iniciou dentro do tempo esperado.");
+}

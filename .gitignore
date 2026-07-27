@@ -36,8 +36,11 @@ yarn-error.log*
 
 # typescript
 next-env.d.ts
+
+# resíduos locais do starter Cloudflare/vinext (não recriados pelo build atual)
 /dist/
 /.wrangler/
 /outputs/
-/work/
-.codex-dev*.log
+
+# logs de sessões de agente
+.codex-*.log
