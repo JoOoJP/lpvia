@@ -1,246 +1,299 @@
+import Image from "next/image";
+
 const whatsapp =
   "https://wa.me/5541991014546?text=Ol%C3%A1%2C%20quero%20entender%20onde%20o%20crescimento%20da%20minha%20empresa%20est%C3%A1%20travando.";
 
 const pillars = [
   {
     number: "01",
+    color: "purple",
     title: "Estratégia",
     description:
-      "Encontramos o gargalo, definimos prioridades e construímos uma direção clara para o próximo estágio.",
+      "Encontra a oportunidade, organiza prioridades e define onde concentrar energia.",
   },
   {
     number: "02",
+    color: "cyan",
     title: "Marketing",
     description:
-      "Transformamos estratégia em percepção, atenção e demanda — sem conteúdo aleatório ou vaidade.",
+      "Transforma direção em percepção, atenção e demanda qualificada.",
   },
   {
     number: "03",
+    color: "green",
     title: "Comercial",
     description:
-      "Organizamos abordagem, processo e acompanhamento para oportunidades realmente virarem receita.",
+      "Converte oportunidade em relacionamento, negociação e receita.",
   },
   {
     number: "04",
+    color: "blue",
     title: "Tecnologia",
     description:
-      "Criamos sites, automações e sistemas que aumentam eficiência e dão escala ao que já tem direção.",
+      "Aumenta eficiência, integra processos e prepara a empresa para escalar.",
   },
 ];
 
-const process = [
-  ["Diagnóstico", "Onde estamos?"],
-  ["Gargalo", "O que impede avanço?"],
-  ["Direção", "Onde atacar primeiro?"],
-  ["Execução", "Como colocar de pé?"],
-  ["Métricas", "O que aconteceu?"],
-  ["Otimização", "Qual próximo movimento?"],
+const symptoms = [
+  "Marketing produz, mas não gera demanda.",
+  "Leads chegam, mas vendas não acompanham.",
+  "A marca parece menor que o negócio.",
+  "A operação depende demais de esforço manual.",
 ];
 
 const products = [
   {
-    label: "Produto principal",
-    name: "Growth Plus",
-    text: "Estratégia, marketing, aquisição e comercial conectados num sistema contínuo de crescimento.",
-  },
-  {
-    label: "Ponto de partida",
+    index: "01",
     name: "Growth Sprint",
-    text: "Um mergulho no negócio para descobrir o gargalo, priorizar oportunidades e definir o caminho.",
+    label: "Descobrir",
+    description:
+      "Diagnóstico estratégico para localizar o gargalo, priorizar oportunidades e definir próximo movimento.",
   },
   {
-    label: "Geração de demanda",
+    index: "02",
     name: "Growth Marketing",
-    text: "Posicionamento, conteúdo, criativos e mídia trabalhando para gerar atenção qualificada.",
+    label: "Atrair",
+    description:
+      "Posicionamento, conteúdo, criativos e Meta Ads trabalhando para construir demanda.",
   },
   {
-    label: "Eficiência e escala",
+    index: "03",
+    name: "Growth Plus",
+    label: "Crescer",
+    featured: true,
+    description:
+      "Nosso sistema completo: estratégia, marketing, aquisição e comercial gerenciados em conjunto.",
+  },
+  {
+    index: "04",
     name: "Growth Tech",
-    text: "Sites, landing pages, automações, IA e integrações aplicadas ao crescimento.",
+    label: "Escalar",
+    description:
+      "Sites, landing pages, automações e IA aplicados à eficiência do negócio.",
   },
 ];
+
+function Arrow() {
+  return <span aria-hidden="true">↗</span>;
+}
 
 export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#inicio" aria-label="V.IA, início">
-          <span>V.IA</span>
+        <a className="logo" href="#inicio" aria-label="VIA, início">
+          VIA
         </a>
         <nav aria-label="Navegação principal">
           <a href="#sistema">Sistema</a>
           <a href="#cases">Cases</a>
-          <a href="#produtos">Produtos</a>
+          <a href="#produtos">Soluções</a>
         </nav>
         <a className="header-cta" href={whatsapp} target="_blank" rel="noreferrer">
-          Agendar diagnóstico
+          Diagnóstico <Arrow />
         </a>
       </header>
 
       <section className="hero" id="inicio">
-        <div className="hero-noise" aria-hidden="true" />
         <div className="hero-copy">
-          <p className="eyebrow">V.IA · Sistema de crescimento</p>
+          <p className="eyebrow">VIA · SISTEMA DE CRESCIMENTO</p>
           <h1>
-            Seu negócio não precisa de mais uma ferramenta.
-            <span> Precisa que tudo trabalhe na mesma direção.</span>
+            Quatro áreas.
+            <span> Uma direção de crescimento.</span>
           </h1>
           <p className="hero-lead">
-            Diagnosticamos onde o crescimento trava e conectamos estratégia,
-            marketing, comercial e tecnologia para construir — e executar — o
-            próximo movimento da sua empresa.
+            A VIA diagnostica onde sua empresa está travando e conecta
+            estratégia, marketing, comercial e tecnologia para construir o
+            próximo estágio do negócio.
           </p>
           <div className="hero-actions">
-            <a className="button button-primary" href={whatsapp} target="_blank" rel="noreferrer">
-              Agende um diagnóstico
-              <span aria-hidden="true">↗</span>
+            <a className="button button-gradient" href={whatsapp} target="_blank" rel="noreferrer">
+              Descobrir meu gargalo <Arrow />
             </a>
-            <a className="text-link" href="#cases">
-              Conheça nosso trabalho <span aria-hidden="true">↓</span>
+            <a className="secondary-link" href="#cases">
+              Ver casos reais <span aria-hidden="true">↓</span>
             </a>
           </div>
         </div>
 
-        <div className="system-orbit" aria-label="Áreas conectadas pela V.IA">
-          <span className="orbit-label orbit-strategy">Estratégia</span>
-          <span className="orbit-label orbit-marketing">Marketing</span>
-          <span className="orbit-label orbit-sales">Comercial</span>
-          <span className="orbit-label orbit-tech">Tecnologia</span>
-          <div className="orbit-core">
-            <strong>V.IA</strong>
-            <small>uma direção</small>
+        <div className="flow-visual" aria-label="Quatro áreas convergindo em uma direção">
+          <div className="flow-label flow-label-1">Estratégia</div>
+          <div className="flow-label flow-label-2">Marketing</div>
+          <div className="flow-label flow-label-3">Comercial</div>
+          <div className="flow-label flow-label-4">Tecnologia</div>
+          <div className="flow-lines" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+            <i />
           </div>
+          <div className="flow-core">
+            <strong>VIA</strong>
+            <span>uma direção</span>
+          </div>
+          <div className="flow-output" aria-hidden="true" />
         </div>
       </section>
 
-      <section className="statement section">
-        <p className="eyebrow">O problema não é falta de movimento</p>
-        <h2>
-          Mais tráfego nem sempre significa
-          <span> mais crescimento.</span>
-        </h2>
-        <div className="statement-grid">
-          <p>
-            Se sua empresa gera cem oportunidades e converte duas, colocar mais
-            dinheiro em mídia pode apenas acelerar desperdício.
-          </p>
-          <p>
-            Às vezes parece marketing, mas é comercial. Parece tráfego, mas é
-            posicionamento. Parece vendas, mas é oferta. A V.IA encontra essa
-            conexão antes de prescrever uma ferramenta.
-          </p>
+      <section className="proof-bar" aria-label="Projetos e mercados">
+        <p>Estratégia que já ganhou forma em</p>
+        <div>
+          <span>Moikato</span>
+          <span>Dra. Camila Bresciani</span>
+          <span>A Tardinha</span>
+          <span>Brasil + Reino Unido</span>
         </div>
       </section>
 
-      <section className="system section" id="sistema">
-        <div className="section-heading">
+      <section className="diagnosis section">
+        <div className="section-intro">
+          <p className="eyebrow">ANTES DA FERRAMENTA, O PROBLEMA</p>
+          <h2>
+            Nem todo negócio que precisa crescer
+            <span> precisa de mais tráfego.</span>
+          </h2>
+        </div>
+        <div className="diagnosis-grid">
+          <div className="diagnosis-copy">
+            <p>
+              Crescimento raramente trava em uma área isolada. A empresa pede
+              anúncio, mas talvez perca oportunidades no atendimento. Pede
+              conteúdo, mas ainda não tem oferta clara.
+            </p>
+            <strong>
+              A VIA começa descobrindo o que precisa mudar — não vendendo o que
+              já estava na prateleira.
+            </strong>
+          </div>
+          <ul>
+            {symptoms.map((symptom, index) => (
+              <li key={symptom}>
+                <span>0{index + 1}</span>
+                {symptom}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="system-section section" id="sistema">
+        <div className="system-heading">
           <div>
-            <p className="eyebrow">Todas as partes. Uma direção.</p>
-            <h2>Um sistema, não ações isoladas.</h2>
+            <p className="eyebrow">O SISTEMA VIA</p>
+            <h2>Partes diferentes. Decisões conectadas.</h2>
           </div>
           <p>
-            Quatro áreas conectadas por uma camada indispensável: execução.
-            Porque saber o que fazer não basta.
+            Execução atravessa tudo. Não entregamos apenas uma recomendação:
+            ajudamos a colocar direção em funcionamento.
           </p>
         </div>
 
         <div className="pillar-grid">
           {pillars.map((pillar) => (
-            <article className="pillar-card" key={pillar.title}>
+            <article className={`pillar pillar-${pillar.color}`} key={pillar.title}>
               <span>{pillar.number}</span>
+              <div className="pillar-mark" aria-hidden="true" />
               <h3>{pillar.title}</h3>
               <p>{pillar.description}</p>
             </article>
           ))}
         </div>
 
-        <div className="process">
-          <p className="process-label">Como o sistema se movimenta</p>
-          <ol>
-            {process.map(([title, text]) => (
-              <li key={title}>
-                <strong>{title}</strong>
-                <span>{text}</span>
-              </li>
-            ))}
-          </ol>
+        <div className="system-loop" aria-label="Ciclo do sistema VIA">
+          {["Diagnóstico", "Direção", "Execução", "Métricas", "Otimização"].map(
+            (step, index) => (
+              <div key={step}>
+                <span>0{index + 1}</span>
+                <strong>{step}</strong>
+              </div>
+            ),
+          )}
         </div>
       </section>
 
       <section className="cases section" id="cases">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Trabalho em contexto</p>
-            <h2>Não mostramos peças. Mostramos raciocínio.</h2>
-          </div>
+        <div className="section-intro cases-intro">
+          <p className="eyebrow">PROVA EM CONTEXTO</p>
+          <h2>Não mostramos peças soltas. Mostramos decisões.</h2>
           <p>
-            Cada projeto começa com uma pergunta: o que queremos fazer o mercado
-            entender, sentir ou fazer?
+            O valor não está só no que foi criado, mas no problema que cada
+            escolha ajudou a resolver.
           </p>
         </div>
 
-        <article className="case case-featured">
-          <div className="case-visual moikato-visual">
-            <img src="/moikato.jpg" alt="Campo de capim dourado usado na narrativa visual da Moikato" />
-            <div className="browser-card">
+        <article className="case case-moikato">
+          <div className="case-image">
+            <Image
+              src="/moikato.jpg"
+              alt="Campo de capim dourado que inspira a narrativa da Moikato"
+              fill
+              sizes="(max-width: 900px) 100vw, 58vw"
+            />
+            <div className="case-browser">
               <span>moikato.com</span>
               <strong>A natureza feita joia.</strong>
             </div>
           </div>
-          <div className="case-copy">
-            <p className="case-index">CASE 01 · MARCA INTERNACIONAL</p>
+          <div className="case-content">
+            <p className="case-tag">MARCA · INTERNACIONALIZAÇÃO · TECNOLOGIA</p>
             <h3>Moikato</h3>
             <p className="case-thesis">
-              De produto artesanal brasileiro a marca brasileira de design num
+              De produto artesanal brasileiro a marca brasileira de design em
               contexto europeu.
             </p>
             <dl>
               <div>
-                <dt>Gargalo</dt>
-                <dd>Produto forte, posicionamento internacional ainda difuso.</dd>
+                <dt>Desafio</dt>
+                <dd>Traduzir origem e artesanato em valor de marca.</dd>
               </div>
               <div>
                 <dt>Direção</dt>
-                <dd>Origem, design e brasilidade como ativos de valor.</dd>
+                <dd>Brasil, design e procedência como diferenciais.</dd>
               </div>
               <div>
                 <dt>Execução</dt>
-                <dd>Branding, storytelling, conteúdo, direção criativa e site bilíngue.</dd>
+                <dd>Posicionamento, storytelling, conteúdo e site bilíngue.</dd>
               </div>
             </dl>
             <a href="https://moikato.com" target="_blank" rel="noreferrer">
-              Visitar projeto <span aria-hidden="true">↗</span>
+              Visitar projeto <Arrow />
             </a>
           </div>
         </article>
 
-        <div className="case-grid">
-          <article className="case compact-case">
-            <div className="case-visual tardinha-visual">
-              <img src="/tardinha.webp" alt="Marca A Tardinha da Rio Solimões" />
+        <div className="case-pair">
+          <article className="case case-small case-tardinha">
+            <div className="case-small-image">
+              <Image
+                src="/tardinha.webp"
+                alt="Marca A Tardinha da Rio Solimões"
+                width={1000}
+                height={600}
+                sizes="(max-width: 900px) 100vw, 50vw"
+              />
             </div>
-            <div className="case-copy">
-              <p className="case-index">CASE 02 · EXPERIÊNCIA E CONVERSÃO</p>
+            <div className="case-small-content">
+              <p className="case-tag">EXPERIÊNCIA · SITE · CONVERSÃO</p>
               <h3>A Tardinha</h3>
               <p>
-                Evento transformado em experiência digital: narrativa, ingressos,
-                patrocinadores e conversão pelo WhatsApp numa jornada única.
+                Evento, ingressos e patrocinadores organizados numa jornada
+                digital com conversão direta pelo WhatsApp.
               </p>
             </div>
           </article>
 
-          <article className="case compact-case camila-case">
-            <div className="editorial-visual">
-              <span>POSICIONAMENTO · CONTEÚDO · FUNIL</span>
+          <article className="case case-small case-camila">
+            <div className="camila-art">
+              <span>POSICIONAMENTO</span>
               <strong>O crescimento<br />não espera.</strong>
-              <div className="editorial-line" />
+              <i aria-hidden="true" />
             </div>
-            <div className="case-copy">
-              <p className="case-index">CASE 03 · TESE DE COMUNICAÇÃO</p>
+            <div className="case-small-content">
+              <p className="case-tag">TESE · CONTEÚDO · FUNIL</p>
               <h3>Dra. Camila Bresciani</h3>
               <p>
-                Conteúdo deixa de preencher calendário e passa a conduzir
-                consciência: mote, headlines, roteiros, criativos e funil.
+                Mote, headlines, roteiros e criativos passam a conduzir
+                consciência — não apenas preencher calendário.
               </p>
             </div>
           </article>
@@ -248,61 +301,72 @@ export default function Home() {
       </section>
 
       <section className="products section" id="produtos">
-        <div className="section-heading">
+        <div className="products-heading">
           <div>
-            <p className="eyebrow">Arquitetura de crescimento</p>
-            <h2>O problema define o caminho.</h2>
+            <p className="eyebrow">ARQUITETURA GROWTH</p>
+            <h2>Descobrir. Atrair. Crescer. Escalar.</h2>
           </div>
           <p>
-            Você não escolhe uma lista de entregáveis. Primeiro entendemos o
-            momento; depois construímos a estrutura necessária.
+            O problema define o ponto de entrada. O Growth Plus conecta o
+            sistema completo.
           </p>
         </div>
-        <div className="product-list">
-          {products.map((product, index) => (
-            <article key={product.name} className={index === 0 ? "featured-product" : ""}>
-              <span>{product.label}</span>
+        <div className="product-grid">
+          {products.map((product) => (
+            <article className={product.featured ? "product featured" : "product"} key={product.name}>
+              <div className="product-top">
+                <span>{product.index}</span>
+                <b>{product.label}</b>
+              </div>
               <h3>{product.name}</h3>
-              <p>{product.text}</p>
-              <b aria-hidden="true">0{index + 1}</b>
+              <p>{product.description}</p>
+              {product.featured ? <em>Produto principal</em> : null}
             </article>
           ))}
         </div>
       </section>
 
-      <section className="belief section">
-        <p className="eyebrow">Nossa medida de sucesso</p>
+      <section className="measurement section">
+        <p className="eyebrow">CRESCIMENTO QUE PODE SER LIDO</p>
         <blockquote>
-          “Não perguntamos apenas quantas pessoas viram. Perguntamos quantas
-          oportunidades surgiram, quanto custaram e quantas viraram clientes.”
+          Não basta chamar atenção.
+          <span> Precisamos entender o que virou oportunidade, venda e aprendizado.</span>
         </blockquote>
-        <div className="metric-strip" aria-label="Indicadores acompanhados">
-          <span>Oportunidades</span>
-          <span>Conversão</span>
+        <div className="measurement-steps">
+          <span>Atenção</span>
+          <i aria-hidden="true" />
+          <span>Demanda</span>
+          <i aria-hidden="true" />
+          <span>Oportunidade</span>
+          <i aria-hidden="true" />
           <span>Receita</span>
-          <span>Eficiência</span>
         </div>
       </section>
 
       <section className="final-cta section" id="contato">
-        <div className="cta-symbol" aria-hidden="true">.I</div>
-        <p className="eyebrow">Próximo movimento</p>
-        <h2>Seu negócio é bom.<br />Ele só não deveria continuar onde está.</h2>
-        <p>
-          Começamos entendendo o cenário. Sem fórmula pronta, sem pacote
-          empurrado, sem ferramenta antes do problema.
-        </p>
-        <a className="button button-primary" href={whatsapp} target="_blank" rel="noreferrer">
-          Agende seu diagnóstico <span aria-hidden="true">↗</span>
-        </a>
+        <div className="final-copy">
+          <p className="eyebrow">PRÓXIMO MOVIMENTO</p>
+          <h2>Onde seu crescimento está travando?</h2>
+          <p>
+            Começamos pelo diagnóstico. Sem fórmula pronta, pacote empurrado ou
+            ferramenta antes do problema.
+          </p>
+          <a className="button button-light" href={whatsapp} target="_blank" rel="noreferrer">
+            Agendar diagnóstico <Arrow />
+          </a>
+        </div>
+        <div className="final-mark" aria-hidden="true">
+          <span>VIA</span>
+          <i />
+        </div>
       </section>
 
       <footer>
-        <a className="brand" href="#inicio" aria-label="V.IA, voltar ao início">
-          <span>V.IA</span>
+        <a className="logo" href="#inicio" aria-label="VIA, voltar ao início">
+          VIA
         </a>
         <p>Estratégia · Marketing · Comercial · Tecnologia</p>
-        <small>© 2026 V.IA. Crescimento com direção.</small>
+        <small>© 2026 VIA. Crescimento com direção.</small>
       </footer>
     </main>
   );

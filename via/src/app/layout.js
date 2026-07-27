@@ -7,7 +7,7 @@ const inter = Inter({
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-const title = "V.IA — Sistema de crescimento";
+const title = "VIA — Sistema de crescimento";
 const description =
   "Estratégia, marketing, comercial e tecnologia conectados para construir crescimento sustentável.";
 
@@ -21,10 +21,10 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/og.png",
+        url: "/og-via.png",
         width: 1200,
         height: 630,
-        alt: "V.IA — Todas as partes. Uma direção.",
+        alt: "VIA — Quatro áreas. Uma direção de crescimento.",
       },
     ],
   },
@@ -32,7 +32,7 @@ export const metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["/og.png"],
+    images: ["/og-via.png"],
   },
 };
 

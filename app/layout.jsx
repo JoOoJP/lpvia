@@ -12,7 +12,7 @@ export async function generateMetadata() {
   const host = headerStore.get("host") || "localhost:3000";
   const protocol = host.startsWith("localhost") ? "http" : "https";
   const base = new URL(`${protocol}://${host}`);
-  const title = "V.IA — Sistema de crescimento";
+  const title = "VIA — Sistema de crescimento";
   const description =
     "Estratégia, marketing, comercial e tecnologia conectados para construir crescimento sustentável.";
 
@@ -24,13 +24,20 @@ export async function generateMetadata() {
       title,
       description,
       type: "website",
-      images: [{ url: "/og.png", width: 1200, height: 630, alt: "V.IA — Todas as partes. Uma direção." }],
+      images: [
+        {
+          url: "/og-via.png",
+          width: 1200,
+          height: 630,
+          alt: "VIA — Quatro áreas. Uma direção de crescimento.",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/og.png"],
+      images: ["/og-via.png"],
     },
   };
 }
