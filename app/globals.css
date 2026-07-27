@@ -566,37 +566,40 @@ h1 span {
 }
 
 .cases {
-  padding-top: clamp(4rem, 6vw, 6rem);
+  padding-top: clamp(2.75rem, 4.5vw, 4.5rem);
   padding-bottom: clamp(5rem, 8vw, 8rem);
   background: var(--warm);
 }
 
 .cases-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.45fr);
-  gap: 1.5rem 7vw;
-  align-items: end;
   max-width: none;
-}
-
-.cases-intro .eyebrow {
-  grid-column: 1 / -1;
-  margin-bottom: 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
 }
 
 .cases-intro h2 {
-  max-width: 1060px;
+  max-width: 1120px;
+  margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(3rem, 4.8vw, 5.7rem);
-  line-height: 0.95;
+  font-size: clamp(2.8rem, 4.35vw, 5rem);
+  font-weight: 500;
+  line-height: 0.91;
+  letter-spacing: -0.065em;
+  text-wrap: initial;
 }
 
-.cases-intro > p:last-child {
-  max-width: 470px;
-  margin: 0;
-  padding-bottom: 0.45rem;
-  color: var(--muted);
-  line-height: 1.7;
+.cases-intro h2 span,
+.cases-intro h2 strong {
+  display: block;
+}
+
+.cases-intro h2 span {
+  color: #8a8e8c;
+}
+
+.cases-intro h2 strong {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 .case {
@@ -607,7 +610,7 @@ h1 span {
 
 .case-moikato {
   position: relative;
-  margin-top: clamp(2.5rem, 4vw, 4rem);
+  margin-top: clamp(1.75rem, 2.5vw, 2.75rem);
   border: 1px solid var(--line);
   background: var(--white);
 }
@@ -1126,6 +1129,10 @@ footer small {
     display: none;
   }
 
+  .cases-intro h2 {
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
+  }
+
   .pillar-grid,
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1213,7 +1220,6 @@ footer small {
 
   .diagnosis-grid,
   .system-heading,
-  .cases-intro,
   .products-heading,
   .final-cta {
     grid-template-columns: 1fr;
@@ -1227,7 +1233,6 @@ footer small {
   .diagnosis-copy,
   .system-heading > p,
   .pillar p,
-  .cases-intro > p:last-child,
   .case-thesis,
   .case-small-content > p:last-child,
   .products-heading > p,
@@ -1249,10 +1254,6 @@ footer small {
   .system-loop {
     grid-template-columns: 1fr 1fr;
     gap: 2rem 0;
-  }
-
-  .cases-intro .eyebrow {
-    grid-column: auto;
   }
 
   .case-moikato {
@@ -1337,8 +1338,18 @@ footer small {
 
 @media (max-width: 760px) {
   .cases {
-    padding-top: 4rem;
+    padding-top: 3rem;
     padding-bottom: 5rem;
+  }
+
+  .cases-intro {
+    padding-top: 1.2rem;
+  }
+
+  .cases-intro h2 {
+    font-size: clamp(2.45rem, 11.5vw, 3.5rem);
+    line-height: 0.93;
+    letter-spacing: -0.06em;
   }
 
   .case-showcase {

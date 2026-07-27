@@ -209,17 +209,15 @@ export default function Home() {
 
       <section className="cases section" id="cases">
         <div className="section-intro cases-intro">
-          <p className="eyebrow">PROVA EM CONTEXTO</p>
-          <h2>Não mostramos peças soltas. Mostramos decisões.</h2>
-          <p>
-            O valor não está só no que foi criado, mas no problema que cada
-            escolha ajudou a resolver.
-          </p>
+          <h2>
+            <span>Não mostramos peças soltas.</span>
+            <strong>Mostramos decisões.</strong>
+          </h2>
         </div>
 
         <article className="case case-moikato">
           <div className="case-showcase">
-            {/* eslint-disable-next-line @next/next/no-img-element -- a prévia vinext não serve a rota de otimização do next/image */}
+            {/* eslint-disable-next-line @next/next/no-img-element -- imagem editorial usa crop CSS responsivo */}
             <img
               src="/moikato.jpg"
               alt="Campo de capim dourado que representa a origem da Moikato"
@@ -276,7 +274,7 @@ export default function Home() {
         <div className="case-pair">
           <article className="case case-small case-tardinha">
             <div className="case-small-image">
-              {/* eslint-disable-next-line @next/next/no-img-element -- a prévia vinext não serve a rota de otimização do next/image */}
+              {/* eslint-disable-next-line @next/next/no-img-element -- imagem editorial usa crop CSS responsivo */}
               <img
                 src="/tardinha.webp"
                 alt="Marca A Tardinha da Rio Solimões"
