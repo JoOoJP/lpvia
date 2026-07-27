@@ -610,15 +610,74 @@ h1 span {
 }
 
 .case-moikato {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  min-height: 670px;
+  position: relative;
   margin-top: 5rem;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.case-moikato::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -1px;
+  right: -1px;
+  width: 34%;
+  height: 5px;
+  background: var(--gradient);
+}
+
+.case-study-head {
+  display: grid;
+  grid-template-columns: 0.55fr 1.45fr;
+  gap: 5vw;
+  padding: clamp(2rem, 5vw, 5rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.case-study-index {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-top: 0.55rem;
+  color: #777c7f;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.case-study-index span:first-child {
+  margin-bottom: 2rem;
+  color: #27734a;
+}
+
+.case-study-head h3 {
+  max-width: 930px;
+  margin: 0;
+  font-size: clamp(3.2rem, 6.5vw, 7rem);
+  font-weight: 520;
+  line-height: 0.92;
+  letter-spacing: -0.075em;
+}
+
+.case-study-head > p {
+  grid-column: 2;
+  max-width: 650px;
+  margin: 1.5rem 0 0;
+  color: #555a5d;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.case-study-body {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  min-height: 840px;
 }
 
 .case-image {
   position: relative;
-  min-height: 570px;
+  min-height: 680px;
   overflow: hidden;
 }
 
@@ -643,7 +702,7 @@ h1 span {
   right: 7%;
   bottom: 8%;
   left: 7%;
-  padding: 1rem 1.3rem 2rem;
+  padding: 1.2rem 1.4rem 1.8rem;
   border: 1px solid rgba(255, 255, 255, 0.45);
   background: rgba(247, 239, 225, 0.9);
   color: #033f00;
@@ -652,22 +711,26 @@ h1 span {
 
 .case-browser span {
   display: block;
-  margin-bottom: 3.5rem;
+  margin-bottom: 4rem;
   color: #496846;
   font-size: 0.66rem;
 }
 
 .case-browser strong {
+  display: block;
   font-family: Georgia, serif;
   font-size: clamp(2.4rem, 4vw, 5rem);
   font-weight: 400;
   letter-spacing: -0.05em;
 }
 
-.case-content {
-  display: flex;
-  flex-direction: column;
-  padding: clamp(2rem, 4vw, 4rem);
+.case-browser small {
+  display: block;
+  max-width: 420px;
+  margin-top: 1.2rem;
+  color: #496846;
+  font-size: 0.72rem;
+  line-height: 1.5;
 }
 
 .case-tag {
@@ -677,7 +740,6 @@ h1 span {
   letter-spacing: 0.13em;
 }
 
-.case-content h3,
 .case-small-content h3 {
   margin: 1rem 0;
   font-size: clamp(2.7rem, 4vw, 4.8rem);
@@ -685,43 +747,124 @@ h1 span {
   letter-spacing: -0.07em;
 }
 
-.case-thesis {
-  color: #555a5d;
+.case-content.case-reasoning {
+  display: grid;
+  grid-template-rows: 1fr 1fr auto;
+  padding: 0;
+}
+
+.case-step {
+  padding: clamp(2rem, 4vw, 4rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.case-step > span,
+.case-result > span {
+  color: #27734a;
+  font-size: 0.62rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+}
+
+.case-step h4 {
+  max-width: 560px;
+  margin: 3.5rem 0 1rem;
+  font-size: clamp(1.8rem, 2.7vw, 3.2rem);
+  font-weight: 550;
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.case-step p {
+  max-width: 520px;
+  margin: 0;
+  color: #5a5f62;
+  font-size: 0.88rem;
   line-height: 1.65;
 }
 
-.case-content dl {
-  margin: 2rem 0 2.5rem;
+.case-step-featured {
+  position: relative;
+  overflow: hidden;
+  background: var(--graphite);
+  color: var(--white);
 }
 
-.case-content dl div {
+.case-step-featured::after {
+  content: "";
+  position: absolute;
+  right: -12%;
+  bottom: -55%;
+  width: 55%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--gradient);
+  opacity: 0.22;
+  filter: blur(55px);
+}
+
+.case-step-featured > span {
+  color: var(--green);
+}
+
+.case-step-featured h4,
+.case-step-featured p {
+  position: relative;
+  z-index: 2;
+}
+
+.case-step-featured p {
+  color: #b6babd;
+}
+
+.case-deliverables {
+  border-bottom: 0;
+}
+
+.case-deliverables ul {
   display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-deliverables li {
   padding: 0.8rem 0;
   border-top: 1px solid var(--line);
+  color: #42474a;
+  font-size: 0.78rem;
 }
 
-.case-content dt {
-  color: #85898b;
-  font-size: 0.68rem;
-  text-transform: uppercase;
+.case-result {
+  display: grid;
+  grid-template-columns: 0.5fr 1.3fr auto;
+  align-items: end;
+  gap: 4vw;
+  padding: clamp(2rem, 4vw, 4rem);
+  border-top: 1px solid var(--line);
+  background: var(--paper);
 }
 
-.case-content dd {
+.case-result p {
+  max-width: 760px;
   margin: 0;
-  color: #4e5356;
-  font-size: 0.8rem;
-  line-height: 1.5;
+  font-size: clamp(1.8rem, 3vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
 }
 
-.case-content > a {
-  align-self: flex-start;
-  margin-top: auto;
+.case-result a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
   padding-bottom: 0.35rem;
   border-bottom: 1px solid var(--ink);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .case-pair {
@@ -1226,5 +1369,80 @@ footer small {
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .case-study-body {
+    grid-template-columns: 1fr;
+  }
+
+  .case-content.case-reasoning {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .case-deliverables {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .case-study-head {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 2rem 1.4rem;
+  }
+
+  .case-study-index {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .case-study-index span:first-child {
+    grid-column: 1 / -1;
+    margin-bottom: 1rem;
+  }
+
+  .case-study-head h3 {
+    font-size: clamp(2.8rem, 13vw, 4.3rem);
+  }
+
+  .case-study-head > p {
+    grid-column: 1;
+    margin-top: 0;
+    font-size: 1rem;
+  }
+
+  .case-image {
+    min-height: 560px;
+  }
+
+  .case-content.case-reasoning {
+    display: block;
+    padding: 0;
+  }
+
+  .case-step {
+    padding: 2.4rem 1.4rem;
+  }
+
+  .case-step h4 {
+    margin-top: 2.5rem;
+  }
+
+  .case-step p {
+    font-size: 1rem;
+  }
+
+  .case-result {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 2.4rem;
+    padding: 2.4rem 1.4rem;
+  }
+
+  .case-result a {
+    justify-self: start;
   }
 }

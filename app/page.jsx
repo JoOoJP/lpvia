@@ -218,46 +218,78 @@ export default function Home() {
         </div>
 
         <article className="case case-moikato">
-          <div className="case-image">
-            {/* eslint-disable-next-line @next/next/no-img-element -- a prévia vinext não serve a rota de otimização do next/image */}
-            <img
-              src="/moikato.jpg"
-              alt="Campo de capim dourado que inspira a narrativa da Moikato"
-              width="835"
-              height="554"
-              loading="lazy"
-              decoding="async"
-            />
-            <div className="case-browser">
-              <span>moikato.com</span>
-              <strong>A natureza feita joia.</strong>
+          <header className="case-study-head">
+            <div className="case-study-index">
+              <span>CASE 01</span>
+              <span>MOIKATO</span>
+              <span>BRASIL → REINO UNIDO</span>
+            </div>
+            <h3>Como transformamos origem em posicionamento internacional.</h3>
+            <p>
+              A Moikato já tinha um produto singular. Nosso trabalho foi construir
+              a percepção de valor necessária para atravessar fronteiras.
+            </p>
+          </header>
+
+          <div className="case-study-body">
+            <div className="case-image">
+              {/* eslint-disable-next-line @next/next/no-img-element -- a prévia vinext não serve a rota de otimização do next/image */}
+              <img
+                src="/moikato.jpg"
+                alt="Campo de capim dourado usado como evidência da origem da Moikato"
+                width="835"
+                height="554"
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="case-browser">
+                <span>EVIDÊNCIA CRIATIVA / 01</span>
+                <strong>A natureza feita joia.</strong>
+                <small>Headline criada para conectar matéria, origem e valor.</small>
+              </div>
+            </div>
+
+            <div className="case-content case-reasoning">
+              <section className="case-step">
+                <span>01 / PONTO DE PARTIDA</span>
+                <h4>A origem era forte. A percepção de valor ainda não.</h4>
+                <p>
+                  O produto carregava território, técnica e autenticidade, mas
+                  ainda era percebido principalmente como artesanato.
+                </p>
+              </section>
+
+              <section className="case-step case-step-featured">
+                <span>02 / DECISÃO DA VIA</span>
+                <h4>Não vender exotismo. Construir procedência.</h4>
+                <p>
+                  Posicionamos Brasil, design e origem como argumentos de valor
+                  para apresentar a marca em um contexto europeu.
+                </p>
+              </section>
+
+              <section className="case-step case-deliverables">
+                <span>03 / O QUE CONSTRUÍMOS</span>
+                <ul>
+                  <li>Posicionamento</li>
+                  <li>Narrativa de marca</li>
+                  <li>Conteúdo</li>
+                  <li>Site bilíngue</li>
+                </ul>
+              </section>
             </div>
           </div>
-          <div className="case-content">
-            <p className="case-tag">MARCA · INTERNACIONALIZAÇÃO · TECNOLOGIA</p>
-            <h3>Moikato</h3>
-            <p className="case-thesis">
-              De produto artesanal brasileiro a marca brasileira de design em
-              contexto europeu.
+
+          <footer className="case-result">
+            <span>O RESULTADO DA DECISÃO</span>
+            <p>
+              Uma marca brasileira preparada para se apresentar ao mercado
+              europeu com clareza, identidade e valor percebido.
             </p>
-            <dl>
-              <div>
-                <dt>Desafio</dt>
-                <dd>Traduzir origem e artesanato em valor de marca.</dd>
-              </div>
-              <div>
-                <dt>Direção</dt>
-                <dd>Brasil, design e procedência como diferenciais.</dd>
-              </div>
-              <div>
-                <dt>Execução</dt>
-                <dd>Posicionamento, storytelling, conteúdo e site bilíngue.</dd>
-              </div>
-            </dl>
             <a href="https://moikato.com" target="_blank" rel="noreferrer">
-              Visitar projeto <Arrow />
+              Ver o trabalho no mundo <Arrow />
             </a>
-          </div>
+          </footer>
         </article>
 
         <div className="case-pair">
