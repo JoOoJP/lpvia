@@ -87,7 +87,10 @@ a {
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
   width: fit-content;
+  min-height: 44px;
   font-size: 1.45rem;
   font-weight: 850;
   letter-spacing: -0.08em;
@@ -105,6 +108,9 @@ a {
 
 .site-header nav a {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: 0.75rem 0;
 }
 

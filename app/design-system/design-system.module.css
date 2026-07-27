@@ -481,15 +481,24 @@
   line-height: var(--leading-body);
 }
 
+/*
+ * Amostra de identidade de cliente. Estes valores demonstram justamente o que
+ * a regra proíbe virar token da VIA, então ficam presos ao próprio cartão.
+ */
 .caseCard {
-  border: 1px solid #b9c9ad;
-  background: #e9e4d1;
-  color: #07510a;
+  --amostra-borda: #b9c9ad;
+  --amostra-fundo: #e9e4d1;
+  --amostra-tinta: #07510a;
+  --amostra-tinta-suave: #27734a;
+
+  border: 1px solid var(--amostra-borda);
+  background: var(--amostra-fundo);
+  color: var(--amostra-tinta);
 }
 
 .caseCard > span,
 .caseCard p {
-  color: #27734a;
+  color: var(--amostra-tinta-suave);
 }
 
 .behaviorGrid {

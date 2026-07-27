@@ -20,7 +20,6 @@
   --neutral-500: #777b7d;
   --neutral-600: #5b6063;
   --neutral-700: #414447;
-  --neutral-800: #2b2f31;
   --neutral-900: #0d0d0d;
   --neutral-950: #0a0a0a;
 
@@ -61,11 +60,10 @@
    */
   --color-text-primary: var(--neutral-950);
   --color-text-secondary: var(--neutral-600);
-  --color-text-tertiary: var(--neutral-500);
   --color-text-display-muted: var(--neutral-400);
   --color-text-inverse: var(--neutral-100);
   --color-text-inverse-muted: #b9bdc0;
-  --color-text-inverse-subtle: var(--neutral-400);
+  --color-text-inverse-subtle: var(--neutral-500);
   --color-text-inverse-faint: #55595c;
 
   /* 2. Semânticos — borda, foco e acento */
