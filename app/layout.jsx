@@ -39,9 +39,10 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/og-via.png",
+        url: "/og-via.jpg",
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: "VIA — Quatro áreas. Uma direção de crescimento.",
       },
     ],
@@ -50,7 +51,7 @@ export const metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["/og-via.png"],
+    images: ["/og-via.jpg"],
   },
 };
 

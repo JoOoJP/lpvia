@@ -45,7 +45,7 @@ test("publica metadados sociais e navegação essenciais", async () => {
   const response = await fetch(pageUrl);
   const html = await response.text();
 
-  assert.match(html, /property="og:image" content="[^"]*\/og-via\.png"/);
+  assert.match(html, /property="og:image" content="[^"]*\/og-via\.jpg"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
   assert.match(html, /aria-label="Navegação principal"/);
   assert.match(html, /href="#sistema"/);
