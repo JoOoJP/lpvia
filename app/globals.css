@@ -489,37 +489,6 @@ h1 span {
   letter-spacing: 0.17em;
 }
 
-.proof-bar {
-  display: grid;
-  grid-template-columns: 0.55fr 1.45fr;
-  align-items: center;
-  gap: 3rem;
-  min-height: 108px;
-  padding: 1.5rem var(--layout-gutter);
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-  background: var(--color-surface-raised);
-}
-
-.proof-bar p {
-  margin: 0;
-  color: var(--color-text-secondary);
-  font-size: var(--text-caption);
-}
-
-.proof-bar div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-}
-
-.proof-bar span {
-  font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-}
-
 .section {
   padding: var(--section-space) var(--layout-gutter);
 }
@@ -1393,18 +1362,6 @@ footer small {
     left: 50%;
     width: max-content;
     transform: translateX(-50%);
-  }
-
-  .proof-bar {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-    padding: 1.7rem 1.25rem;
-  }
-
-  .proof-bar div {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
   }
 
   .section {
