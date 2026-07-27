@@ -1,0 +1,120 @@
+/*
+ * VIA — premium, estratégica, tecnológica e humana.
+ * Regra: a interface usa tokens; cores de clientes ficam isoladas dentro de seus cases.
+ */
+
+:root {
+  /* 1. Primitivos — marca */
+  --via-purple: #5b12d1;
+  --via-cyan: #00b8d4;
+  --via-green: #39d67a;
+
+  /* 1. Primitivos — neutros */
+  --neutral-0: #ffffff;
+  --neutral-50: #f8f7f4;
+  --neutral-100: #f2f2f2;
+  --neutral-200: #d9d9d7;
+  --neutral-300: #bfc0bf;
+  --neutral-500: #777b7d;
+  --neutral-600: #5b6063;
+  --neutral-700: #414447;
+  --neutral-900: #0d0d0d;
+  --neutral-950: #0a0a0a;
+
+  /* 1. Primitivos — espaço em base 4 */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* 1. Primitivos — forma e movimento */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-pill: 999px;
+  --duration-fast: 180ms;
+  --duration-normal: 300ms;
+  --duration-slow: 700ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* 2. Semânticos — superfície e texto */
+  --color-surface-page: var(--neutral-50);
+  --color-surface-raised: var(--neutral-0);
+  --color-surface-muted: var(--neutral-100);
+  --color-surface-inverse: var(--neutral-900);
+  --color-surface-deep: var(--neutral-950);
+  --color-text-primary: var(--neutral-950);
+  --color-text-secondary: var(--neutral-600);
+  --color-text-tertiary: var(--neutral-500);
+  --color-text-inverse: var(--neutral-100);
+  --color-text-inverse-muted: #b9bdc0;
+  --color-border: var(--neutral-200);
+  --color-border-strong: var(--neutral-300);
+  --color-border-inverse: rgb(255 255 255 / 14%);
+  --color-focus: var(--via-green);
+  --color-accent: var(--via-green);
+  --color-accent-strong: var(--via-purple);
+  --gradient-brand: linear-gradient(
+    105deg,
+    var(--via-purple),
+    var(--via-cyan) 58%,
+    var(--via-green)
+  );
+
+  /* 2. Semânticos — tipografia */
+  --font-sans: var(--font-inter), Inter, Arial, sans-serif;
+  --font-editorial-accent: var(--font-editorial), Georgia, serif;
+  --text-caption: 0.75rem;
+  --text-body: 1rem;
+  --text-lead: clamp(1rem, 1.2vw, 1.16rem);
+  --text-section: clamp(3rem, 5.8vw, 6.5rem);
+  --text-display: clamp(3.8rem, 6.8vw, 7.4rem);
+  --leading-body: 1.65;
+  --leading-display: 0.92;
+  --tracking-display: -0.07em;
+  --tracking-label: 0.16em;
+
+  /* 2. Semânticos — composição */
+  --layout-gutter: 5vw;
+  --layout-max: 1180px;
+  --section-space: clamp(6rem, 10vw, 10rem);
+
+  /* 3. Componentes */
+  --header-height: 78px;
+  --header-bg: rgb(10 10 10 / 90%);
+  --header-border: rgb(255 255 255 / 11%);
+  --button-height: 54px;
+  --button-padding-x: 1.2rem;
+  --button-radius: var(--radius-pill);
+  --button-primary-bg: var(--gradient-brand);
+  --button-primary-fg: var(--neutral-0);
+  --button-secondary-border: rgb(255 255 255 / 50%);
+  --card-bg: var(--color-surface-raised);
+  --card-border: var(--color-border);
+  --card-radius: var(--radius-none);
+  --focus-width: 3px;
+  --focus-offset: 4px;
+
+  /* Compatibilidade durante a migração da landing para a camada semântica. */
+  --purple: var(--via-purple);
+  --blue: var(--via-cyan);
+  --cyan: var(--via-cyan);
+  --green: var(--via-green);
+  --ink: var(--color-text-primary);
+  --graphite: var(--color-surface-inverse);
+  --paper: var(--color-surface-muted);
+  --warm: var(--color-surface-page);
+  --white: var(--color-surface-raised);
+  --muted: var(--color-text-secondary);
+  --line: var(--color-border);
+  --dark-line: var(--color-border-inverse);
+  --gradient: var(--gradient-brand);
+}

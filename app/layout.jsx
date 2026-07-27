@@ -1,5 +1,6 @@
 import { Inter, Libre_Bodoni } from "next/font/google";
 import { headers } from "next/headers";
+import "./design-tokens.css";
 import "./globals.css";
 
 const inter = Inter({
