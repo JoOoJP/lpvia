@@ -1,6 +1,8 @@
 # Portfólio VIA
 
-Landing page institucional da VIA, construída com Next.js, React e Tailwind CSS.
+Landing page institucional da VIA, construída com Next.js e React. O visual
+vem da camada de tokens em `app/design-tokens.css`, documentada em
+`design-system/via/MASTER.md` e catalogada na rota `/design-system`.
 
 ## Desenvolvimento
 
