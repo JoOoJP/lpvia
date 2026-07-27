@@ -1,5 +1,4 @@
 import { Inter, Libre_Bodoni, Space_Grotesk } from "next/font/google";
-import { headers } from "next/headers";
 import "./design-tokens.css";
 import "./globals.css";
 
@@ -18,40 +17,42 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
-export async function generateMetadata() {
-  const headerStore = await headers();
-  const host = headerStore.get("host") || "localhost:3000";
-  const protocol = host.startsWith("localhost") ? "http" : "https";
-  const base = new URL(`${protocol}://${host}`);
-  const title = "VIA — Sistema de crescimento";
-  const description =
-    "Estratégia, marketing, comercial e tecnologia conectados para construir crescimento sustentável.";
+// A Vercel expõe VERCEL_PROJECT_PRODUCTION_URL sozinha; NEXT_PUBLIC_SITE_URL
+// existe para sobrescrever em outra hospedagem.
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
 
-  return {
-    metadataBase: base,
+const title = "VIA — Sistema de crescimento";
+const description =
+  "Estratégia, marketing, comercial e tecnologia conectados para construir crescimento sustentável.";
+
+export const metadata = {
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  openGraph: {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      type: "website",
-      images: [
-        {
-          url: "/og-via.png",
-          width: 1200,
-          height: 630,
-          alt: "VIA — Quatro áreas. Uma direção de crescimento.",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ["/og-via.png"],
-    },
-  };
-}
+    type: "website",
+    images: [
+      {
+        url: "/og-via.png",
+        width: 1200,
+        height: 630,
+        alt: "VIA — Quatro áreas. Uma direção de crescimento.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/og-via.png"],
+  },
+};
 
 export default function RootLayout({ children }) {
   return (

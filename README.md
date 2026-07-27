@@ -25,3 +25,8 @@ npm test
 Importe este diretório como um projeto Next.js. A Vercel detecta os comandos de
 build e start automaticamente; não há configuração de Cloudflare ou OpenAI
 Sites.
+
+O endereço absoluto usado nas imagens de Open Graph vem de
+`VERCEL_PROJECT_PRODUCTION_URL`, que a própria Vercel injeta. Em qualquer outra
+hospedagem, defina `NEXT_PUBLIC_SITE_URL` com o domínio final — sem ela, a
+prévia social aponta para `localhost`.
