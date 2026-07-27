@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const whatsapp =
   "https://wa.me/5541991014546?text=Ol%C3%A1%2C%20quero%20entender%20onde%20o%20crescimento%20da%20minha%20empresa%20est%C3%A1%20travando.";
 
@@ -221,11 +219,14 @@ export default function Home() {
 
         <article className="case case-moikato">
           <div className="case-image">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element -- a prévia vinext não serve a rota de otimização do next/image */}
+            <img
               src="/moikato.jpg"
               alt="Campo de capim dourado que inspira a narrativa da Moikato"
-              fill
-              sizes="(max-width: 900px) 100vw, 58vw"
+              width="835"
+              height="554"
+              loading="lazy"
+              decoding="async"
             />
             <div className="case-browser">
               <span>moikato.com</span>
@@ -262,12 +263,14 @@ export default function Home() {
         <div className="case-pair">
           <article className="case case-small case-tardinha">
             <div className="case-small-image">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element -- a prévia vinext não serve a rota de otimização do next/image */}
+              <img
                 src="/tardinha.webp"
                 alt="Marca A Tardinha da Rio Solimões"
-                width={1000}
-                height={600}
-                sizes="(max-width: 900px) 100vw, 50vw"
+                width="614"
+                height="614"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="case-small-content">
