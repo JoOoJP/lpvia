@@ -29,8 +29,8 @@ test("renderiza a landing page da VIA", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>VIA — Sistema de crescimento<\/title>/i);
-  assert.match(html, /Quatro áreas\./);
-  assert.match(html, /Uma direção de crescimento\./);
+  assert.match(html, /Mais movimento não resolve\./);
+  assert.match(html, /Direção resolve\./);
   assert.match(html, /O SISTEMA VIA/);
   assert.match(html, /Moikato/);
   assert.match(html, /Agendar diagnóstico/);

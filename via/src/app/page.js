@@ -95,44 +95,42 @@ export default function Home() {
       </header>
 
       <section className="hero" id="inicio">
-        <div className="hero-copy">
-          <p className="eyebrow">VIA · SISTEMA DE CRESCIMENTO</p>
+        <div className="hero-aura" aria-hidden="true" />
+        <div className="hero-disciplines hero-disciplines-left" aria-hidden="true">
+          <span>01</span>
+          <p>Estratégia</p>
+          <p>Marketing</p>
+        </div>
+        <div className="hero-disciplines hero-disciplines-right" aria-hidden="true">
+          <span>04</span>
+          <p>Comercial</p>
+          <p>Tecnologia</p>
+        </div>
+
+        <div className="hero-center">
+          <p className="eyebrow">SISTEMA DE CRESCIMENTO</p>
+          <div className="hero-mark" aria-label="VIA">
+            <strong>VIA</strong>
+            <small>uma direção</small>
+          </div>
           <h1>
-            Quatro áreas.
-            <span> Uma direção de crescimento.</span>
+            Mais movimento não resolve.
+            <span> Direção resolve.</span>
           </h1>
           <p className="hero-lead">
-            A VIA diagnostica onde sua empresa está travando e conecta
-            estratégia, marketing, comercial e tecnologia para construir o
-            próximo estágio do negócio.
+            Estratégia, marketing, comercial e tecnologia conectados para
+            descobrir o que trava sua empresa — e construir o próximo movimento.
           </p>
           <div className="hero-actions">
             <a className="button button-gradient" href={whatsapp} target="_blank" rel="noreferrer">
-              Descobrir meu gargalo <Arrow />
+              Agendar diagnóstico <Arrow />
             </a>
             <a className="secondary-link" href="#cases">
               Ver casos reais <span aria-hidden="true">↓</span>
             </a>
           </div>
         </div>
-
-        <div className="flow-visual" aria-label="Quatro áreas convergindo em uma direção">
-          <div className="flow-label flow-label-1">Estratégia</div>
-          <div className="flow-label flow-label-2">Marketing</div>
-          <div className="flow-label flow-label-3">Comercial</div>
-          <div className="flow-label flow-label-4">Tecnologia</div>
-          <div className="flow-lines" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-            <i />
-          </div>
-          <div className="flow-core">
-            <strong>VIA</strong>
-            <span>uma direção</span>
-          </div>
-          <div className="flow-output" aria-hidden="true" />
-        </div>
+        <p className="hero-edition" aria-hidden="true">VIA / 2026 — CRESCIMENTO EM SISTEMA</p>
       </section>
 
       <section className="proof-bar" aria-label="Projetos e mercados">

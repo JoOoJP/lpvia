@@ -1,8 +1,13 @@
-import { Inter } from "next/font/google";
+import { Inter, Libre_Bodoni } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const libreBodoni = Libre_Bodoni({
+  variable: "--font-editorial",
   subsets: ["latin"],
 });
 
@@ -38,7 +43,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR" className={inter.variable}>
+    <html lang="pt-BR" className={`${inter.variable} ${libreBodoni.variable}`}>
       <body>{children}</body>
     </html>
   );
