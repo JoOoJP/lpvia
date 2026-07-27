@@ -218,76 +218,57 @@ export default function Home() {
         </div>
 
         <article className="case case-moikato">
-          <header className="case-study-head">
-            <div className="case-study-index">
+          <div className="case-showcase">
+            {/* eslint-disable-next-line @next/next/no-img-element -- a prévia vinext não serve a rota de otimização do next/image */}
+            <img
+              src="/moikato.jpg"
+              alt="Campo de capim dourado que representa a origem da Moikato"
+              width="1920"
+              height="1275"
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="case-showcase-top">
               <span>CASE 01</span>
-              <span>MOIKATO</span>
-              <span>BRASIL → REINO UNIDO</span>
+              <span>MARCA · INTERNACIONALIZAÇÃO · TECNOLOGIA</span>
             </div>
-            <h3>Como transformamos origem em posicionamento internacional.</h3>
-            <p>
-              A Moikato já tinha um produto singular. Nosso trabalho foi construir
-              a percepção de valor necessária para atravessar fronteiras.
-            </p>
-          </header>
-
-          <div className="case-study-body">
-            <div className="case-image">
-              {/* eslint-disable-next-line @next/next/no-img-element -- a prévia vinext não serve a rota de otimização do next/image */}
-              <img
-                src="/moikato.jpg"
-                alt="Campo de capim dourado usado como evidência da origem da Moikato"
-                width="835"
-                height="554"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="case-browser">
-                <span>EVIDÊNCIA CRIATIVA / 01</span>
-                <strong>A natureza feita joia.</strong>
-                <small>Headline criada para conectar matéria, origem e valor.</small>
-              </div>
-            </div>
-
-            <div className="case-content case-reasoning">
-              <section className="case-step">
-                <span>01 / PONTO DE PARTIDA</span>
-                <h4>A origem era forte. A percepção de valor ainda não.</h4>
-                <p>
-                  O produto carregava território, técnica e autenticidade, mas
-                  ainda era percebido principalmente como artesanato.
-                </p>
-              </section>
-
-              <section className="case-step case-step-featured">
-                <span>02 / DECISÃO DA VIA</span>
-                <h4>Não vender exotismo. Construir procedência.</h4>
-                <p>
-                  Posicionamos Brasil, design e origem como argumentos de valor
-                  para apresentar a marca em um contexto europeu.
-                </p>
-              </section>
-
-              <section className="case-step case-deliverables">
-                <span>03 / O QUE CONSTRUÍMOS</span>
-                <ul>
-                  <li>Posicionamento</li>
-                  <li>Narrativa de marca</li>
-                  <li>Conteúdo</li>
-                  <li>Site bilíngue</li>
-                </ul>
-              </section>
+            <div className="case-showcase-copy">
+              <p>MOIKATO</p>
+              <h3>
+                Origem brasileira.
+                <span> Presença internacional.</span>
+              </h3>
             </div>
           </div>
 
-          <footer className="case-result">
-            <span>O RESULTADO DA DECISÃO</span>
-            <p>
-              Uma marca brasileira preparada para se apresentar ao mercado
-              europeu com clareza, identidade e valor percebido.
-            </p>
+          <div className="case-facts">
+            <section className="case-fact">
+              <span>01 / QUEM É</span>
+              <p>
+                Marca brasileira de joias em capim dourado, criada entre
+                natureza, artesanato e design.
+              </p>
+            </section>
+            <section className="case-fact">
+              <span>02 / O DESAFIO</span>
+              <p>
+                Apresentar essa origem ao mercado europeu sem reduzir a marca ao
+                artesanato.
+              </p>
+            </section>
+            <section className="case-fact case-fact-via">
+              <span>03 / O QUE A VIA FEZ</span>
+              <p>Posicionamento, narrativa, conteúdo e site bilíngue.</p>
+            </section>
+          </div>
+
+          <footer className="case-outcome">
+            <div>
+              <span>CONCEITO CRIADO</span>
+              <strong>A natureza feita joia.</strong>
+            </div>
             <a href="https://moikato.com" target="_blank" rel="noreferrer">
-              Ver o trabalho no mundo <Arrow />
+              Ver projeto <Arrow />
             </a>
           </footer>
         </article>
