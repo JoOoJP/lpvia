@@ -47,6 +47,7 @@ img {
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
   scroll-padding-top: calc(var(--header-height) + 1rem);
 }
 
@@ -249,6 +250,7 @@ a {
   min-height: 100svh;
   padding: calc(var(--header-height) + clamp(1.25rem, 4vh, 3.5rem)) 7vw
     clamp(2rem, 5vh, 4rem);
+  scroll-snap-align: start;
   overflow: hidden;
   border-bottom: 1px solid var(--color-border-inverse);
   /* Um halo só, atrás do título: profundidade sem virar papel de parede. */
@@ -358,8 +360,20 @@ h1 span {
 }
 
 
+/*
+ * Cada seção ocupa ao menos uma tela e encaixa no topo ao rolar. O encaixe é
+ * "proximity", não "mandatory": alinha quando o visitante para perto, sem
+ * sequestrar o gesto de quem rola longo.
+ */
 .section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Se o conteúdo passar da tela, alinha ao topo em vez de cortar por cima. */
+  justify-content: safe center;
+  min-height: 100svh;
   padding: var(--section-space) var(--layout-gutter);
+  scroll-snap-align: start;
 }
 
 .section-intro h2,
@@ -391,7 +405,7 @@ h1 span {
   grid-template-columns: 0.75fr 1.25fr;
   gap: 11vw;
   align-items: start;
-  margin-top: 6rem;
+  margin-top: var(--block-space);
 }
 
 .diagnosis-copy {
@@ -416,7 +430,7 @@ h1 span {
   grid-template-columns: 60px 1fr;
   gap: 1rem;
   align-items: center;
-  min-height: 92px;
+  min-height: clamp(58px, 8.5vh, 92px);
   border-bottom: 1px solid var(--color-border-strong);
   font-size: clamp(1rem, 1.5vw, 1.35rem);
   font-weight: 600;
@@ -471,13 +485,15 @@ h1 span {
   z-index: 2;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin-top: 6rem;
+  margin-top: var(--block-space);
   border-top: 1px solid var(--color-border-inverse);
   border-left: 1px solid var(--color-border-inverse);
 }
 
 .pillar {
-  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(190px, 27vh, 340px);
   padding: 1.7rem;
   border-right: 1px solid var(--color-border-inverse);
   border-bottom: 1px solid var(--color-border-inverse);
@@ -491,7 +507,7 @@ h1 span {
 .pillar-mark {
   width: 42px;
   height: 3px;
-  margin-top: 5rem;
+  margin-top: auto;
   border-radius: var(--radius-pill);
 }
 
@@ -517,7 +533,7 @@ h1 span {
   z-index: 2;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  margin-top: 6rem;
+  margin-top: var(--block-space);
 }
 
 .system-loop div {
@@ -552,7 +568,13 @@ h1 span {
   font-size: 0.82rem;
 }
 
+/*
+ * Os três cases somam mais de duas telas, então esta seção rola em vez de se
+ * encaixar. Sem flex-start, o conteúdo excedente de um container centralizado
+ * é cortado por cima, fora do alcance da rolagem.
+ */
 .cases {
+  justify-content: flex-start;
   padding-top: clamp(2.75rem, 4.5vw, 4.5rem);
   padding-bottom: clamp(5rem, 8vw, 8rem);
   background: var(--color-surface-page);
@@ -932,12 +954,12 @@ h1 span {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  margin-top: 5rem;
+  margin-top: var(--block-space);
 }
 
 .product {
   position: relative;
-  min-height: 380px;
+  min-height: clamp(200px, 29vh, 380px);
   padding: 1.6rem;
   border: 1px solid var(--color-border-strong);
   border-radius: var(--card-radius);
@@ -1026,7 +1048,7 @@ h1 span {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin-top: 4rem;
+  margin-top: var(--block-space);
 }
 
 .measurement-steps span {
@@ -1045,7 +1067,7 @@ h1 span {
   display: grid;
   grid-template-columns: 1fr 0.8fr;
   align-items: center;
-  min-height: 720px;
+  min-height: 100svh;
   overflow: hidden;
   background: var(--color-surface-inverse);
   color: var(--color-text-inverse);
@@ -1219,7 +1241,17 @@ footer small {
   }
 
   .section {
-    padding: 5.5rem 1.25rem;
+    padding: var(--section-space) 1.25rem;
+  }
+
+  /*
+   * Quatro cards empilhados não cabem numa tela de celular sem ficarem
+   * ilegíveis. Estas duas seções rolam; as demais continuam encaixando.
+   */
+  .system-section,
+  .products {
+    justify-content: flex-start;
+    min-height: auto;
   }
 
   .section-intro h2,
