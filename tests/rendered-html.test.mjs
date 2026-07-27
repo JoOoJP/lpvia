@@ -54,6 +54,19 @@ test("publica metadados sociais e navegação essenciais", async () => {
   assert.match(html, /wa\.me\/5541991014546/);
 });
 
+test("declara as fontes no mesmo escopo dos tokens", async () => {
+  const response = await fetch(pageUrl);
+  const html = await response.text();
+
+  // --font-sans é montada em :root, que é o <html>. Se as classes do
+  // next/font descerem para o <body>, o token fica inválido em tempo de
+  // computação e a página inteira cai na serifada padrão do navegador.
+  const tagHtml = html.match(/<html[^>]*>/)?.[0] ?? "";
+  assert.match(tagHtml, /inter[^"]*variable/);
+  assert.match(tagHtml, /space_grotesk[^"]*variable/);
+  assert.match(tagHtml, /libre_bodoni[^"]*variable/);
+});
+
 test("entrega a navegação compacta já no HTML", async () => {
   const response = await fetch(pageUrl);
   const html = await response.text();

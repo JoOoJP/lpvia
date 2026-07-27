@@ -56,13 +56,15 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  // As variáveis das fontes precisam viver no mesmo elemento que :root, onde
+  // design-tokens.css monta --font-sans. No <body> elas ficariam abaixo do
+  // escopo, e o token cairia na serifada padrão do navegador.
   return (
-    <html lang="pt-BR">
-      <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${libreBodoni.variable}`}
-      >
-        {children}
-      </body>
+    <html
+      lang="pt-BR"
+      className={`${inter.variable} ${spaceGrotesk.variable} ${libreBodoni.variable}`}
+    >
+      <body>{children}</body>
     </html>
   );
 }
