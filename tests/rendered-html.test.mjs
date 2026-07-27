@@ -54,6 +54,20 @@ test("publica metadados sociais e navegação essenciais", async () => {
   assert.match(html, /wa\.me\/5541991014546/);
 });
 
+test("entrega a navegação compacta já no HTML", async () => {
+  const response = await fetch(pageUrl);
+  const html = await response.text();
+
+  // Em telas estreitas o nav é substituído pelo painel; sem o botão, a
+  // navegação simplesmente desaparece.
+  assert.match(html, /aria-controls="menu-mobile"/);
+  assert.match(html, /aria-expanded="false"/);
+  assert.match(html, /id="menu-mobile"[^>]*hidden/);
+
+  // No topo o header não tem superfície: a classe só entra depois do scroll.
+  assert.match(html, /class="site-header"/);
+});
+
 function findAvailablePort() {
   return new Promise((resolve, reject) => {
     const listener = net.createServer();
