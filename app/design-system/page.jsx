@@ -10,6 +10,11 @@ export const metadata = {
   },
 };
 
+/*
+ * O hexadecimal aqui é rótulo, não fonte: o swatch pinta com var(--token), de
+ * modo que uma divergência aparece na tela. CSS puro não expõe o valor
+ * computado em tempo de build — ler isso no cliente tornaria a rota dinâmica.
+ */
 const brandColors = [
   ["Roxo VIA", "--via-purple", "#5B12D1"],
   ["Ciano VIA", "--via-cyan", "#00B8D4"],
@@ -153,7 +158,7 @@ export default function DesignSystemPage() {
         <Section
           index="03"
           title="Tipografia"
-          description="Inter conduz a marca inteira. A serifada é um sotaque raro para frases de clientes, nunca a voz principal da VIA."
+          description="Space Grotesk cria impacto e Inter explica. A serifada é um sotaque raro para frases de clientes, nunca a voz principal da VIA."
         >
           <div className={styles.typeSpecimens}>
             <div className={styles.typeDisplay}>
@@ -291,7 +296,7 @@ export default function DesignSystemPage() {
           <ol>
             <li>Uma ideia forte por seção.</li>
             <li>Gradiente como assinatura, nunca como ruído.</li>
-            <li>Inter fala pela VIA; a serifada cita o cliente.</li>
+            <li>Space Grotesk cria impacto; Inter explica; a serifada cita o cliente.</li>
             <li>Cor de case não vira cor da marca.</li>
             <li>Sem sombra, glow ou movimento sem função.</li>
           </ol>

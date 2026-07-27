@@ -208,10 +208,15 @@
 .swatchMeta small,
 .swatchMetaInverse small {
   overflow: hidden;
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 0.64rem;
   text-overflow: ellipsis;
+}
+
+.swatchMetaInverse span,
+.swatchMetaInverse small {
+  color: var(--color-text-inverse-subtle);
 }
 
 .rule {
@@ -284,7 +289,7 @@
 }
 
 .typeSpecimens span {
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: var(--tracking-label);
@@ -348,7 +353,7 @@
 
 .spacingList span,
 .spacingList code {
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   font-size: 0.68rem;
 }
 
@@ -366,7 +371,7 @@
   align-items: end;
   gap: var(--space-4);
   margin-top: var(--space-20);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   font-size: 0.62rem;
   letter-spacing: var(--tracking-label);
 }
@@ -430,7 +435,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
-  border-bottom: 1px solid var(--color-text-tertiary);
+  border-bottom: 1px solid var(--color-border-inverse-strong);
   color: var(--color-text-inverse-muted);
   font-size: 0.84rem;
 }
@@ -550,7 +555,7 @@
 }
 
 .motionDemo span {
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   font-size: 0.72rem;
 }
 
@@ -599,7 +604,7 @@
 
 .principles li::before {
   content: "0" counter(principles);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   font-size: 0.64rem;
   letter-spacing: 0;
 }
@@ -616,7 +621,7 @@
 }
 
 .footer span {
-  color: var(--color-text-tertiary);
+  color: var(--color-text-inverse-subtle);
   font-size: 0.64rem;
   letter-spacing: var(--tracking-label);
 }
