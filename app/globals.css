@@ -566,14 +566,17 @@ h1 span {
 }
 
 .cases {
+  padding-top: clamp(4rem, 6vw, 6rem);
+  padding-bottom: clamp(5rem, 8vw, 8rem);
   background: var(--warm);
 }
 
 .cases-intro {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 2rem 8vw;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.45fr);
+  gap: 1.5rem 7vw;
   align-items: end;
+  max-width: none;
 }
 
 .cases-intro .eyebrow {
@@ -581,8 +584,17 @@ h1 span {
   margin-bottom: 0;
 }
 
+.cases-intro h2 {
+  max-width: 1060px;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 4.8vw, 5.7rem);
+  line-height: 0.95;
+}
+
 .cases-intro > p:last-child {
+  max-width: 470px;
   margin: 0;
+  padding-bottom: 0.45rem;
   color: var(--muted);
   line-height: 1.7;
 }
@@ -595,7 +607,7 @@ h1 span {
 
 .case-moikato {
   position: relative;
-  margin-top: 5rem;
+  margin-top: clamp(2.5rem, 4vw, 4rem);
   border: 1px solid var(--line);
   background: var(--white);
 }
@@ -613,7 +625,7 @@ h1 span {
 
 .case-showcase {
   position: relative;
-  min-height: clamp(520px, 65vw, 780px);
+  min-height: var(--case-hero-height);
   overflow: hidden;
   color: var(--white);
 }
@@ -667,7 +679,7 @@ h1 span {
 
 .case-showcase-copy {
   bottom: 0;
-  padding: clamp(2rem, 5vw, 5rem);
+  padding: clamp(2rem, 3.5vw, 3.5rem);
 }
 
 .case-showcase-copy p {
@@ -679,13 +691,13 @@ h1 span {
 }
 
 .case-showcase-copy h3 {
-  max-width: 950px;
+  max-width: 1180px;
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(3.4rem, 7.5vw, 8rem);
+  font-size: clamp(3rem, 5.7vw, 6.4rem);
   font-weight: 500;
-  line-height: 0.92;
-  letter-spacing: -0.075em;
+  line-height: 0.94;
+  letter-spacing: -0.065em;
 }
 
 .case-showcase-copy h3 span {
@@ -713,8 +725,8 @@ h1 span {
 
 .case-fact {
   position: relative;
-  min-height: clamp(320px, 27vw, 390px);
-  padding: clamp(2.2rem, 4vw, 4.2rem);
+  min-height: var(--case-panel-height);
+  padding: clamp(2rem, 3vw, 3.2rem);
   border-right: 1px solid var(--line);
 }
 
@@ -731,8 +743,8 @@ h1 span {
 }
 
 .case-fact p {
-  max-width: 500px;
-  margin: clamp(4.5rem, 7vw, 7rem) 0 0;
+  max-width: 460px;
+  margin: clamp(2.75rem, 4vw, 4rem) 0 0;
   font-family: var(--case-copy-font);
   font-size: var(--case-copy-size);
   font-weight: 500;
@@ -1317,15 +1329,20 @@ footer small {
   }
 
   .case-fact-via p {
-    max-width: 860px;
-    font-size: clamp(2.8rem, 5.3vw, 5rem);
-    line-height: 0.96;
+    max-width: 760px;
+    font-size: clamp(2.15rem, 4vw, 3.6rem);
+    line-height: 1;
   }
 }
 
 @media (max-width: 760px) {
+  .cases {
+    padding-top: 4rem;
+    padding-bottom: 5rem;
+  }
+
   .case-showcase {
-    min-height: 540px;
+    min-height: 420px;
   }
 
   .case-showcase-top {
@@ -1338,7 +1355,7 @@ footer small {
   }
 
   .case-showcase-copy h3 {
-    font-size: clamp(3.2rem, 14vw, 4.6rem);
+    font-size: clamp(2.8rem, 12vw, 4.2rem);
   }
 
   .case-showcase-copy h3 span {
@@ -1351,8 +1368,8 @@ footer small {
 
   .case-fact,
   .case-fact:last-child {
-    min-height: 280px;
-    padding: 2.2rem 1.4rem;
+    min-height: 235px;
+    padding: 1.8rem 1.4rem;
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
@@ -1362,13 +1379,13 @@ footer small {
   }
 
   .case-fact p {
-    margin-top: 3.5rem;
-    font-size: 2.05rem;
+    margin-top: 2.75rem;
+    font-size: 1.8rem;
   }
 
   .case-fact-via p {
-    font-size: clamp(2.6rem, 11vw, 4rem);
-    line-height: 0.98;
+    font-size: clamp(2.15rem, 9.5vw, 3.2rem);
+    line-height: 1;
   }
 
   .case-outcome {

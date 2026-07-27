@@ -50,6 +50,7 @@ O gradiente não é fundo decorativo recorrente. É assinatura.
 - **CTA secundário:** contorno ou link sublinhado.
 - **Cards:** borda fina, sem sombra.
 - **Cases:** podem usar fotografia e cores do cliente, mas esses valores ficam isolados no próprio case e nunca viram tokens da VIA.
+- **Densidade de case:** abertura curta, imagem panorâmica e conteúdo factual visível no próximo movimento de rolagem. Impacto não pode esconder informação.
 - **Header:** preto translúcido, navegação curta, uma ação.
 
 ## Movimento
