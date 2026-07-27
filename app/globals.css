@@ -251,49 +251,15 @@ a {
     clamp(2rem, 5vh, 4rem);
   overflow: hidden;
   border-bottom: 1px solid var(--color-border-inverse);
+  /* Um halo só, atrás do título: profundidade sem virar papel de parede. */
   background:
     radial-gradient(
-      circle at 50% 39%,
-      color-mix(in srgb, var(--via-cyan) 13%, transparent),
-      transparent 22%
-    ),
-    radial-gradient(
-      circle at 45% 50%,
-      color-mix(in srgb, var(--via-purple) 14%, transparent),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 57% 60%,
-      color-mix(in srgb, var(--via-green) 8%, transparent),
-      transparent 32%
+      ellipse 85% 55% at 50% 40%,
+      color-mix(in srgb, var(--via-purple) 16%, transparent),
+      transparent 72%
     ),
     var(--color-surface-deep);
   color: var(--color-text-inverse);
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  z-index: -2;
-  inset: 0;
-  opacity: 0.4;
-  background-image:
-    linear-gradient(rgb(255 255 255 / 2.5%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 2.5%) 1px, transparent 1px);
-  background-size: 72px 72px;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 5%;
-  left: 50%;
-  width: min(68vw, 920px);
-  aspect-ratio: 1;
-  border: 1px solid rgb(255 255 255 / 7%);
-  border-radius: 50%;
-  transform: translateX(-50%);
 }
 
 .eyebrow {
@@ -319,53 +285,8 @@ a {
   color: var(--color-accent);
 }
 
-.hero-mark {
-  position: relative;
-  display: grid;
-  place-content: center;
-  width: clamp(104px, min(11vw, 15vh), 186px);
-  aspect-ratio: 1;
-  margin-bottom: clamp(1rem, 2.6vh, 2.4rem);
-  border: 1px solid rgb(255 255 255 / 22%);
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--color-surface-inverse) 82%, transparent);
-  box-shadow:
-    0 0 0 22px color-mix(in srgb, var(--via-cyan) 4%, transparent),
-    0 0 0 48px color-mix(in srgb, var(--via-purple) 3.5%, transparent),
-    0 28px 80px rgb(0 0 0 / 45%);
-}
-
-.hero-mark::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  padding: 1px;
-  border-radius: inherit;
-  background: var(--gradient-brand);
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-}
-
-.hero-mark strong {
-  font-size: clamp(1.7rem, min(4.5vw, 6vh), 4.4rem);
-  line-height: 0.9;
-  letter-spacing: -0.1em;
-  background: var(--gradient-brand);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.hero-mark small {
-  margin-top: 0.7rem;
-  color: var(--color-text-inverse-subtle);
-  font-size: 0.61rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
 h1 {
-  max-width: 980px;
+  max-width: 1080px;
   margin-bottom: clamp(0.75rem, 1.7vh, 1.5rem);
   font-family: var(--font-display);
   font-size: var(--text-display);
@@ -436,58 +357,6 @@ h1 span {
   color: var(--color-text-inverse);
 }
 
-.hero-aura {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  width: min(65vw, 850px);
-  height: 42%;
-  border-radius: 50%;
-  background: var(--gradient-brand);
-  opacity: 0.08;
-  filter: blur(70px);
-  transform: translate(-50%, -50%);
-}
-
-.hero-disciplines {
-  position: absolute;
-  top: 50%;
-  width: 130px;
-  color: var(--color-text-inverse-subtle);
-  font-size: 0.66rem;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  transform: translateY(-50%);
-}
-
-.hero-disciplines span {
-  display: block;
-  margin-bottom: 3rem;
-  color: var(--color-accent);
-}
-
-.hero-disciplines p {
-  margin-bottom: 1rem;
-}
-
-.hero-disciplines-left {
-  left: var(--layout-gutter);
-}
-
-.hero-disciplines-right {
-  right: var(--layout-gutter);
-  text-align: right;
-}
-
-.hero-edition {
-  position: absolute;
-  right: var(--layout-gutter);
-  bottom: 1.4rem;
-  margin: 0;
-  color: var(--color-text-inverse-faint);
-  font-size: 0.58rem;
-  letter-spacing: 0.17em;
-}
 
 .section {
   padding: var(--section-space) var(--layout-gutter);
@@ -1264,10 +1133,6 @@ footer small {
 }
 
 @media (max-width: 1050px) {
-  .hero-disciplines {
-    display: none;
-  }
-
   .cases-intro h2 {
     font-size: clamp(2.8rem, 6vw, 4.2rem);
   }
@@ -1349,19 +1214,8 @@ footer small {
     gap: 1rem;
   }
 
-  .hero-mark {
-    width: clamp(96px, 30vw, 118px);
-  }
-
   .hero-lead {
     max-width: 34rem;
-  }
-
-  .hero-edition {
-    right: auto;
-    left: 50%;
-    width: max-content;
-    transform: translateX(-50%);
   }
 
   .section {
@@ -1538,17 +1392,6 @@ footer small {
   .case-small-image,
   .camila-art {
     min-height: 330px;
-  }
-}
-
-/*
- * Celular deitado e telas curtas: a marca circular sozinha custa mais de
- * 120 px da dobra, e o logo do header já cumpre esse papel. Sem ela, a pilha
- * inteira do hero volta a caber sem rolagem.
- */
-@media (max-height: 640px) and (max-width: 760px) {
-  .hero-mark {
-    display: none;
   }
 }
 

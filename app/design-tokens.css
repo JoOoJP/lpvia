@@ -55,8 +55,7 @@
   /*
    * 2. Semânticos — texto
    * Cada papel carrega o contraste mínimo que o MASTER.md exige: 4.5:1 para
-   * corpo e rótulo, 3:1 para display. O sufixo -faint fica reservado a
-   * elementos decorativos marcados com aria-hidden.
+   * corpo e rótulo, 3:1 para display.
    */
   --color-text-primary: var(--neutral-950);
   --color-text-secondary: var(--neutral-600);
@@ -64,7 +63,6 @@
   --color-text-inverse: var(--neutral-100);
   --color-text-inverse-muted: #b9bdc0;
   --color-text-inverse-subtle: var(--neutral-500);
-  --color-text-inverse-faint: #55595c;
 
   /* 2. Semânticos — borda, foco e acento */
   --color-border: var(--neutral-200);
@@ -95,7 +93,7 @@
    * fazia a pilha estourar em telas baixas e largas (notebooks), então a
    * altura entra como teto junto da largura.
    */
-  --text-display: clamp(2.9rem, min(6.6vw, 9vh), 7rem);
+  --text-display: clamp(2.9rem, min(6.6vw, 10.5vh), 7rem);
   --leading-body: 1.65;
   --leading-display: 0.92;
   --tracking-display: -0.07em;
