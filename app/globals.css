@@ -106,8 +106,8 @@ a {
   align-items: center;
   width: fit-content;
   min-height: 44px;
-  font-size: 1.45rem;
-  font-weight: 850;
+  font-size: 1.2rem;
+  font-weight: 800;
   letter-spacing: -0.08em;
   background: var(--gradient-brand);
   -webkit-background-clip: text;
@@ -117,8 +117,8 @@ a {
 
 .site-nav {
   display: flex;
-  gap: 2.1rem;
-  font-size: 0.82rem;
+  gap: 1.9rem;
+  font-size: 0.79rem;
 }
 
 .site-nav a {
@@ -158,38 +158,26 @@ a {
   justify-self: end;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
+/* Mesmo papel do link secundário do hero, um ponto menor. */
 .header-cta {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  gap: 1rem;
-  padding: 0.65rem 1rem;
-  border: 1px solid var(--button-secondary-border);
-  border-radius: var(--button-radius);
+  gap: 0.55rem;
+  color: var(--color-text-inverse);
   font-size: 0.76rem;
   font-weight: 650;
-  transition: background var(--duration-fast) ease,
-    border-color var(--duration-fast) ease, color var(--duration-fast) ease;
-}
-
-.header-cta:hover {
-  border-color: var(--color-accent);
-  background: var(--color-surface-raised);
-  color: var(--color-text-primary);
 }
 
 /* As duas barras viram X quando o painel abre. */
 .menu-toggle {
   display: none;
-  place-content: center;
+  /* Barras encostadas à direita da área de toque, alinhadas ao gutter. */
+  place-content: center end;
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid var(--color-border-inverse);
-  border-radius: var(--radius-sm);
+  border: 0;
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -438,6 +426,13 @@ h1 span {
   color: var(--color-text-inverse-muted);
   font-size: 0.84rem;
   border-bottom: 1px solid var(--color-border-inverse-strong);
+  transition: color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease;
+}
+
+.secondary-link:hover {
+  border-bottom-color: var(--color-accent);
+  color: var(--color-text-inverse);
 }
 
 .hero-aura {
@@ -1334,10 +1329,6 @@ footer small {
 }
 
 @media (max-width: 760px) {
-  :root {
-    --header-height: 64px;
-  }
-
   .site-header {
     grid-template-columns: auto 1fr;
     padding: 0 1.25rem;

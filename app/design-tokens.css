@@ -102,7 +102,7 @@
   --section-space: clamp(6rem, 10vw, 10rem);
 
   /* 3. Componentes */
-  --header-height: 78px;
+  --header-height: 64px;
   --header-bg: rgb(10 10 10 / 90%);
   --header-border: rgb(255 255 255 / 11%);
   --button-height: 54px;
