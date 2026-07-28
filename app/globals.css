@@ -630,8 +630,8 @@ h1 span {
  * 8:1 com o texto claro, e cada acento passa dos 4.5:1 sobre a sua.
  */
 .case-moikato {
-  --case-surface: #33402a;
-  --case-accent: #d4af37;
+  --case-surface: #3a4a2e;
+  --case-accent: #e0c060;
 }
 
 .case-tardinha {
