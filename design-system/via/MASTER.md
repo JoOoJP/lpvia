@@ -58,6 +58,9 @@ O gradiente não é fundo decorativo recorrente. É assinatura.
 - `180 ms`: hover, cor e sublinhado.
 - `300 ms`: entrada sutil.
 - `700 ms`: zoom de fotografia protagonista.
+- Curva elástica (`--ease-spring`): reservada a elementos que mudam de tamanho
+  por ação do visitante. Passa ~6% do destino e volta, para o elemento assentar
+  em vez de parar seco. Nunca em texto, que ficaria balançando.
 - Sempre respeitar `prefers-reduced-motion`.
 
 ## Acessibilidade

@@ -44,6 +44,8 @@
   --duration-normal: 300ms;
   --duration-slow: 700ms;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Passa ~8% do destino e volta: o elemento assenta em vez de só parar. */
+  --ease-spring: cubic-bezier(0.32, 1.42, 0.54, 1);
 
   /* 2. Semânticos — superfície */
   --color-surface-page: var(--neutral-50);

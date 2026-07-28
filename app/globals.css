@@ -664,7 +664,12 @@ h1 span {
    * layout longa é justamente a que se percebe travando.
    */
   contain: layout style;
-  transition: flex-grow 420ms var(--ease-out);
+  /*
+   * A largura passa do destino e volta. O elástico fica só aqui: aplicado
+   * também à altura do conteúdo, o texto balançaria junto e o efeito viraria
+   * o salto que acabou de ser corrigido.
+   */
+  transition: flex-grow 520ms var(--ease-spring);
 }
 
 /*
