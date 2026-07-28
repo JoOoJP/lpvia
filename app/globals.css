@@ -47,7 +47,6 @@ img {
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
   scroll-padding-top: calc(var(--header-height) + 1rem);
 }
 
@@ -250,7 +249,6 @@ a {
   min-height: 100svh;
   padding: calc(var(--header-height) + clamp(1.25rem, 4vh, 3.5rem)) 7vw
     clamp(2rem, 5vh, 4rem);
-  scroll-snap-align: start;
   overflow: hidden;
   border-bottom: 1px solid var(--color-border-inverse);
   /* Um halo só, atrás do título: profundidade sem virar papel de parede. */
@@ -361,9 +359,7 @@ h1 span {
 
 
 /*
- * Cada seção ocupa ao menos uma tela e encaixa no topo ao rolar. O encaixe é
- * "proximity", não "mandatory": alinha quando o visitante para perto, sem
- * sequestrar o gesto de quem rola longo.
+ * Cada seção ocupa ao menos uma tela, com o conteúdo centrado nela.
  */
 .section {
   display: flex;
@@ -373,7 +369,6 @@ h1 span {
   justify-content: safe center;
   min-height: 100svh;
   padding: var(--section-space) var(--layout-gutter);
-  scroll-snap-align: start;
 }
 
 .section-intro h2,
