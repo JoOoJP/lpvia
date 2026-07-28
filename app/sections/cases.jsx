@@ -160,28 +160,30 @@ export function Cases() {
                   id={`case-corpo-${item.id}`}
                   inert={!isOpen}
                 >
-                  <div className="case-facts">
-                    {item.facts.map((fact, index) => (
-                      <div className="case-fact" key={fact.label}>
-                        <span>
-                          0{index + 1} / {fact.label}
-                        </span>
-                        <p>{fact.text}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <footer className="case-outcome">
-                    <div>
-                      <span>{item.outcome.label}</span>
-                      <strong>{item.outcome.text}</strong>
+                  <div className="case-panel-body-inner">
+                    <div className="case-facts">
+                      {item.facts.map((fact, index) => (
+                        <div className="case-fact" key={fact.label}>
+                          <span>
+                            0{index + 1} / {fact.label}
+                          </span>
+                          <p>{fact.text}</p>
+                        </div>
+                      ))}
                     </div>
-                    {item.link ? (
-                      <a href={item.link} target="_blank" rel="noreferrer">
-                        Ver projeto <Arrow />
-                      </a>
-                    ) : null}
-                  </footer>
+
+                    <footer className="case-outcome">
+                      <div>
+                        <span>{item.outcome.label}</span>
+                        <strong>{item.outcome.text}</strong>
+                      </div>
+                      {item.link ? (
+                        <a href={item.link} target="_blank" rel="noreferrer">
+                          Ver projeto <Arrow />
+                        </a>
+                      ) : null}
+                    </footer>
+                  </div>
                 </div>
               </div>
             </article>

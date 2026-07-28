@@ -615,7 +615,8 @@ h1 span {
 .case-deck {
   display: flex;
   gap: 2px;
-  min-height: clamp(400px, 58vh, 620px);
+  /* Piso de 510px: abaixo disso a ficha aberta espreme a imagem além do mínimo. */
+  height: clamp(510px, 64vh, 660px);
   max-width: 100%;
   margin-top: var(--block-space);
 }
@@ -675,35 +676,23 @@ h1 span {
 }
 
 /* Faixa da imagem: sem véu, sem texto por cima. */
+/*
+ * A imagem tem a mesma regra de flex nos dois estados e absorve o que a ficha
+ * deixa livre. Trocar flex entre estados era o que provocava o salto: só o
+ * flex-basis tinha transição, então grow e shrink mudavam de uma vez.
+ */
 .case-panel-media {
   position: relative;
-  flex: 0 0 clamp(150px, 23vh, 250px);
+  flex: 1 1 auto;
+  min-height: clamp(130px, 19vh, 210px);
   overflow: hidden;
   background: var(--case-surface, var(--color-surface-deep));
-  transition: flex-basis 420ms var(--ease-out);
-}
-
-.case-panel.is-open .case-panel-media {
-  flex-basis: clamp(180px, 27vh, 320px);
 }
 
 /*
- * Recolhido, a fotografia toma o espaço livre e a ficha encolhe para o
- * tamanho do texto. Sem isso, o painel esticava junto com o aberto e sobrava
- * um vazio enorme entre a imagem e o nome.
+ * As disciplinas ficam nos dois estados. Escondê-las só no recolhido mudava a
+ * altura da ficha ao abrir, e a imagem — que absorve essa variação — saltava.
  */
-.case-panel:not(.is-open) .case-panel-media {
-  flex: 1 1 auto;
-}
-
-.case-panel:not(.is-open) .case-panel-sheet {
-  flex: 0 0 auto;
-}
-
-/* Recolhido, as disciplinas são detalhe: sobram o número, o nome e a tese. */
-.case-panel:not(.is-open) .case-panel-tags {
-  display: none;
-}
 
 .case-panel-media img {
   width: 100%;
@@ -754,7 +743,7 @@ h1 span {
 
 .case-panel-sheet {
   display: flex;
-  flex: 1;
+  flex: 0 0 auto;
   flex-direction: column;
   min-height: 0;
   padding: clamp(1.1rem, 1.6vw, 1.7rem);
@@ -871,25 +860,35 @@ h1 span {
   color: var(--color-text-display-muted);
 }
 
+/*
+ * A altura anima por grid-template-rows de 0fr a 1fr — a forma de animar
+ * "altura automática" sem fixar pixel. Antes o conteúdo entrava de estalo e
+ * empurrava o resto do painel de uma vez.
+ */
 .case-panel-body {
-  display: flex;
-  flex: 0 0 0;
-  flex-direction: column;
-  min-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
   opacity: 0;
+  transition: grid-template-rows 420ms var(--ease-out),
+    opacity var(--duration-fast) ease;
+}
+
+.case-panel-body-inner {
+  min-height: 0;
   overflow: hidden;
-  transition: opacity var(--duration-normal) ease;
 }
 
 .case-panel.is-open .case-panel-body {
-  flex: 0 0 auto;
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition-delay: 0ms, 160ms;
+}
+
+.case-panel.is-open .case-panel-body-inner {
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
   border-top: 1px solid
     color-mix(in srgb, var(--case-accent, var(--color-accent)) 20%, transparent);
-  opacity: 1;
-  /* Entra na última metade da abertura, agora que ela dura 420ms. */
-  transition-delay: 200ms;
 }
 
 /*
@@ -1203,7 +1202,7 @@ h1 span {
 @media (max-width: 900px) {
   .case-deck {
     flex-direction: column;
-    min-height: 0;
+    height: auto;
   }
 
   .case-panel {
@@ -1211,19 +1210,14 @@ h1 span {
   }
 
   .case-panel:not(.is-open) .case-panel-media {
-    flex-basis: 0;
+    display: none;
   }
 
-  .case-panel-sheet {
-    border-top: 0;
-  }
-
-  .case-panel.is-open .case-panel-sheet {
-    border-top: 1px solid var(--color-border-inverse);
+  .case-panel-media {
+    min-height: clamp(180px, 26vh, 260px);
   }
 
   .case-panel:not(.is-open) .case-panel-lead {
-    margin-top: 0;
     padding-top: 1rem;
   }
 
