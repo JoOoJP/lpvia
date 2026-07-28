@@ -656,7 +656,14 @@ h1 span {
     color-mix(in srgb, var(--case-accent, var(--color-accent)) 24%, transparent);
   background: var(--case-surface, var(--color-surface-inverse));
   color: var(--color-text-inverse);
-  transition: flex-grow var(--duration-slow) var(--ease-out);
+  /*
+   * flex-grow é propriedade de layout: cada quadro refaz o cálculo dos três
+   * painéis. `contain` isola esse recálculo ao painel, para o navegador não
+   * remedir o resto da página a cada quadro, e a duração encurta — animação de
+   * layout longa é justamente a que se percebe travando.
+   */
+  contain: layout style;
+  transition: flex-grow 420ms var(--ease-out);
 }
 
 /*
@@ -673,7 +680,7 @@ h1 span {
   flex: 0 0 clamp(150px, 23vh, 250px);
   overflow: hidden;
   background: var(--case-surface, var(--color-surface-deep));
-  transition: flex-basis var(--duration-slow) var(--ease-out);
+  transition: flex-basis 420ms var(--ease-out);
 }
 
 .case-panel.is-open .case-panel-media {
@@ -703,6 +710,9 @@ h1 span {
   height: 100%;
   object-fit: cover;
   object-position: center 42%;
+  /* Promove a imagem a camada própria: o zoom de hover deixa de repintar o
+     painel, e o reescalonamento durante a abertura sai do fluxo principal. */
+  will-change: transform;
   transition: transform var(--duration-slow) var(--ease-out);
 }
 
@@ -733,7 +743,6 @@ h1 span {
   font-weight: 400;
   line-height: 1.02;
   letter-spacing: -0.04em;
-  text-wrap: balance;
 }
 
 .case-panel-art i {
@@ -855,7 +864,6 @@ h1 span {
   font-weight: 500;
   line-height: 0.98;
   letter-spacing: -0.05em;
-  text-wrap: balance;
 }
 
 .case-panel-thesis span {
@@ -880,8 +888,8 @@ h1 span {
   border-top: 1px solid
     color-mix(in srgb, var(--case-accent, var(--color-accent)) 20%, transparent);
   opacity: 1;
-  /* Espera a largura abrir antes de revelar o conteúdo. */
-  transition-delay: 220ms;
+  /* Entra na última metade da abertura, agora que ela dura 420ms. */
+  transition-delay: 200ms;
 }
 
 /*

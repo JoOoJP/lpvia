@@ -19,8 +19,8 @@ const cases = [
     image: {
       src: "/moikato.jpg",
       alt: "Campo de capim dourado que representa a origem da Moikato",
-      width: 1920,
-      height: 1275,
+      width: 1400,
+      height: 930,
     },
     facts: [
       {
@@ -48,8 +48,8 @@ const cases = [
     image: {
       src: "/tardinha.webp",
       alt: "Marca A Tardinha da Rio Solimões",
-      width: 614,
-      height: 614,
+      width: 640,
+      height: 640,
     },
     facts: [
       {
