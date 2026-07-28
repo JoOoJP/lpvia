@@ -80,6 +80,16 @@
     var(--via-cyan) 58%,
     var(--via-green)
   );
+  /*
+   * Versão para texto. O roxo da marca entrega 2.3:1 sobre o preto — abaixo
+   * até do mínimo de display —, então o recorte começa no ciano: 8.3:1 no
+   * início e 10.4:1 no fim. Superfícies seguem com o gradiente completo.
+   */
+  --gradient-brand-text: linear-gradient(
+    100deg,
+    var(--via-cyan),
+    var(--via-green)
+  );
 
   /* 2. Semânticos — tipografia */
   --font-sans: var(--font-inter), Inter, Arial, sans-serif;

@@ -304,9 +304,30 @@ h1 {
   text-wrap: balance;
 }
 
-h1 span {
+h1 span,
+h1 strong {
   display: block;
+}
+
+h1 span {
   color: var(--color-text-display-muted);
+}
+
+h1 strong {
+  font-weight: inherit;
+}
+
+/*
+ * A tese recebe a assinatura da marca. O recorte fica atrás do @supports
+ * porque, sem background-clip, color: transparent apagaria o título inteiro.
+ */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  h1 strong {
+    background: var(--gradient-brand-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
 
 .hero-lead {

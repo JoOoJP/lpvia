@@ -4,7 +4,7 @@ export function Hero() {
       <div className="hero-center">
         <h1>
           <span>Mais movimento não resolve.</span>
-          Direção resolve.
+          <strong>Direção resolve.</strong>
         </h1>
         <p className="hero-lead">
           Estratégia, marketing, comercial e tecnologia conectados para

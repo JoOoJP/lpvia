@@ -114,8 +114,10 @@ export default function DesignSystemPage() {
             ))}
           </div>
           <p className={styles.rule}>
-            O descritor e os textos nunca recebem gradiente. A assinatura
-            cromática pertence ao nome VIA e aos pontos de ação.
+            A assinatura cromática pertence ao nome VIA, aos pontos de ação e à
+            frase que carrega a tese — uma por página, nunca em corpo de texto.
+            Sobre fundo escuro o recorte começa no ciano: o roxo da marca não
+            alcança o contraste mínimo em texto.
           </p>
         </Section>
 

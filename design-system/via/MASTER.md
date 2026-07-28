@@ -28,6 +28,11 @@ Implementação: `app/design-tokens.css`.
 
 O gradiente não é fundo decorativo recorrente. É assinatura.
 
+Em texto ele aparece uma vez por página, na frase que carrega a tese, e usa
+`--gradient-brand-text`: sobre fundo escuro o roxo da marca entrega 2.3:1,
+abaixo do mínimo até para display, então o recorte começa no ciano. Nunca em
+corpo de texto nem em rótulo.
+
 ## Tipografia
 
 - **Voz principal e corpo:** Inter.
