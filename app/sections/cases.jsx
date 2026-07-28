@@ -4,17 +4,19 @@ import { useState } from "react";
 import { Arrow } from "../ui/arrow";
 
 /*
- * Moikato veio da versão anterior da página. Tardinha e Camila foram
- * derivados do pouco que existia (uma tag e um parágrafo) para que os três
- * cases tenham o mesmo peso quando abertos — são RASCUNHO e precisam da
- * revisão de quem conhece os projetos antes de publicar.
+ * Cada fato começa pela decisão e traz as entregas como prova dela — a seção
+ * promete decisões, não peças soltas.
+ *
+ * Moikato está revisado com quem conduz o projeto. Tardinha e Camila seguem
+ * como RASCUNHO, derivados do pouco que a página anterior trazia (uma tag e um
+ * parágrafo), e precisam da mesma revisão antes de publicar.
  */
 const cases = [
   {
     id: "moikato",
     index: "01",
     name: "Moikato",
-    tags: "Marca · Internacionalização · Tecnologia",
+    tags: "Marca · Conteúdo · Internacionalização",
     thesis: ["Origem brasileira.", "Presença internacional."],
     image: {
       src: "/moikato.jpg",
@@ -25,15 +27,15 @@ const cases = [
     facts: [
       {
         label: "Quem é",
-        text: "Marca brasileira de joias em capim dourado, criada entre natureza, artesanato e design.",
+        text: "Joias brasileiras em capim dourado, fibra do cerrado trançada à mão.",
       },
       {
         label: "O desafio",
-        text: "Apresentar essa origem ao mercado europeu sem reduzir a marca ao artesanato.",
+        text: "Chegar à Europa como marca de design, sem ser reduzida a artesanato.",
       },
       {
         label: "O que a VIA fez",
-        text: "Posicionamento, narrativa, conteúdo e site bilíngue.",
+        text: "Marca posicionada como design brasileiro: logo, identidade, landing bilíngue e conteúdo publicado todo mês.",
       },
     ],
     outcome: { label: "Conceito criado", text: "A natureza feita joia." },
