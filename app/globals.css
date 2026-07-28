@@ -624,11 +624,15 @@ h1 span {
   transition: flex-grow var(--duration-slow) var(--ease-out);
 }
 
+/*
+ * 2.6 contra 1: o aberto domina, mas os recolhidos ficam largos o bastante
+ * para o nome e a tese caberem na horizontal — sem girar texto.
+ */
 .case-panel.is-open {
-  flex-grow: 6;
+  flex-grow: 2.6;
 }
 
-/* Sem imagem própria, o painel carrega a assinatura da marca. */
+/* Sem imagem própria, o mote da cliente é a arte do painel. */
 .case-camila {
   background:
     radial-gradient(
@@ -637,6 +641,47 @@ h1 span {
       transparent 62%
     ),
     var(--color-surface-inverse);
+}
+
+.case-panel-art {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.25rem, 1.8vw, 1.9rem);
+  opacity: 0.85;
+  transition: opacity var(--duration-slow) var(--ease-out);
+}
+
+.case-panel.is-open .case-panel-art {
+  opacity: 0.28;
+}
+
+.case-panel-art span {
+  color: var(--color-accent);
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Frase da cliente: a serifada é o sotaque reservado a isso. */
+.case-panel-art strong {
+  margin-top: 0.9rem;
+  font-family: var(--font-editorial-accent);
+  font-size: clamp(1.6rem, 2.6vw, 2.9rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.case-panel-art i {
+  width: 42%;
+  height: 5px;
+  margin-top: 1.5rem;
+  background: var(--gradient-brand);
 }
 
 .case-panel-image {
@@ -668,39 +713,51 @@ h1 span {
   pointer-events: none;
 }
 
-.case-panel-head {
+/* A arte é texto, não foto: precisa de menos véu para continuar legível. */
+.case-camila::after {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--color-surface-deep) 62%, transparent)
+  );
+}
+
+.case-panel-inner {
   position: relative;
   z-index: 2;
-  flex: 1;
-  min-height: 0;
-}
-
-.case-panel.is-open .case-panel-head {
-  flex: 0 0 auto;
-}
-
-.case-panel-head button {
   display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  width: 100%;
-  height: 100%;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
   padding: clamp(1.25rem, 1.8vw, 1.9rem);
+}
+
+/* O botão cobre o painel inteiro: recolhido, clicar em qualquer ponto abre. */
+.case-panel-head button {
+  position: static;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 0;
   border: 0;
   background: transparent;
   color: inherit;
   font: inherit;
   text-align: left;
   cursor: pointer;
-  /* Fechado, o rótulo corre no eixo do painel estreito. */
-  writing-mode: vertical-rl;
 }
 
-.case-panel.is-open .case-panel-head button {
-  align-items: baseline;
-  height: auto;
-  padding-bottom: 0;
-  writing-mode: horizontal-tb;
+.case-panel-head button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* Aberto, a área estendida cobriria o link do projeto. */
+.case-panel.is-open .case-panel-head button::after {
+  display: none;
 }
 
 .case-panel-index {
@@ -711,14 +768,39 @@ h1 span {
   text-transform: uppercase;
 }
 
-.case-panel-name {
-  font-family: var(--font-display);
-  font-size: clamp(1.35rem, 1.9vw, 1.9rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
+/* Cruz que perde a barra vertical ao abrir. */
+.case-panel-mark {
+  position: relative;
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--color-border-inverse-strong);
+  border-radius: 50%;
+}
+
+.case-panel-mark::before,
+.case-panel-mark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 1px;
+  background: currentcolor;
+  transform: translate(-50%, -50%);
+  transition: opacity var(--duration-fast) ease;
+}
+
+.case-panel-mark::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.case-panel.is-open .case-panel-mark::after {
+  opacity: 0;
 }
 
 .case-panel-tags {
+  margin-top: 0.75rem;
   color: var(--color-text-inverse-muted);
   font-size: 0.64rem;
   font-weight: 700;
@@ -726,35 +808,24 @@ h1 span {
   text-transform: uppercase;
 }
 
-.case-panel:not(.is-open) .case-panel-tags {
+/* Empurrado para a base: o painel recolhido lê como um cartaz. */
+.case-panel-poster {
   margin-top: auto;
+  padding-top: var(--block-space);
 }
 
-.case-panel-body {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex: 0 0 0;
-  flex-direction: column;
-  min-height: 0;
-  padding: 0 clamp(1.25rem, 1.8vw, 1.9rem) clamp(1.25rem, 1.8vw, 1.9rem);
-  opacity: 0;
-  overflow: hidden;
-  transition: opacity var(--duration-normal) ease;
-}
-
-.case-panel.is-open .case-panel-body {
-  flex: 1 1 auto;
-  opacity: 1;
-  overflow-y: auto;
-  /* Espera a largura abrir antes de revelar o conteúdo. */
-  transition-delay: 220ms;
+.case-panel-name {
+  color: var(--color-text-inverse-muted);
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
 .case-panel-thesis {
-  margin: 0.9rem 0 var(--block-space);
+  margin-top: 0.6rem;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.4vw, 2.6rem);
+  font-size: clamp(1.35rem, 2.1vw, 2.4rem);
   font-weight: 500;
   line-height: 0.98;
   letter-spacing: -0.05em;
@@ -764,6 +835,25 @@ h1 span {
 .case-panel-thesis span {
   display: block;
   color: var(--color-text-display-muted);
+}
+
+.case-panel-body {
+  display: flex;
+  flex: 0 0 0;
+  flex-direction: column;
+  min-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity var(--duration-normal) ease;
+}
+
+.case-panel.is-open .case-panel-body {
+  flex: 0 1 auto;
+  margin-top: var(--block-space);
+  opacity: 1;
+  overflow-y: auto;
+  /* Espera a largura abrir antes de revelar o conteúdo. */
+  transition-delay: 220ms;
 }
 
 .case-facts {
@@ -1076,7 +1166,7 @@ footer small {
 
   .case-panel {
     flex: 0 0 auto;
-    min-height: 88px;
+    min-height: 132px;
     transition: min-height var(--duration-slow) var(--ease-out);
   }
 
@@ -1084,20 +1174,14 @@ footer small {
     min-height: clamp(440px, 66vh, 620px);
   }
 
-  .case-panel-head button,
-  .case-panel.is-open .case-panel-head button {
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    writing-mode: horizontal-tb;
+  /* Recolhido em pilha há largura de sobra: o cartaz sobe para junto do nome. */
+  .case-panel:not(.is-open) .case-panel-poster {
+    margin-top: 0.9rem;
+    padding-top: 0;
   }
 
-  .case-panel.is-open .case-panel-head button {
-    height: auto;
-  }
-
-  .case-panel:not(.is-open) .case-panel-tags {
-    margin-top: 0;
+  .case-panel:not(.is-open) .case-panel-thesis {
+    font-size: 1.25rem;
   }
 }
 
