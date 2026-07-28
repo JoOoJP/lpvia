@@ -161,9 +161,18 @@ a {
   gap: 1rem;
 }
 
-/* Mesmo papel do link secundário do hero, um ponto menor. */
+/*
+ * Sem ação no hero, este é o único caminho de conversão acima da dobra. O
+ * sublinhado assume o gradiente da marca para carregar esse peso sem virar
+ * botão.
+ */
 .header-cta {
   gap: 0.55rem;
+  border-bottom-color: transparent;
+  background-image: var(--gradient-brand);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
   color: var(--color-text-inverse);
   font-size: 0.76rem;
   font-weight: 650;
@@ -250,7 +259,6 @@ a {
   padding: calc(var(--header-height) + clamp(1.25rem, 4vh, 3.5rem)) 7vw
     clamp(2rem, 5vh, 4rem);
   overflow: hidden;
-  border-bottom: 1px solid var(--color-border-inverse);
   /* Um halo só, atrás do título: profundidade sem virar papel de parede. */
   background:
     radial-gradient(
@@ -276,7 +284,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(100%, 1080px);
+  width: min(100%, 1400px);
   text-align: center;
 }
 
@@ -286,7 +294,7 @@ a {
 }
 
 h1 {
-  max-width: 1080px;
+  max-width: 1400px;
   margin-bottom: clamp(0.75rem, 1.7vh, 1.5rem);
   font-family: var(--font-display);
   font-size: var(--text-display);
@@ -303,16 +311,57 @@ h1 span {
 
 .hero-lead {
   max-width: 640px;
-  margin-bottom: clamp(1.1rem, 2.8vh, 2rem);
   color: var(--color-text-inverse-muted);
   font-size: var(--text-lead);
   line-height: var(--leading-body);
 }
 
-.hero-actions {
-  display: flex;
+/*
+ * O hero fecha com o mesmo fio de gradiente que atravessa os pilares na seção
+ * seguinte. É a assinatura da marca, agora que não há botão para carregá-la.
+ */
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--gradient-brand);
+}
+
+.hero-scroll {
+  position: absolute;
+  z-index: 2;
+  bottom: clamp(2rem, 5vh, 3.5rem);
+  left: 50%;
+  display: inline-flex;
   align-items: center;
-  gap: 2rem;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-height: 44px;
+  color: var(--color-text-inverse-subtle);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  transition: color var(--duration-fast) ease;
+}
+
+.hero-scroll:hover {
+  color: var(--color-text-inverse);
+}
+
+.hero-scroll i {
+  width: 1px;
+  height: clamp(28px, 5vh, 48px);
+  background: linear-gradient(
+    180deg,
+    var(--color-border-inverse-strong),
+    transparent
+  );
 }
 
 .button {

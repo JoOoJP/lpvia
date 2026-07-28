@@ -94,7 +94,7 @@
    * fazia a pilha estourar em telas baixas e largas (notebooks), então a
    * altura entra como teto junto da largura.
    */
-  --text-display: clamp(2.9rem, min(6.6vw, 10.5vh), 7rem);
+  --text-display: clamp(2.9rem, min(6.6vw, 12.5vh), 6.2rem);
   --leading-body: 1.65;
   --leading-display: 0.92;
   --tracking-display: -0.07em;
