@@ -14,10 +14,10 @@ export function Hero() {
 
       {/*
        * Sem ação no hero, este link é o que diz que a página continua. Leva ao
-       * sistema, o primeiro argumento depois da apresentação da marca.
+       * primeiro argumento da página, logo depois da apresentação da marca.
        */}
-      <a className="hero-scroll" href="#sistema">
-        <span>Conheça o sistema</span>
+      <a className="hero-scroll" href="#como-funciona">
+        <span>Veja como funciona</span>
         <i aria-hidden="true" />
       </a>
     </section>

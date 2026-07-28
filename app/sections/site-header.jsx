@@ -5,7 +5,7 @@ import { whatsappUrl } from "../contact";
 import { Arrow } from "../ui/arrow";
 
 const navItems = [
-  { id: "sistema", label: "Sistema" },
+  { id: "como-funciona", label: "Como funciona" },
   { id: "cases", label: "Cases" },
   { id: "produtos", label: "Soluções" },
 ];

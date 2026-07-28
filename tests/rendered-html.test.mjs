@@ -33,10 +33,10 @@ test("renderiza a landing page da VIA", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>VIA — Sistema de crescimento<\/title>/i);
+  assert.match(html, /<title>VIA — Crescimento com direção<\/title>/i);
   assert.match(html, /Mais movimento não resolve\./);
   assert.match(html, /Direção resolve\./);
-  assert.match(html, /O SISTEMA VIA/);
+  assert.match(html, /COMO A VIA FUNCIONA/);
   assert.match(html, /Moikato/);
   assert.match(html, /Agendar diagnóstico/);
 });
@@ -48,7 +48,7 @@ test("publica metadados sociais e navegação essenciais", async () => {
   assert.match(html, /property="og:image" content="[^"]*\/og-via\.jpg"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
   assert.match(html, /aria-label="Navegação principal"/);
-  assert.match(html, /href="#sistema"/);
+  assert.match(html, /href="#como-funciona"/);
   assert.match(html, /href="#cases"/);
   assert.match(html, /href="#produtos"/);
   assert.match(html, /wa\.me\/5541991014546/);

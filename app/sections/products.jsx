@@ -19,7 +19,7 @@ const products = [
     label: "Crescer",
     featured: true,
     description:
-      "Nosso sistema completo: estratégia, marketing, aquisição e comercial gerenciados em conjunto.",
+      "As quatro frentes gerenciadas em conjunto: estratégia, marketing, aquisição e comercial.",
   },
   {
     index: "04",
@@ -39,8 +39,8 @@ export function Products() {
           <h2>Descobrir. Atrair. Crescer. Escalar.</h2>
         </div>
         <p>
-          O problema define o ponto de entrada. O Growth Plus conecta o sistema
-          completo.
+          O problema define o ponto de entrada. O Growth Plus conecta as
+          quatro frentes.
         </p>
       </div>
       <div className="product-grid">

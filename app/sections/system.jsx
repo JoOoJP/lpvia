@@ -35,10 +35,10 @@ const loop = ["Diagnóstico", "Direção", "Execução", "Métricas", "Otimizaç
 
 export function System() {
   return (
-    <section className="system-section section" id="sistema">
-      <div className="system-heading">
+    <section className="method-section section" id="como-funciona">
+      <div className="method-heading">
         <div>
-          <p className="eyebrow">O SISTEMA VIA</p>
+          <p className="eyebrow">COMO A VIA FUNCIONA</p>
           <h2>Partes diferentes. Decisões conectadas.</h2>
         </div>
         <p>
@@ -57,7 +57,7 @@ export function System() {
         ))}
       </div>
 
-      <div className="system-loop" aria-label="Ciclo do sistema VIA">
+      <div className="method-loop" aria-label="Ciclo de trabalho da VIA">
         {loop.map((step, index) => (
           <div key={step}>
             <span>0{index + 1}</span>

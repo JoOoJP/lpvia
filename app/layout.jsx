@@ -25,7 +25,7 @@ const siteUrl =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000");
 
-const title = "VIA — Sistema de crescimento";
+const title = "VIA — Crescimento com direção";
 const description =
   "Estratégia, marketing, comercial e tecnologia conectados para construir crescimento sustentável.";
 
