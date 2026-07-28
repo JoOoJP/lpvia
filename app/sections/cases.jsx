@@ -73,8 +73,8 @@ const cases = [
     name: "Dra. Camila Bresciani",
     tags: "Tese · Conteúdo · Funil",
     thesis: ["Conteúdo que conduz.", "Não que preenche."],
-    // Sem fotografia do projeto, o mote da cliente vira a arte do painel.
-    art: { label: "Posicionamento", text: "O crescimento não espera." },
+    // Sem fotografia do projeto, o mote da cliente ocupa a faixa da imagem.
+    art: "O crescimento não espera.",
     facts: [
       {
         label: "Quem é",
@@ -129,8 +129,7 @@ export function Cases() {
 
               {item.art ? (
                 <div className="case-panel-art" aria-hidden="true">
-                  <span>{item.art.label}</span>
-                  <strong>{item.art.text}</strong>
+                  <strong>{item.art}</strong>
                   <i />
                 </div>
               ) : null}
@@ -148,43 +147,42 @@ export function Cases() {
                   </button>
                 </h3>
 
-                <p className="case-panel-tags">{item.tags}</p>
-
-                <div className="case-panel-poster">
+                <div className="case-panel-sheet">
+                  <p className="case-panel-tags">{item.tags}</p>
                   <p className="case-panel-name">{item.name}</p>
                   <p className="case-panel-thesis">
                     <span>{item.thesis[0]}</span>
                     {item.thesis[1]}
                   </p>
-                </div>
 
-                <div
-                  className="case-panel-body"
-                  id={`case-corpo-${item.id}`}
-                  inert={!isOpen}
-                >
-                  <div className="case-facts">
-                    {item.facts.map((fact, index) => (
-                      <div className="case-fact" key={fact.label}>
-                        <span>
-                          0{index + 1} / {fact.label}
-                        </span>
-                        <p>{fact.text}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <footer className="case-outcome">
-                    <div>
-                      <span>{item.outcome.label}</span>
-                      <strong>{item.outcome.text}</strong>
+                  <div
+                    className="case-panel-body"
+                    id={`case-corpo-${item.id}`}
+                    inert={!isOpen}
+                  >
+                    <div className="case-facts">
+                      {item.facts.map((fact, index) => (
+                        <div className="case-fact" key={fact.label}>
+                          <span>
+                            0{index + 1} / {fact.label}
+                          </span>
+                          <p>{fact.text}</p>
+                        </div>
+                      ))}
                     </div>
-                    {item.link ? (
-                      <a href={item.link} target="_blank" rel="noreferrer">
-                        Ver projeto <Arrow />
-                      </a>
-                    ) : null}
-                  </footer>
+
+                    <footer className="case-outcome">
+                      <div>
+                        <span>{item.outcome.label}</span>
+                        <strong>{item.outcome.text}</strong>
+                      </div>
+                      {item.link ? (
+                        <a href={item.link} target="_blank" rel="noreferrer">
+                          Ver projeto <Arrow />
+                        </a>
+                      ) : null}
+                    </footer>
+                  </div>
                 </div>
               </div>
             </article>
