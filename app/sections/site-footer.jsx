@@ -1,6 +1,6 @@
 export function SiteFooter() {
   return (
-    <footer>
+    <footer className="site-footer">
       <a className="logo" href="#inicio" aria-label="VIA, voltar ao início">
         VIA
       </a>
