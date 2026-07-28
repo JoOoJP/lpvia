@@ -114,27 +114,26 @@ export function Cases() {
               className={`case-panel case-${item.id}${isOpen ? " is-open" : ""}`}
               key={item.id}
             >
-              {item.image ? (
-                /* eslint-disable-next-line @next/next/no-img-element -- imagem editorial usa crop CSS responsivo */
-                <img
-                  className="case-panel-image"
-                  src={item.image.src}
-                  alt={item.image.alt}
-                  width={item.image.width}
-                  height={item.image.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : null}
+              <div className="case-panel-media">
+                {item.image ? (
+                  /* eslint-disable-next-line @next/next/no-img-element -- imagem editorial usa crop CSS responsivo */
+                  <img
+                    src={item.image.src}
+                    alt={item.image.alt}
+                    width={item.image.width}
+                    height={item.image.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div className="case-panel-art" aria-hidden="true">
+                    <strong>{item.art}</strong>
+                    <i />
+                  </div>
+                )}
+              </div>
 
-              {item.art ? (
-                <div className="case-panel-art" aria-hidden="true">
-                  <strong>{item.art}</strong>
-                  <i />
-                </div>
-              ) : null}
-
-              <div className="case-panel-inner">
+              <div className="case-panel-sheet">
                 <h3 className="case-panel-head">
                   <button
                     type="button"
@@ -147,42 +146,42 @@ export function Cases() {
                   </button>
                 </h3>
 
-                <div className="case-panel-sheet">
+                <div className="case-panel-lead">
                   <p className="case-panel-tags">{item.tags}</p>
                   <p className="case-panel-name">{item.name}</p>
                   <p className="case-panel-thesis">
                     <span>{item.thesis[0]}</span>
                     {item.thesis[1]}
                   </p>
+                </div>
 
-                  <div
-                    className="case-panel-body"
-                    id={`case-corpo-${item.id}`}
-                    inert={!isOpen}
-                  >
-                    <div className="case-facts">
-                      {item.facts.map((fact, index) => (
-                        <div className="case-fact" key={fact.label}>
-                          <span>
-                            0{index + 1} / {fact.label}
-                          </span>
-                          <p>{fact.text}</p>
-                        </div>
-                      ))}
-                    </div>
-
-                    <footer className="case-outcome">
-                      <div>
-                        <span>{item.outcome.label}</span>
-                        <strong>{item.outcome.text}</strong>
+                <div
+                  className="case-panel-body"
+                  id={`case-corpo-${item.id}`}
+                  inert={!isOpen}
+                >
+                  <div className="case-facts">
+                    {item.facts.map((fact, index) => (
+                      <div className="case-fact" key={fact.label}>
+                        <span>
+                          0{index + 1} / {fact.label}
+                        </span>
+                        <p>{fact.text}</p>
                       </div>
-                      {item.link ? (
-                        <a href={item.link} target="_blank" rel="noreferrer">
-                          Ver projeto <Arrow />
-                        </a>
-                      ) : null}
-                    </footer>
+                    ))}
                   </div>
+
+                  <footer className="case-outcome">
+                    <div>
+                      <span>{item.outcome.label}</span>
+                      <strong>{item.outcome.text}</strong>
+                    </div>
+                    {item.link ? (
+                      <a href={item.link} target="_blank" rel="noreferrer">
+                        Ver projeto <Arrow />
+                      </a>
+                    ) : null}
+                  </footer>
                 </div>
               </div>
             </article>

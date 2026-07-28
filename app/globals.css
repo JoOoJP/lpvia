@@ -604,10 +604,18 @@ h1 span {
  * animada por flex-grow porque grid-template-columns só interpola em
  * navegadores recentes, e flex-grow anima em todos.
  */
+/*
+ * Ficha técnica: a fotografia e o texto ocupam faixas separadas, nunca a
+ * mesma. Foi o que encerrou o cabo de guerra entre ver a imagem e ler o
+ * conteúdo — antes o texto vinha por cima e obrigava a apagar a foto.
+ *
+ * min-height, não height: o painel aberto cresce se o conteúdo pedir, em vez
+ * de criar rolagem dentro do card.
+ */
 .case-deck {
   display: flex;
   gap: 2px;
-  height: clamp(420px, 62vh, 660px);
+  min-height: clamp(400px, 58vh, 620px);
   max-width: 100%;
   margin-top: var(--block-space);
 }
@@ -627,114 +635,77 @@ h1 span {
 
 /*
  * 2.6 contra 1: o aberto domina, mas os recolhidos ficam largos o bastante
- * para o nome e a tese caberem na horizontal — sem girar texto.
+ * para o nome e a tese caberem na horizontal.
  */
 .case-panel.is-open {
   flex-grow: 2.6;
 }
 
-/* Sem imagem própria, o mote da cliente é a arte do painel. */
-.case-camila {
-  background:
-    radial-gradient(
-      circle at 72% 18%,
-      color-mix(in srgb, var(--via-purple) 34%, transparent),
-      transparent 62%
-    ),
-    var(--color-surface-inverse);
+/* Faixa da imagem: sem véu, sem texto por cima. */
+.case-panel-media {
+  position: relative;
+  flex: 0 0 clamp(150px, 23vh, 250px);
+  overflow: hidden;
+  background: var(--color-surface-deep);
+  transition: flex-basis var(--duration-slow) var(--ease-out);
 }
 
-/*
- * A arte ocupa só a faixa da fotografia, ancorada logo acima da folha de
- * leitura. Ocupando o painel inteiro, ela caía sobre o nome e a tese.
- */
+.case-panel.is-open .case-panel-media {
+  flex-basis: clamp(180px, 27vh, 320px);
+}
+
+.case-panel-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.case-panel:hover .case-panel-media img {
+  transform: scale(1.03);
+}
+
+/* Sem fotografia, o mote da cliente ocupa a faixa. */
 .case-panel-art {
-  position: absolute;
-  z-index: 1;
-  inset: 0 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 58%;
-  padding: 0 clamp(1.25rem, 1.8vw, 1.9rem);
+  height: 100%;
+  padding: clamp(1.25rem, 1.8vw, 1.9rem);
+  background:
+    radial-gradient(
+      circle at 74% 22%,
+      color-mix(in srgb, var(--via-purple) 42%, transparent),
+      transparent 66%
+    ),
+    var(--color-surface-deep);
 }
 
 /* Frase da cliente: a serifada é o sotaque reservado a isso. */
 .case-panel-art strong {
   font-family: var(--font-editorial-accent);
-  font-size: clamp(1.5rem, 2.3vw, 2.6rem);
+  font-size: clamp(1.4rem, 2.1vw, 2.3rem);
   font-weight: 400;
   line-height: 1.02;
   letter-spacing: -0.04em;
+  text-wrap: balance;
 }
 
 .case-panel-art i {
   width: 42%;
   height: 4px;
-  margin-top: 1.1rem;
+  margin-top: 1rem;
   background: var(--gradient-brand);
 }
 
-.case-panel-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 40%;
-  opacity: 0.82;
-  transition: opacity var(--duration-slow) var(--ease-out);
-}
-
-/*
- * A foto quase não recua ao abrir. O que garante a leitura não é apagá-la,
- * e sim a folha opaca sob o texto — assim a metade de cima continua sendo
- * fotografia de verdade.
- */
-.case-panel.is-open .case-panel-image {
-  opacity: 0.62;
-}
-
-/* Véu leve e uniforme: só o bastante para o rótulo do topo se sustentar. */
-.case-panel::after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  background: color-mix(in srgb, var(--color-surface-deep) 34%, transparent);
-  pointer-events: none;
-}
-
-.case-panel-inner {
-  position: relative;
-  z-index: 2;
+.case-panel-sheet {
   display: flex;
   flex: 1;
   flex-direction: column;
   min-height: 0;
-}
-
-.case-panel-head {
-  padding: clamp(1.25rem, 1.8vw, 1.9rem);
-}
-
-/*
- * Folha de leitura: em vez de escurecer o painel inteiro, o fundo opaco fica
- * só embaixo do texto. A borda superior dissolve nos primeiros 18% para não
- * virar uma faixa recortada sobre a foto.
- */
-.case-panel-sheet {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  margin-top: auto;
-  padding: clamp(2.5rem, 5vh, 4rem) clamp(1.25rem, 1.8vw, 1.9rem)
-    clamp(1.25rem, 1.8vw, 1.9rem);
-  background: linear-gradient(
-    180deg,
-    transparent,
-    color-mix(in srgb, var(--color-surface-deep) 92%, transparent) 18%
-  );
+  padding: clamp(1.1rem, 1.6vw, 1.7rem);
+  border-top: 1px solid var(--color-border-inverse);
 }
 
 /* O botão cobre o painel inteiro: recolhido, clicar em qualquer ponto abre. */
@@ -804,27 +775,32 @@ h1 span {
   opacity: 0;
 }
 
+.case-panel-lead {
+  margin-top: auto;
+  padding-top: 1.25rem;
+}
+
 .case-panel-tags {
   color: var(--color-text-inverse-muted);
-  font-size: 0.64rem;
+  font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .case-panel-name {
-  margin-top: 0.7rem;
+  margin-top: 0.6rem;
   color: var(--color-text-inverse-muted);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 750;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
 }
 
 .case-panel-thesis {
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
   font-family: var(--font-display);
-  font-size: clamp(1.35rem, 2.1vw, 2.4rem);
+  font-size: clamp(1.3rem, 1.9vw, 2.2rem);
   font-weight: 500;
   line-height: 0.98;
   letter-spacing: -0.05em;
@@ -847,17 +823,18 @@ h1 span {
 }
 
 .case-panel.is-open .case-panel-body {
-  flex: 0 1 auto;
-  margin-top: var(--block-space);
+  flex: 0 0 auto;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border-inverse);
   opacity: 1;
-  overflow-y: auto;
   /* Espera a largura abrir antes de revelar o conteúdo. */
   transition-delay: 220ms;
 }
 
 /*
  * Aberto, o painel passa de 600 px: os três fatos cabem lado a lado e param
- * de somar altura, que era o que empurrava o conteúdo para a rolagem interna.
+ * de somar altura.
  */
 .case-facts {
   display: grid;
@@ -867,17 +844,17 @@ h1 span {
 
 .case-fact > span {
   color: var(--color-accent);
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   font-weight: 750;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
 }
 
 .case-fact p {
-  max-width: 46ch;
-  margin-top: 0.35rem;
+  max-width: 42ch;
+  margin-top: 0.3rem;
   color: var(--color-text-inverse-muted);
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   line-height: var(--leading-body);
 }
 
@@ -886,14 +863,13 @@ h1 span {
   justify-content: space-between;
   align-items: flex-end;
   gap: 1.5rem;
-  margin-top: auto;
-  padding-top: var(--block-space);
+  margin-top: 1.5rem;
 }
 
 .case-outcome span {
   display: block;
   color: var(--color-accent);
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   font-weight: 750;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
@@ -902,9 +878,9 @@ h1 span {
 /* O conceito pertence ao cliente: é o único lugar da seção com a serifada. */
 .case-outcome strong {
   display: block;
-  margin-top: 0.45rem;
+  margin-top: 0.4rem;
   font-family: var(--font-editorial-accent);
-  font-size: clamp(1.35rem, 2vw, 2.1rem);
+  font-size: clamp(1.25rem, 1.8vw, 1.9rem);
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: -0.04em;
@@ -916,7 +892,7 @@ h1 span {
   min-height: 44px;
   gap: 0.6rem;
   border-bottom: 1px solid var(--color-border-inverse-strong);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   font-weight: 700;
   white-space: nowrap;
   transition: border-color var(--duration-fast) ease;
@@ -1159,33 +1135,39 @@ footer small {
 }
 
 /*
- * Estreito demais para três colunas: o baralho vira pilha e a expansão passa
- * a ser em altura. O rótulo volta a correr na horizontal.
+ * Estreito demais para três colunas: o baralho vira pilha. Recolhido, o painel
+ * mostra só a ficha — a faixa de imagem apareceria como uma tarja de 150 px
+ * repetida três vezes, sem contar história.
  */
 @media (max-width: 900px) {
   .case-deck {
     flex-direction: column;
-    height: auto;
+    min-height: 0;
   }
 
   .case-panel {
     flex: 0 0 auto;
-    min-height: 132px;
-    transition: min-height var(--duration-slow) var(--ease-out);
   }
 
-  .case-panel.is-open {
-    min-height: clamp(440px, 66vh, 620px);
+  .case-panel:not(.is-open) .case-panel-media {
+    flex-basis: 0;
   }
 
-  /* Recolhido em pilha há largura de sobra: o cartaz sobe para junto do nome. */
-  .case-panel:not(.is-open) .case-panel-poster {
-    margin-top: 0.9rem;
-    padding-top: 0;
+  .case-panel-sheet {
+    border-top: 0;
+  }
+
+  .case-panel.is-open .case-panel-sheet {
+    border-top: 1px solid var(--color-border-inverse);
+  }
+
+  .case-panel:not(.is-open) .case-panel-lead {
+    margin-top: 0;
+    padding-top: 1rem;
   }
 
   .case-panel:not(.is-open) .case-panel-thesis {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -1353,19 +1335,6 @@ footer small {
     align-items: flex-start;
     flex-direction: column;
     gap: 1.2rem;
-  }
-
-  .case-moikato {
-    margin-top: 3rem;
-  }
-
-  .case-small-content {
-    padding: 2rem 1.4rem;
-  }
-
-  .case-small-image,
-  .camila-art {
-    min-height: 330px;
   }
 }
 
