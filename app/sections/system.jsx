@@ -1,28 +1,30 @@
+/*
+ * Sem cor por pilar: o gradiente da marca atravessa os quatro numa linha só,
+ * que é o próprio argumento da seção — partes diferentes, decisões conectadas.
+ * Antes cada um tinha seu traço, e os pilares 02 e 04 repetiam a mesma cor,
+ * porque a marca tem três e os pilares são quatro.
+ */
 const pillars = [
   {
     number: "01",
-    color: "purple",
     title: "Estratégia",
     description:
       "Encontra a oportunidade, organiza prioridades e define onde concentrar energia.",
   },
   {
     number: "02",
-    color: "cyan",
     title: "Marketing",
     description:
       "Transforma direção em percepção, atenção e demanda qualificada.",
   },
   {
     number: "03",
-    color: "green",
     title: "Comercial",
     description:
       "Converte oportunidade em relacionamento, negociação e receita.",
   },
   {
     number: "04",
-    color: "blue",
     title: "Tecnologia",
     description:
       "Aumenta eficiência, integra processos e prepara a empresa para escalar.",
@@ -47,9 +49,8 @@ export function System() {
 
       <div className="pillar-grid">
         {pillars.map((pillar) => (
-          <article className={`pillar pillar-${pillar.color}`} key={pillar.title}>
+          <article className="pillar" key={pillar.title}>
             <span>{pillar.number}</span>
-            <div className="pillar-mark" aria-hidden="true" />
             <h3>{pillar.title}</h3>
             <p>{pillar.description}</p>
           </article>

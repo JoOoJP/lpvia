@@ -441,19 +441,15 @@ h1 span {
 .system-section {
   position: relative;
   overflow: hidden;
-  background: var(--color-surface-inverse);
+  /* Halo roxo atravessando por trás dos pilares, no lugar da marca d'água. */
+  background:
+    radial-gradient(
+      ellipse 62% 58% at 22% 78%,
+      color-mix(in srgb, var(--via-purple) 30%, transparent),
+      transparent 66%
+    ),
+    var(--color-surface-inverse);
   color: var(--color-text-inverse);
-}
-
-.system-section::before {
-  content: "VIA";
-  position: absolute;
-  top: 1%;
-  right: -3%;
-  color: rgb(255 255 255 / 2.2%);
-  font-size: clamp(13rem, 33vw, 38rem);
-  font-weight: 900;
-  letter-spacing: -0.12em;
 }
 
 .system-section .eyebrow {
@@ -481,17 +477,31 @@ h1 span {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   margin-top: var(--block-space);
-  border-top: 1px solid var(--color-border-inverse);
-  border-left: 1px solid var(--color-border-inverse);
+  padding-top: clamp(1.5rem, 3vh, 2.4rem);
+}
+
+/* Uma linha só para os quatro: o argumento da seção, desenhado. */
+.pillar-grid::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: var(--gradient-brand);
 }
 
 .pillar {
   display: flex;
   flex-direction: column;
-  min-height: clamp(190px, 27vh, 340px);
-  padding: 1.7rem;
-  border-right: 1px solid var(--color-border-inverse);
-  border-bottom: 1px solid var(--color-border-inverse);
+  padding: 0 clamp(1.1rem, 2vw, 2.2rem);
+  border-left: 1px solid var(--color-border-inverse);
+}
+
+/* O primeiro encosta na margem, alinhado ao título e à linha do gradiente. */
+.pillar:first-child {
+  padding-left: 0;
+  border-left: 0;
 }
 
 .pillar > span {
@@ -499,21 +509,11 @@ h1 span {
   font-size: 0.68rem;
 }
 
-.pillar-mark {
-  width: 42px;
-  height: 3px;
-  margin-top: auto;
-  border-radius: var(--radius-pill);
-}
-
-.pillar-purple .pillar-mark { background: var(--via-purple); }
-.pillar-cyan .pillar-mark { background: var(--via-cyan); }
-.pillar-green .pillar-mark { background: var(--via-green); }
-.pillar-blue .pillar-mark { background: var(--via-cyan); }
-
 .pillar h3 {
-  margin: 1.4rem 0 0.9rem;
-  font-size: 1.55rem;
+  margin: 0.9rem 0 0.7rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.7vw, 1.7rem);
+  font-weight: 500;
   letter-spacing: -0.04em;
 }
 
@@ -533,19 +533,19 @@ h1 span {
 
 .system-loop div {
   position: relative;
-  padding-top: 1.2rem;
-  border-top: 1px solid var(--color-border-inverse-strong);
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--color-border-inverse);
 }
 
+/* Marcação vertical fina no lugar do ponto em gradiente. */
 .system-loop div::before {
   content: "";
   position: absolute;
-  top: -4px;
+  top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--gradient-brand);
+  width: 1px;
+  height: 9px;
+  background: var(--color-border-inverse-strong);
 }
 
 .system-loop span,
