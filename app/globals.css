@@ -310,12 +310,11 @@ h1 strong {
 }
 
 /*
- * Sobre fundo escuro o recuo desta linha vem do papel de texto invertido, não
- * do cinza de display: o neutro fica sujo contra o halo roxo, e a distinção
- * para a tese já é feita pela cor do gradiente.
+ * As duas linhas ficam no mesmo valor: a distinção entre a negação e a tese
+ * passa a ser inteiramente cromática, feita pelo gradiente da linha seguinte.
  */
 h1 span {
-  color: var(--color-text-inverse-muted);
+  color: var(--color-text-inverse);
 }
 
 h1 strong {
