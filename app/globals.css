@@ -656,7 +656,7 @@ h1 span {
 }
 
 .case-panel.is-open .case-panel-art {
-  opacity: 0.28;
+  opacity: 0.4;
 }
 
 .case-panel-art span {
@@ -695,9 +695,9 @@ h1 span {
   transition: opacity var(--duration-slow) var(--ease-out);
 }
 
-/* Aberto, a foto recua para o texto ganhar contraste. */
+/* Aberto, a foto recua para o texto ganhar contraste — sem sumir. */
 .case-panel.is-open .case-panel-image {
-  opacity: 0.26;
+  opacity: 0.34;
 }
 
 .case-panel::after {
@@ -711,10 +711,27 @@ h1 span {
     color-mix(in srgb, var(--color-surface-deep) 88%, transparent)
   );
   pointer-events: none;
+  transition: background var(--duration-slow) var(--ease-out);
 }
 
-/* A arte é texto, não foto: precisa de menos véu para continuar legível. */
-.case-camila::after {
+/*
+ * Aberto, o véu fica mais leve e mais parelho: o pé sai de 88% para 72%, e o
+ * topo sobe para 40% porque é ali que ficam as disciplinas em corpo miúdo, que
+ * precisam dos 4.5:1 sobre a foto que agora aparece mais.
+ */
+.case-panel.is-open::after {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-surface-deep) 40%, transparent),
+    color-mix(in srgb, var(--color-surface-deep) 72%, transparent)
+  );
+}
+
+/*
+ * A arte é texto, não foto: menos véu para continuar legível. Precisa das duas
+ * classes para vencer a regra de .is-open acima, nos dois estados.
+ */
+.case-panel.case-camila::after {
   background: linear-gradient(
     180deg,
     transparent,
