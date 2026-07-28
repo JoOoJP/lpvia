@@ -563,13 +563,19 @@ h1 span {
   font-size: 0.82rem;
 }
 
+/*
+ * Respiro menor que o das outras seções: o baralho já ocupa a maior parte da
+ * altura, e o padding padrão empurrava o conteúdo para fora da tela.
+ */
 .cases {
+  padding-top: clamp(1.25rem, 3vh, 2.5rem);
+  padding-bottom: clamp(1.25rem, 3vh, 2.5rem);
   background: var(--color-surface-page);
 }
 
 .cases-intro {
   max-width: none;
-  padding-top: 1.5rem;
+  padding-top: 0.9rem;
   border-top: 1px solid var(--color-border);
 }
 
@@ -620,9 +626,9 @@ h1 span {
    * imagem. Abaixo dele o conteúdo é cortado, porque a altura é travada e não
    * há rolagem interna.
    */
-  height: clamp(570px, 68vh, 680px);
+  height: clamp(540px, 66vh, 660px);
   max-width: 100%;
-  margin-top: var(--block-space);
+  margin-top: clamp(1rem, 2.6vh, 2rem);
 }
 
 /*
@@ -693,7 +699,7 @@ h1 span {
 .case-panel-media {
   position: relative;
   flex: 1 1 auto;
-  min-height: clamp(130px, 19vh, 210px);
+  min-height: clamp(112px, 17vh, 200px);
   overflow: hidden;
   background: var(--case-surface, var(--color-surface-deep));
 }
