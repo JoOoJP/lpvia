@@ -44,8 +44,8 @@
   --duration-normal: 300ms;
   --duration-slow: 700ms;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  /* Passa ~8% do destino e volta: o elemento assenta em vez de só parar. */
-  --ease-spring: cubic-bezier(0.32, 1.42, 0.54, 1);
+  /* Abertura e recolhimento de painel: uma duração só para todas as camadas. */
+  --duration-panel: 480ms;
 
   /* 2. Semânticos — superfície */
   --color-surface-page: var(--neutral-50);
@@ -74,7 +74,6 @@
   --color-focus: var(--via-green);
   --color-accent: var(--via-green);
   --color-accent-on-light: var(--via-green-readable);
-  --color-accent-strong: var(--via-purple);
   --gradient-brand: linear-gradient(
     105deg,
     var(--via-purple),
@@ -119,14 +118,7 @@
   --button-primary-bg: var(--gradient-brand);
   --button-primary-fg: var(--neutral-0);
   --button-secondary-border: rgb(255 255 255 / 50%);
-  --card-bg: var(--color-surface-raised);
-  --card-border: var(--color-border);
   --card-radius: var(--radius-none);
-  --case-copy-font: var(--font-display);
-  --case-hero-height: clamp(400px, 43vw, 590px);
-  --case-panel-height: clamp(250px, 20vw, 310px);
-  --case-copy-size: clamp(1.75rem, 2.35vw, 2.65rem);
-  --case-copy-leading: 1.04;
   --focus-width: 3px;
   --focus-offset: 4px;
 }

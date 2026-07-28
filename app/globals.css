@@ -665,11 +665,11 @@ h1 span {
    */
   contain: layout style;
   /*
-   * A largura passa do destino e volta. O elástico fica só aqui: aplicado
-   * também à altura do conteúdo, o texto balançaria junto e o efeito viraria
-   * o salto que acabou de ser corrigido.
+   * Largura e altura do conteúdo compartilham duração e curva, para o painel
+   * se transformar como uma peça só. Tempos diferentes entre as camadas são o
+   * que faz a abertura parecer descoordenada.
    */
-  transition: flex-grow 520ms var(--ease-spring);
+  transition: flex-grow var(--duration-panel) var(--ease-out);
 }
 
 /*
@@ -874,8 +874,8 @@ h1 span {
   display: grid;
   grid-template-rows: 0fr;
   opacity: 0;
-  transition: grid-template-rows 420ms var(--ease-out),
-    opacity var(--duration-fast) ease;
+  transition: grid-template-rows var(--duration-panel) var(--ease-out),
+    opacity 260ms ease;
 }
 
 .case-panel-body-inner {
@@ -886,7 +886,8 @@ h1 span {
 .case-panel.is-open .case-panel-body {
   grid-template-rows: 1fr;
   opacity: 1;
-  transition-delay: 0ms, 160ms;
+  /* O texto entra durante a abertura, não depois dela. */
+  transition-delay: 0ms, 140ms;
 }
 
 .case-panel.is-open .case-panel-body-inner {

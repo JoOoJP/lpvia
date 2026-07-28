@@ -50,7 +50,7 @@ O gradiente não é fundo decorativo recorrente. É assinatura.
 - **CTA secundário:** contorno ou link sublinhado.
 - **Cards:** borda fina, sem sombra.
 - **Cases:** podem usar fotografia e cores do cliente, mas esses valores ficam isolados no próprio case e nunca viram tokens da VIA.
-- **Densidade de case:** abertura curta, imagem panorâmica e conteúdo factual visível no próximo movimento de rolagem. Impacto não pode esconder informação.
+- **Densidade de case:** fotografia e texto ocupam faixas separadas, nunca a mesma. Texto sobre imagem obriga a apagar uma das duas; separados, ambos aparecem inteiros.
 - **Header:** preto translúcido, navegação curta, uma ação.
 
 ## Movimento
@@ -58,9 +58,11 @@ O gradiente não é fundo decorativo recorrente. É assinatura.
 - `180 ms`: hover, cor e sublinhado.
 - `300 ms`: entrada sutil.
 - `700 ms`: zoom de fotografia protagonista.
-- Curva elástica (`--ease-spring`): reservada a elementos que mudam de tamanho
-  por ação do visitante. Passa ~6% do destino e volta, para o elemento assentar
-  em vez de parar seco. Nunca em texto, que ficaria balançando.
+- `480 ms` (`--duration-panel`): painel que abre ou recolhe. Todas as camadas
+  do mesmo painel — largura, altura e opacidade — compartilham essa duração e a
+  mesma curva; tempos diferentes entre elas leem como descoordenação.
+- Elástico não se aplica a mudança de largura com texto dentro: ao ultrapassar
+  e voltar, as quebras de linha mudam e desmudam, e o efeito lê como defeito.
 - Sempre respeitar `prefers-reduced-motion`.
 
 ## Acessibilidade
