@@ -563,15 +563,7 @@ h1 span {
   font-size: 0.82rem;
 }
 
-/*
- * Os três cases somam mais de duas telas, então esta seção rola em vez de se
- * encaixar. Sem flex-start, o conteúdo excedente de um container centralizado
- * é cortado por cima, fora do alcance da rolagem.
- */
 .cases {
-  justify-content: flex-start;
-  padding-top: clamp(2.75rem, 4.5vw, 4.5rem);
-  padding-bottom: clamp(5rem, 8vw, 8rem);
   background: var(--color-surface-page);
 }
 
@@ -585,7 +577,7 @@ h1 span {
   max-width: 1120px;
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 4.35vw, 5rem);
+  font-size: clamp(2.2rem, min(4.35vw, 6vh), 5rem);
   font-weight: 500;
   line-height: 0.91;
   letter-spacing: -0.065em;
@@ -606,326 +598,238 @@ h1 span {
   font-weight: 600;
 }
 
-.case {
-  overflow: hidden;
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
-  background: var(--card-bg);
-}
 
 /*
- * Cores de cliente. Ficam presas ao case a que pertencem e nunca sobem para a
- * camada de tokens da VIA (MASTER.md, princípio 4).
+ * Baralho de cases: três painéis lado a lado, um aberto por vez. A largura é
+ * animada por flex-grow porque grid-template-columns só interpola em
+ * navegadores recentes, e flex-grow anima em todos.
  */
-.case-moikato {
-  --moikato-veil-top: rgb(3 35 16 / 52%);
-  --moikato-veil-bottom: rgb(2 29 13 / 84%);
-  --moikato-paper: #f2ead9;
-  --moikato-ink: #07510a;
+.case-deck {
+  display: flex;
+  gap: 2px;
+  height: clamp(360px, 52vh, 560px);
+  margin-top: var(--block-space);
+}
 
+.case-panel {
   position: relative;
-  margin-top: clamp(1.75rem, 2.5vw, 2.75rem);
-}
-
-.case-tardinha {
-  --tardinha-glow: rgb(217 164 65 / 22%);
-  --tardinha-night: #07223b;
-}
-
-.case-moikato::before {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  top: -1px;
-  right: -1px;
-  width: 34%;
-  height: 5px;
-  background: var(--gradient-brand);
-}
-
-.case-showcase {
-  position: relative;
-  min-height: var(--case-hero-height);
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
   overflow: hidden;
+  border: 1px solid var(--card-border);
+  background: var(--color-surface-inverse);
   color: var(--color-text-inverse);
+  transition: flex-grow var(--duration-slow) var(--ease-out);
 }
 
-.case-showcase > img {
+.case-panel.is-open {
+  flex-grow: 6;
+}
+
+/* Sem imagem própria, o painel carrega a assinatura da marca. */
+.case-camila {
+  background:
+    radial-gradient(
+      circle at 72% 18%,
+      color-mix(in srgb, var(--via-purple) 34%, transparent),
+      transparent 62%
+    ),
+    var(--color-surface-inverse);
+}
+
+.case-panel-image {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 45%;
-  transition: transform var(--duration-slow) var(--ease-out);
+  opacity: 0.62;
+  transition: opacity var(--duration-slow) var(--ease-out);
 }
 
-.case-showcase::after {
+/* Aberto, a foto recua para o texto ganhar contraste. */
+.case-panel.is-open .case-panel-image {
+  opacity: 0.26;
+}
+
+.case-panel::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, var(--moikato-veil-top) 0%, transparent 42%),
-    linear-gradient(0deg, var(--moikato-veil-bottom) 0%, transparent 64%);
-}
-
-.case-moikato:hover .case-showcase > img {
-  transform: scale(1.025);
-}
-
-.case-showcase-top,
-.case-showcase-copy {
-  position: absolute;
   z-index: 1;
-  right: 0;
-  left: 0;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-surface-deep) 25%, transparent),
+    color-mix(in srgb, var(--color-surface-deep) 88%, transparent)
+  );
+  pointer-events: none;
 }
 
-.case-showcase-top {
-  top: 0;
+.case-panel-head {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  min-height: 0;
+}
+
+.case-panel.is-open .case-panel-head {
+  flex: 0 0 auto;
+}
+
+.case-panel-head button {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: clamp(1.4rem, 3vw, 2.5rem);
-  color: rgb(255 255 255 / 78%);
+  align-items: center;
+  gap: 1.1rem;
+  width: 100%;
+  height: 100%;
+  padding: clamp(1.25rem, 1.8vw, 1.9rem);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  /* Fechado, o rótulo corre no eixo do painel estreito. */
+  writing-mode: vertical-rl;
+}
+
+.case-panel.is-open .case-panel-head button {
+  align-items: baseline;
+  height: auto;
+  padding-bottom: 0;
+  writing-mode: horizontal-tb;
+}
+
+.case-panel-index {
+  color: var(--color-accent);
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.case-panel-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 1.9vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.case-panel-tags {
+  color: var(--color-text-inverse-muted);
   font-size: 0.64rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.case-showcase-top span:first-child {
-  color: var(--color-accent);
+.case-panel:not(.is-open) .case-panel-tags {
+  margin-top: auto;
 }
 
-.case-showcase-copy {
-  bottom: 0;
-  padding: clamp(2rem, 3.5vw, 3.5rem);
+.case-panel-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: 0 0 0;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0 clamp(1.25rem, 1.8vw, 1.9rem) clamp(1.25rem, 1.8vw, 1.9rem);
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity var(--duration-normal) ease;
 }
 
-.case-showcase-copy p {
-  margin: 0 0 1rem;
-  color: var(--color-accent);
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.2em;
+.case-panel.is-open .case-panel-body {
+  flex: 1 1 auto;
+  opacity: 1;
+  overflow-y: auto;
+  /* Espera a largura abrir antes de revelar o conteúdo. */
+  transition-delay: 220ms;
 }
 
-.case-showcase-copy h3 {
-  max-width: var(--layout-max);
-  margin: 0;
+.case-panel-thesis {
+  margin: 0.9rem 0 var(--block-space);
   font-family: var(--font-display);
-  font-size: clamp(3rem, 5.7vw, 6.4rem);
+  font-size: clamp(1.5rem, 2.4vw, 2.6rem);
   font-weight: 500;
-  line-height: 0.94;
-  letter-spacing: -0.065em;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
 }
 
-.case-showcase-copy h3 span {
-  color: rgb(255 255 255 / 58%);
+.case-panel-thesis span {
+  display: block;
+  color: var(--color-text-display-muted);
 }
 
 .case-facts {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem;
 }
 
-.case-tag {
-  color: var(--color-accent-on-light);
+.case-fact > span {
+  color: var(--color-accent);
   font-size: 0.66rem;
   font-weight: 750;
-  letter-spacing: 0.13em;
-}
-
-.case-small-content h3 {
-  margin: 1rem 0;
-  font-family: var(--font-display);
-  font-size: clamp(2.7rem, 4vw, 4.8rem);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: var(--tracking-display);
-}
-
-.case-fact {
-  position: relative;
-  min-height: var(--case-panel-height);
-  padding: clamp(2rem, 3vw, 3.2rem);
-  border-right: 1px solid var(--color-border);
-}
-
-.case-fact:last-child {
-  border-right: 0;
-}
-
-.case-fact > span,
-.case-outcome span {
-  color: var(--color-accent-on-light);
-  font-size: 0.7rem;
-  font-weight: 750;
   letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
 .case-fact p {
-  max-width: 460px;
-  margin: clamp(2.75rem, 4vw, 4rem) 0 0;
-  font-family: var(--case-copy-font);
-  font-size: var(--case-copy-size);
-  font-weight: 500;
-  line-height: var(--case-copy-leading);
-  letter-spacing: -0.055em;
-  text-wrap: balance;
-}
-
-.case-fact-via {
-  overflow: hidden;
-  background: var(--color-surface-inverse);
-  color: var(--color-text-inverse);
-}
-
-.case-fact-via::after {
-  content: "";
-  position: absolute;
-  right: -20%;
-  bottom: -45%;
-  width: 70%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--gradient-brand);
-  opacity: 0.24;
-  filter: blur(48px);
-}
-
-.case-fact-via > span,
-.case-fact-via p {
-  position: relative;
-  z-index: 1;
-}
-
-.case-fact-via > span {
-  color: var(--color-accent);
-}
-
-.case-outcome {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 2rem;
-  padding: clamp(2rem, 3.5vw, 3.6rem);
-  border-top: 1px solid var(--color-border);
-  background: var(--moikato-paper);
-}
-
-.case-outcome div {
-  display: flex;
-  align-items: baseline;
-  gap: clamp(1.5rem, 5vw, 5rem);
-}
-
-.case-outcome strong {
-  color: var(--moikato-ink);
-  font-family: var(--font-editorial-accent);
-  font-size: clamp(2.2rem, 4.5vw, 5rem);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.055em;
-}
-
-.case-outcome a {
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--color-text-primary);
-  font-size: 0.76rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.case-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.case-small-image,
-.camila-art {
-  display: grid;
-  place-items: center;
-  min-height: 390px;
-}
-
-.case-small-image {
-  background:
-    radial-gradient(circle, var(--tardinha-glow), transparent 55%),
-    var(--tardinha-night);
-}
-
-.case-small-image img {
-  width: min(75%, 500px);
-  height: auto;
-}
-
-.case-small-content {
-  min-height: 300px;
-  padding: 2.4rem;
-}
-
-.case-small-content h3 {
-  font-size: clamp(2.2rem, 3.2vw, 3.8rem);
-}
-
-.case-small-content > p:last-child {
-  max-width: 600px;
-  color: var(--color-text-secondary);
+  max-width: 46ch;
+  margin-top: 0.35rem;
+  color: var(--color-text-inverse-muted);
+  font-size: 0.9rem;
   line-height: var(--leading-body);
 }
 
-.camila-art {
-  position: relative;
-  justify-items: start;
-  align-content: end;
-  padding: 3rem;
-  overflow: hidden;
-  background: var(--color-surface-muted);
+.case-outcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  margin-top: auto;
+  padding-top: var(--block-space);
 }
 
-.camila-art::after {
-  content: "";
-  position: absolute;
-  top: -40%;
-  right: -15%;
-  width: 65%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--gradient-brand);
-  filter: blur(70px);
-  opacity: 0.22;
-}
-
-.camila-art span {
-  margin-bottom: auto;
-  color: var(--color-accent-strong);
+.case-outcome span {
+  display: block;
+  color: var(--color-accent);
   font-size: 0.66rem;
   font-weight: 750;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
-.camila-art strong {
-  position: relative;
-  z-index: 2;
+/* O conceito pertence ao cliente: é o único lugar da seção com a serifada. */
+.case-outcome strong {
+  display: block;
+  margin-top: 0.45rem;
   font-family: var(--font-editorial-accent);
-  font-size: clamp(2.7rem, 5vw, 5.7rem);
-  font-weight: 500;
-  line-height: 0.9;
-  letter-spacing: -0.075em;
+  font-size: clamp(1.35rem, 2vw, 2.1rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
 }
 
-.camila-art i {
-  width: 42%;
-  height: 6px;
-  margin-top: 1.8rem;
-  background: var(--gradient-brand);
+.case-outcome a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 0.6rem;
+  border-bottom: 1px solid var(--color-border-inverse-strong);
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: border-color var(--duration-fast) ease;
+}
+
+.case-outcome a:hover {
+  border-bottom-color: var(--color-accent);
 }
 
 .products {
@@ -1151,32 +1055,49 @@ footer small {
 
 @media (max-width: 1050px) {
   .cases-intro h2 {
-    font-size: clamp(2.8rem, 6vw, 4.2rem);
+    font-size: clamp(2.4rem, min(6vw, 6.5vh), 4.2rem);
   }
 
   .pillar-grid,
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .case-moikato {
-    grid-template-columns: 1fr;
-  }
 }
 
-@media (max-width: 1000px) {
-  .case-facts {
-    grid-template-columns: 1fr 1fr;
+/*
+ * Estreito demais para três colunas: o baralho vira pilha e a expansão passa
+ * a ser em altura. O rótulo volta a correr na horizontal.
+ */
+@media (max-width: 900px) {
+  .case-deck {
+    flex-direction: column;
+    height: auto;
   }
 
-  .case-fact-via {
-    grid-column: 1 / -1;
+  .case-panel {
+    flex: 0 0 auto;
+    min-height: 88px;
+    transition: min-height var(--duration-slow) var(--ease-out);
   }
 
-  .case-fact-via p {
-    max-width: 760px;
-    font-size: clamp(2.15rem, 4vw, 3.6rem);
-    line-height: 1;
+  .case-panel.is-open {
+    min-height: clamp(440px, 66vh, 620px);
+  }
+
+  .case-panel-head button,
+  .case-panel.is-open .case-panel-head button {
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    writing-mode: horizontal-tb;
+  }
+
+  .case-panel.is-open .case-panel-head button {
+    height: auto;
+  }
+
+  .case-panel:not(.is-open) .case-panel-tags {
+    margin-top: 0;
   }
 }
 
@@ -1240,11 +1161,13 @@ footer small {
   }
 
   /*
-   * Quatro cards empilhados não cabem numa tela de celular sem ficarem
-   * ilegíveis. Estas duas seções rolam; as demais continuam encaixando.
+   * Numa tela de celular estas três só caberiam espremidas: quatro cards
+   * empilhados nas duas primeiras, e o case aberto sob os dois recolhidos na
+   * terceira. Elas rolam; as demais continuam ocupando uma tela.
    */
   .system-section,
-  .products {
+  .products,
+  .cases {
     justify-content: flex-start;
     min-height: auto;
   }
@@ -1270,7 +1193,6 @@ footer small {
   .diagnosis-copy,
   .system-heading > p,
   .pillar p,
-  .case-small-content > p:last-child,
   .products-heading > p,
   .product > p,
   .final-copy > p:not(.eyebrow) {
@@ -1278,8 +1200,7 @@ footer small {
   }
 
   .pillar-grid,
-  .product-grid,
-  .case-pair {
+  .product-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1330,82 +1251,20 @@ footer small {
     justify-self: start;
   }
 
-  .cases {
-    padding-top: 3rem;
-    padding-bottom: 5rem;
-  }
-
   .cases-intro {
     padding-top: 1.2rem;
   }
 
   .cases-intro h2 {
-    font-size: clamp(2.45rem, 11.5vw, 3.5rem);
+    font-size: clamp(2.1rem, min(11.5vw, 6vh), 3.5rem);
     line-height: 0.93;
     letter-spacing: -0.06em;
   }
 
-  .case-showcase {
-    min-height: 420px;
-  }
-
-  .case-showcase-top {
-    flex-direction: column;
-    padding: 1.4rem;
-  }
-
-  .case-showcase-copy {
-    padding: 1.4rem;
-  }
-
-  .case-showcase-copy h3 {
-    font-size: clamp(2.8rem, 12vw, 4.2rem);
-  }
-
-  .case-showcase-copy h3 span {
-    display: block;
-  }
-
-  .case-facts {
-    grid-template-columns: 1fr;
-  }
-
-  .case-fact,
-  .case-fact:last-child {
-    min-height: 235px;
-    padding: 1.8rem 1.4rem;
-    border-right: 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .case-fact-via {
-    grid-column: auto;
-  }
-
-  .case-fact p {
-    margin-top: 2.75rem;
-    font-size: 1.8rem;
-  }
-
-  .case-fact-via p {
-    font-size: clamp(2.15rem, 9.5vw, 3.2rem);
-    line-height: 1;
-  }
-
   .case-outcome {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 2.2rem 1.4rem;
-  }
-
-  .case-outcome div {
     align-items: flex-start;
     flex-direction: column;
-    gap: 1.3rem;
-  }
-
-  .case-outcome a {
-    justify-self: start;
+    gap: 1.2rem;
   }
 
   .case-moikato {

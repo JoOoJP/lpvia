@@ -54,6 +54,23 @@ test("publica metadados sociais e navegação essenciais", async () => {
   assert.match(html, /wa\.me\/5541991014546/);
 });
 
+test("abre o primeiro case e mantém os outros dois recolhidos", async () => {
+  const response = await fetch(pageUrl);
+  const html = await response.text();
+
+  assert.match(html, /aria-expanded="true" aria-controls="case-corpo-moikato"/);
+
+  // Recolhido, o conteúdo continua no HTML — inert é o que o tira do foco e
+  // da árvore de acessibilidade sem impedir a transição de abertura.
+  assert.match(html, /id="case-corpo-tardinha"[^>]*inert/);
+  assert.match(html, /id="case-corpo-camila"[^>]*inert/);
+
+  // Os três precisam ter conceito próprio, senão o painel aberto fica vazio.
+  assert.match(html, /A natureza feita joia\./);
+  assert.match(html, /Do interesse ao ingresso\./);
+  assert.match(html, /O crescimento não espera\./);
+});
+
 test("declara as fontes no mesmo escopo dos tokens", async () => {
   const response = await fetch(pageUrl);
   const html = await response.text();

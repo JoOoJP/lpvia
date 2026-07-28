@@ -1,22 +1,99 @@
+"use client";
+
+import { useState } from "react";
 import { Arrow } from "../ui/arrow";
 
-const moikatoFacts = [
+/*
+ * Moikato veio da versão anterior da página. Tardinha e Camila foram
+ * derivados do pouco que existia (uma tag e um parágrafo) para que os três
+ * cases tenham o mesmo peso quando abertos — são RASCUNHO e precisam da
+ * revisão de quem conhece os projetos antes de publicar.
+ */
+const cases = [
   {
-    label: "01 / QUEM É",
-    text: "Marca brasileira de joias em capim dourado, criada entre natureza, artesanato e design.",
+    id: "moikato",
+    index: "01",
+    name: "Moikato",
+    tags: "Marca · Internacionalização · Tecnologia",
+    thesis: ["Origem brasileira.", "Presença internacional."],
+    image: {
+      src: "/moikato.jpg",
+      alt: "Campo de capim dourado que representa a origem da Moikato",
+      width: 1920,
+      height: 1275,
+    },
+    facts: [
+      {
+        label: "Quem é",
+        text: "Marca brasileira de joias em capim dourado, criada entre natureza, artesanato e design.",
+      },
+      {
+        label: "O desafio",
+        text: "Apresentar essa origem ao mercado europeu sem reduzir a marca ao artesanato.",
+      },
+      {
+        label: "O que a VIA fez",
+        text: "Posicionamento, narrativa, conteúdo e site bilíngue.",
+      },
+    ],
+    outcome: { label: "Conceito criado", text: "A natureza feita joia." },
+    link: "https://moikato.com",
   },
   {
-    label: "02 / O DESAFIO",
-    text: "Apresentar essa origem ao mercado europeu sem reduzir a marca ao artesanato.",
+    id: "tardinha",
+    index: "02",
+    name: "A Tardinha",
+    tags: "Experiência · Site · Conversão",
+    thesis: ["Do primeiro clique", "ao ingresso vendido."],
+    image: {
+      src: "/tardinha.webp",
+      alt: "Marca A Tardinha da Rio Solimões",
+      width: 614,
+      height: 614,
+    },
+    facts: [
+      {
+        label: "Quem é",
+        text: "Evento da Rio Solimões, que reúne público, patrocinadores e venda de ingressos na mesma temporada.",
+      },
+      {
+        label: "O desafio",
+        text: "Conduzir três públicos diferentes — quem compra, quem patrocina e quem acabou de descobrir — por uma jornada só.",
+      },
+      {
+        label: "O que a VIA fez",
+        text: "Experiência, site e conversão direta pelo WhatsApp.",
+      },
+    ],
+    outcome: { label: "Jornada criada", text: "Do interesse ao ingresso." },
   },
   {
-    label: "03 / O QUE A VIA FEZ",
-    text: "Posicionamento, narrativa, conteúdo e site bilíngue.",
-    viaLed: true,
+    id: "camila",
+    index: "03",
+    name: "Dra. Camila Bresciani",
+    tags: "Tese · Conteúdo · Funil",
+    thesis: ["Conteúdo que conduz.", "Não que preenche."],
+    facts: [
+      {
+        label: "Quem é",
+        text: "Autoridade construída por presença digital, com uma tese própria sobre o próprio mercado.",
+      },
+      {
+        label: "O desafio",
+        text: "Sair do calendário de publicações e passar a conduzir consciência até a decisão.",
+      },
+      {
+        label: "O que a VIA fez",
+        text: "Mote, headlines, roteiros e criativos organizados em funil.",
+      },
+    ],
+    outcome: { label: "Conceito criado", text: "O crescimento não espera." },
   },
 ];
 
 export function Cases() {
+  const [openId, setOpenId] = useState(cases[0].id);
+
   return (
     <section className="cases section" id="cases">
       <div className="section-intro cases-intro">
@@ -26,95 +103,77 @@ export function Cases() {
         </h2>
       </div>
 
-      <article className="case case-moikato">
-        <div className="case-showcase">
-          {/* eslint-disable-next-line @next/next/no-img-element -- imagem editorial usa crop CSS responsivo */}
-          <img
-            src="/moikato.jpg"
-            alt="Campo de capim dourado que representa a origem da Moikato"
-            width="1920"
-            height="1275"
-            loading="lazy"
-            decoding="async"
-          />
-          <div className="case-showcase-top">
-            <span>CASE 01</span>
-            <span>MARCA · INTERNACIONALIZAÇÃO · TECNOLOGIA</span>
-          </div>
-          <div className="case-showcase-copy">
-            <p>MOIKATO</p>
-            <h3>
-              Origem brasileira.
-              <span> Presença internacional.</span>
-            </h3>
-          </div>
-        </div>
+      <div className="case-deck">
+        {cases.map((item) => {
+          const isOpen = item.id === openId;
 
-        <div className="case-facts">
-          {moikatoFacts.map((fact) => (
-            <section
-              className={fact.viaLed ? "case-fact case-fact-via" : "case-fact"}
-              key={fact.label}
+          return (
+            <article
+              className={`case-panel case-${item.id}${isOpen ? " is-open" : ""}`}
+              key={item.id}
             >
-              <span>{fact.label}</span>
-              <p>{fact.text}</p>
-            </section>
-          ))}
-        </div>
+              {item.image ? (
+                /* eslint-disable-next-line @next/next/no-img-element -- imagem editorial usa crop CSS responsivo */
+                <img
+                  className="case-panel-image"
+                  src={item.image.src}
+                  alt={item.image.alt}
+                  width={item.image.width}
+                  height={item.image.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : null}
 
-        <footer className="case-outcome">
-          <div>
-            <span>CONCEITO CRIADO</span>
-            <strong>A natureza feita joia.</strong>
-          </div>
-          <a href="https://moikato.com" target="_blank" rel="noreferrer">
-            Ver projeto <Arrow />
-          </a>
-        </footer>
-      </article>
+              <h3 className="case-panel-head">
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-controls={`case-corpo-${item.id}`}
+                  onClick={() => setOpenId(item.id)}
+                >
+                  <span className="case-panel-index">Case {item.index}</span>
+                  <span className="case-panel-name">{item.name}</span>
+                  <span className="case-panel-tags">{item.tags}</span>
+                </button>
+              </h3>
 
-      <div className="case-pair">
-        <article className="case case-small case-tardinha">
-          <div className="case-small-image">
-            {/* eslint-disable-next-line @next/next/no-img-element -- imagem editorial usa crop CSS responsivo */}
-            <img
-              src="/tardinha.webp"
-              alt="Marca A Tardinha da Rio Solimões"
-              width="614"
-              height="614"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div className="case-small-content">
-            <p className="case-tag">EXPERIÊNCIA · SITE · CONVERSÃO</p>
-            <h3>A Tardinha</h3>
-            <p>
-              Evento, ingressos e patrocinadores organizados numa jornada
-              digital com conversão direta pelo WhatsApp.
-            </p>
-          </div>
-        </article>
+              <div
+                className="case-panel-body"
+                id={`case-corpo-${item.id}`}
+                inert={!isOpen}
+              >
+                <p className="case-panel-thesis">
+                  <span>{item.thesis[0]}</span>
+                  {item.thesis[1]}
+                </p>
 
-        <article className="case case-small case-camila">
-          <div className="camila-art">
-            <span>POSICIONAMENTO</span>
-            <strong>
-              O crescimento
-              <br />
-              não espera.
-            </strong>
-            <i aria-hidden="true" />
-          </div>
-          <div className="case-small-content">
-            <p className="case-tag">TESE · CONTEÚDO · FUNIL</p>
-            <h3>Dra. Camila Bresciani</h3>
-            <p>
-              Mote, headlines, roteiros e criativos passam a conduzir
-              consciência — não apenas preencher calendário.
-            </p>
-          </div>
-        </article>
+                <div className="case-facts">
+                  {item.facts.map((fact, index) => (
+                    <section className="case-fact" key={fact.label}>
+                      <span>
+                        0{index + 1} / {fact.label}
+                      </span>
+                      <p>{fact.text}</p>
+                    </section>
+                  ))}
+                </div>
+
+                <footer className="case-outcome">
+                  <div>
+                    <span>{item.outcome.label}</span>
+                    <strong>{item.outcome.text}</strong>
+                  </div>
+                  {item.link ? (
+                    <a href={item.link} target="_blank" rel="noreferrer">
+                      Ver projeto <Arrow />
+                    </a>
+                  ) : null}
+                </footer>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
