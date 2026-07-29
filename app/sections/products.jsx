@@ -46,7 +46,9 @@ export function Products() {
       <div className="product-grid">
         {products.map((product) => (
           <article
-            className={product.featured ? "product featured" : "product"}
+            className={`product product-${product.index}${
+              product.featured ? " featured" : ""
+            }`}
             key={product.name}
           >
             <div className="product-top">

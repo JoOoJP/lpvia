@@ -6,6 +6,8 @@
 :root {
   /* 1. Primitivos — marca */
   --via-purple: #5b12d1;
+  /* Tom intermediário do logo, entre o roxo e o ciano. */
+  --via-blue: #2e6be8;
   --via-cyan: #00b8d4;
   --via-green: #39d67a;
   --via-green-readable: #27734a;
