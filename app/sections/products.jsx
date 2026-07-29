@@ -52,9 +52,9 @@ export function Products() {
             key={product.name}
           >
             <div className="product-top">
-              <span>{product.index}</span>
               <b>{product.label}</b>
             </div>
+            <span className="product-index">{product.index}</span>
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             {product.featured ? <em>Produto principal</em> : null}
