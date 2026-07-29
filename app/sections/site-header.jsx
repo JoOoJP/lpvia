@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { whatsappUrl } from "../contact";
 import { Arrow } from "../ui/arrow";
+import { ViaMark } from "../ui/via-mark";
 
 const navItems = [
   { id: "como-funciona", label: "Como funciona" },
@@ -79,8 +80,8 @@ export function SiteHeader() {
 
   return (
     <header className={headerClass}>
-      <a className="logo" href="#inicio" aria-label="VIA, início">
-        VIA
+      <a className="logo" href="#inicio">
+        <ViaMark title="VIA, início" />
       </a>
 
       <nav className="site-nav" aria-label="Navegação principal">
