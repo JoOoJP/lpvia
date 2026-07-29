@@ -135,17 +135,25 @@ a {
   font-size: 0.79rem;
 }
 
-.site-nav a {
+/*
+ * Os itens do menu e a ação do header são o mesmo componente: mesmo corpo,
+ * mesma cor e o mesmo fio em gradiente crescendo da esquerda. No menu o fio
+ * também fica aceso na seção corrente; na ação ele só responde ao ponteiro.
+ */
+.site-nav a,
+.header-cta {
   position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   padding: 0.75rem 0;
   color: var(--color-text-inverse-muted);
+  font-size: 0.79rem;
   transition: color var(--duration-fast) ease;
 }
 
-.site-nav a::after {
+.site-nav a::after,
+.header-cta::after {
   content: "";
   position: absolute;
   right: 0;
@@ -159,12 +167,14 @@ a {
 }
 
 .site-nav a:hover,
-.site-nav a[aria-current] {
+.site-nav a[aria-current],
+.header-cta:hover {
   color: var(--color-text-inverse);
 }
 
 .site-nav a:hover::after,
-.site-nav a[aria-current]::after {
+.site-nav a[aria-current]::after,
+.header-cta:hover::after {
   transform: scaleX(1);
 }
 
@@ -176,27 +186,13 @@ a {
 }
 
 /*
- * Mesmo corpo, mesma cor e mesmo hover dos itens do menu. O que distingue é a
- * posição — separado à direita — e a seta, que avisa que o link sai do site.
- *
- * Sete referências de marcas de luxo e estúdios de design tratam contato assim,
- * sem exceção: Pentagram, Hermès, AREA 17, Studio Dumbar, Instrument, Collins e
- * Brunello Cucinelli. Nenhuma usa cor, peso extra ou caixa no header. A única
- * com ação comercial ali, a Brunello, separa apenas pela posição.
- *
- * Duas classes porque .secondary-link aparece depois na folha e venceria.
+ * Sete referências de luxo e de estúdios de design — Pentagram, Hermès,
+ * AREA 17, Studio Dumbar, Instrument, Collins e Brunello Cucinelli — tratam
+ * contato como item de menu, sem cor, peso ou caixa. Aqui o que distingue é a
+ * posição, separada à direita, e a seta de link externo.
  */
-.secondary-link.header-cta {
+.header-cta {
   gap: 0.5rem;
-  border-bottom: 0;
-  color: var(--color-text-inverse-muted);
-  font-size: 0.79rem;
-  font-weight: inherit;
-  transition: color var(--duration-fast) ease;
-}
-
-.header-cta:hover {
-  color: var(--color-text-inverse);
 }
 
 /* A seta avança um passo na sua própria diagonal. */
@@ -472,23 +468,6 @@ h1 strong {
   background: var(--button-primary-bg);
   color: var(--button-primary-fg);
   box-shadow: 0 14px 35px color-mix(in srgb, var(--via-purple) 17%, transparent);
-}
-
-.secondary-link {
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  color: var(--color-text-inverse-muted);
-  font-size: 0.84rem;
-  border-bottom: 1px solid var(--color-border-inverse-strong);
-  transition: color var(--duration-fast) ease,
-    border-color var(--duration-fast) ease;
-}
-
-.secondary-link:hover {
-  border-bottom-color: var(--color-accent);
-  color: var(--color-text-inverse);
 }
 
 

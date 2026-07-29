@@ -98,7 +98,7 @@ export function SiteHeader() {
 
       <div className="header-actions">
         <a
-          className="secondary-link header-cta"
+          className="header-cta"
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
