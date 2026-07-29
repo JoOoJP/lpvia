@@ -522,33 +522,69 @@ h1 strong {
   line-height: var(--leading-body);
 }
 
+/*
+ * A virada é a tese da seção e vinha em corpo de texto comum, com o mesmo
+ * peso do parágrafo acima. Ganha corpo, respiro e um traço curto: o verde
+ * legível em fundo claro, não o gradiente, que já assina a lista ao lado.
+ */
 .diagnosis-copy strong {
+  position: relative;
   display: block;
-  margin-top: 2rem;
+  margin-top: clamp(1.5rem, 3vh, 2.4rem);
+  padding-top: clamp(1.1rem, 2vh, 1.6rem);
   color: var(--color-text-primary);
-  font-size: 1.08rem;
+  font-size: clamp(1.08rem, 1.3vw, 1.32rem);
+  font-weight: 600;
+  line-height: 1.45;
 }
 
+.diagnosis-copy strong::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 52px;
+  height: 2px;
+  background: var(--color-accent-on-light);
+}
+
+/* Mesmo fio que abre os pilares e fecha o hero. */
 .diagnosis-grid ul {
-  border-top: 1px solid var(--color-border-strong);
+  position: relative;
+  padding-top: clamp(1.1rem, 2.2vh, 1.8rem);
+}
+
+.diagnosis-grid ul::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: var(--gradient-brand);
 }
 
 .diagnosis-grid li {
   display: grid;
-  grid-template-columns: 60px 1fr;
-  gap: 1rem;
-  align-items: center;
-  min-height: clamp(58px, 8.5vh, 92px);
-  border-bottom: 1px solid var(--color-border-strong);
-  font-size: clamp(1rem, 1.5vw, 1.35rem);
-  font-weight: 600;
+  grid-template-columns: 2.1rem 1fr;
+  gap: 0.6rem;
+  align-items: baseline;
+  padding: clamp(0.85rem, 1.7vh, 1.35rem) 0;
+  font-size: clamp(1rem, 1.35vw, 1.22rem);
+  font-weight: 550;
   letter-spacing: -0.03em;
+}
+
+/* Linha só entre os itens: sem fechar no topo nem na base, deixa de ser tabela. */
+.diagnosis-grid li + li {
+  border-top: 1px solid var(--color-border);
 }
 
 .diagnosis-grid li span {
   color: var(--color-text-secondary);
-  font-size: 0.68rem;
-  letter-spacing: 0;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
 }
 
 .method-section {
