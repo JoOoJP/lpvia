@@ -103,7 +103,7 @@ export function SiteHeader() {
           target="_blank"
           rel="noreferrer"
         >
-          Fale conosco <Arrow />
+          <span>Fale conosco</span> <Arrow />
         </a>
 
         <button

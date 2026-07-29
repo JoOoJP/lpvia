@@ -179,17 +179,44 @@ a {
  * Sem ação no hero, este é o único caminho de conversão acima da dobra. O
  * sublinhado assume o gradiente da marca para carregar esse peso sem virar
  * botão.
+ *
+ * Duas classes porque .secondary-link aparece depois na folha: com uma só, a
+ * borda cinza dela vencia e cobria o gradiente.
  */
-.header-cta {
-  gap: 0.55rem;
-  border-bottom-color: transparent;
-  background-image: var(--gradient-brand);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 100% 1px;
+.secondary-link.header-cta {
+  gap: 0.5rem;
+  border-bottom: 0;
   color: var(--color-text-inverse);
   font-size: 0.76rem;
   font-weight: 650;
+  letter-spacing: -0.005em;
+}
+
+/*
+ * O fio acompanha o texto em vez da base da área de toque de 44px, e para
+ * antes da seta — sublinhar o espaço vazio a fazia parecer solta.
+ */
+.header-cta > span:first-child {
+  padding-bottom: 4px;
+  background-image: var(--gradient-brand);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1.5px;
+  transition: background-size var(--duration-fast) var(--ease-out);
+}
+
+.header-cta:hover > span:first-child {
+  background-size: 100% 2.5px;
+}
+
+/* A seta avança um passo na sua própria diagonal. */
+.arrow {
+  display: inline-block;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+a:hover > .arrow {
+  transform: translate(1.5px, -1.5px);
 }
 
 /* As duas barras viram X quando o painel abre. */

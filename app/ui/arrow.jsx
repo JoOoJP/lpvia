@@ -1,3 +1,7 @@
 export function Arrow() {
-  return <span aria-hidden="true">↗</span>;
+  return (
+    <span className="arrow" aria-hidden="true">
+      ↗
+    </span>
+  );
 }
