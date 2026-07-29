@@ -1,15 +1,19 @@
+/*
+ * Os quatro sintomas variam de construção de propósito. Escritos no mesmo
+ * molde — "X, mas não Y" — a lista lê como preenchimento de formulário.
+ */
 const symptoms = [
-  "Marketing produz, mas não gera demanda.",
-  "Leads chegam, mas vendas não acompanham.",
-  "A marca parece menor que o negócio.",
-  "A operação depende demais de esforço manual.",
+  "O marketing produz. A demanda não vem.",
+  "Os leads chegam e morrem no funil.",
+  "A marca parece menor do que a empresa é.",
+  "Boa parte da operação ainda roda no braço.",
 ];
 
 export function Diagnosis() {
   return (
     <section className="diagnosis section">
       <div className="section-intro">
-        <p className="eyebrow">ANTES DA FERRAMENTA, O PROBLEMA</p>
+        <p className="eyebrow">O PROBLEMA VEM ANTES DA FERRAMENTA</p>
         <h2>
           Nem todo negócio que precisa crescer
           <span> precisa de mais tráfego.</span>
@@ -18,13 +22,12 @@ export function Diagnosis() {
       <div className="diagnosis-grid">
         <div className="diagnosis-copy">
           <p>
-            Crescimento raramente trava em uma área isolada. A empresa pede
-            anúncio, mas talvez perca oportunidades no atendimento. Pede
-            conteúdo, mas ainda não tem oferta clara.
+            O gargalo quase nunca está onde a empresa acha que está. Pedem
+            anúncio quando o atendimento não responde. Pedem conteúdo quando
+            falta ter o que dizer.
           </p>
           <strong>
-            A VIA começa descobrindo o que precisa mudar — não vendendo o que já
-            estava na prateleira.
+            A gente descobre o que precisa mudar antes de propor qualquer coisa.
           </strong>
         </div>
         <ul>
