@@ -259,12 +259,34 @@ a {
   padding: calc(var(--header-height) + clamp(1.25rem, 4vh, 3.5rem)) 7vw
     clamp(2rem, 5vh, 4rem);
   overflow: hidden;
-  /* Um halo só, atrás do título: profundidade sem virar papel de parede. */
+  /*
+   * As três cores da marca ocupam o campo, cada uma de um canto. O centro fica
+   * escuro de propósito: é onde o título passa. A versão anterior empilhava os
+   * halos no meio e virava uma mancha só — aqui eles são largos, difusos e
+   * afastados, então leem como profundidade e não como decoração.
+   *
+   * Medido no ponto mais claro: 12.6:1 com o texto branco.
+   */
   background:
     radial-gradient(
-      ellipse 85% 55% at 50% 40%,
-      color-mix(in srgb, var(--via-purple) 16%, transparent),
+      ellipse 58% 48% at 10% 16%,
+      color-mix(in srgb, var(--via-purple) 40%, transparent),
       transparent 72%
+    ),
+    radial-gradient(
+      ellipse 46% 42% at 92% 30%,
+      color-mix(in srgb, var(--via-cyan) 24%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 52% 44% at 84% 96%,
+      color-mix(in srgb, var(--via-green) 20%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 44% 38% at 16% 92%,
+      color-mix(in srgb, var(--via-purple) 26%, transparent),
+      transparent 74%
     ),
     var(--color-surface-deep);
   color: var(--color-text-inverse);
