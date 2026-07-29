@@ -176,38 +176,27 @@ a {
 }
 
 /*
- * Sem ação no hero, este é o único caminho de conversão acima da dobra. O
- * sublinhado assume o gradiente da marca para carregar esse peso sem virar
- * botão.
+ * Mesmo corpo, mesma cor e mesmo hover dos itens do menu. O que distingue é a
+ * posição — separado à direita — e a seta, que avisa que o link sai do site.
  *
- * Duas classes porque .secondary-link aparece depois na folha: com uma só, a
- * borda cinza dela vencia e cobria o gradiente.
+ * Sete referências de marcas de luxo e estúdios de design tratam contato assim,
+ * sem exceção: Pentagram, Hermès, AREA 17, Studio Dumbar, Instrument, Collins e
+ * Brunello Cucinelli. Nenhuma usa cor, peso extra ou caixa no header. A única
+ * com ação comercial ali, a Brunello, separa apenas pela posição.
+ *
+ * Duas classes porque .secondary-link aparece depois na folha e venceria.
  */
 .secondary-link.header-cta {
   gap: 0.5rem;
   border-bottom: 0;
+  color: var(--color-text-inverse-muted);
+  font-size: 0.79rem;
+  font-weight: inherit;
+  transition: color var(--duration-fast) ease;
+}
+
+.header-cta:hover {
   color: var(--color-text-inverse);
-  font-size: 0.76rem;
-  font-weight: 650;
-  letter-spacing: -0.005em;
-}
-
-/*
- * O ponto carrega a assinatura da marca e sinaliza ação sem imitar link comum
- * — o sublinhado disputava com os itens do menu ao lado, que usam exatamente
- * esse gesto para marcar a seção corrente.
- */
-.cta-dot {
-  flex: 0 0 auto;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--gradient-brand);
-  transition: transform var(--duration-fast) var(--ease-out);
-}
-
-.header-cta:hover .cta-dot {
-  transform: scale(1.45);
 }
 
 /* A seta avança um passo na sua própria diagonal. */

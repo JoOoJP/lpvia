@@ -103,7 +103,6 @@ export function SiteHeader() {
           target="_blank"
           rel="noreferrer"
         >
-          <i className="cta-dot" aria-hidden="true" />
           Fale conosco <Arrow />
         </a>
 

@@ -58,6 +58,7 @@ falam com a mesma voz.
 
 - **CTA principal:** gradiente VIA, mínimo 54 px.
 - **CTA secundário:** contorno ou link sublinhado.
+- **Ação no header:** texto igual ao dos itens de menu — mesmo corpo, mesma cor, mesmo hover. Distingue-se pela posição e pela seta de link externo, nunca por cor, peso ou caixa. É como marcas de luxo e estúdios de design tratam contato; destacar ali entrega o oposto de discrição.
 - **Cards:** borda fina, sem sombra.
 - **Cases:** podem usar fotografia e cores do cliente, mas esses valores ficam isolados no próprio case e nunca viram tokens da VIA.
 - **Densidade de case:** fotografia e texto ocupam faixas separadas, nunca a mesma. Texto sobre imagem obriga a apagar uma das duas; separados, ambos aparecem inteiros.
