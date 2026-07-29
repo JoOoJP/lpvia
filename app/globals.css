@@ -1283,9 +1283,20 @@ h1 strong {
   line-height: var(--leading-body);
 }
 
+/*
+ * Grafite tingido de roxo, não preto puro: cercado de bege, o preto chapado
+ * cria um salto de luminância que cansa. O halo repete o gesto dos outros
+ * cards, aqui na cor que abre o gradiente.
+ */
 .product.featured {
   border-color: transparent;
-  background: var(--color-surface-inverse);
+  background:
+    radial-gradient(
+      ellipse 130% 62% at 50% 0%,
+      color-mix(in srgb, var(--via-purple) 32%, transparent),
+      transparent 74%
+    ),
+    color-mix(in srgb, var(--via-purple) 7%, var(--color-surface-inverse-soft));
   color: var(--color-text-inverse);
 }
 
