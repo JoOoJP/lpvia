@@ -1152,34 +1152,44 @@ h1 strong {
 
 .product {
   position: relative;
+  display: flex;
+  flex-direction: column;
   min-height: clamp(200px, 29vh, 380px);
-  padding: 1.6rem;
-  border: 1px solid var(--color-border-strong);
+  padding: 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
   border-radius: var(--card-radius);
-  background: color-mix(in srgb, var(--color-surface-raised) 55%, transparent);
+  background: var(--color-surface-raised);
 }
 
 .product-top {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
   color: var(--color-text-secondary);
-  font-size: 0.66rem;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
 .product-top b {
-  color: var(--color-text-secondary);
-  font-weight: 650;
+  font-weight: 700;
 }
 
+/* Ancorado na base. O vão de 8rem era fixo e abria um buraco no card curto. */
 .product h3 {
-  margin: 8rem 0 1rem;
-  font-size: 1.55rem;
-  letter-spacing: -0.05em;
+  margin: auto 0 0.55rem;
+  padding-top: 2.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.55vw, 1.6rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
 }
 
 .product > p {
   color: var(--color-text-secondary);
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   line-height: var(--leading-body);
 }
 
@@ -1189,15 +1199,15 @@ h1 strong {
   color: var(--color-text-inverse);
 }
 
+/* O mesmo fio das outras seções, no lugar da borda inteira em gradiente. */
 .product.featured::before {
   content: "";
   position: absolute;
-  inset: 0;
-  border: 1px solid transparent;
-  background: var(--gradient-brand) border-box;
-  mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: var(--gradient-brand);
 }
 
 .product.featured .product-top,
@@ -1205,16 +1215,18 @@ h1 strong {
   color: var(--color-text-inverse-muted);
 }
 
+/*
+ * Rótulo no fluxo. Fora dele e em pílula, cobria o texto do card — e pílula
+ * é forma reservada a ação, que este selo não é.
+ */
 .product.featured em {
-  position: absolute;
-  bottom: 1.6rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--radius-pill);
-  background: var(--gradient-brand);
-  color: var(--button-primary-fg);
+  margin-top: 0.9rem;
+  color: var(--color-accent);
   font-size: 0.62rem;
   font-style: normal;
   font-weight: 750;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
 .measurement {
