@@ -324,9 +324,16 @@ h1 strong {
 /*
  * A tese recebe a assinatura da marca. O recorte fica atrás do @supports
  * porque, sem background-clip, color: transparent apagaria o título inteiro.
+ *
+ * O padrão pinta apenas dentro da caixa do elemento, e com entrelinha de 0.92
+ * ela termina acima do que desce das letras — a cedilha de "Direção" ficava
+ * sem pintura. O padding estende a área pintada e a margem negativa devolve o
+ * espaço, mantendo o ritmo entre as duas linhas.
  */
 @supports (background-clip: text) or (-webkit-background-clip: text) {
   h1 strong {
+    padding-bottom: 0.16em;
+    margin-bottom: -0.16em;
     background: var(--gradient-brand-text);
     -webkit-background-clip: text;
     background-clip: text;
