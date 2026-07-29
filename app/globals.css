@@ -193,20 +193,21 @@ a {
 }
 
 /*
- * O fio acompanha o texto em vez da base da área de toque de 44px, e para
- * antes da seta — sublinhar o espaço vazio a fazia parecer solta.
+ * O ponto carrega a assinatura da marca e sinaliza ação sem imitar link comum
+ * — o sublinhado disputava com os itens do menu ao lado, que usam exatamente
+ * esse gesto para marcar a seção corrente.
  */
-.header-cta > span:first-child {
-  padding-bottom: 4px;
-  background-image: var(--gradient-brand);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 100% 1.5px;
-  transition: background-size var(--duration-fast) var(--ease-out);
+.cta-dot {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  transition: transform var(--duration-fast) var(--ease-out);
 }
 
-.header-cta:hover > span:first-child {
-  background-size: 100% 2.5px;
+.header-cta:hover .cta-dot {
+  transform: scale(1.45);
 }
 
 /* A seta avança um passo na sua própria diagonal. */

@@ -103,7 +103,8 @@ export function SiteHeader() {
           target="_blank"
           rel="noreferrer"
         >
-          <span>Fale conosco</span> <Arrow />
+          <i className="cta-dot" aria-hidden="true" />
+          Fale conosco <Arrow />
         </a>
 
         <button
