@@ -102,7 +102,7 @@ export function SiteHeader() {
           target="_blank"
           rel="noreferrer"
         >
-          Diagnóstico <Arrow />
+          Fale conosco <Arrow />
         </a>
 
         <button
