@@ -1180,7 +1180,18 @@ h1 strong {
   border: 1px solid
     color-mix(in srgb, var(--product-accent, var(--color-border)) 34%, transparent);
   border-radius: var(--card-radius);
-  background: var(--color-surface-raised);
+  /*
+   * Halo da cor descendo do fio, difuso o bastante para não desenhar borda.
+   * É a mesma linguagem dos halos do hero, na escala do card.
+   */
+  background:
+    radial-gradient(
+      ellipse 130% 60% at 50% 0%,
+      color-mix(in srgb, var(--product-accent, transparent) 13%, transparent),
+      transparent 72%
+    ),
+    var(--color-surface-raised);
+  transition: border-color var(--duration-fast) ease;
 }
 
 .product::before {
@@ -1246,7 +1257,13 @@ h1 strong {
   text-transform: uppercase;
 }
 
+/* 55% da cor: em corpo miúdo o mínimo é 4.5:1, e o verde puro dá 1.9:1. */
 .product-top b {
+  color: color-mix(
+    in srgb,
+    var(--product-accent, var(--color-text-secondary)) 55%,
+    var(--color-text-primary)
+  );
   font-weight: 700;
 }
 
@@ -1283,6 +1300,10 @@ h1 strong {
 .product.featured .product-top,
 .product.featured > p {
   color: var(--color-text-inverse-muted);
+}
+
+.product.featured .product-top b {
+  color: var(--color-accent);
 }
 
 /*
