@@ -782,6 +782,7 @@ h1 strong {
   overflow: hidden;
   border: 1px solid
     color-mix(in srgb, var(--case-accent, var(--color-accent)) 24%, transparent);
+  border-radius: var(--card-radius);
   background: var(--case-surface, var(--color-surface-inverse));
   color: var(--color-text-inverse);
   /*

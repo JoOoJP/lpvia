@@ -37,7 +37,6 @@
   --space-24: 6rem;
 
   /* 1. Primitivos — forma e movimento */
-  --radius-none: 0;
   --radius-sm: 0.25rem;
   --radius-pill: 999px;
   --duration-fast: 180ms;
@@ -128,7 +127,8 @@
   --button-primary-bg: var(--gradient-brand);
   --button-primary-fg: var(--neutral-0);
   --button-secondary-border: rgb(255 255 255 / 50%);
-  --card-radius: var(--radius-none);
+  /* Ecoa a ponta arredondada da marca sem virar bolha. */
+  --card-radius: var(--radius-sm);
   --focus-width: 3px;
   --focus-offset: 4px;
 }

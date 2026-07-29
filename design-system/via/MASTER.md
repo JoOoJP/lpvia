@@ -35,6 +35,11 @@ corpo de texto nem em rótulo.
 
 ## Tipografia
 
+O manual de identidade especifica Inter. Space Grotesk e Libre Bodoni foram
+incorporadas depois, com papéis próprios: a marca passa a ter um sistema
+tipográfico, não uma fonte só. Sem elas, título, corpo e citação de cliente
+falam com a mesma voz.
+
 - **Voz principal e corpo:** Inter.
 - **Display e cases:** Space Grotesk 500–600, tracking fechado, line-height entre `0.90` e `1.02`.
 - **Corpo:** Inter 400, mínimo 16 px, line-height `1.65`.
@@ -47,7 +52,7 @@ corpo de texto nem em rótulo.
 - Branco: conteúdo elevado, sem sombra.
 - Grafite/preto: sistema, decisão e conversão.
 - Bordas de 1 px organizam a composição.
-- Cards institucionais não usam raio; pílulas ficam reservadas a ações.
+- Cards e painéis usam raio de 4 px, que ecoa a ponta arredondada da marca; pílulas ficam reservadas a ações. Bordas de seção e fios permanecem retos.
 
 ## Componentes
 
