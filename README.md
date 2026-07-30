@@ -1,10 +1,43 @@
-# Portfólio VIA
+# VIA — portfólio digital
 
-Landing page institucional da VIA, construída com Next.js e React. O visual
-vem da camada de tokens em `app/design-tokens.css`, documentada em
-`design-system/via/MASTER.md` e catalogada na rota `/design-system`.
+![Prévia da landing page da VIA](./public/og-via.jpg)
 
-## Desenvolvimento
+Landing page institucional criada para apresentar a VIA, seus serviços e seus
+cases em uma experiência rápida, responsiva e orientada à conversão.
+
+O projeto também funciona como vitrine do sistema visual da marca: os tokens de
+design ficam centralizados e podem ser consultados em um catálogo próprio na
+rota `/design-system`.
+
+## Destaques
+
+- Interface responsiva construída com Next.js e React.
+- Design system documentado, com tokens de cor, tipografia e espaçamento.
+- Cases reais apresentados sem misturar a identidade dos clientes com a marca
+  institucional.
+- Metadados de SEO e Open Graph configurados para compartilhamento.
+- Componentes testados e validação automatizada por lint.
+
+## Tecnologias
+
+- Next.js
+- React
+- TypeScript
+- CSS Modules e design tokens
+- Node.js Test Runner
+- ESLint
+
+## Arquitetura visual
+
+`app/design-tokens.css` é a fonte única dos tokens usados pela interface. A
+documentação detalhada vive em `design-system/via/MASTER.md`, enquanto
+`/design-system` oferece uma referência visual navegável dos componentes e
+decisões da marca.
+
+Essa separação mantém a identidade da VIA consistente e isola as cores e
+características particulares de cada case.
+
+## Como executar
 
 Requer Node.js `>=22.13.0`.
 
@@ -13,22 +46,23 @@ npm install
 npm run dev
 ```
 
-O projeto abre por padrão em `http://localhost:3000`.
+A aplicação estará disponível em `http://localhost:3000`.
 
-## Verificação
+## Qualidade
 
 ```bash
 npm run lint
 npm test
+npm run build
 ```
 
-## Publicação na Vercel
+## Publicação
 
-Importe este diretório como um projeto Next.js. A Vercel detecta os comandos de
-build e start automaticamente; não há configuração de Cloudflare ou OpenAI
-Sites.
+O projeto está preparado para deploy na Vercel. A plataforma fornece
+`VERCEL_PROJECT_PRODUCTION_URL` automaticamente; em outra hospedagem, defina
+`NEXT_PUBLIC_SITE_URL` com o domínio público para gerar URLs corretas nas
+prévias sociais.
 
-O endereço absoluto usado nas imagens de Open Graph vem de
-`VERCEL_PROJECT_PRODUCTION_URL`, que a própria Vercel injeta. Em qualquer outra
-hospedagem, defina `NEXT_PUBLIC_SITE_URL` com o domínio final — sem ela, a
-prévia social aponta para `localhost`.
+---
+
+Desenvolvido por [João Pombo](https://github.com/JoOoJP).
