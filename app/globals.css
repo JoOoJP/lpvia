@@ -1371,13 +1371,52 @@ h1 strong {
 
 .final-cta {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 0.8fr;
-  align-items: center;
-  min-height: 100svh;
+  display: block;
+  min-height: auto;
   overflow: hidden;
   background: var(--color-surface-inverse);
   color: var(--color-text-inverse);
+}
+
+.final-cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: var(--gradient-brand);
+}
+
+.final-cta-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: clamp(1rem, 2vh, 1.5rem);
+  border-bottom: 1px solid var(--color-border-inverse);
+}
+
+.final-cta-head .eyebrow {
+  margin: 0;
+  color: var(--color-accent);
+}
+
+.final-cta-head > p:last-child {
+  margin: 0;
+  color: var(--color-text-inverse-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.final-cta-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(290px, 0.55fr);
+  gap: clamp(3.5rem, 8vw, 9rem);
+  align-items: end;
+  padding-top: clamp(3.5rem, min(7vw, 9vh), 7rem);
 }
 
 .final-copy {
@@ -1385,60 +1424,103 @@ h1 strong {
   z-index: 2;
 }
 
-.final-copy .eyebrow {
-  color: var(--color-accent);
+.final-copy h2 {
+  max-width: 1000px;
+  margin-bottom: clamp(1.5rem, 3vh, 2.2rem);
+  font-family: var(--font-display);
+  font-size: clamp(3.7rem, min(7.1vw, 10vh), 7.4rem);
+  font-weight: 500;
+  line-height: 0.88;
+  letter-spacing: -0.068em;
+  text-wrap: balance;
 }
 
-.final-copy h2 {
-  max-width: 900px;
-  margin-bottom: 1.8rem;
-  font-family: var(--font-display);
-  font-size: clamp(3.5rem, 6.5vw, 7.2rem);
-  font-weight: 500;
-  line-height: var(--leading-display);
-  letter-spacing: -0.075em;
+.final-copy h2 span,
+.final-copy h2 strong {
+  display: block;
+}
+
+.final-copy h2 span {
+  color: var(--color-text-inverse-subtle);
+}
+
+.final-copy h2 strong {
+  color: var(--color-text-inverse);
+  font-weight: 550;
 }
 
 .final-copy > p:not(.eyebrow) {
-  max-width: 560px;
-  margin-bottom: 2.2rem;
+  max-width: 540px;
+  margin: 0;
   color: var(--color-text-inverse-muted);
+  font-size: var(--text-lead);
   line-height: var(--leading-body);
 }
 
-.button-light {
-  background: var(--color-surface-raised);
-  color: var(--color-text-primary);
-}
-
-.final-mark {
+.final-diagnosis {
   position: relative;
-  min-height: 450px;
-}
-
-.final-mark span {
-  position: absolute;
   z-index: 2;
-  top: 50%;
-  left: 50%;
-  font-size: clamp(4rem, 9vw, 9rem);
-  font-weight: 900;
-  letter-spacing: -0.1em;
-  background: var(--gradient-brand);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  transform: translate(-50%, -50%);
+  padding-left: clamp(1.5rem, 3vw, 3rem);
+  border-left: 1px solid var(--color-border-inverse);
 }
 
-.final-mark i {
-  position: absolute;
-  inset: 5%;
-  border: 1px solid var(--color-border-inverse);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 55px color-mix(in srgb, var(--via-cyan) 4%, transparent),
-    0 0 0 110px color-mix(in srgb, var(--via-purple) 3.5%, transparent);
+.final-diagnosis-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  color: var(--color-text-inverse-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.final-diagnosis ol {
+  border-top: 1px solid var(--color-border-inverse);
+}
+
+.final-diagnosis li {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  min-height: 64px;
+  border-bottom: 1px solid var(--color-border-inverse);
+}
+
+.final-diagnosis li > span {
+  color: var(--color-accent);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+}
+
+.final-diagnosis li strong {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.final-button {
+  width: 100%;
+  min-width: 0;
+  margin-top: clamp(1.5rem, 3vh, 2rem);
+  box-shadow: none;
+}
+
+.final-button:active {
+  filter: brightness(0.9);
+  transform: translateY(0);
+}
+
+.final-diagnosis > small {
+  display: block;
+  margin-top: 0.75rem;
+  color: var(--color-text-inverse-muted);
+  font-size: 0.68rem;
+  line-height: 1.5;
 }
 
 /* Escopado: sem a classe, todo <footer> da página herdava isto — inclusive o
@@ -1573,13 +1655,38 @@ h1 strong {
 
   .diagnosis-grid,
   .method-heading,
-  .products-heading,
-  .final-cta {
+  .products-heading {
     grid-template-columns: 1fr;
   }
 
   .final-cta {
-    min-height: 760px;
+    min-height: auto;
+    background: var(--color-surface-inverse);
+  }
+
+  .final-cta-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .final-cta-main {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-top: 3rem;
+  }
+
+  .final-copy h2 {
+    font-size: clamp(3rem, 13vw, 4.4rem);
+    line-height: 0.91;
+    letter-spacing: -0.06em;
+  }
+
+  .final-diagnosis {
+    padding-top: 1.5rem;
+    padding-left: 0;
+    border-top: 1px solid var(--color-border-inverse);
+    border-left: 0;
   }
 
   .diagnosis-grid {
@@ -1634,10 +1741,6 @@ h1 strong {
 
   .measurement-steps i {
     width: 24px;
-  }
-
-  .final-mark {
-    min-height: 240px;
   }
 
   .site-footer {
