@@ -6,9 +6,9 @@ import { Arrow } from "../ui/arrow";
 import { ViaMark } from "../ui/via-mark";
 
 const navItems = [
-  { id: "como-funciona", label: "Como funciona" },
-  { id: "cases", label: "Cases" },
-  { id: "produtos", label: "Soluções" },
+  { id: "fazemos", label: "O que fazemos" },
+  { id: "growth-plus", label: "Growth Plus" },
+  { id: "trabalhos", label: "Trabalhos" },
 ];
 
 // Faixa estreita no meio da tela: a seção que a cruza é a que o visitante lê.
@@ -103,7 +103,7 @@ export function SiteHeader() {
           target="_blank"
           rel="noreferrer"
         >
-          Fale conosco <Arrow />
+          Fale com a VIA <Arrow />
         </a>
 
         <button
@@ -139,7 +139,7 @@ export function SiteHeader() {
           rel="noreferrer"
           onClick={() => setMenuOpen(false)}
         >
-          Agendar diagnóstico <Arrow />
+          Fale com a VIA <Arrow />
         </a>
       </div>
     </header>

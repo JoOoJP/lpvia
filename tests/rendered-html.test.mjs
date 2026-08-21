@@ -27,18 +27,19 @@ after(() => {
   server?.kill();
 });
 
-test("renderiza a landing page da VIA", async () => {
+test("renderiza a apresentação da VIA", async () => {
   const response = await fetch(pageUrl);
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>VIA — Crescimento com direção<\/title>/i);
-  assert.match(html, /Mais movimento não resolve\./);
-  assert.match(html, /Direção resolve\./);
-  assert.match(html, /COMO A VIA FUNCIONA/);
-  assert.match(html, /Moikato/);
-  assert.match(html, /Agendar diagnóstico/);
+  assert.match(html, /<title>VIA — Estratégia que ganha forma<\/title>/i);
+  assert.match(html, /Estratégia que/);
+  assert.match(html, /ganha forma\./);
+  assert.match(html, /VIA \/ GROWTH COMPANY/);
+  assert.match(html, /A VIA pensa e faz\./);
+  assert.match(html, /GROWTH PLUS \/ PRODUTO PRINCIPAL/);
+  assert.doesNotMatch(html, /Agendar diagnóstico/);
 });
 
 test("publica metadados sociais e navegação essenciais", async () => {
@@ -48,53 +49,115 @@ test("publica metadados sociais e navegação essenciais", async () => {
   assert.match(html, /property="og:image" content="[^"]*\/og-via\.jpg"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
   assert.match(html, /aria-label="Navegação principal"/);
-  assert.match(html, /href="#como-funciona"/);
-  assert.match(html, /href="#cases"/);
-  assert.match(html, /href="#produtos"/);
+  assert.match(html, /href="#conteudo-principal"/);
+  assert.match(html, /href="#fazemos"/);
+  assert.match(html, /href="#growth-plus"/);
+  assert.match(html, /href="#trabalhos"/);
   assert.match(html, /wa\.me\/5541991014546/);
 });
 
-test("abre o primeiro case e mantém os outros dois recolhidos", async () => {
+test("mostra o escopo real da VIA", async () => {
   const response = await fetch(pageUrl);
   const html = await response.text();
 
-  assert.match(html, /aria-expanded="true" aria-controls="case-corpo-moikato"/);
+  assert.match(html, /Marca &amp; identidade/);
+  assert.match(html, /Sites &amp; landing pages/);
+  assert.match(html, /Conteúdo &amp; campanhas/);
+  assert.match(html, /Tráfego &amp; performance/);
+  assert.match(html, /Estratégia &amp; comercial/);
+  assert.match(html, /Tecnologia &amp; automação/);
+  assert.match(html, /PROJETOS PONTUAIS/);
+  assert.match(html, /Logo e identidade visual/);
+  assert.match(html, /Landing pages/);
+  assert.match(html, /Gestão de tráfego pago/);
+  assert.match(html, /Consultoria comercial/);
+  assert.match(html, /Assessoria de marketing/);
+  assert.match(html, /Social media e gestão de redes/);
+  assert.match(html, /Construção de roteiros/);
+  assert.match(html, /Crescimento orgânico e pago/);
+  assert.match(html, /class="dark-capability-preview/);
+  assert.doesNotMatch(html, /CASO APLICADO/);
+  assert.match(html, /href="#case-in-tha-route"/);
+  assert.match(html, /href="#case-tardinha"/);
+  assert.match(html, /href="#case-latino-beats"/);
+  assert.match(html, /href="#case-saude"/);
+  assert.match(html, /href="#case-moikato"/);
+});
 
-  // Recolhido, o conteúdo continua no HTML — inert é o que o tira do foco e
-  // da árvore de acessibilidade sem impedir a transição de abertura.
-  assert.match(html, /id="case-corpo-tardinha"[^>]*inert/);
-  assert.match(html, /id="case-corpo-camila"[^>]*inert/);
+test("publica o depoimento da Moikato antes do contato", async () => {
+  const response = await fetch(pageUrl);
+  const html = await response.text();
 
-  // Os três precisam ter conceito próprio, senão o painel aberto fica vazio.
-  assert.match(html, /A natureza feita joia\./);
-  assert.match(html, /Do interesse ao ingresso\./);
-  assert.match(html, /O crescimento não espera\./);
+  assert.match(html, /depoimento-samuel-moikato\.mp4/);
+  assert.match(html, /depoimento-samuel-moikato\.jpg/);
+  assert.match(html, /Eles acreditaram no meu trabalho\./);
+  assert.match(html, /Depoimento \| Samuel \| Empresário em Londres/);
+  assert.match(html, /Samuel/);
+  assert.ok(html.indexOf("dark-testimonial") < html.indexOf("dark-contact"));
+});
+
+test("entrega os três trabalhos em contexto", async () => {
+  const response = await fetch(pageUrl);
+  const html = await response.text();
+
+  assert.match(html, /Projetos selecionados/);
+  assert.match(html, /Um universo de marca enraizado na natureza/);
+  assert.match(html, /A Tardinha/);
+  assert.match(html, /Criação de landing pages para venda de ingressos/);
+  assert.match(html, /tardinhariosolimes-82b\.com/);
+  assert.doesNotMatch(html, /Design digital/);
+  assert.doesNotMatch(html, /Comunicação do evento/);
+  assert.match(html, /Clínicas na área da saúde/);
+  assert.match(html, /Estratégia digital e comunicação para profissionais da área da/);
+  assert.match(html, /Cuidado que/);
+});
+
+test("inclui os projetos adicionais construídos pela VIA", async () => {
+  const response = await fetch(pageUrl);
+  const html = await response.text();
+
+  assert.match(html, /In Tha Route/);
+  assert.match(html, /Xangô 7 Cachoeiras/);
+  assert.match(html, /Latino Beats/);
+  assert.match(html, /Studio da Giu/);
+  assert.match(html, /Sweet Popcorn Gourmet/);
+  assert.match(html, /Rebranding\./);
+  assert.match(html, /Assinatura visual para trazer mais identidade\./);
+  assert.match(html, /Criação de folders e campanhas para eventos\./);
+  assert.match(html, /Construção de identidade visual e materiais gráficos\./);
+  assert.match(html, /Logos e branding\./);
+  assert.match(html, /route-before\.webp/);
+  assert.match(html, /route-primary\.webp/);
+  assert.match(
+    html,
+    /aria-label="Comparar a identidade antiga e a nova da In Tha Route"/,
+  );
+  assert.match(html, /type="range"/);
+  assert.match(html, /projects\/tux7c-primary\.webp/);
+  assert.match(html, /projects\/latino-beats\.webp/);
+  assert.match(html, /projects\/studio-giu-pricing\.webp/);
+  assert.match(html, /projects\/studio-giu-logo\.webp/);
+  assert.match(html, /projects\/sweet-popcorn-gourmet\.webp/);
+  assert.match(html, /projects\/moikato-brand\.webp/);
 });
 
 test("declara as fontes no mesmo escopo dos tokens", async () => {
   const response = await fetch(pageUrl);
   const html = await response.text();
-
-  // --font-sans é montada em :root, que é o <html>. Se as classes do
-  // next/font descerem para o <body>, o token fica inválido em tempo de
-  // computação e a página inteira cai na serifada padrão do navegador.
   const tagHtml = html.match(/<html[^>]*>/)?.[0] ?? "";
-  assert.match(tagHtml, /inter[^"]*variable/);
-  assert.match(tagHtml, /space_grotesk[^"]*variable/);
-  assert.match(tagHtml, /libre_bodoni[^"]*variable/);
+
+  assert.match(tagHtml, /inter[^\"]*variable/);
+  assert.match(tagHtml, /space_grotesk[^\"]*variable/);
+  assert.match(tagHtml, /libre_bodoni[^\"]*variable/);
 });
 
 test("entrega a navegação compacta já no HTML", async () => {
   const response = await fetch(pageUrl);
   const html = await response.text();
 
-  // Em telas estreitas o nav é substituído pelo painel; sem o botão, a
-  // navegação simplesmente desaparece.
   assert.match(html, /aria-controls="menu-mobile"/);
   assert.match(html, /aria-expanded="false"/);
   assert.match(html, /id="menu-mobile"[^>]*hidden/);
-
-  // No topo o header não tem superfície: a classe só entra depois do scroll.
   assert.match(html, /class="site-header"/);
 });
 

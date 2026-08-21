@@ -1,69 +1,72 @@
-/*
- * Sem cor por pilar: o gradiente da marca atravessa os quatro numa linha só,
- * que é o próprio argumento da seção — partes diferentes, decisões conectadas.
- * Antes cada um tinha seu traço, e os pilares 02 e 04 repetiam a mesma cor,
- * porque a marca tem três e os pilares são quatro.
- */
+import { ViaMark } from "../ui/via-mark";
+
 const pillars = [
   {
     number: "01",
+    className: "strategy",
     title: "Estratégia",
-    description:
-      "Encontra a oportunidade, organiza prioridades e define onde concentrar energia.",
+    text: "Direção, posicionamento e prioridade.",
   },
   {
     number: "02",
+    className: "marketing",
     title: "Marketing",
-    description:
-      "Transforma direção em percepção, atenção e demanda qualificada.",
+    text: "Marca, conteúdo, campanha e mídia.",
   },
   {
     number: "03",
+    className: "commercial",
     title: "Comercial",
-    description:
-      "Converte oportunidade em relacionamento, negociação e receita.",
+    text: "Oferta, processo e acompanhamento.",
   },
   {
     number: "04",
+    className: "technology",
     title: "Tecnologia",
-    description:
-      "Aumenta eficiência, integra processos e prepara a empresa para escalar.",
+    text: "Sites, automações, CRM e IA.",
   },
 ];
 
-const loop = ["Diagnóstico", "Direção", "Execução", "Métricas", "Otimização"];
-
 export function System() {
   return (
-    <section className="method-section section" id="como-funciona">
-      <div className="method-heading">
-        <div>
-          <p className="eyebrow">COMO A VIA FUNCIONA</p>
-          <h2>Partes diferentes. Decisões conectadas.</h2>
-        </div>
-        <p>
-          Execução atravessa tudo. Não entregamos apenas uma recomendação:
-          ajudamos a colocar direção em funcionamento.
-        </p>
-      </div>
-
-      <div className="pillar-grid">
-        {pillars.map((pillar) => (
-          <article className="pillar" key={pillar.title}>
-            <span>{pillar.number}</span>
-            <h3>{pillar.title}</h3>
-            <p>{pillar.description}</p>
-          </article>
-        ))}
-      </div>
-
-      <div className="method-loop" aria-label="Ciclo de trabalho da VIA">
-        {loop.map((step, index) => (
-          <div key={step}>
-            <span>0{index + 1}</span>
-            <strong>{step}</strong>
+    <section className="dark-growth section" id="growth-plus">
+      <div className="dark-growth-shell">
+        <header className="dark-growth-copy">
+          <p className="dark-kicker">GROWTH PLUS / PRODUTO PRINCIPAL</p>
+          <h2>Quatro frentes. Uma operação.</h2>
+          <p>
+            Estratégia, marketing, comercial e tecnologia conduzidos como um
+            único sistema — com direção e execução da VIA.
+          </p>
+          <div className="dark-growth-flow" aria-label="Fluxo de crescimento">
+            <span>Direção</span>
+            <i aria-hidden="true" />
+            <span>Demanda</span>
+            <i aria-hidden="true" />
+            <span>Receita</span>
           </div>
-        ))}
+        </header>
+
+        <div className="dark-growth-map">
+          <div className="dark-growth-lines" aria-hidden="true" />
+          {pillars.map((pillar) => (
+            <article
+              className={`dark-growth-node dark-growth-node-${pillar.className}`}
+              key={pillar.title}
+            >
+              <span>{pillar.number}</span>
+              <h3>{pillar.title}</h3>
+              <p>{pillar.text}</p>
+            </article>
+          ))}
+          <div
+            className="dark-growth-hub"
+            aria-label="VIA conecta as quatro frentes"
+          >
+            <ViaMark />
+            <span>Direção + execução</span>
+          </div>
+        </div>
       </div>
     </section>
   );

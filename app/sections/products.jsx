@@ -2,62 +2,48 @@ const products = [
   {
     index: "01",
     name: "Growth Sprint",
-    label: "Descobrir",
-    description:
-      "Diagnóstico estratégico para localizar o gargalo, priorizar oportunidades e definir próximo movimento.",
+    action: "Descobrir o gargalo",
+    description: "Diagnóstico estratégico, prioridades e um plano claro de próximo movimento.",
   },
   {
     index: "02",
     name: "Growth Marketing",
-    label: "Atrair",
-    description:
-      "Posicionamento, conteúdo, criativos e Meta Ads trabalhando para construir demanda.",
+    action: "Criar demanda",
+    description: "Posicionamento, marca, conteúdo, criativos e mídia trabalhando juntos.",
   },
   {
     index: "03",
     name: "Growth Plus",
-    label: "Crescer",
+    action: "Conectar o crescimento",
+    description: "Estratégia, marketing, aquisição e comercial gerenciados como uma operação única.",
     featured: true,
-    description:
-      "As quatro frentes gerenciadas em conjunto: estratégia, marketing, aquisição e comercial.",
   },
   {
     index: "04",
     name: "Growth Tech",
-    label: "Escalar",
-    description:
-      "Sites, landing pages, automações e IA aplicados à eficiência do negócio.",
+    action: "Ganhar eficiência",
+    description: "Sites, landing pages, automações e IA aplicados ao que precisa escalar.",
   },
 ];
 
 export function Products() {
   return (
-    <section className="products section" id="produtos">
-      <div className="products-heading">
-        <div>
-          <p className="eyebrow">ARQUITETURA GROWTH</p>
-          <h2>Descobrir. Atrair. Crescer. Escalar.</h2>
-        </div>
-        <p>
-          O problema define o ponto de entrada. O Growth Plus conecta as
-          quatro frentes.
-        </p>
-      </div>
-      <div className="product-grid">
+    <section className="movement-products section" id="produtos">
+      <header className="movement-products-head">
+        <p className="eyebrow">FORMAS DE COMEÇAR</p>
+        <h2>O ponto de entrada muda. O sistema continua conectado.</h2>
+      </header>
+
+      <div className="movement-product-list">
         {products.map((product) => (
-          <article
-            className={`product product-${product.index}${
-              product.featured ? " featured" : ""
-            }`}
-            key={product.name}
-          >
-            <div className="product-top">
-              <b>{product.label}</b>
+          <article className={product.featured ? "is-featured" : ""} key={product.name}>
+            <span>{product.index}</span>
+            <div>
+              <small>{product.action}</small>
+              <h3>{product.name}</h3>
             </div>
-            <span className="product-index">{product.index}</span>
-            <h3>{product.name}</h3>
             <p>{product.description}</p>
-            {product.featured ? <em>Produto principal</em> : null}
+            {product.featured ? <b>Produto principal</b> : <i aria-hidden="true">↗</i>}
           </article>
         ))}
       </div>

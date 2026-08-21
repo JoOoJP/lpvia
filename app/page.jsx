@@ -1,23 +1,21 @@
+import { Capabilities } from "./sections/capabilities";
 import { Cases } from "./sections/cases";
-import { Diagnosis } from "./sections/diagnosis";
 import { FinalCta } from "./sections/final-cta";
 import { Hero } from "./sections/hero";
-import { Measurement } from "./sections/measurement";
-import { Products } from "./sections/products";
 import { SiteFooter } from "./sections/site-footer";
 import { SiteHeader } from "./sections/site-header";
 import { System } from "./sections/system";
+import { Testimonial } from "./sections/testimonial";
 
 export default function Home() {
   return (
-    <main>
+    <main className="via-dark-site" id="conteudo-principal">
       <SiteHeader />
       <Hero />
-      <Diagnosis />
+      <Capabilities />
       <System />
       <Cases />
-      <Products />
-      <Measurement />
+      <Testimonial />
       <FinalCta />
       <SiteFooter />
     </main>

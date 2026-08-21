@@ -1,6 +1,9 @@
+import { Analytics } from "@vercel/analytics/next";
 import { Inter, Libre_Bodoni, Space_Grotesk } from "next/font/google";
 import "./design-tokens.css";
 import "./globals.css";
+import "./portfolio.css";
+import "./reference-redesign.css";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,9 +28,9 @@ const siteUrl =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000");
 
-const title = "VIA — Crescimento com direção";
+const title = "VIA — Estratégia que ganha forma";
 const description =
-  "Estratégia, marketing, comercial e tecnologia conectados para construir crescimento sustentável.";
+  "Estratégia, marca, marketing, comercial e tecnologia conectados para construir negócios em movimento.";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
@@ -43,7 +46,7 @@ export const metadata = {
         width: 1200,
         height: 630,
         type: "image/jpeg",
-        alt: "VIA — Quatro áreas. Uma direção de crescimento.",
+        alt: "VIA — Estratégia que ganha forma.",
       },
     ],
   },
@@ -64,7 +67,13 @@ export default function RootLayout({ children }) {
       lang="pt-BR"
       className={`${inter.variable} ${spaceGrotesk.variable} ${libreBodoni.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <a className="skip-link" href="#conteudo-principal">
+          Ir para o conteúdo
+        </a>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

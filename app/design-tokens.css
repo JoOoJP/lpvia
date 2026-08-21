@@ -10,6 +10,13 @@
   --via-blue: #2e6be8;
   --via-cyan: #00b8d4;
   --via-green: #39d67a;
+  /* Variantes acessíveis para pequenos sinais sobre superfícies profundas. */
+  --via-purple-bright: #9b7bff;
+  --via-blue-bright: #6fa3ff;
+  --via-cyan-bright: #37d4e5;
+  --via-green-bright: #68e49b;
+  --via-blue-readable: #2453b8;
+  --via-cyan-readable: #00758a;
   --via-green-readable: #27734a;
 
   /* 1. Primitivos — neutros */
@@ -41,6 +48,8 @@
 
   /* 1. Primitivos — forma e movimento */
   --radius-sm: 0.25rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.125rem;
   --radius-pill: 999px;
   --duration-fast: 180ms;
   --duration-normal: 300ms;
@@ -55,6 +64,11 @@
   --color-surface-muted: var(--neutral-100);
   --color-surface-inverse: var(--neutral-900);
   --color-surface-deep: var(--neutral-950);
+  --color-surface-via-dark: #060707;
+  --color-surface-via-panel: #0b0d0e;
+  --color-text-via-dark: #f7f7f5;
+  --color-text-via-muted: #9ea4a7;
+  --color-border-via-dark: rgb(255 255 255 / 11%);
   /*
    * Superfície escura dentro de contexto claro. Numa seção escura inteira o
    * olho se adapta ao preto; num card cercado de bege, o salto de luminância
@@ -82,11 +96,19 @@
   --color-focus: var(--via-green);
   --color-accent: var(--via-green);
   --color-accent-on-light: var(--via-green-readable);
+  --color-on-brand-green: #062b1d;
   --gradient-brand: linear-gradient(
     105deg,
     var(--via-purple),
     var(--via-cyan) 58%,
     var(--via-green)
+  );
+  --gradient-brand-accessible: linear-gradient(
+    90deg,
+    var(--via-purple) 0%,
+    var(--via-blue) 62%,
+    var(--via-cyan) 81%,
+    var(--via-green) 100%
   );
   /*
    * Versão para texto. O roxo da marca entrega 2.3:1 sobre o preto — abaixo
@@ -97,6 +119,13 @@
     100deg,
     var(--via-cyan),
     var(--via-green)
+  );
+  /* Recorte equivalente para superfícies claras: cada parada mantém 4.5:1. */
+  --gradient-brand-text-light: linear-gradient(
+    100deg,
+    var(--via-purple),
+    var(--via-blue-readable) 56%,
+    var(--via-cyan-readable)
   );
 
   /* 2. Semânticos — tipografia */

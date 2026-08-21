@@ -17,6 +17,7 @@ export const metadata = {
  */
 const brandColors = [
   ["Roxo VIA", "--via-purple", "#5B12D1"],
+  ["Azul VIA", "--via-blue", "#2E6BE8"],
   ["Ciano VIA", "--via-cyan", "#00B8D4"],
   ["Verde VIA", "--via-green", "#39D67A"],
 ];
@@ -79,20 +80,20 @@ export default function DesignSystemPage() {
         <Link className={styles.logo} href="/" aria-label="Voltar para a landing page da VIA">
           VIA
         </Link>
-        <span>DESIGN SYSTEM / V1.0</span>
+        <span>DESIGN SYSTEM / V2.0</span>
         <Link href="/">Voltar ao site ↗</Link>
       </header>
 
       <section className={styles.hero}>
         <p>SISTEMA VISUAL VIA</p>
         <h1>
-          Uma marca com
-          <span> direção.</span>
+          Crescimento em
+          <span> movimento.</span>
         </h1>
         <div className={styles.heroFooter}>
           <p>
-            Premium sem ostentação. Tecnológica sem clichê futurista. Direta,
-            inteligente e humana.
+            Direta na mensagem, viva nas imagens e sistemática no uso da cor.
+            Sofisticação sem distância e tecnologia sem clichê futurista.
           </p>
           <strong>ROXO → CIANO → VERDE</strong>
         </div>
@@ -102,7 +103,7 @@ export default function DesignSystemPage() {
         <Section
           index="01"
           title="Marca"
-          description="O gradiente é assinatura, não decoração. Ele aparece no logo, no CTA principal e em momentos de direção."
+          description="O gradiente é assinatura e movimento. Cada parada identifica um pilar: estratégia, marketing, comercial e tecnologia."
         >
           <div className={styles.gradientField}>
             <span>VIA</span>
@@ -165,11 +166,11 @@ export default function DesignSystemPage() {
           <div className={styles.typeSpecimens}>
             <div className={styles.typeDisplay}>
               <span>DISPLAY / SPACE GROTESK 500</span>
-              <p>Direção resolve.</p>
+              <p>Na mesma direção.</p>
             </div>
             <div className={styles.typeSection}>
               <span>TÍTULO DE SEÇÃO / SPACE GROTESK 500</span>
-              <p>Partes diferentes. Decisões conectadas.</p>
+              <p>As partes mudam de cor. A direção continua a mesma.</p>
             </div>
             <div className={styles.typeBody}>
               <span>CORPO / INTER 400</span>
@@ -180,7 +181,7 @@ export default function DesignSystemPage() {
             </div>
             <div className={styles.typeLabel}>
               <span>EYEBROW / INTER 750</span>
-              <p>ANTES DA FERRAMENTA, O PROBLEMA</p>
+              <p>VIA GROWTH SYSTEM / OPERACIONAL</p>
             </div>
             <div className={styles.typeAccent}>
               <span>ACENTO EDITORIAL / LIBRE BODONI</span>
@@ -192,7 +193,7 @@ export default function DesignSystemPage() {
         <Section
           index="04"
           title="Espaço e composição"
-          description="Base de 4 px, grandes intervalos entre ideias e bordas como estrutura. Respiro é uma regra da marca."
+          description="Base de 4 px, densidade funcional e bordas como estrutura. O espaço separa tarefas, não cria telas vazias."
         >
           <div className={styles.spacingList}>
             {spacing.map(([label, token]) => (
@@ -296,10 +297,11 @@ export default function DesignSystemPage() {
         <section className={styles.principles} id="principios">
           <span>PRINCÍPIOS</span>
           <ol>
-            <li>Uma ideia forte por seção.</li>
+            <li>Uma ideia forte e uma mudança visual clara por seção.</li>
             <li>Gradiente como assinatura, nunca como ruído.</li>
             <li>Space Grotesk cria impacto; Inter explica; a serifada cita o cliente.</li>
             <li>Cor de case não vira cor da marca.</li>
+            <li>Fotografia real antes de decoração abstrata.</li>
             <li>Sem sombra, glow ou movimento sem função.</li>
           </ol>
         </section>
@@ -307,7 +309,7 @@ export default function DesignSystemPage() {
 
       <footer className={styles.footer}>
         <span>VIA / DESIGN SYSTEM / 2026</span>
-        <strong>Direção antes de decoração.</strong>
+        <strong>Crescimento em movimento.</strong>
       </footer>
     </main>
   );
