@@ -195,6 +195,14 @@ export function Cases() {
                     sizes="(max-width: 720px) 40vw, 14vw"
                   />
                 </div>
+                <div className="dark-identity-content-piece dark-identity-content-ghetto">
+                  <Image
+                    src="/projects/ghetto-baile-funk.webp"
+                    alt="Panfleto do baile funk Ghetto Made in Brazil, criado para evento em Richmond, Londres"
+                    fill
+                    sizes="(max-width: 720px) 24vw, 9vw"
+                  />
+                </div>
                 <div className="dark-identity-content-piece dark-identity-content-detail">
                   <Image
                     src="/projects/in-tha-route-flyer-detail.webp"

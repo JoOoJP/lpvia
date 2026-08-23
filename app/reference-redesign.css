@@ -1561,6 +1561,21 @@
   transform: rotate(-4.5deg);
 }
 
+/* Ocupa o vazio do topo-direito da pilha. Fica menor que as outras peças
+   também porque a única cópia disponível veio de um composto de 429px — em
+   tamanho maior o serrilhado apareceria. Trocar o arquivo se surgir o original. */
+.dark-identity-content-ghetto {
+  z-index: 1;
+  top: -3%;
+  right: -2%;
+  width: 24%;
+  aspect-ratio: 0.582;
+  border: 1px solid rgb(255 255 255 / 16%);
+  box-shadow: 0 16px 34px rgb(0 0 0 / 52%);
+  filter: brightness(0.88);
+  transform: rotate(7.5deg);
+}
+
 .dark-identity-content-detail {
   z-index: 4;
   right: -1%;
