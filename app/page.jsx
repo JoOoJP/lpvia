@@ -5,7 +5,6 @@ import { Hero } from "./sections/hero";
 import { SiteFooter } from "./sections/site-footer";
 import { SiteHeader } from "./sections/site-header";
 import { System } from "./sections/system";
-import { Testimonial } from "./sections/testimonial";
 
 export default function Home() {
   return (
@@ -15,7 +14,6 @@ export default function Home() {
       <Capabilities />
       <System />
       <Cases />
-      <Testimonial />
       <FinalCta />
       <SiteFooter />
     </main>

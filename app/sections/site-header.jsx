@@ -7,7 +7,7 @@ import { ViaMark } from "../ui/via-mark";
 
 const navItems = [
   { id: "fazemos", label: "O que fazemos" },
-  { id: "growth-plus", label: "Growth Plus" },
+  { id: "moikato", label: "Moikato" },
   { id: "trabalhos", label: "Trabalhos" },
 ];
 

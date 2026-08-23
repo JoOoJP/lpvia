@@ -38,7 +38,8 @@ test("renderiza a apresentação da VIA", async () => {
   assert.match(html, /ganha forma\./);
   assert.match(html, /VIA \/ GROWTH COMPANY/);
   assert.match(html, /A VIA pensa e faz\./);
-  assert.match(html, /GROWTH PLUS \/ PRODUTO PRINCIPAL/);
+  assert.match(html, /CASE \/ MOIKATO \/ BRASIL → REINO UNIDO/);
+  assert.doesNotMatch(html, /GROWTH PLUS \/ PRODUTO PRINCIPAL/);
   assert.doesNotMatch(html, /Agendar diagnóstico/);
 });
 
@@ -51,7 +52,7 @@ test("publica metadados sociais e navegação essenciais", async () => {
   assert.match(html, /aria-label="Navegação principal"/);
   assert.match(html, /href="#conteudo-principal"/);
   assert.match(html, /href="#fazemos"/);
-  assert.match(html, /href="#growth-plus"/);
+  assert.match(html, /href="#moikato"/);
   assert.match(html, /href="#trabalhos"/);
   assert.match(html, /wa\.me\/5541991014546/);
 });
@@ -91,9 +92,14 @@ test("publica o depoimento da Moikato antes do contato", async () => {
   assert.match(html, /depoimento-samuel-moikato\.mp4/);
   assert.match(html, /depoimento-samuel-moikato\.jpg/);
   assert.match(html, /Eles acreditaram no meu trabalho\./);
-  assert.match(html, /Depoimento \| Samuel \| Empresário em Londres/);
+  assert.match(html, /Samuel · Moikato · Empresário em Londres/);
+  assert.match(html, /Posicionamento/);
+  assert.match(html, /Site bilíngue/);
+  assert.match(html, /Internacionalização/);
   assert.match(html, /Samuel/);
-  assert.ok(html.indexOf("dark-testimonial") < html.indexOf("dark-contact"));
+  assert.equal(html.match(/class="moikato-proof-video"/g)?.length, 1);
+  assert.doesNotMatch(html, /dark-testimonial/);
+  assert.ok(html.indexOf("moikato-proof") < html.indexOf("dark-work"));
 });
 
 test("entrega os três trabalhos em contexto", async () => {
