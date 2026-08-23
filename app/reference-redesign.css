@@ -727,12 +727,15 @@
 
 /* Case Moikato + depoimento */
 .moikato-proof {
-  padding-block: 0 clamp(5rem, 10vw, 9rem);
+  height: min(820px, calc(100svh - 70px));
+  max-height: calc(100svh - 70px);
+  padding-block: 0;
 }
 
 .moikato-proof-shell {
+  height: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  grid-template-columns: minmax(300px, 0.78fr) minmax(0, 1.22fr);
   overflow: hidden;
   border: 1px solid rgb(255 255 255 / 11%);
   border-top: 2px solid transparent;
@@ -743,9 +746,11 @@
 }
 
 .moikato-proof-content {
+  grid-column: 2;
+  grid-row: 1;
   min-width: 0;
-  padding: clamp(2rem, 4vw, 3.5rem);
-  border-right: 1px solid rgb(255 255 255 / 10%);
+  padding: clamp(1.25rem, 3vh, 2.25rem) clamp(1.5rem, 3vw, 3rem);
+  border-left: 1px solid rgb(255 255 255 / 10%);
   background:
     radial-gradient(circle at 18% 18%, rgb(57 214 122 / 8%), transparent 24rem),
     #090b0a;
@@ -753,8 +758,8 @@
 
 .moikato-proof-copy h2 {
   max-width: 780px;
-  margin-top: 1rem;
-  font-size: clamp(2.55rem, 4.3vw, 4.7rem);
+  margin-top: clamp(0.6rem, 1.3vh, 0.9rem);
+  font-size: clamp(2.15rem, min(3.5vw, 6vh), 3.65rem);
   font-weight: 520;
   letter-spacing: -0.06em;
   line-height: 0.96;
@@ -762,15 +767,16 @@
 
 .moikato-proof-copy > p:not(.dark-kicker) {
   max-width: 620px;
-  margin-top: 1rem;
+  margin-top: clamp(0.65rem, 1.4vh, 0.9rem);
   color: #92989b;
-  font-size: 0.92rem;
-  line-height: 1.6;
+  font-size: 0.84rem;
+  line-height: 1.5;
 }
 
 .moikato-proof-visuals {
-  min-height: 188px;
-  margin-top: 2rem;
+  height: clamp(120px, 19svh, 165px);
+  min-height: 0;
+  margin-top: clamp(1rem, 2.2vh, 1.5rem);
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   gap: 0.75rem;
@@ -780,7 +786,7 @@
 .moikato-proof-site {
   position: relative;
   min-width: 0;
-  min-height: 188px;
+  min-height: 0;
   overflow: hidden;
   border: 1px solid rgb(255 255 255 / 12%);
   border-radius: 12px;
@@ -842,7 +848,7 @@
 }
 
 .moikato-proof-deliveries {
-  margin: 0.75rem 0 0;
+  margin: clamp(0.55rem, 1.2vh, 0.75rem) 0 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -852,8 +858,8 @@
 }
 
 .moikato-proof-deliveries li {
-  min-height: 112px;
-  padding: 1rem;
+  min-height: clamp(76px, 11.5svh, 94px);
+  padding: clamp(0.65rem, 1.4vh, 0.85rem);
   display: flex;
   flex-direction: column;
   border-right: 1px solid rgb(255 255 255 / 9%);
@@ -869,23 +875,26 @@
 
 .moikato-proof-deliveries strong {
   margin-top: auto;
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 650;
 }
 
 .moikato-proof-deliveries p {
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
   color: #7f8783;
-  font-size: 0.66rem;
-  line-height: 1.4;
+  font-size: 0.61rem;
+  line-height: 1.32;
 }
 
 .moikato-proof-testimonial {
+  grid-column: 1;
+  grid-row: 1;
   min-width: 0;
-  padding: clamp(1.25rem, 3vw, 2.25rem);
+  padding: clamp(1rem, 2.2vh, 1.75rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
   background:
     radial-gradient(circle at 50% 22%, rgb(46 107 232 / 16%), transparent 24rem),
     linear-gradient(150deg, #0d0f12, #080909 72%);
@@ -893,7 +902,10 @@
 
 .moikato-proof-video {
   position: relative;
-  width: min(100%, 350px);
+  width: auto;
+  max-width: 100%;
+  height: min(56svh, 500px);
+  aspect-ratio: 464 / 832;
   margin-inline: auto;
   overflow: hidden;
   border: 1px solid rgb(255 255 255 / 17%);
@@ -904,7 +916,7 @@
 
 .moikato-proof-video video {
   width: 100%;
-  aspect-ratio: 464 / 832;
+  height: 100%;
   display: block;
   object-fit: cover;
 }
@@ -923,21 +935,21 @@
 }
 
 .moikato-proof-quote {
-  width: min(100%, 350px);
-  margin: 1.5rem auto 0;
+  width: min(100%, 310px);
+  margin: clamp(0.8rem, 1.8vh, 1.2rem) auto 0;
 }
 
 .moikato-proof-quote blockquote {
-  margin-top: 0.75rem;
+  margin-top: 0.55rem;
   color: #f4f4f1;
-  font-size: clamp(1.55rem, 2.4vw, 2.25rem);
+  font-size: clamp(1.35rem, 2vw, 1.85rem);
   font-weight: 520;
   letter-spacing: -0.045em;
   line-height: 1.05;
 }
 
 .moikato-proof-quote > p:last-child {
-  margin-top: 0.7rem;
+  margin-top: 0.55rem;
   color: #838a87;
   font-size: 0.72rem;
 }
@@ -1586,15 +1598,18 @@
 .dark-identity-sweet {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(300px, 0.75fr);
+  grid-template-columns: minmax(360px, 0.9fr) minmax(0, 1.1fr);
 }
 
 .dark-identity-sweet .dark-identity-media {
   min-height: 390px;
+  background: #f7f7f5;
 }
 
 .dark-identity-sweet .dark-identity-media > img {
-  object-position: center 52%;
+  object-fit: contain;
+  object-position: center;
+  padding: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
 .dark-identity-sweet .dark-identity-copy {
@@ -1617,6 +1632,56 @@
 
 .dark-identity-sweet .dark-identity-copy p {
   max-width: 31ch;
+}
+
+.dark-identity-sephie {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+}
+
+.dark-identity-sephie .dark-identity-media {
+  min-height: 390px;
+  background: #c7c5c1;
+}
+
+.dark-identity-sephie .dark-identity-media > img {
+  object-fit: cover;
+  object-position: center 55%;
+}
+
+.dark-identity-sephie-symbol {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: min(27%, 150px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 5px solid #d1d0cc;
+  border-radius: 12px;
+  box-shadow: 0 20px 52px rgb(0 0 0 / 24%);
+}
+
+.dark-identity-sephie-symbol img {
+  object-fit: cover;
+}
+
+.dark-identity-sephie .dark-identity-copy {
+  min-height: 0;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-top: 0;
+  border-left: 1px solid rgb(255 255 255 / 10%);
+  background:
+    radial-gradient(circle at 100% 0%, rgb(220 185 28 / 15%), transparent 44%),
+    #0a0b0b;
+}
+
+.dark-identity-sephie .dark-identity-copy h4 {
+  max-width: 8ch;
+  font-size: clamp(2rem, 3.2vw, 3.35rem);
 }
 
 .dark-identity-copy {
@@ -1842,12 +1907,26 @@
   .dark-growth-copy { border-right: 0; border-bottom: 1px solid rgb(255 255 255 / 10%); }
   .dark-growth-map { min-height: 470px; }
 
-  .moikato-proof-shell { grid-template-columns: 1fr; }
+  .moikato-proof {
+    height: auto;
+    max-height: none;
+    padding-bottom: 5rem;
+  }
+  .moikato-proof-shell {
+    height: auto;
+    grid-template-columns: 1fr;
+  }
   .moikato-proof-content {
-    border-right: 0;
+    grid-column: 1;
+    grid-row: auto;
+    border-left: 0;
     border-bottom: 1px solid rgb(255 255 255 / 10%);
   }
-  .moikato-proof-testimonial { padding-block: 2.5rem; }
+  .moikato-proof-testimonial {
+    grid-column: 1;
+    grid-row: auto;
+    padding-block: 2.5rem;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1998,6 +2077,23 @@
     border-left: 0;
   }
   .dark-identity-sweet .dark-identity-copy h4 {
+    max-width: none;
+    font-size: 1.75rem;
+  }
+  .dark-identity-sephie { display: block; }
+  .dark-identity-sephie .dark-identity-media { min-height: 340px; }
+  .dark-identity-sephie-symbol {
+    top: 1rem;
+    right: 1rem;
+    width: 34%;
+    border-width: 4px;
+  }
+  .dark-identity-sephie .dark-identity-copy {
+    padding: 1.5rem;
+    border-top: 1px solid rgb(255 255 255 / 10%);
+    border-left: 0;
+  }
+  .dark-identity-sephie .dark-identity-copy h4 {
     max-width: none;
     font-size: 1.75rem;
   }

@@ -232,6 +232,30 @@ export function Cases() {
               <p>Logos e branding.</p>
             </div>
           </article>
+
+          <article className="dark-identity-card dark-identity-sephie">
+            <div className="dark-identity-media">
+              <Image
+                src="/projects/sephie-tarot-signature.webp"
+                alt="Assinatura visual da Sephie Tarot criada pela VIA"
+                fill
+                sizes="(max-width: 759px) 100vw, 60vw"
+              />
+              <div className="dark-identity-sephie-symbol">
+                <Image
+                  src="/projects/sephie-tarot-symbol.webp"
+                  alt="Símbolo da Sephie Tarot"
+                  fill
+                  sizes="(max-width: 759px) 34vw, 14vw"
+                />
+              </div>
+            </div>
+            <div className="dark-identity-copy">
+              <span>09 / LOGO & IDENTIDADE</span>
+              <h4>Sephie Tarot</h4>
+              <p>Logo, símbolo e assinatura visual.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
