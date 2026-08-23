@@ -278,6 +278,22 @@ export function Cases() {
               <p>Logo, símbolo e assinatura visual.</p>
             </div>
           </article>
+
+          <article className="dark-identity-card dark-identity-organizer">
+            <div className="dark-identity-media">
+              <Image
+                src="/projects/ana-paula-organizer.webp"
+                alt="Logo da Ana Paula Personal Organizer criado pela VIA"
+                fill
+                sizes="(max-width: 720px) 100vw, 82vw"
+              />
+            </div>
+            <div className="dark-identity-copy">
+              <span>10 / MARCA &amp; IDENTIDADE</span>
+              <h4>Ana Paula Personal Organizer</h4>
+              <p>Logo e identidade visual para serviço de organização.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>

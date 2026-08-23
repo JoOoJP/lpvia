@@ -123,12 +123,14 @@ test("inclui os projetos adicionais construídos pela VIA", async () => {
   assert.match(html, /Studio da Giu/);
   assert.match(html, /Sweet Popcorn Gourmet/);
   assert.match(html, /Sephie Tarot/);
+  assert.match(html, /Ana Paula Personal Organizer/);
   assert.match(html, /Rebranding\./);
   assert.match(html, /Assinatura visual para trazer mais identidade\./);
   assert.match(html, /Panfletos, peças promocionais e campanhas para marcas e eventos\./);
   assert.match(html, /Construção de identidade visual e materiais gráficos\./);
   assert.match(html, /Logos e branding\./);
   assert.match(html, /Logo, símbolo e assinatura visual\./);
+  assert.match(html, /Logo e identidade visual para serviço de organização\./);
   assert.match(assets, /route-before\.webp/);
   assert.match(assets, /route-primary\.webp/);
   assert.match(
@@ -145,6 +147,7 @@ test("inclui os projetos adicionais construídos pela VIA", async () => {
   assert.match(assets, /projects\/sweet-popcorn-gourmet\.webp/);
   assert.match(assets, /projects\/sephie-tarot-signature\.webp/);
   assert.match(assets, /projects\/sephie-tarot-symbol\.webp/);
+  assert.match(assets, /projects\/ana-paula-organizer\.webp/);
   assert.match(assets, /projects\/moikato-brand\.webp/);
 });
 

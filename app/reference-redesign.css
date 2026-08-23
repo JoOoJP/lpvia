@@ -1645,6 +1645,23 @@
   transform: scale(1.5);
 }
 
+/* Fecha a grade ímpar ocupando a linha inteira, mas sem trocar de gramática:
+   mídia em cima e texto embaixo, igual aos outros — só numa célula mais larga. */
+.dark-identity-organizer {
+  grid-column: 1 / -1;
+}
+
+.dark-identity-organizer .dark-identity-media {
+  min-height: clamp(340px, 30vw, 420px);
+  /* Cor exata do fundo do arquivo: em branco puro apareceria a emenda. */
+  background: #fefefe;
+}
+
+.dark-identity-organizer .dark-identity-media > img {
+  object-fit: contain;
+  padding: clamp(1.25rem, 3vw, 2.75rem);
+}
+
 .dark-identity-copy {
   min-height: 172px;
   padding: 1.5rem;
