@@ -45,8 +45,8 @@ const capabilities = [
     title: "Conteúdo & campanhas",
     text: "Social media, gestão de redes, roteiros e campanhas com direção criativa.",
     reference: {
-      client: "Latino Beats",
-      href: "#case-latino-beats",
+      client: "Conteúdo visual",
+      href: "#case-conteudo-visual",
       image: "/projects/latino-beats.webp",
       position: "center 34%",
     },

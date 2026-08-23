@@ -174,21 +174,39 @@ export function Cases() {
           </article>
 
           <article
-            className="dark-identity-card dark-identity-latino"
-            id="case-latino-beats"
+            className="dark-identity-card dark-identity-content"
+            id="case-conteudo-visual"
           >
             <div className="dark-identity-media">
-              <Image
-                src="/projects/latino-beats.webp"
-                alt="Campanha visual Latino Beats criada para evento em Londres"
-                fill
-                sizes="(max-width: 759px) 100vw, 58vw"
-              />
+              <div className="dark-identity-content-piece dark-identity-content-latino">
+                <Image
+                  src="/projects/latino-beats.webp"
+                  alt="Panfleto Latino Beats criado para evento em Londres"
+                  fill
+                  sizes="(max-width: 759px) 29vw, 17vw"
+                />
+              </div>
+              <div className="dark-identity-content-piece dark-identity-content-flyer">
+                <Image
+                  src="/projects/in-tha-route-flyer-full.webp"
+                  alt="Panfleto promocional da In Tha Route"
+                  fill
+                  sizes="(max-width: 759px) 29vw, 17vw"
+                />
+              </div>
+              <div className="dark-identity-content-piece dark-identity-content-detail">
+                <Image
+                  src="/projects/in-tha-route-flyer-detail.webp"
+                  alt="Detalhe da peça promocional da In Tha Route"
+                  fill
+                  sizes="(max-width: 759px) 29vw, 17vw"
+                />
+              </div>
             </div>
             <div className="dark-identity-copy">
-              <span>06 / CAMPANHA & DIREÇÃO CRIATIVA</span>
-              <h4>Latino Beats</h4>
-              <p>Criação de folders e campanhas para eventos.</p>
+              <span>06 / PANFLETOS & PEÇAS</span>
+              <h4>Conteúdo visual</h4>
+              <p>Panfletos, peças promocionais e campanhas para marcas e eventos.</p>
             </div>
           </article>
 
@@ -235,18 +253,20 @@ export function Cases() {
 
           <article className="dark-identity-card dark-identity-sephie">
             <div className="dark-identity-media">
-              <Image
-                src="/projects/sephie-tarot-signature.webp"
-                alt="Assinatura visual da Sephie Tarot criada pela VIA"
-                fill
-                sizes="(max-width: 759px) 100vw, 60vw"
-              />
               <div className="dark-identity-sephie-symbol">
                 <Image
                   src="/projects/sephie-tarot-symbol.webp"
                   alt="Símbolo da Sephie Tarot"
                   fill
-                  sizes="(max-width: 759px) 34vw, 14vw"
+                  sizes="(max-width: 759px) 32vw, 15vw"
+                />
+              </div>
+              <div className="dark-identity-sephie-signature">
+                <Image
+                  src="/projects/sephie-tarot-signature.webp"
+                  alt="Assinatura visual da Sephie Tarot criada pela VIA"
+                  fill
+                  sizes="(max-width: 759px) 68vw, 45vw"
                 />
               </div>
             </div>

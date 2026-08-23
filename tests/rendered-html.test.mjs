@@ -80,7 +80,7 @@ test("mostra o escopo real da VIA", async () => {
   assert.doesNotMatch(html, /CASO APLICADO/);
   assert.match(html, /href="#case-in-tha-route"/);
   assert.match(html, /href="#case-tardinha"/);
-  assert.match(html, /href="#case-latino-beats"/);
+  assert.match(html, /href="#case-conteudo-visual"/);
   assert.match(html, /href="#case-saude"/);
   assert.match(html, /href="#case-moikato"/);
 });
@@ -124,13 +124,13 @@ test("inclui os projetos adicionais construídos pela VIA", async () => {
 
   assert.match(html, /In Tha Route/);
   assert.match(html, /Xangô 7 Cachoeiras/);
-  assert.match(html, /Latino Beats/);
+  assert.match(html, /Conteúdo visual/);
   assert.match(html, /Studio da Giu/);
   assert.match(html, /Sweet Popcorn Gourmet/);
   assert.match(html, /Sephie Tarot/);
   assert.match(html, /Rebranding\./);
   assert.match(html, /Assinatura visual para trazer mais identidade\./);
-  assert.match(html, /Criação de folders e campanhas para eventos\./);
+  assert.match(html, /Panfletos, peças promocionais e campanhas para marcas e eventos\./);
   assert.match(html, /Construção de identidade visual e materiais gráficos\./);
   assert.match(html, /Logos e branding\./);
   assert.match(html, /Logo, símbolo e assinatura visual\./);
@@ -143,6 +143,8 @@ test("inclui os projetos adicionais construídos pela VIA", async () => {
   assert.match(html, /type="range"/);
   assert.match(html, /projects\/tux7c-primary\.webp/);
   assert.match(html, /projects\/latino-beats\.webp/);
+  assert.match(html, /projects\/in-tha-route-flyer-full\.webp/);
+  assert.match(html, /projects\/in-tha-route-flyer-detail\.webp/);
   assert.match(html, /projects\/studio-giu-pricing\.webp/);
   assert.match(html, /projects\/studio-giu-logo\.webp/);
   assert.match(html, /projects\/sweet-popcorn-gourmet\.webp/);

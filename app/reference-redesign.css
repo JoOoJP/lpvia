@@ -1555,17 +1555,51 @@
   object-fit: cover;
 }
 
-.dark-identity-latino .dark-identity-media {
+.dark-identity-content .dark-identity-media {
+  min-height: 340px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: clamp(0.45rem, 1vw, 0.8rem);
+  padding: clamp(1rem, 2vw, 1.5rem);
   background:
     radial-gradient(circle at 50% 42%, rgb(228 29 188 / 34%), transparent 34%),
-    radial-gradient(circle at 72% 78%, rgb(91 18 209 / 30%), transparent 38%),
+    radial-gradient(circle at 78% 78%, rgb(102 38 231 / 34%), transparent 38%),
     #09060e;
 }
 
-.dark-identity-latino .dark-identity-media > img {
-  object-fit: contain;
-  padding: 1.25rem;
-  filter: drop-shadow(0 24px 48px rgb(232 24 185 / 22%));
+.dark-identity-content-piece {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 0.57;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: 6px;
+  background: #070707;
+  box-shadow: 0 22px 48px rgb(0 0 0 / 42%);
+  transform-origin: center bottom;
+}
+
+.dark-identity-content-piece img {
+  object-fit: cover;
+}
+
+.dark-identity-content-latino {
+  transform: translateY(0.45rem) rotate(-2.5deg);
+}
+
+.dark-identity-content-flyer {
+  z-index: 2;
+  transform: translateY(-0.45rem) rotate(1deg);
+}
+
+.dark-identity-content-detail {
+  transform: translateY(0.6rem) rotate(2.5deg);
+}
+
+.dark-identity-content-detail img {
+  object-position: center 36%;
+  transform: scale(1.55);
 }
 
 .dark-identity-studio .dark-identity-media {
@@ -1603,7 +1637,7 @@
 
 .dark-identity-sweet .dark-identity-media {
   min-height: 390px;
-  background: #f7f7f5;
+  background: #fff;
 }
 
 .dark-identity-sweet .dark-identity-media > img {
@@ -1642,28 +1676,53 @@
 
 .dark-identity-sephie .dark-identity-media {
   min-height: 390px;
+  display: grid;
+  grid-template-columns: clamp(150px, 29%, 190px) minmax(0, 1fr);
+  isolation: isolate;
   background: #c7c5c1;
 }
 
-.dark-identity-sephie .dark-identity-media > img {
-  object-fit: cover;
-  object-position: center 55%;
-}
-
 .dark-identity-sephie-symbol {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  width: min(27%, 150px);
-  aspect-ratio: 1;
+  position: relative;
+  z-index: 2;
   overflow: hidden;
-  border: 5px solid #d1d0cc;
-  border-radius: 12px;
-  box-shadow: 0 20px 52px rgb(0 0 0 / 24%);
+  border-right: 1px solid rgb(5 6 6 / 14%);
+  background: #c7c5c1;
+  box-shadow: 18px 0 44px rgb(5 6 6 / 8%);
 }
 
 .dark-identity-sephie-symbol img {
   object-fit: cover;
+  object-position: center 45%;
+}
+
+.dark-identity-sephie-symbol::after {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.38rem 0.52rem;
+  border: 1px solid rgb(5 6 6 / 16%);
+  border-radius: 999px;
+  background: rgb(199 197 193 / 82%);
+  color: #0a0b0b;
+  content: "SÍMBOLO";
+  font-size: 0.54rem;
+  font-weight: 780;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  backdrop-filter: blur(8px);
+}
+
+.dark-identity-sephie-signature {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: #c7c5c1;
+}
+
+.dark-identity-sephie-signature img {
+  object-fit: cover;
+  object-position: center 55%;
 }
 
 .dark-identity-sephie .dark-identity-copy {
@@ -2067,7 +2126,11 @@
   .dark-identity-media { min-height: 260px; }
   .dark-identity-poster { width: 52%; }
   .dark-identity-copy { min-height: 0; }
-  .dark-identity-latino .dark-identity-media { min-height: 360px; }
+  .dark-identity-content .dark-identity-media {
+    min-height: 250px;
+    gap: 0.4rem;
+    padding: 0.85rem;
+  }
   .dark-identity-studio-logo { width: 54%; }
   .dark-identity-sweet { display: block; }
   .dark-identity-sweet .dark-identity-media { min-height: 340px; }
@@ -2081,12 +2144,13 @@
     font-size: 1.75rem;
   }
   .dark-identity-sephie { display: block; }
-  .dark-identity-sephie .dark-identity-media { min-height: 340px; }
-  .dark-identity-sephie-symbol {
-    top: 1rem;
-    right: 1rem;
-    width: 34%;
-    border-width: 4px;
+  .dark-identity-sephie .dark-identity-media {
+    min-height: 340px;
+    grid-template-columns: clamp(116px, 32%, 150px) minmax(0, 1fr);
+  }
+  .dark-identity-sephie-symbol::after {
+    top: 0.75rem;
+    left: 0.75rem;
   }
   .dark-identity-sephie .dark-identity-copy {
     padding: 1.5rem;
