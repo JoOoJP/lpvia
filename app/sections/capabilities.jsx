@@ -1,21 +1,6 @@
 import Image from "next/image";
 import { Arrow } from "../ui/arrow";
 
-const projectServices = [
-  { slug: "logo", title: "Logo e identidade visual" },
-  { slug: "landing", title: "Landing pages" },
-  { slug: "sites", title: "Sites institucionais" },
-  { slug: "naming", title: "Naming e posicionamento" },
-  { slug: "content", title: "Conteúdo e criativos" },
-  { slug: "traffic", title: "Gestão de tráfego pago" },
-  { slug: "brand", title: "Registro de marca" },
-  { slug: "automation", title: "Automações e IA" },
-  { slug: "consulting", title: "Consultoria comercial" },
-  { slug: "advisory", title: "Assessoria de marketing" },
-  { slug: "social", title: "Social media e gestão de redes" },
-  { slug: "scripts", title: "Construção de roteiros" },
-];
-
 const capabilities = [
   {
     accent: "purple",
@@ -113,28 +98,6 @@ export function Capabilities() {
           />
         ))}
       </div>
-
-      <aside
-        className="dark-project-services"
-        id="projetos-pontuais"
-        aria-labelledby="project-services-title"
-      >
-        <header>
-          <p className="dark-kicker">PROJETOS PONTUAIS</p>
-          <h3 id="project-services-title">
-            Uma peça específica também move o todo.
-          </h3>
-          <p>Escopo fechado, entrega clara e a mesma direção estratégica.</p>
-        </header>
-        <ol>
-          {projectServices.map((service, index) => (
-            <li key={service.slug}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{service.title}</strong>
-            </li>
-          ))}
-        </ol>
-      </aside>
     </section>
   );
 }

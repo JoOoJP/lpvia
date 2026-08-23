@@ -67,14 +67,6 @@ test("mostra o escopo real da VIA", async () => {
   assert.match(html, /Tráfego &amp; performance/);
   assert.match(html, /Estratégia &amp; comercial/);
   assert.match(html, /Tecnologia &amp; automação/);
-  assert.match(html, /PROJETOS PONTUAIS/);
-  assert.match(html, /Logo e identidade visual/);
-  assert.match(html, /Landing pages/);
-  assert.match(html, /Gestão de tráfego pago/);
-  assert.match(html, /Consultoria comercial/);
-  assert.match(html, /Assessoria de marketing/);
-  assert.match(html, /Social media e gestão de redes/);
-  assert.match(html, /Construção de roteiros/);
   assert.match(html, /Crescimento orgânico e pago/);
   assert.match(html, /class="dark-capability-preview/);
   assert.doesNotMatch(html, /CASO APLICADO/);
@@ -121,6 +113,9 @@ test("entrega os três trabalhos em contexto", async () => {
 test("inclui os projetos adicionais construídos pela VIA", async () => {
   const response = await fetch(pageUrl);
   const html = await response.text();
+  // O next/image serve os caminhos escapados; o literal só sobra no payload
+  // RSC, que é fatiado em chunks e muda de lugar a cada alteração de markup.
+  const assets = html.replaceAll("%2F", "/");
 
   assert.match(html, /In Tha Route/);
   assert.match(html, /Xangô 7 Cachoeiras/);
@@ -134,23 +129,23 @@ test("inclui os projetos adicionais construídos pela VIA", async () => {
   assert.match(html, /Construção de identidade visual e materiais gráficos\./);
   assert.match(html, /Logos e branding\./);
   assert.match(html, /Logo, símbolo e assinatura visual\./);
-  assert.match(html, /route-before\.webp/);
-  assert.match(html, /route-primary\.webp/);
+  assert.match(assets, /route-before\.webp/);
+  assert.match(assets, /route-primary\.webp/);
   assert.match(
     html,
     /aria-label="Comparar a identidade antiga e a nova da In Tha Route"/,
   );
   assert.match(html, /type="range"/);
-  assert.match(html, /projects\/tux7c-primary\.webp/);
-  assert.match(html, /projects\/latino-beats\.webp/);
-  assert.match(html, /projects\/in-tha-route-flyer-full\.webp/);
-  assert.match(html, /projects\/in-tha-route-flyer-detail\.webp/);
-  assert.match(html, /projects\/studio-giu-pricing\.webp/);
-  assert.match(html, /projects\/studio-giu-logo\.webp/);
-  assert.match(html, /projects\/sweet-popcorn-gourmet\.webp/);
-  assert.match(html, /projects\/sephie-tarot-signature\.webp/);
-  assert.match(html, /projects\/sephie-tarot-symbol\.webp/);
-  assert.match(html, /projects\/moikato-brand\.webp/);
+  assert.match(assets, /projects\/tux7c-primary\.webp/);
+  assert.match(assets, /projects\/latino-beats\.webp/);
+  assert.match(assets, /projects\/in-tha-route-flyer-full\.webp/);
+  assert.match(assets, /projects\/in-tha-route-flyer-detail\.webp/);
+  assert.match(assets, /projects\/studio-giu-pricing\.webp/);
+  assert.match(assets, /projects\/studio-giu-logo\.webp/);
+  assert.match(assets, /projects\/sweet-popcorn-gourmet\.webp/);
+  assert.match(assets, /projects\/sephie-tarot-signature\.webp/);
+  assert.match(assets, /projects\/sephie-tarot-symbol\.webp/);
+  assert.match(assets, /projects\/moikato-brand\.webp/);
 });
 
 test("declara as fontes no mesmo escopo dos tokens", async () => {

@@ -178,29 +178,31 @@ export function Cases() {
             id="case-conteudo-visual"
           >
             <div className="dark-identity-media">
-              <div className="dark-identity-content-piece dark-identity-content-latino">
-                <Image
-                  src="/projects/latino-beats.webp"
-                  alt="Panfleto Latino Beats criado para evento em Londres"
-                  fill
-                  sizes="(max-width: 759px) 29vw, 17vw"
-                />
-              </div>
-              <div className="dark-identity-content-piece dark-identity-content-flyer">
-                <Image
-                  src="/projects/in-tha-route-flyer-full.webp"
-                  alt="Panfleto promocional da In Tha Route"
-                  fill
-                  sizes="(max-width: 759px) 29vw, 17vw"
-                />
-              </div>
-              <div className="dark-identity-content-piece dark-identity-content-detail">
-                <Image
-                  src="/projects/in-tha-route-flyer-detail.webp"
-                  alt="Detalhe da peça promocional da In Tha Route"
-                  fill
-                  sizes="(max-width: 759px) 29vw, 17vw"
-                />
+              <div className="dark-identity-content-stack">
+                <div className="dark-identity-content-piece dark-identity-content-flyer">
+                  <Image
+                    src="/projects/in-tha-route-flyer-full.webp"
+                    alt="Panfleto promocional da In Tha Route"
+                    fill
+                    sizes="(max-width: 720px) 34vw, 12vw"
+                  />
+                </div>
+                <div className="dark-identity-content-piece dark-identity-content-latino">
+                  <Image
+                    src="/projects/latino-beats.webp"
+                    alt="Panfleto Latino Beats criado para evento em Londres"
+                    fill
+                    sizes="(max-width: 720px) 40vw, 14vw"
+                  />
+                </div>
+                <div className="dark-identity-content-piece dark-identity-content-detail">
+                  <Image
+                    src="/projects/in-tha-route-flyer-detail.webp"
+                    alt="Close do rodapé do panfleto da In Tha Route, com QR code e chamada"
+                    fill
+                    sizes="(max-width: 720px) 42vw, 15vw"
+                  />
+                </div>
               </div>
             </div>
             <div className="dark-identity-copy">
@@ -241,7 +243,7 @@ export function Cases() {
                 src="/projects/sweet-popcorn-gourmet.webp"
                 alt="Embalagem da Sweet Popcorn Gourmet com a identidade criada pela VIA"
                 fill
-                sizes="(max-width: 759px) 100vw, 66vw"
+                sizes="(max-width: 720px) 100vw, 50vw"
               />
             </div>
             <div className="dark-identity-copy">
@@ -253,20 +255,20 @@ export function Cases() {
 
           <article className="dark-identity-card dark-identity-sephie">
             <div className="dark-identity-media">
-              <div className="dark-identity-sephie-symbol">
-                <Image
-                  src="/projects/sephie-tarot-symbol.webp"
-                  alt="Símbolo da Sephie Tarot"
-                  fill
-                  sizes="(max-width: 759px) 32vw, 15vw"
-                />
-              </div>
               <div className="dark-identity-sephie-signature">
                 <Image
                   src="/projects/sephie-tarot-signature.webp"
                   alt="Assinatura visual da Sephie Tarot criada pela VIA"
                   fill
-                  sizes="(max-width: 759px) 68vw, 45vw"
+                  sizes="(max-width: 720px) 88vw, 32vw"
+                />
+              </div>
+              <div className="dark-identity-symbol">
+                <Image
+                  src="/projects/sephie-tarot-symbol.webp"
+                  alt="Símbolo da Sephie Tarot"
+                  fill
+                  sizes="(max-width: 720px) 28vw, 11vw"
                 />
               </div>
             </div>
