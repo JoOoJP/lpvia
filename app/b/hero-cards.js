@@ -29,7 +29,12 @@ export const heroCards = [
       alt: "Editorial da Moikato entre a origem brasileira e o mercado internacional",
       position: "center",
     },
-    recorte: null,
+    recorte: {
+      src: "/projects/hero/moikato-cutout-v3.webp",
+      width: 777,
+      height: 1200,
+      escape: "escapeMoikato",
+    },
   },
   {
     id: "sephie",
@@ -44,7 +49,12 @@ export const heroCards = [
       alt: "Universo visual escuro e dourado criado para a Sephie Tarot",
       position: "center",
     },
-    recorte: null,
+    recorte: {
+      src: "/projects/hero/sephie-cutout-v3.webp",
+      width: 615,
+      height: 1200,
+      escape: "escapeSephie",
+    },
   },
   {
     id: "tardinha",
@@ -59,7 +69,12 @@ export const heroCards = [
       alt: "Evento A Tardinha realizado ao pôr do sol às margens do Rio Solimões",
       position: "center",
     },
-    recorte: null,
+    recorte: {
+      src: "/projects/hero/tardinha-cutout-v2.webp",
+      width: 1300,
+      height: 810,
+      escape: "escapeTardinha",
+    },
   },
   {
     id: "carolina",
@@ -74,7 +89,12 @@ export const heroCards = [
       alt: "Sistema visual roxo e dourado desenvolvido para Carolina",
       position: "center",
     },
-    recorte: null,
+    recorte: {
+      src: "/projects/hero/carolina-cutout-v2.webp",
+      width: 900,
+      height: 665,
+      escape: "escapeCarolina",
+    },
   },
   {
     id: "sweet-popcorn",
@@ -89,7 +109,12 @@ export const heroCards = [
       alt: "Embalagem colorida da Sweet Popcorn Gourmet em fotografia de estúdio",
       position: "center",
     },
-    recorte: null,
+    recorte: {
+      src: "/projects/recortes/sweet-popcorn.webp",
+      width: 982,
+      height: 996,
+      escape: "escapeSweet",
+    },
   },
 ];
 

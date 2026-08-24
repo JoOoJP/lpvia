@@ -157,6 +157,11 @@ test("inclui os projetos adicionais construídos pela VIA", async () => {
   assert.match(assets, /projects\/hero\/tardinha-cinematic\.webp/);
   assert.match(assets, /projects\/hero\/carolina-cinematic\.webp/);
   assert.match(assets, /projects\/hero\/sweet-popcorn-cinematic\.webp/);
+  assert.match(assets, /projects\/hero\/moikato-cutout-v3\.webp/);
+  assert.match(assets, /projects\/hero\/sephie-cutout-v3\.webp/);
+  assert.match(assets, /projects\/hero\/tardinha-cutout-v2\.webp/);
+  assert.match(assets, /projects\/hero\/carolina-cutout-v2\.webp/);
+  assert.match(assets, /projects\/recortes\/sweet-popcorn\.webp/);
 
   assert.match(html, /Carolina Carvalho/);
   assert.match(html, /Rebranding, paleta e manual de marca para podóloga\./);

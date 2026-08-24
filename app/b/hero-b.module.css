@@ -39,9 +39,6 @@
 }
 
 .scene {
-  --pointer-x: 0;
-  --pointer-y: 0;
-
   position: relative;
   z-index: 2;
   width: min(100% - (2 * var(--layout-gutter)), 1420px);
@@ -87,8 +84,6 @@
   font-weight: 700;
   letter-spacing: -0.012em;
   line-height: 0.9;
-  translate: calc(var(--pointer-x) * -16px) calc(var(--pointer-y) * -10px);
-  transition: translate 900ms var(--ease-out);
   filter: drop-shadow(0 1.8rem 2.6rem rgb(0 0 0 / 72%));
 }
 
@@ -373,10 +368,6 @@
   position: absolute;
   z-index: 2;
   width: var(--card-width);
-  translate:
-    calc(var(--pointer-x) * var(--depth) * 34px)
-    calc(var(--pointer-y) * var(--depth) * 22px);
-  transition: translate 900ms var(--ease-out);
 }
 
 /*
@@ -385,6 +376,7 @@
  */
 .cardTilt {
   position: relative;
+  transform-style: preserve-3d;
   transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)) rotateZ(var(--rz, 0deg));
   animation: cardFloat var(--float-time, 12s) ease-in-out var(--float-delay, 0s) infinite;
 }
@@ -409,7 +401,7 @@
   background: var(--card-bg);
   box-shadow:
     0 1px 0 rgb(255 255 255 / 9%) inset,
-    0 50px 90px -28px rgb(0 0 0 / 78%);
+    0 68px 110px -34px rgb(0 0 0 / 82%);
   color: var(--card-fg, #f4f5f4);
   transition: border-color var(--duration-normal) ease;
 }
@@ -434,6 +426,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: var(--card-media-filter, brightness(1.14) saturate(1.08));
 }
 
 /* Véu que garante o contraste do texto sobre qualquer foto. */
@@ -443,7 +436,7 @@
   inset: 0;
   background: var(
     --card-scrim,
-    linear-gradient(188deg, rgb(4 5 6 / 26%) 0%, rgb(4 5 6 / 80%) 56%, rgb(4 5 6 / 96%) 100%)
+    linear-gradient(188deg, rgb(4 5 6 / 6%) 0%, rgb(4 5 6 / 38%) 52%, rgb(4 5 6 / 84%) 100%)
   );
 }
 
@@ -455,6 +448,7 @@
   display: grid;
   align-content: end;
   gap: 0.3rem;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 78%);
 }
 
 .cardKicker {
@@ -516,7 +510,10 @@
   width: var(--cut-width);
   height: auto;
   pointer-events: none;
-  filter: drop-shadow(0 24px 26px rgb(0 0 0 / 55%));
+  filter:
+    drop-shadow(0 18px 12px rgb(0 0 0 / 32%))
+    drop-shadow(0 38px 32px rgb(0 0 0 / 68%));
+  transform: translateZ(74px);
   transition: scale var(--duration-normal) var(--ease-out);
   animation: recorteFloat var(--cut-float, 9s) ease-in-out var(--cut-delay, 0s) infinite;
 }
@@ -547,28 +544,55 @@
  * resto para fora. Peça pequena pairando acima do card lê como adesivo colado,
  * não como a marca escapando do quadro.
  */
-.escapeRight {
-  --cut-width: 46%;
+.escapeMoikato {
+  --cut-width: 62%;
   --cut-float: 10s;
   --cut-delay: -3s;
 
-  top: -4%;
-  right: -22%;
+  top: -21%;
+  right: -24%;
 }
 
-.escapeTop {
-  --cut-width: 54%;
+.escapeSephie {
+  --cut-width: 58%;
   --cut-float: 11s;
   --cut-delay: -5s;
 
-  top: -19%;
-  left: 44%;
+  top: -24%;
+  right: -19%;
+}
+
+.escapeTardinha {
+  --cut-width: 88%;
+  --cut-float: 12s;
+  --cut-delay: -8s;
+
+  top: -26%;
+  right: -31%;
+}
+
+.escapeCarolina {
+  --cut-width: 61%;
+  --cut-float: 9s;
+  --cut-delay: -2s;
+
+  top: -25%;
+  right: -20%;
+}
+
+.escapeSweet {
+  --cut-width: 49%;
+  --cut-float: 10.5s;
+  --cut-delay: -6s;
+
+  top: -22%;
+  right: -16%;
 }
 
 /* ---------- Posições: cada slot é uma cadeira fixa na cena ---------- */
 
 .slotLeftTop {
-  --card-width: 27%;
+  --card-width: 31%;
   --depth: 1.1;
   --ry: 15deg;
   --rx: 4deg;
@@ -576,11 +600,11 @@
   --float-time: 13s;
 
   top: 4%;
-  left: 0;
+  left: -3%;
 }
 
 .slotLeftBottom {
-  --card-width: 22%;
+  --card-width: 26%;
   --depth: 1.45;
   --ry: 13deg;
   --rx: -6deg;
@@ -589,11 +613,11 @@
   --float-delay: -4s;
 
   top: 52%;
-  left: 3%;
+  left: 0;
 }
 
 .slotCenterBottom {
-  --card-width: 20%;
+  --card-width: 24%;
   --depth: 1.7;
   --ry: -6deg;
   --rx: -9deg;
@@ -602,11 +626,11 @@
   --float-delay: -7s;
 
   top: 68%;
-  left: 55%;
+  left: 53%;
 }
 
 .slotRightTop {
-  --card-width: 26%;
+  --card-width: 30%;
   --depth: 1.05;
   --ry: -14deg;
   --rx: 5deg;
@@ -615,11 +639,11 @@
   --float-delay: -2s;
 
   top: 10%;
-  right: 0;
+  right: -3%;
 }
 
 .slotRightBottom {
-  --card-width: 25%;
+  --card-width: 29%;
   --depth: 1.35;
   --ry: -12deg;
   --rx: -4deg;
@@ -628,7 +652,7 @@
   --float-delay: -9s;
 
   top: 48%;
-  right: 0;
+  right: -2%;
 }
 
 /* Card mais estreito da cena: pede 4/3 para o corpo respirar. */
@@ -689,6 +713,11 @@
   --card-border-hover: rgb(22 20 15 / 30%);
   --card-fg: #16140f;
   --card-fg-muted: #5c5646;
+  --card-media-filter: brightness(1.04) saturate(1.04);
+}
+
+.toneCream .cardBody {
+  text-shadow: none;
 }
 
 /* ---------- Estilhaços fora de foco ---------- */
@@ -708,11 +737,7 @@
   border-radius: 4px;
   opacity: var(--shard-opacity, 0.32);
   filter: blur(var(--shard-blur, 3px));
-  translate:
-    calc(var(--pointer-x) * var(--depth, 2) * 34px)
-    calc(var(--pointer-y) * var(--depth, 2) * 22px);
   transform: rotate(var(--rz, 0deg));
-  transition: translate 900ms var(--ease-out);
 }
 
 .shard img {
@@ -900,7 +925,7 @@
 
   .card {
     position: static;
-    flex: 0 0 var(--card-strip-width, 76%);
+    flex: 0 0 var(--card-strip-width, 84%);
     scroll-snap-align: center;
     translate: none;
   }
@@ -939,20 +964,40 @@
    * No toque o recorte escapa só para cima: para os lados ele saía do viewport
    * e a faixa o cortava.
    */
-  .escapeRight,
-  .escapeTop {
-    --cut-width: 38%;
-
-    top: -11%;
+  .escapeMoikato,
+  .escapeSephie,
+  .escapeTardinha,
+  .escapeCarolina,
+  .escapeSweet {
+    top: -15%;
     right: auto;
+    transform: none;
   }
 
-  .escapeRight {
+  .escapeMoikato {
+    --cut-width: 46%;
     left: 58%;
   }
 
-  .escapeTop {
-    left: 48%;
+  .escapeSephie {
+    --cut-width: 44%;
+    left: 59%;
+  }
+
+  .escapeTardinha {
+    --cut-width: 68%;
+    top: -11%;
+    left: 43%;
+  }
+
+  .escapeCarolina {
+    --cut-width: 44%;
+    left: 58%;
+  }
+
+  .escapeSweet {
+    --cut-width: 39%;
+    left: 62%;
   }
 
   .explore {
