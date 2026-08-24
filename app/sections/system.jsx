@@ -99,10 +99,15 @@ export function System() {
           aria-labelledby="samuel-testimonial-title"
         >
           <div className="moikato-proof-video">
+            {/*
+             * preload="none" e não "metadata": o Chromium pede o range inteiro
+             * do arquivo já no load da página, e o depoimento tem 11 MB. Com o
+             * poster no lugar, nada é baixado antes do play.
+             */}
             <video
               controls
               playsInline
-              preload="metadata"
+              preload="none"
               poster="/depoimento-samuel-moikato.jpg"
               aria-label="Depoimento em vídeo de Samuel, da Moikato, sobre o trabalho da VIA"
               aria-describedby="samuel-testimonial-summary"

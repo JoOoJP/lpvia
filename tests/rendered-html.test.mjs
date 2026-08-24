@@ -158,7 +158,32 @@ test("declara as fontes no mesmo escopo dos tokens", async () => {
 
   assert.match(tagHtml, /inter[^\"]*variable/);
   assert.match(tagHtml, /space_grotesk[^\"]*variable/);
-  assert.match(tagHtml, /libre_bodoni[^\"]*variable/);
+  // A serifada é exclusiva do catálogo: na landing ela seria peso sem uso.
+  assert.doesNotMatch(html, /libre_bodoni/i);
+});
+
+test("carrega a serifada apenas no catálogo do design system", async () => {
+  const response = await fetch(`${pageUrl}design-system`);
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /libre_bodoni[^\"]*variable/);
+});
+
+test("publica canonical, sitemap e identidade da organização", async () => {
+  const response = await fetch(pageUrl);
+  const html = await response.text();
+
+  assert.match(html, /<link rel="canonical" href="[^"]+"\/>/);
+  assert.match(html, /"@type":"Organization"/);
+  assert.match(html, /"telephone":"\+5541991014546"/);
+
+  const sitemap = await fetch(`${pageUrl}sitemap.xml`);
+  assert.equal(sitemap.status, 200);
+  assert.match(await sitemap.text(), /<loc>/);
+
+  const robots = await fetch(`${pageUrl}robots.txt`);
+  assert.match(await robots.text(), /Sitemap: \S+\/sitemap\.xml/);
 });
 
 test("entrega a navegação compacta já no HTML", async () => {

@@ -1,3 +1,5 @@
+import { siteUrl } from "./site";
+
 export default function robots() {
   return {
     rules: {
@@ -5,5 +7,6 @@ export default function robots() {
       allow: "/",
       disallow: "/design-system",
     },
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

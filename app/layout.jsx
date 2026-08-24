@@ -1,5 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
-import { Inter, Libre_Bodoni, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
+import { siteDescription, siteTitle, siteUrl } from "./site";
 import "./design-tokens.css";
 import "./globals.css";
 import "./portfolio.css";
@@ -10,32 +11,21 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const libreBodoni = Libre_Bodoni({
-  variable: "--font-editorial",
-  subsets: ["latin"],
-});
-
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
-// A Vercel expõe VERCEL_PROJECT_PRODUCTION_URL sozinha; NEXT_PUBLIC_SITE_URL
-// existe para sobrescrever em outra hospedagem.
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000");
-
-const title = "VIA — Estratégia que ganha forma";
-const description =
-  "Estratégia, marca, marketing, comercial e tecnologia conectados para construir negócios em movimento.";
+const title = siteTitle;
+const description = siteDescription;
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title,
     description,
@@ -63,10 +53,7 @@ export default function RootLayout({ children }) {
   // design-tokens.css monta --font-sans. No <body> elas ficariam abaixo do
   // escopo, e o token cairia na serifada padrão do navegador.
   return (
-    <html
-      lang="pt-BR"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${libreBodoni.variable}`}
-    >
+    <html lang="pt-BR" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body>
         <a className="skip-link" href="#conteudo-principal">
           Ir para o conteúdo

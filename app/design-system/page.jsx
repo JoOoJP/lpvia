@@ -1,5 +1,13 @@
+import { Libre_Bodoni } from "next/font/google";
 import Link from "next/link";
 import styles from "./design-system.module.css";
+
+// A serifada só aparece no catálogo. Carregada no layout raiz, ela viajava em
+// toda visita à landing page sem pintar um caractere sequer.
+const libreBodoni = Libre_Bodoni({
+  variable: "--font-editorial",
+  subsets: ["latin"],
+});
 
 export const metadata = {
   title: "Design System — VIA",
@@ -75,7 +83,7 @@ function Swatch({ name, token, value, inverse = false }) {
 
 export default function DesignSystemPage() {
   return (
-    <main className={styles.catalog}>
+    <main className={`${styles.catalog} ${libreBodoni.variable}`}>
       <header className={styles.topbar}>
         <Link className={styles.logo} href="/" aria-label="Voltar para a landing page da VIA">
           VIA

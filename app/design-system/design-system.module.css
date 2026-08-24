@@ -1,5 +1,9 @@
 .catalog {
   min-height: 100svh;
+  /* O token global é resolvido em :root, onde --font-editorial não existe mais
+     (a serifada agora é carregada só aqui). Redefinir no mesmo elemento que
+     carrega a fonte faz a substituição acontecer com o valor à mão. */
+  --font-editorial-accent: var(--font-editorial), Georgia, serif;
   background: var(--color-surface-page);
   color: var(--color-text-primary);
 }

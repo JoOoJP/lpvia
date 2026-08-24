@@ -10,7 +10,9 @@ const capabilities = [
       client: "In Tha Route",
       href: "#case-in-tha-route",
       image: "/projects/route-primary.webp",
-      position: "center",
+      // Marca precisa caber inteira: recorte em faixa come o lettering.
+      position: "right center",
+      fit: "contain",
     },
   },
   {
@@ -54,7 +56,8 @@ const capabilities = [
       client: "Moikato",
       href: "#case-moikato",
       image: "/projects/moikato-brand.webp",
-      position: "center",
+      position: "right center",
+      fit: "contain",
     },
   },
   {

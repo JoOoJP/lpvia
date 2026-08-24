@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { whatsappUrl } from "../contact";
 import { Arrow } from "../ui/arrow";
 import { ViaMark } from "../ui/via-mark";
@@ -9,6 +9,7 @@ const navItems = [
   { id: "fazemos", label: "O que fazemos" },
   { id: "moikato", label: "Moikato" },
   { id: "trabalhos", label: "Trabalhos" },
+  { id: "contato", label: "Contato" },
 ];
 
 // Faixa estreita no meio da tela: a seção que a cruza é a que o visitante lê.
@@ -18,6 +19,11 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [activeId, setActiveId] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const panelRef = useRef(null);
+  const toggleRef = useRef(null);
+  // Um link do painel manda o foco para a seção; só Escape e o próprio botão
+  // devolvem o foco ao hambúrguer.
+  const returnFocusRef = useRef(true);
 
   useEffect(() => {
     const readScroll = () => setScrolled(window.scrollY > 24);
@@ -55,18 +61,50 @@ export function SiteHeader() {
   useEffect(() => {
     if (!menuOpen) return;
 
-    const closeOnEscape = (event) => {
-      if (event.key === "Escape") setMenuOpen(false);
+    const panel = panelRef.current;
+    const toggle = toggleRef.current;
+    const focusables = () =>
+      Array.from(panel.querySelectorAll("a[href], button:not([disabled])"));
+
+    // O painel cobre a tela inteira: sem prender o Tab, o foco sai por baixo e
+    // passeia pela página escondida atrás dele.
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const items = focusables();
+      if (!items.length) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+      const outside = !panel.contains(active);
+
+      if (event.shiftKey && (outside || active === first)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (outside || active === last)) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     // Sem isso a página corre por baixo do painel aberto.
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("keydown", onKeyDown);
+    focusables()[0]?.focus();
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("keydown", onKeyDown);
+
+      if (returnFocusRef.current) toggle?.focus();
+      returnFocusRef.current = true;
     };
   }, [menuOpen]);
 
@@ -109,6 +147,7 @@ export function SiteHeader() {
         <button
           className="menu-toggle"
           type="button"
+          ref={toggleRef}
           aria-expanded={menuOpen}
           aria-controls="menu-mobile"
           aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
@@ -119,14 +158,25 @@ export function SiteHeader() {
         </button>
       </div>
 
-      <div className="menu-panel" id="menu-mobile" hidden={!menuOpen}>
+      <div
+        className="menu-panel"
+        id="menu-mobile"
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        hidden={!menuOpen}
+      >
         <nav aria-label="Navegação principal, versão compacta">
           {navItems.map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
               aria-current={activeId === item.id ? "true" : undefined}
-              onClick={() => setMenuOpen(false)}
+              onClick={() => {
+                returnFocusRef.current = false;
+                setMenuOpen(false);
+              }}
             >
               {item.label}
             </a>
@@ -137,7 +187,10 @@ export function SiteHeader() {
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
-          onClick={() => setMenuOpen(false)}
+          onClick={() => {
+            returnFocusRef.current = false;
+            setMenuOpen(false);
+          }}
         >
           Fale com a VIA <Arrow />
         </a>

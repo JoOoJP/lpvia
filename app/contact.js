@@ -1,4 +1,7 @@
 const WHATSAPP_NUMBER = "5541991014546";
+
+export const phoneE164 = `+${WHATSAPP_NUMBER}`;
+
 const WHATSAPP_MESSAGE =
   "Olá, conheci o trabalho da VIA e quero conversar sobre um projeto.";
 

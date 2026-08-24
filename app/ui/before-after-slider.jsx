@@ -4,7 +4,10 @@ import Image from "next/image";
 import { useState } from "react";
 
 export function BeforeAfterSlider() {
-  const [position, setPosition] = useState(50);
+  // As duas marcas ocupam a mesma faixa central, então em 50% o corte parte as
+  // duas ao meio. Começando quase todo no depois, a marca nova aparece inteira
+  // e o controle continua convidando a arrastar para ver a antiga.
+  const [position, setPosition] = useState(15);
 
   return (
     <figure className="before-after">
