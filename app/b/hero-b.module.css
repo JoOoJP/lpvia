@@ -428,7 +428,7 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgb(0 0 0 / 8%), rgb(0 0 0 / 38%) 58%, rgb(0 0 0 / 84%)),
+    linear-gradient(180deg, rgb(0 0 0 / 8%), rgb(0 0 0 / 46%) 52%, rgb(0 0 0 / 96%)),
     radial-gradient(circle at 66% 24%, rgb(194 156 87 / 20%), transparent 27%);
 }
 
@@ -472,12 +472,17 @@
   position: absolute;
   right: -12%;
   bottom: -3%;
-  color: rgb(205 168 94 / 34%);
-  font-family: var(--font-editorial);
-  font-size: clamp(7rem, 15vw, 15rem);
-  line-height: 0.7;
+  width: 58%;
+  aspect-ratio: 1;
   rotate: 20deg;
-  text-shadow: 0 0 40px rgb(187 126 56 / 12%);
+  filter: drop-shadow(0 0 40px rgb(187 126 56 / 12%));
+}
+
+.moikatoBotanical svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: rgb(205 168 94 / 30%);
 }
 
 .sephieBoardArt > img:first-child {
@@ -530,23 +535,23 @@
   bottom: -13%;
   width: 58%;
   height: auto;
-  opacity: 0.52;
-  filter: brightness(1.08) drop-shadow(0 0 18px rgb(205 168 45 / 22%));
-  mix-blend-mode: screen;
+  opacity: 0.64;
+  filter: contrast(1.4) saturate(1.12) drop-shadow(0 0 18px rgb(205 168 45 / 14%));
+  mix-blend-mode: multiply;
   rotate: -8deg;
 }
 
 .routeBoardArt > img {
   object-fit: cover;
   object-position: center 8%;
-  opacity: 0.52;
-  filter: brightness(0.74) contrast(1.24) saturate(0.75);
+  opacity: 0.62;
+  filter: brightness(0.8) contrast(1.2) saturate(0.78);
 }
 
 .routeBoardShade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgb(0 0 0 / 18%), rgb(0 0 0 / 58%) 62%, rgb(0 0 0 / 92%));
+  background: linear-gradient(180deg, rgb(0 0 0 / 12%), rgb(0 0 0 / 48%) 62%, rgb(0 0 0 / 88%));
 }
 
 .routeBoardCopy {
@@ -686,7 +691,7 @@
 
 .carolinaBoardCopy strong {
   font-family: var(--font-editorial);
-  font-size: clamp(1.5rem, 3vw, 3.8rem);
+  font-size: clamp(1.5rem, 2.55vw, 3.25rem);
   font-weight: 430;
   letter-spacing: 0.02em;
 }
@@ -698,9 +703,9 @@
 .carolinaButterfly {
   position: absolute;
   z-index: 4;
-  top: -20%;
-  right: -8%;
-  width: 58%;
+  top: -17%;
+  right: -5%;
+  width: 47%;
   height: auto;
   filter: drop-shadow(0 28px 25px rgb(0 0 0 / 70%));
   rotate: 5deg;
@@ -851,8 +856,8 @@
   --float-delay: -6s;
   --mobile-order: 6;
 
-  left: 45.5%;
-  bottom: 2.4%;
+  left: 39.5%;
+  bottom: 3.4%;
 }
 
 /* ---------- Primeiro plano ---------- */
@@ -869,18 +874,20 @@
 
   top: 4%;
   left: -3.6%;
+  z-index: 2;
 }
 
 .projectHealthPhone {
-  --w: 13.2%;
+  --w: 11.8%;
   --ratio: 0.56 / 1;
   --rx: -2deg;
   --ry: 9deg;
   --rz: -8deg;
   --mobile-order: 4;
 
-  left: 2.5%;
-  bottom: -7%;
+  left: 3.2%;
+  bottom: -9%;
+  z-index: 1;
 }
 
 .projectSweetCutout {
@@ -898,15 +905,15 @@
 }
 
 .projectCarolinaBoard {
-  --w: 27%;
+  --w: 24.5%;
   --ratio: 1.34 / 1;
   --rx: -2deg;
   --ry: -7deg;
   --rz: 6deg;
   --mobile-order: 8;
 
-  right: -0.5%;
-  bottom: -1.5%;
+  right: -1%;
+  bottom: -3.5%;
 }
 
 /* ---------- Chamada para rolar ---------- */

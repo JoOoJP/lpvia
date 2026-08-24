@@ -110,7 +110,11 @@ function ProjectVisual({ project }) {
           <strong>Moikato</strong>
           <small>BRAZIL MEETS EUROPE</small>
         </span>
-        <span className={styles.moikatoBotanical} aria-hidden="true">✦</span>
+        <span className={styles.moikatoBotanical} aria-hidden="true">
+          <svg viewBox="0 0 100 100" role="presentation">
+            <path d="M50 3c4 29 18 43 47 47-29 4-43 18-47 47-4-29-18-43-47-47 29-4 43-18 47-47Z" />
+          </svg>
+        </span>
       </span>
     );
   }
