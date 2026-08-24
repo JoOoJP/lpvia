@@ -10,12 +10,17 @@ import styles from "./hero-b.module.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-function Glyphs({ text, variant }) {
+function Wordmark3D() {
   return (
-    <span className={`${styles.glyphs} ${styles[variant]}`}>
-      <span className={`${styles.layer} ${styles.layerGlow}`}>{text}</span>
-      <span className={`${styles.layer} ${styles.layerEdge}`}>{text}</span>
-      <span className={`${styles.layer} ${styles.layerFace}`}>{text}</span>
+    <span className={styles.wordmarkStage} aria-hidden="true">
+      <span className={styles.wordmarkStack}>
+        <span className={`${styles.layer} ${styles.layerGlow}`}>VIA</span>
+        <span className={`${styles.layer} ${styles.layerDepth}`}>VIA</span>
+        <span className={`${styles.layer} ${styles.layerEdge}`}>VIA</span>
+        <span className={`${styles.layer} ${styles.layerFace}`}>VIA</span>
+        <span className={`${styles.layer} ${styles.layerShine}`}>VIA</span>
+      </span>
+      <span className={styles.wordmarkReflection}>VIA</span>
     </span>
   );
 }
@@ -79,33 +84,37 @@ export function HeroB() {
             wordmark,
             {
               autoAlpha: 0,
-              scale: 0.72,
-              rotationX: 10,
-              z: -90,
+              scale: 0.94,
+              rotationX: 4,
+              z: -44,
+              filter: "blur(7px)",
             },
             {
               autoAlpha: 1,
               scale: 1,
               rotationX: 0,
               z: 0,
-              duration: 1.05,
+              filter: "blur(0px)",
+              duration: 1.2,
+              ease: "expo.out",
             },
           )
           .fromTo(
             depthLayerNodes,
             {
               autoAlpha: 0,
-              scale: 0.95,
-              y: 24,
+              scale: 0.975,
+              y: 16,
             },
             {
               autoAlpha: 1,
               scale: 1,
               y: 0,
-              duration: 0.72,
-              stagger: 0.1,
+              duration: 0.92,
+              stagger: 0.08,
+              ease: "power3.out",
             },
-            "-=0.68",
+            "-=0.82",
           )
           .fromTo(
             explore,
@@ -125,9 +134,9 @@ export function HeroB() {
           let pointerY = 0;
 
           const layerMotion = [
-            { node: depthLayers.far, factorX: 18, factorY: 10, duration: 0.78 },
-            { node: depthLayers.mid, factorX: -34, factorY: -20, duration: 0.58 },
-            { node: depthLayers.near, factorX: 58, factorY: 34, duration: 0.4 },
+            { node: depthLayers.far, factorX: 8, factorY: 5, duration: 0.95 },
+            { node: depthLayers.mid, factorX: -16, factorY: -10, duration: 0.78 },
+            { node: depthLayers.near, factorX: 28, factorY: 17, duration: 0.62 },
           ].map((layer) => ({
             ...layer,
             x: gsap.quickTo(layer.node, "x", {
@@ -145,7 +154,15 @@ export function HeroB() {
             ease: "power3.out",
           });
           const wordmarkY = gsap.quickTo(wordmark, "y", {
-            duration: 0.62,
+            duration: 0.82,
+            ease: "power3.out",
+          });
+          const wordmarkRotateX = gsap.quickTo(wordmark, "rotationX", {
+            duration: 0.92,
+            ease: "power3.out",
+          });
+          const wordmarkRotateY = gsap.quickTo(wordmark, "rotationY", {
+            duration: 0.92,
             ease: "power3.out",
           });
           const settle = () => {
@@ -159,6 +176,8 @@ export function HeroB() {
             });
             wordmarkX(0);
             wordmarkY(0);
+            wordmarkRotateX(0);
+            wordmarkRotateY(0);
           };
 
           const renderPointerMotion = () => {
@@ -167,8 +186,10 @@ export function HeroB() {
               layer.x(pointerX * layer.factorX);
               layer.y(pointerY * layer.factorY);
             });
-            wordmarkX(pointerX * -10);
-            wordmarkY(pointerY * -6);
+            wordmarkX(pointerX * -7);
+            wordmarkY(pointerY * -4);
+            wordmarkRotateX(pointerY * -1.8);
+            wordmarkRotateY(pointerX * 2.4);
           };
 
           const onMove = (event) => {
@@ -205,7 +226,7 @@ export function HeroB() {
               trigger: hero,
               start: "top top",
               end: "bottom top",
-              scrub: 0.35,
+              scrub: 0.75,
               onToggle: (self) => {
                 hero.classList.toggle(styles.motionPaused, !self.isActive);
               },
@@ -213,11 +234,11 @@ export function HeroB() {
           });
 
           scrollMotion
-            .to(wordmark, { yPercent: -5, scale: 0.96, ease: "none" }, 0)
-            .to(glow, { yPercent: 8, scale: 1.08, opacity: 0.56, ease: "none" }, 0)
-            .to(depthLayers.far, { yPercent: -3, ease: "none" }, 0)
-            .to(depthLayers.mid, { yPercent: -8, ease: "none" }, 0)
-            .to(depthLayers.near, { yPercent: -15, ease: "none" }, 0);
+            .to(wordmark, { yPercent: -3, scale: 0.98, ease: "none" }, 0)
+            .to(glow, { yPercent: 5, scale: 1.05, opacity: 0.5, ease: "none" }, 0)
+            .to(depthLayers.far, { yPercent: -2, ease: "none" }, 0)
+            .to(depthLayers.mid, { yPercent: -5, ease: "none" }, 0)
+            .to(depthLayers.near, { yPercent: -9, ease: "none" }, 0);
 
           return () => {
             hero.classList.remove(styles.motionPaused);
@@ -240,11 +261,7 @@ export function HeroB() {
           <span className={styles.assistive}>
             VIA — estratégia que ganha forma.
           </span>
-          <span className={styles.wordmarkStack} aria-hidden="true">
-            <Glyphs text="V" variant="glyphsLeft" />
-            <span className={styles.cube} />
-            <Glyphs text="IA" variant="glyphsRight" />
-          </span>
+          <Wordmark3D />
         </h1>
 
         <div className={styles.projectField}>

@@ -37,6 +37,7 @@ test("renderiza a apresentação da VIA", async () => {
   assert.match(html, /Estratégia que/);
   assert.match(html, /ganha forma\./);
   assert.match(html, /VIA — estratégia que ganha forma\./);
+  assert.doesNotMatch(html, /V\.IA/);
   assert.match(html, /Brazil meets Europe/);
   assert.match(html, /Beleza que transcende/);
   assert.match(html, /Estourado com ingredientes reais/);
@@ -115,7 +116,7 @@ test("entrega os trabalhos em um coverflow acessível", async () => {
   assert.match(html, /Clínicas na área da saúde/);
   assert.match(html, /Estratégia digital e comunicação para profissionais da área da/);
   assert.match(html, /Cuidado que/);
-  assert.match(html, /Arraste ou use as setas para navegar/);
+  assert.match(html, /Deslize, use o scroll lateral ou as setas/);
 });
 
 test("inclui os projetos adicionais construídos pela VIA", async () => {

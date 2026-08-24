@@ -96,6 +96,11 @@ export function ProjectCoverflow({ projects }) {
   const trackRef = useRef(null);
   const infoRef = useRef(null);
   const pointerStart = useRef(null);
+  const initialLayout = useRef(true);
+  const wheelAccumulator = useRef(0);
+  const wheelLock = useRef(false);
+  const wheelResetTimer = useRef(null);
+  const wheelUnlockTimer = useRef(null);
   const activeProject = projects[activeIndex];
 
   const selectProject = useCallback(
@@ -106,14 +111,18 @@ export function ProjectCoverflow({ projects }) {
     [projects.length],
   );
 
-  const previous = useCallback(
-    () => selectProject(activeIndex - 1),
-    [activeIndex, selectProject],
+  const moveProject = useCallback(
+    (direction) => {
+      setActiveIndex(
+        (current) =>
+          (current + direction + projects.length) % projects.length,
+      );
+    },
+    [projects.length],
   );
-  const next = useCallback(
-    () => selectProject(activeIndex + 1),
-    [activeIndex, selectProject],
-  );
+
+  const previous = useCallback(() => moveProject(-1), [moveProject]);
+  const next = useCallback(() => moveProject(1), [moveProject]);
 
   const offsets = useMemo(
     () =>
@@ -147,6 +156,14 @@ export function ProjectCoverflow({ projects }) {
     return () => window.removeEventListener("hashchange", syncToHash);
   }, [projects]);
 
+  useEffect(
+    () => () => {
+      window.clearTimeout(wheelResetTimer.current);
+      window.clearTimeout(wheelUnlockTimer.current);
+    },
+    [],
+  );
+
   useGSAP(
     () => {
       if (!trackWidth) return;
@@ -154,48 +171,71 @@ export function ProjectCoverflow({ projects }) {
       const compact = window.matchMedia("(max-width: 720px)").matches;
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const slides = gsap.utils.toArray(`.${styles.slide}`, sectionRef.current);
+      const shouldAnimate = !reduced && !initialLayout.current;
 
       slides.forEach((slide, index) => {
         const offset = offsets[index];
         const distance = Math.abs(offset);
         const direction = Math.sign(offset);
+        const visibleDistance = compact ? 1 : 2;
+
+        if (distance > visibleDistance) {
+          gsap.set(slide, {
+            xPercent: -50,
+            yPercent: -50,
+            autoAlpha: 0,
+            pointerEvents: "none",
+          });
+          return;
+        }
+
+        const firstStep = compact
+          ? trackWidth * 0.68
+          : Math.min(Math.max(trackWidth * 0.29, 250), 390);
+        const nextStep = compact
+          ? 0
+          : Math.min(trackWidth * 0.085, 105);
         const shift = compact
-          ? direction * (trackWidth * 0.76 + Math.max(0, distance - 1) * trackWidth * 0.68)
-          : direction *
-            (Math.min(Math.max(trackWidth * 0.36, 300), 520) +
-              Math.max(0, distance - 1) * Math.min(trackWidth * 0.12, 150));
-        const rotation = compact ? 0 : direction * -(distance === 1 ? 61 : 72);
-        const scale = distance === 0 ? 1 : compact ? 0.94 : Math.max(0.7, 0.86 - distance * 0.04);
-        const opacity = distance === 0 ? 1 : distance > (compact ? 1 : 3) ? 0 : Math.max(0.18, 0.76 - distance * 0.17);
+          ? direction * firstStep
+          : direction * (firstStep + Math.max(0, distance - 1) * nextStep);
+        const rotation = compact ? 0 : direction * -(distance === 1 ? 54 : 67);
+        const scale = distance === 0 ? 1 : compact ? 0.96 : distance === 1 ? 0.92 : 0.82;
+        const opacity = distance === 0 ? 1 : compact ? 0.74 : distance === 1 ? 0.84 : 0.38;
 
         gsap.to(slide, {
           xPercent: -50,
           yPercent: -50,
           x: shift,
+          y: compact ? 0 : Math.min(distance * 8, 16),
           rotationY: rotation,
           scale,
           autoAlpha: opacity,
-          zIndex: projects.length - distance,
-          pointerEvents: opacity === 0 ? "none" : "auto",
-          duration: reduced ? 0 : 0.82,
-          ease: "power4.inOut",
+          zIndex: 40 - distance,
+          pointerEvents: "auto",
+          duration: shouldAnimate ? 0.42 : 0,
+          ease: "power3.out",
           overwrite: true,
         });
       });
 
       if (infoRef.current) {
-        gsap.fromTo(
-          infoRef.current.children,
-          { autoAlpha: 0, y: reduced ? 0 : 12 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: reduced ? 0 : 0.5,
-            stagger: reduced ? 0 : 0.045,
-            ease: "power3.out",
-          },
-        );
+        if (shouldAnimate) {
+          gsap.fromTo(
+            infoRef.current.children,
+            { autoAlpha: 0, y: 6 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.24,
+              ease: "power2.out",
+            },
+          );
+        } else {
+          gsap.set(infoRef.current.children, { autoAlpha: 1, y: 0 });
+        }
       }
+
+      initialLayout.current = false;
     },
     {
       scope: sectionRef,
@@ -217,6 +257,7 @@ export function ProjectCoverflow({ projects }) {
   const handlePointerDown = (event) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     pointerStart.current = { x: event.clientX, y: event.clientY };
+    event.currentTarget.setPointerCapture?.(event.pointerId);
   };
 
   const handlePointerUp = (event) => {
@@ -229,6 +270,50 @@ export function ProjectCoverflow({ projects }) {
     if (deltaX < 0) next();
     else previous();
   };
+
+  const handleWheel = useCallback(
+    (event) => {
+      const horizontalGesture =
+        Math.abs(event.deltaX) > 8 &&
+        Math.abs(event.deltaX) >= Math.abs(event.deltaY) * 0.65;
+      const delta = horizontalGesture
+        ? event.deltaX
+        : event.shiftKey
+          ? event.deltaY
+          : 0;
+
+      if (!delta) return;
+      event.preventDefault();
+
+      if (wheelLock.current) return;
+
+      wheelAccumulator.current += delta;
+      window.clearTimeout(wheelResetTimer.current);
+      wheelResetTimer.current = window.setTimeout(() => {
+        wheelAccumulator.current = 0;
+      }, 140);
+
+      if (Math.abs(wheelAccumulator.current) < 22) return;
+
+      if (wheelAccumulator.current > 0) next();
+      else previous();
+
+      wheelAccumulator.current = 0;
+      wheelLock.current = true;
+      wheelUnlockTimer.current = window.setTimeout(() => {
+        wheelLock.current = false;
+      }, 300);
+    },
+    [next, previous],
+  );
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return undefined;
+
+    track.addEventListener("wheel", handleWheel, { passive: false });
+    return () => track.removeEventListener("wheel", handleWheel);
+  }, [handleWheel]);
 
   return (
     <section
@@ -317,7 +402,9 @@ export function ProjectCoverflow({ projects }) {
         </button>
       </div>
 
-      <p className={styles.gestureHint}>Arraste ou use as setas para navegar.</p>
+      <p className={styles.gestureHint}>
+        Deslize, use o scroll lateral ou as setas.
+      </p>
     </section>
   );
 }
