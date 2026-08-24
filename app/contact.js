@@ -2,7 +2,7 @@ const WHATSAPP_NUMBER = "5541991014546";
 
 export const phoneE164 = `+${WHATSAPP_NUMBER}`;
 
-export const email = "agenciaviamkr@gmail.com";
+export const email = "agenciaviamkt@gmail.com";
 export const emailUrl = `mailto:${email}`;
 
 const WHATSAPP_MESSAGE =

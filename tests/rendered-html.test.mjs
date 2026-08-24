@@ -174,7 +174,7 @@ test("oferece contato fora do WhatsApp", async () => {
   const response = await fetch(pageUrl);
   const html = await response.text();
 
-  assert.match(html, /href="mailto:agenciaviamkr@gmail\.com"/);
+  assert.match(html, /href="mailto:agenciaviamkt@gmail\.com"/);
   assert.match(html, /aria-label="Contato"/);
 });
 
