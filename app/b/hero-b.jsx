@@ -88,7 +88,7 @@ export function HeroB() {
         </div>
 
         <div className={styles.deck}>
-          {heroCards.map((card, index) => (
+          {heroCards.map((card) => (
             <article
               key={card.id}
               className={`${styles.card} ${styles[card.slot]} ${styles[card.tone]}`}
@@ -102,7 +102,7 @@ export function HeroB() {
                         alt={card.art.alt}
                         fill
                         sizes="(max-width: 1000px) 78vw, 28vw"
-                        priority={index === 0}
+                        loading={card.id === "moikato" ? "eager" : "lazy"}
                         style={{ objectPosition: card.art.position }}
                       />
                     </div>
@@ -137,6 +137,7 @@ export function HeroB() {
                     width={card.recorte.width}
                     height={card.recorte.height}
                     sizes="(max-width: 1000px) 46vw, 18vw"
+                    loading={card.id === "carolina" ? "eager" : "lazy"}
                   />
                 ) : null}
               </div>

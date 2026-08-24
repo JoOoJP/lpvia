@@ -36,7 +36,10 @@ test("renderiza a apresentação da VIA", async () => {
   assert.match(html, /<title>VIA — Estratégia que ganha forma<\/title>/i);
   assert.match(html, /Estratégia que/);
   assert.match(html, /ganha forma\./);
-  assert.match(html, /VIA \/ GROWTH COMPANY/);
+  assert.match(html, /VIA — estratégia que ganha forma\./);
+  assert.match(html, /Brazil meets Europe/);
+  assert.match(html, /Beleza que transcende/);
+  assert.match(html, /Estourado com ingredientes reais/);
   assert.match(html, /A VIA pensa e faz\./);
   assert.match(html, /CASE \/ MOIKATO \/ BRASIL → REINO UNIDO/);
   assert.doesNotMatch(html, /GROWTH PLUS \/ PRODUTO PRINCIPAL/);
@@ -149,6 +152,11 @@ test("inclui os projetos adicionais construídos pela VIA", async () => {
   assert.match(assets, /projects\/sephie-tarot-symbol\.webp/);
   assert.match(assets, /projects\/ana-paula-organizer\.webp/);
   assert.match(assets, /projects\/moikato-brand\.webp/);
+  assert.match(assets, /projects\/hero\/moikato-cinematic\.webp/);
+  assert.match(assets, /projects\/hero\/sephie-cinematic\.webp/);
+  assert.match(assets, /projects\/hero\/tardinha-cinematic\.webp/);
+  assert.match(assets, /projects\/hero\/carolina-cinematic\.webp/);
+  assert.match(assets, /projects\/hero\/sweet-popcorn-cinematic\.webp/);
 
   assert.match(html, /Carolina Carvalho/);
   assert.match(html, /Rebranding, paleta e manual de marca para podóloga\./);
@@ -167,11 +175,11 @@ test("declara as fontes no mesmo escopo dos tokens", async () => {
 
   assert.match(tagHtml, /inter[^\"]*variable/);
   assert.match(tagHtml, /space_grotesk[^\"]*variable/);
-  // A serifada é exclusiva do catálogo: na landing ela seria peso sem uso.
-  assert.doesNotMatch(html, /libre_bodoni/i);
+  // A serifada entra só nos nomes editoriais dos cases da primeira dobra.
+  assert.match(html, /libre_bodoni/i);
 });
 
-test("carrega a serifada apenas no catálogo do design system", async () => {
+test("mantém a serifada disponível no catálogo do design system", async () => {
   const response = await fetch(`${pageUrl}design-system`);
   const html = await response.text();
 

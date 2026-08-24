@@ -25,9 +25,9 @@ export const heroCards = [
     slot: "slotLeftTop",
     tone: "toneNight",
     art: {
-      src: "/via-moikato-london.webp",
-      alt: "Site internacional da Moikato",
-      position: "58% center",
+      src: "/projects/hero/moikato-cinematic.webp",
+      alt: "Editorial da Moikato entre a origem brasileira e o mercado internacional",
+      position: "center",
     },
     recorte: null,
   },
@@ -38,10 +38,10 @@ export const heroCards = [
     line: "Beleza que transcende",
     href: "#trabalhos",
     slot: "slotLeftBottom",
-    tone: "toneParchment",
+    tone: "toneNight",
     art: {
-      src: "/projects/artes/sephie-prancha.webp",
-      alt: "Assinatura visual da Sephie Tarot sobre prancha de marca",
+      src: "/projects/hero/sephie-cinematic.webp",
+      alt: "Universo visual escuro e dourado criado para a Sephie Tarot",
       position: "center",
     },
     recorte: null,
@@ -55,9 +55,9 @@ export const heroCards = [
     slot: "slotCenterBottom",
     tone: "toneSunset",
     art: {
-      src: "/projects/artes/tardinha-cena.webp",
-      alt: "Pôr do sol no Rio Solimões, cena da marca do evento A Tardinha",
-      position: "center 38%",
+      src: "/projects/hero/tardinha-cinematic.webp",
+      alt: "Evento A Tardinha realizado ao pôr do sol às margens do Rio Solimões",
+      position: "center",
     },
     recorte: null,
   },
@@ -69,13 +69,12 @@ export const heroCards = [
     href: "#case-carolina-carvalho",
     slot: "slotRightTop",
     tone: "tonePurple",
-    art: null,
-    recorte: {
-      src: "/projects/recortes/carolina-borboleta.webp",
-      width: 477,
-      height: 305,
-      escape: "escapeTop",
+    art: {
+      src: "/projects/hero/carolina-cinematic.webp",
+      alt: "Sistema visual roxo e dourado desenvolvido para Carolina",
+      position: "center",
     },
+    recorte: null,
   },
   {
     id: "sweet-popcorn",
@@ -85,13 +84,12 @@ export const heroCards = [
     href: "#trabalhos",
     slot: "slotRightBottom",
     tone: "toneCream",
-    art: null,
-    recorte: {
-      src: "/projects/recortes/sweet-popcorn.webp",
-      width: 982,
-      height: 996,
-      escape: "escapeRight",
+    art: {
+      src: "/projects/hero/sweet-popcorn-cinematic.webp",
+      alt: "Embalagem colorida da Sweet Popcorn Gourmet em fotografia de estúdio",
+      position: "center",
     },
+    recorte: null,
   },
 ];
 

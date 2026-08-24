@@ -54,6 +54,28 @@
   perspective-origin: 50% 46%;
 }
 
+/* Trilhas quase invisíveis conectam as peças e dão leitura de sistema. */
+.scene::before,
+.scene::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 49%;
+  width: 74%;
+  aspect-ratio: 2.9 / 1;
+  border: 1px solid rgb(142 111 255 / 9%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) rotate(-8deg);
+}
+
+.scene::after {
+  width: 58%;
+  border-color: rgb(49 207 184 / 7%);
+  transform: translate(-50%, -50%) rotate(11deg);
+}
+
 /* ---------- Marca ---------- */
 
 .wordmark {
@@ -61,12 +83,13 @@
   z-index: 3;
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(6.8rem, min(13.5vw, 24vh), 14rem);
+  font-size: clamp(8rem, min(18vw, 29vh), 18rem);
   font-weight: 700;
   letter-spacing: -0.012em;
   line-height: 0.9;
   translate: calc(var(--pointer-x) * -16px) calc(var(--pointer-y) * -10px);
   transition: translate 900ms var(--ease-out);
+  filter: drop-shadow(0 1.8rem 2.6rem rgb(0 0 0 / 72%));
 }
 
 .assistive {
@@ -106,6 +129,7 @@
   color: transparent;
   /* Fio de luz na quina do bisel — o que faz a letra parecer acrílico. */
   -webkit-text-stroke: 0.007em rgb(255 255 255 / 38%);
+  filter: brightness(1.06) saturate(1.08);
 }
 
 /*
@@ -655,6 +679,12 @@
 
 .toneCream {
   --card-bg: linear-gradient(120deg, #efe9dc 0%, #e2dbcb 100%);
+  --card-scrim: linear-gradient(
+    90deg,
+    rgb(239 233 220 / 96%) 0%,
+    rgb(239 233 220 / 78%) 52%,
+    rgb(239 233 220 / 8%) 82%
+  );
   --card-border: rgb(22 20 15 / 14%);
   --card-border-hover: rgb(22 20 15 / 30%);
   --card-fg: #16140f;
@@ -831,9 +861,16 @@
     perspective: none;
   }
 
+  .scene::before,
+  .scene::after {
+    top: 24%;
+    width: 118%;
+    opacity: 0.58;
+  }
+
   .wordmark {
     /* Fora da cena 3D a marca pode ocupar mais da largura sem esbarrar nos cards. */
-    font-size: clamp(6.8rem, 20vw, 10rem);
+    font-size: clamp(7.4rem, 24vw, 11rem);
     translate: none;
   }
 

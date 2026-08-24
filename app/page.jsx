@@ -1,8 +1,9 @@
+import { Libre_Bodoni } from "next/font/google";
 import { phoneE164 } from "./contact";
+import { HeroB } from "./b/hero-b";
 import { Capabilities } from "./sections/capabilities";
 import { Cases } from "./sections/cases";
 import { FinalCta } from "./sections/final-cta";
-import { Hero } from "./sections/hero";
 import { SiteFooter } from "./sections/site-footer";
 import { SiteHeader } from "./sections/site-header";
 import { System } from "./sections/system";
@@ -27,15 +28,26 @@ const organizationSchema = {
   },
 };
 
+// A serifada aparece apenas nos nomes dos projetos da primeira dobra. Ela
+// reforça a direção de estúdio criativo sem trocar a tipografia funcional do
+// restante da landing page.
+const libreBodoni = Libre_Bodoni({
+  variable: "--font-editorial",
+  subsets: ["latin"],
+});
+
 export default function Home() {
   return (
-    <main className="via-dark-site" id="conteudo-principal">
+    <main
+      className={`via-dark-site ${libreBodoni.variable}`}
+      id="conteudo-principal"
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
       <SiteHeader />
-      <Hero />
+      <HeroB />
       <Capabilities />
       <System />
       <Cases />
