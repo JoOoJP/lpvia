@@ -1352,16 +1352,16 @@
 }
 
 .before-after-before {
-  background: #f7f7f5;
+  background: var(--before-after-old-bg, #f7f7f5);
 }
 
 .before-after-after {
   z-index: 1;
-  background: #3c2089;
+  background: var(--before-after-new-bg, #3c2089);
   will-change: clip-path;
 }
 
-.before-after-after img {
+.dark-identity-route .before-after-after img {
   object-fit: cover;
 }
 
@@ -1686,8 +1686,10 @@
 
 /* Fecha a grade ímpar ocupando a linha inteira, mas sem trocar de gramática:
    mídia em cima e texto embaixo, igual aos outros — só numa célula mais larga. */
-.dark-identity-organizer {
-  grid-column: 1 / -1;
+/* Marca nova sobre o roxo da própria cliente; a antiga vinha em fundo claro. */
+.dark-identity-carolina {
+  --before-after-old-bg: #fafafa;
+  --before-after-new-bg: #b74ccc;
 }
 
 .dark-identity-organizer .dark-identity-media {

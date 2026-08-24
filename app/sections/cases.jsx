@@ -140,7 +140,18 @@ export function Cases() {
             id="case-in-tha-route"
           >
             <div className="dark-identity-media">
-              <BeforeAfterSlider />
+              <BeforeAfterSlider
+                before={{
+                  src: "/projects/route-before.webp",
+                  alt: "Identidade antiga da In Tha Kitchen, com facas cruzadas em um círculo vermelho",
+                }}
+                after={{
+                  src: "/projects/route-primary.webp",
+                  alt: "Nova identidade da In Tha Route, criada pela VIA",
+                }}
+                ariaLabel="Comparar a identidade antiga e a nova da In Tha Route"
+                caption="Arraste o controle ou use as setas do teclado para comparar o antes e o depois da marca."
+              />
             </div>
             <div className="dark-identity-copy">
               <span>04 / IDENTIDADE VISUAL</span>
@@ -300,6 +311,31 @@ export function Cases() {
               <span>10 / MARCA &amp; IDENTIDADE</span>
               <h4>Ana Paula Personal Organizer</h4>
               <p>Logo e identidade visual para serviço de organização.</p>
+            </div>
+          </article>
+
+          <article
+            className="dark-identity-card dark-identity-carolina"
+            id="case-carolina-carvalho"
+          >
+            <div className="dark-identity-media">
+              <BeforeAfterSlider
+                before={{
+                  src: "/projects/carolina-antes.webp",
+                  alt: "Marca antiga da podóloga Carolina Carvalho, com borboleta em tons de rosa",
+                }}
+                after={{
+                  src: "/projects/carolina-depois.webp",
+                  alt: "Nova marca de Carolina Carvalho, com borboleta dourada sobre roxo, criada pela VIA",
+                }}
+                ariaLabel="Comparar a marca antiga e a nova de Carolina Carvalho"
+                caption="Arraste o controle ou use as setas do teclado para comparar o antes e o depois da marca."
+              />
+            </div>
+            <div className="dark-identity-copy">
+              <span>11 / MARCA &amp; MANUAL</span>
+              <h4>Carolina Carvalho</h4>
+              <p>Rebranding, paleta e manual de marca para podóloga.</p>
             </div>
           </article>
         </div>

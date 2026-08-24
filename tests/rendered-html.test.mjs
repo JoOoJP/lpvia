@@ -149,6 +149,15 @@ test("inclui os projetos adicionais construídos pela VIA", async () => {
   assert.match(assets, /projects\/sephie-tarot-symbol\.webp/);
   assert.match(assets, /projects\/ana-paula-organizer\.webp/);
   assert.match(assets, /projects\/moikato-brand\.webp/);
+
+  assert.match(html, /Carolina Carvalho/);
+  assert.match(html, /Rebranding, paleta e manual de marca para podóloga\./);
+  assert.match(assets, /projects\/carolina-antes\.webp/);
+  assert.match(assets, /projects\/carolina-depois\.webp/);
+  assert.match(
+    html,
+    /aria-label="Comparar a marca antiga e a nova de Carolina Carvalho"/,
+  );
 });
 
 test("declara as fontes no mesmo escopo dos tokens", async () => {

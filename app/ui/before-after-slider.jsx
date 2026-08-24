@@ -1,13 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useId, useState } from "react";
 
-export function BeforeAfterSlider() {
-  // As duas marcas ocupam a mesma faixa central, então em 50% o corte parte as
-  // duas ao meio. Começando quase todo no depois, a marca nova aparece inteira
-  // e o controle continua convidando a arrastar para ver a antiga.
-  const [position, setPosition] = useState(15);
+/*
+ * Comparador de antes e depois. As duas marcas de um rebranding costumam ocupar
+ * a mesma faixa central, então um corte em 50% parte as duas ao meio: por isso o
+ * padrão começa quase todo no depois, com o controle convidando a arrastar.
+ */
+export function BeforeAfterSlider({
+  before,
+  after,
+  ariaLabel,
+  caption,
+  initialPosition = 20,
+}) {
+  const [position, setPosition] = useState(initialPosition);
+  const captionId = useId();
 
   return (
     <figure className="before-after">
@@ -16,14 +25,11 @@ export function BeforeAfterSlider() {
         style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
       >
         <Image
-          src="/projects/route-before.webp"
-          alt="Identidade antiga da In Tha Kitchen, com facas cruzadas em um círculo vermelho"
+          src={before.src}
+          alt={before.alt}
           fill
           sizes="(max-width: 759px) 100vw, 50vw"
         />
-        <span className="before-after-label before-after-label-old">
-          Antes
-        </span>
       </div>
 
       <div
@@ -31,15 +37,17 @@ export function BeforeAfterSlider() {
         style={{ clipPath: `inset(0 0 0 ${position}%)` }}
       >
         <Image
-          src="/projects/route-primary.webp"
-          alt="Nova identidade da In Tha Route, criada pela VIA"
+          src={after.src}
+          alt={after.alt}
           fill
           sizes="(max-width: 759px) 100vw, 50vw"
         />
-        <span className="before-after-label before-after-label-new">
-          Depois
-        </span>
       </div>
+
+      {/* Fora das camadas: dentro delas o rótulo era cortado junto com a
+          imagem, e some justo quando a faixa fica estreita. */}
+      <span className="before-after-label before-after-label-old">Antes</span>
+      <span className="before-after-label before-after-label-new">Depois</span>
 
       <input
         className="before-after-range"
@@ -48,8 +56,8 @@ export function BeforeAfterSlider() {
         max="100"
         value={position}
         onInput={(event) => setPosition(Number(event.currentTarget.value))}
-        aria-label="Comparar a identidade antiga e a nova da In Tha Route"
-        aria-describedby="route-comparison-instructions"
+        aria-label={ariaLabel}
+        aria-describedby={captionId}
         aria-valuetext={`${100 - position}% da nova identidade visível`}
       />
 
@@ -64,12 +72,8 @@ export function BeforeAfterSlider() {
         </i>
       </span>
 
-      <figcaption
-        className="before-after-caption"
-        id="route-comparison-instructions"
-      >
-        Arraste o controle ou use as setas do teclado para comparar o antes e
-        o depois da marca.
+      <figcaption className="before-after-caption" id={captionId}>
+        {caption}
       </figcaption>
     </figure>
   );
