@@ -92,11 +92,7 @@
   position: relative;
   z-index: 4;
   margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(7rem, min(15vw, 27vh), 15rem);
-  font-weight: 640;
-  letter-spacing: -0.105em;
-  line-height: 0.84;
+  width: clamp(21rem, 28vw, 31rem);
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -112,115 +108,80 @@
 
 .wordmarkStage {
   position: relative;
-  display: inline-block;
+  display: block;
+  width: 100%;
   transform-style: preserve-3d;
 }
 
-.wordmarkStack,
-.wordmarkReflection {
-  position: relative;
+.wordmarkSvg {
   display: block;
-}
-
-.layer {
-  position: absolute;
-  inset: 0;
-  display: block;
-}
-
-.layerFace {
-  position: relative;
-}
-
-.layerFace,
-.layerGlow,
-.layerShine {
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  background-image: linear-gradient(
-    102deg,
-    #a66cff 0%,
-    #735bff 26%,
-    #3b8df4 50%,
-    #16c1d7 72%,
-    #4ae394 100%
-  );
-}
-
-/* Uma única peça de vidro: extrusão curta, contorno luminoso e reflexo óptico. */
-.layerDepth {
-  color: rgb(13 17 38 / 96%);
-  -webkit-text-stroke: 0.008em rgb(102 118 218 / 28%);
-  text-shadow:
-    0.006em 0.009em 0 rgb(64 56 123 / 96%),
-    0.012em 0.018em 0 rgb(49 47 108 / 96%),
-    0.018em 0.027em 0 rgb(33 39 85 / 96%),
-    0.024em 0.036em 0 rgb(18 27 55 / 98%);
-}
-
-.layerEdge {
-  color: transparent;
-  -webkit-text-stroke: 0.018em rgb(191 218 255 / 54%);
-  filter: drop-shadow(0 0 0.02em rgb(211 233 255 / 65%));
-}
-
-.layerGlow {
-  opacity: 0.42;
-  filter: blur(0.075em) saturate(1.18);
-  transform: scale(1.012);
-}
-
-.layerFace {
-  -webkit-text-stroke: 0.006em rgb(234 248 255 / 76%);
-  filter: brightness(1.05) saturate(0.94);
-  text-shadow:
-    0 0.02em 0.03em rgb(162 191 255 / 24%),
-    0 0.12em 0.2em rgb(20 152 255 / 20%);
-}
-
-.layerShine {
-  background-image: linear-gradient(
-    108deg,
-    transparent 12%,
-    rgb(255 255 255 / 8%) 29%,
-    rgb(255 255 255 / 76%) 39%,
-    transparent 49%,
-    transparent 100%
-  );
-  background-position: 115% 50%;
-  background-size: 240% 100%;
-  opacity: 0.72;
-  animation: glassSheen 8.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-}
-
-.wordmarkReflection {
-  position: absolute;
-  top: 78%;
-  left: 0;
-  z-index: -1;
   width: 100%;
-  color: transparent;
-  background: linear-gradient(102deg, #805cff, #3189ed 52%, #35d9a0);
-  background-clip: text;
-  -webkit-background-clip: text;
-  opacity: 0.16;
-  filter: blur(0.055em);
-  pointer-events: none;
-  transform: scaleY(-0.46) skewX(-2deg);
-  transform-origin: top;
-  mask-image: linear-gradient(to bottom, rgb(0 0 0 / 84%), transparent 72%);
+  height: auto;
+  overflow: visible;
+  filter:
+    drop-shadow(0 16px 9px rgb(0 0 0 / 75%))
+    drop-shadow(0 0 16px rgb(56 135 255 / 24%));
 }
 
-@keyframes glassSheen {
-  0%,
-  68% {
-    background-position: 115% 50%;
-  }
+.wordmarkSvg path,
+.wordmarkReflection path {
+  stroke-linejoin: round;
+}
 
-  100% {
-    background-position: -115% 50%;
-  }
+.wordmarkDepth {
+  fill: #11152d;
+  stroke: rgb(97 107 183 / 42%);
+  stroke-width: 1.2;
+  opacity: 0.98;
+  filter: drop-shadow(3px 7px 2px #080a15);
+}
+
+.wordmarkGlow {
+  fill: url("#via-hero-glass");
+  stroke: url("#via-hero-glass");
+  stroke-width: 3;
+  opacity: 0.5;
+}
+
+.wordmarkGlass {
+  fill: url("#via-hero-glass");
+  stroke: rgb(223 244 255 / 58%);
+  stroke-width: 0.75;
+  opacity: 0.9;
+}
+
+.wordmarkHighlight {
+  fill: none;
+  stroke: url("#via-hero-highlight");
+  stroke-width: 0.65;
+  opacity: 0.76;
+}
+
+.wordmarkReflection {
+  position: absolute;
+  top: 80%;
+  left: 3%;
+  z-index: -1;
+  display: block;
+  width: 94%;
+  opacity: 0.12;
+  filter: blur(3px);
+  pointer-events: none;
+  transform: scaleY(-0.4) skewX(-2deg);
+  transform-origin: top;
+  mask-image: linear-gradient(to bottom, #000, transparent 72%);
+}
+
+.wordmarkReflection svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.wordmarkReflection path {
+  fill: rgb(57 149 217 / 42%);
+  stroke: none;
 }
 
 /* ---------- Constelação de projetos ---------- */
@@ -275,7 +236,7 @@
   border-radius: var(--radius, 12px);
   background: linear-gradient(145deg, #171b22, #07090d 62%);
   box-shadow: 0 30px 45px -24px rgb(0 0 0 / 95%);
-  transform: translate3d(7px, 9px, -16px) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz));
+  transform: translate3d(3px, 4px, -12px) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz));
 }
 
 .projectSurface {
@@ -436,115 +397,439 @@
   animation-play-state: paused;
 }
 
+/* ---------- Direção de arte das peças principais ---------- */
+
+.moikatoBoard .projectSurface,
+.sephieBoard .projectSurface,
+.routeBoard .projectSurface,
+.carolinaBoard .projectSurface {
+  background: #07090b;
+}
+
+.moikatoBoardArt,
+.sephieBoardArt,
+.routeBoardArt,
+.carolinaBoardArt {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.moikatoBoardArt > img {
+  object-fit: cover;
+  object-position: 49% center;
+  opacity: 0.22;
+  filter: grayscale(0.12) sepia(0.2) brightness(0.54) contrast(1.18);
+  scale: 1.25;
+}
+
+.moikatoBoardShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgb(0 0 0 / 8%), rgb(0 0 0 / 38%) 58%, rgb(0 0 0 / 84%)),
+    radial-gradient(circle at 66% 24%, rgb(194 156 87 / 20%), transparent 27%);
+}
+
+.moikatoBoardCopy {
+  position: absolute;
+  z-index: 2;
+  top: 28%;
+  left: 11%;
+  display: grid;
+  gap: 0.42rem;
+  text-shadow: 0 3px 20px #000;
+}
+
+.moikatoBoardCopy > span,
+.moikatoBoardCopy small,
+.routeBoardCopy small,
+.carolinaBoardCopy small {
+  font-size: clamp(0.35rem, 0.52vw, 0.66rem);
+  font-weight: 680;
+  letter-spacing: 0.22em;
+}
+
+.moikatoBoardCopy > span {
+  color: #d6c09b;
+}
+
+.moikatoBoardCopy strong {
+  color: #f0ece2;
+  font-family: var(--font-editorial);
+  font-size: clamp(1.8rem, 3.4vw, 4.2rem);
+  font-weight: 450;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
+}
+
+.moikatoBoardCopy small {
+  color: rgb(245 241 230 / 66%);
+}
+
+.moikatoBotanical {
+  position: absolute;
+  right: -12%;
+  bottom: -3%;
+  color: rgb(205 168 94 / 34%);
+  font-family: var(--font-editorial);
+  font-size: clamp(7rem, 15vw, 15rem);
+  line-height: 0.7;
+  rotate: 20deg;
+  text-shadow: 0 0 40px rgb(187 126 56 / 12%);
+}
+
+.sephieBoardArt > img:first-child {
+  object-fit: cover;
+  opacity: 0.13;
+  filter: brightness(0.52) contrast(1.35) sepia(0.16) hue-rotate(226deg);
+  scale: 1.24;
+}
+
+.sephieBoardArt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgb(9 7 14 / 38%), rgb(23 13 41 / 78%)),
+    radial-gradient(circle at 75% 35%, rgb(151 90 225 / 26%), transparent 38%);
+}
+
+.sephieBoardCopy {
+  position: absolute;
+  z-index: 3;
+  top: 24%;
+  left: 10%;
+  display: grid;
+  color: #f4eff9;
+  font-family: var(--font-editorial);
+  font-weight: 440;
+  letter-spacing: 0.05em;
+  line-height: 0.86;
+  text-shadow: 0 3px 18px #000;
+}
+
+.sephieBoardCopy strong {
+  font-size: clamp(1.2rem, 2.45vw, 3rem);
+  font-weight: inherit;
+}
+
+.sephieBoardCopy small {
+  margin-top: 0.4rem;
+  color: #b9a8d4;
+  font-family: var(--font-display);
+  font-size: clamp(0.4rem, 0.6vw, 0.7rem);
+  letter-spacing: 0.32em;
+}
+
+.sephieBoardSymbol {
+  position: absolute;
+  z-index: 3;
+  right: -4%;
+  bottom: -13%;
+  width: 58%;
+  height: auto;
+  opacity: 0.52;
+  filter: brightness(1.08) drop-shadow(0 0 18px rgb(205 168 45 / 22%));
+  mix-blend-mode: screen;
+  rotate: -8deg;
+}
+
+.routeBoardArt > img {
+  object-fit: cover;
+  object-position: center 8%;
+  opacity: 0.52;
+  filter: brightness(0.74) contrast(1.24) saturate(0.75);
+}
+
+.routeBoardShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(0 0 0 / 18%), rgb(0 0 0 / 58%) 62%, rgb(0 0 0 / 92%));
+}
+
+.routeBoardCopy {
+  position: absolute;
+  z-index: 2;
+  right: 8%;
+  bottom: 10%;
+  left: 8%;
+  display: grid;
+  gap: 0.28rem;
+  text-align: center;
+  text-shadow: 0 3px 20px #000;
+}
+
+.routeBoardCopy strong {
+  color: #f0f1f1;
+  font-size: clamp(0.75rem, 1.38vw, 1.72rem);
+  letter-spacing: 0.02em;
+}
+
+.routeBoardCopy small {
+  color: #db644c;
+  font-size: clamp(0.33rem, 0.46vw, 0.58rem);
+}
+
+.healthPhone .projectSurface {
+  border: 3px solid #11171b;
+  border-radius: 2.2rem;
+  background: #e9f5f4;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 34%) inset,
+    0 42px 60px -28px rgb(0 0 0 / 94%);
+}
+
+.healthPhone .projectSurface::before {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  top: 0.65rem;
+  left: 50%;
+  width: 32%;
+  height: 0.48rem;
+  border-radius: 99px;
+  background: #11171b;
+  translate: -50% 0;
+}
+
+.healthPhoneScreen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16% 10% 9%;
+  color: #102a2b;
+  background:
+    radial-gradient(circle at 80% 25%, rgb(35 186 175 / 22%), transparent 31%),
+    linear-gradient(160deg, #f4fbfa 0%, #d6eeea 58%, #8ed1c8 100%);
+}
+
+.healthPhoneBar {
+  color: #138e83;
+  font-size: clamp(0.48rem, 0.72vw, 0.82rem);
+  font-weight: 820;
+  letter-spacing: 0.18em;
+}
+
+.healthPhoneScreen > strong {
+  margin-top: 18%;
+  font-family: var(--font-editorial);
+  font-size: clamp(1rem, 1.75vw, 2.1rem);
+  font-weight: 470;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+}
+
+.healthPhoneCta {
+  margin-top: auto;
+  padding: 0.45rem 0.6rem;
+  border-radius: 99px;
+  color: #fff;
+  background: #168c81;
+  font-size: clamp(0.35rem, 0.48vw, 0.56rem);
+  font-weight: 720;
+}
+
+.healthPhoneStats {
+  width: 100%;
+  margin-top: 8%;
+  padding-top: 7%;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgb(15 78 74 / 19%);
+  color: #116d65;
+  font-size: clamp(0.4rem, 0.6vw, 0.72rem);
+  font-weight: 780;
+}
+
+.projectSweetCutout::before {
+  display: none;
+}
+
+.projectSweetCutout .projectSurface {
+  filter: drop-shadow(0 38px 32px rgb(0 0 0 / 72%));
+}
+
+.projectSweetCutout .projectSurface img {
+  object-fit: contain;
+  overflow: visible;
+}
+
+.carolinaBoardArt > img:first-child {
+  object-fit: cover;
+  opacity: 0.12;
+  filter: brightness(0.48) contrast(1.25) hue-rotate(226deg) saturate(1.2);
+  scale: 1.15;
+}
+
+.carolinaBoardShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(118deg, rgb(8 5 13 / 32%), rgb(38 15 51 / 72%)),
+    radial-gradient(circle at 86% 18%, rgb(180 118 255 / 23%), transparent 34%);
+}
+
+.carolinaBoardCopy {
+  position: absolute;
+  z-index: 3;
+  top: 22%;
+  left: 10%;
+  display: grid;
+  gap: 0.3rem;
+  color: #eee7f5;
+  text-shadow: 0 4px 22px #000;
+}
+
+.carolinaBoardCopy strong {
+  font-family: var(--font-editorial);
+  font-size: clamp(1.5rem, 3vw, 3.8rem);
+  font-weight: 430;
+  letter-spacing: 0.02em;
+}
+
+.carolinaBoardCopy small {
+  color: #b9a6ca;
+}
+
+.carolinaButterfly {
+  position: absolute;
+  z-index: 4;
+  top: -20%;
+  right: -8%;
+  width: 58%;
+  height: auto;
+  filter: drop-shadow(0 28px 25px rgb(0 0 0 / 70%));
+  rotate: 5deg;
+}
+
+/* Pequenos pontos luminosos quebram a simetria e tornam o espaço mais vivo. */
+.orbitNodes {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.orbitNodes span {
+  position: absolute;
+  width: 5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #74a8ff;
+  box-shadow:
+    0 0 8px 2px rgb(85 142 255 / 62%),
+    0 0 30px 7px rgb(47 87 255 / 18%);
+}
+
+.orbitNodes span:nth-child(1) { top: 27%; left: 42%; }
+.orbitNodes span:nth-child(2) { top: 38%; right: 34%; background: #5de5bc; }
+.orbitNodes span:nth-child(3) { bottom: 22%; left: 36%; width: 3px; }
+.orbitNodes span:nth-child(4) { top: 18%; right: 42%; width: 3px; background: #bb7cff; }
+.orbitNodes span:nth-child(5) { bottom: 28%; right: 27%; width: 4px; background: #49d5d0; }
+.orbitNodes span:nth-child(6) { top: 50%; left: 20%; width: 3px; }
+.orbitNodes span:nth-child(7) { bottom: 13%; left: 55%; width: 3px; background: #9d6aff; }
+.orbitNodes span:nth-child(8) { top: 14%; left: 57%; width: 2px; background: #55e1b5; }
+
 /* ---------- Plano distante ---------- */
 
 .projectAnaPaula {
-  --w: 6.2%;
+  --w: 5.5%;
   --ratio: 1 / 1;
-  --rz: -12deg;
+  --rz: -10deg;
   --float: 16s;
   --float-delay: -5s;
   --mobile-order: 10;
 
-  top: 38%;
-  left: 21%;
-}
-
-.projectCarolina {
-  --w: 6.8%;
-  --ratio: 1 / 1;
-  --rz: 11deg;
-  --float: 14s;
-  --float-delay: -9s;
-  --mobile-order: 9;
-
-  top: 17%;
-  left: 61%;
-}
-
-.projectSephieSymbol {
-  --w: 6.4%;
-  --ratio: 1 / 1;
-  --rz: -7deg;
-  --float: 17s;
-  --float-delay: -2s;
-  --mobile-order: 8;
-
-  top: 22%;
-  left: 31%;
-}
-
-.projectRouteSymbol {
-  --w: 5.8%;
-  --ratio: 1 / 1;
-  --rz: 8deg;
-  --float: 15s;
-  --float-delay: -7s;
-  --mobile-order: 11;
-
-  top: 43%;
-  right: 25%;
+  top: 40%;
+  left: 29%;
 }
 
 .projectGhetto {
   --w: 5.2%;
   --ratio: 0.62 / 1;
-  --rz: -5deg;
+  --rz: -4deg;
   --float: 18s;
   --float-delay: -11s;
+  --mobile-order: 11;
+
+  right: 31%;
+  bottom: 13%;
+}
+
+.projectStudioGiuFar {
+  --w: 5.4%;
+  --ratio: 1 / 1;
+  --rz: 7deg;
+  --float: 17s;
+  --float-delay: -3s;
   --mobile-order: 12;
 
-  right: 34%;
-  bottom: 12%;
+  top: 24%;
+  right: 31%;
+}
+
+.projectRouteSymbol {
+  --w: 5.4%;
+  --ratio: 1 / 1;
+  --rz: 8deg;
+  --float: 15s;
+  --float-delay: -7s;
+  --mobile-order: 13;
+
+  top: 40%;
+  right: 25%;
 }
 
 /* ---------- Plano intermediário ---------- */
 
+.projectSephieBoard {
+  --w: 16%;
+  --ratio: 1.18 / 1;
+  --ry: 8deg;
+  --rz: 3deg;
+  --float: 13s;
+  --float-delay: -9s;
+  --mobile-order: 2;
+
+  top: 8%;
+  left: 23%;
+}
+
 .projectTardinhaScene {
   --w: 23%;
   --ratio: 16 / 9;
-  --rx: 3deg;
-  --ry: -7deg;
-  --rz: 1deg;
+  --rx: 2deg;
+  --ry: -4deg;
+  --rz: -1deg;
   --float: 12s;
   --float-delay: -4s;
   --mobile-order: 3;
 
-  top: 5%;
-  left: 38.5%;
+  top: 4.5%;
+  left: 44%;
 }
 
-.projectRouteFlyer {
-  --w: 11.5%;
-  --ratio: 0.58 / 1;
+.projectRouteBoard {
+  --w: 15.5%;
+  --ratio: 1.18 / 1;
   --rx: 2deg;
   --ry: -8deg;
-  --rz: 5deg;
+  --rz: 4deg;
   --float: 13.5s;
   --float-delay: -8s;
   --mobile-order: 5;
 
   top: 7%;
-  right: 16.5%;
-}
-
-.projectStudioGiu {
-  --w: 11.5%;
-  --ratio: 1 / 1;
-  --rx: -4deg;
-  --ry: -7deg;
-  --rz: 5deg;
-  --float: 14.5s;
-  --float-delay: -3s;
-  --mobile-order: 6;
-
-  right: 24%;
-  bottom: 4%;
+  right: 16%;
 }
 
 .projectLatino {
-  --w: 10.5%;
-  --ratio: 4 / 3;
+  --w: 10.4%;
+  --ratio: 0.72 / 1;
   --rx: -3deg;
   --ry: 7deg;
   --rz: -6deg;
@@ -553,79 +838,75 @@
   --mobile-order: 7;
 
   left: 28%;
-  bottom: 4%;
+  bottom: 3%;
 }
 
 .projectXango {
-  --w: 9.5%;
+  --w: 9.7%;
   --ratio: 0.72 / 1;
   --rx: -4deg;
   --ry: -5deg;
   --rz: 4deg;
   --float: 15.5s;
   --float-delay: -6s;
-  --mobile-order: 4;
+  --mobile-order: 6;
 
-  left: 48%;
-  bottom: 3.5%;
+  left: 45.5%;
+  bottom: 2.4%;
 }
 
 /* ---------- Primeiro plano ---------- */
 
-.projectMoikato {
-  --w: 28%;
-  --ratio: 16 / 9;
-  --rx: 3deg;
-  --ry: 13deg;
-  --rz: -4deg;
+.projectMoikatoBoard {
+  --w: 25%;
+  --ratio: 0.7 / 1;
+  --rx: 2deg;
+  --ry: 10deg;
+  --rz: -3deg;
   --float: 11.5s;
   --float-delay: -2s;
   --mobile-order: 1;
 
-  top: 16%;
-  left: -5%;
+  top: 4%;
+  left: -3.6%;
 }
 
-.projectSephie {
-  --w: 18.5%;
-  --ratio: 16 / 10;
-  --rx: -4deg;
-  --ry: 10deg;
-  --rz: -7deg;
-  --float: 13s;
-  --float-delay: -9s;
-  --mobile-order: 2;
+.projectHealthPhone {
+  --w: 13.2%;
+  --ratio: 0.56 / 1;
+  --rx: -2deg;
+  --ry: 9deg;
+  --rz: -8deg;
+  --mobile-order: 4;
 
   left: 2.5%;
-  bottom: 4%;
+  bottom: -7%;
 }
 
-.projectSweet {
-  --w: 16%;
-  --ratio: 0.72 / 1;
-  --rx: 2deg;
-  --ry: -10deg;
-  --rz: 5deg;
+.projectSweetCutout {
+  --w: 20%;
+  --ratio: 0.92 / 1;
+  --rx: 1deg;
+  --ry: -9deg;
+  --rz: 4deg;
   --float: 12s;
   --float-delay: -6s;
   --mobile-order: 0;
 
-  top: 16%;
-  right: -2%;
+  top: 9%;
+  right: -4.5%;
 }
 
-.projectTardinhaMark {
-  --w: 12%;
-  --ratio: 1 / 1;
-  --rx: -3deg;
+.projectCarolinaBoard {
+  --w: 27%;
+  --ratio: 1.34 / 1;
+  --rx: -2deg;
   --ry: -7deg;
-  --rz: 4deg;
-  --float: 14s;
-  --float-delay: -4s;
-  --mobile-order: 13;
+  --rz: 6deg;
+  --mobile-order: 8;
 
-  right: 8%;
-  bottom: -1%;
+  right: -0.5%;
+  bottom: -1.5%;
 }
 
 /* ---------- Chamada para rolar ---------- */
@@ -705,7 +986,11 @@
   .wordmark {
     position: absolute;
     top: 9%;
-    font-size: clamp(6.8rem, 24vw, 11rem);
+    width: clamp(15rem, 58vw, 24rem);
+  }
+
+  .orbitNodes {
+    display: none;
   }
 
   .projectField {
@@ -764,6 +1049,29 @@
     filter: none;
   }
 
+  .healthPhone .projectSurface {
+    border-width: 1px;
+    border-radius: 14px;
+  }
+
+  .healthPhone .projectSurface::before {
+    display: none;
+  }
+
+  .healthPhoneScreen {
+    padding: 10%;
+  }
+
+  .healthPhoneScreen > strong {
+    margin-top: 8%;
+    font-size: clamp(1.7rem, 7vw, 2.6rem);
+  }
+
+  .healthPhoneStats {
+    margin-top: 5%;
+    padding-top: 4%;
+  }
+
   .projectMeta {
     top: auto;
     right: 0;
@@ -802,11 +1110,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .layerShine {
-    animation: none;
-    background-position: 50% 50%;
-  }
-
   .projectSurface {
     animation: none;
     transition: none;

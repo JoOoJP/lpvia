@@ -13,39 +13,191 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 function Wordmark3D() {
   return (
     <span className={styles.wordmarkStage} aria-hidden="true">
-      <span className={styles.wordmarkStack}>
-        <span className={`${styles.layer} ${styles.layerGlow}`}>VIA</span>
-        <span className={`${styles.layer} ${styles.layerDepth}`}>VIA</span>
-        <span className={`${styles.layer} ${styles.layerEdge}`}>VIA</span>
-        <span className={`${styles.layer} ${styles.layerFace}`}>VIA</span>
-        <span className={`${styles.layer} ${styles.layerShine}`}>VIA</span>
+      <svg
+        className={styles.wordmarkSvg}
+        viewBox="0 0 122 52"
+        role="presentation"
+      >
+        <defs>
+          <linearGradient
+            id="via-hero-glass"
+            x1="2"
+            y1="4"
+            x2="120"
+            y2="44"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stopColor="#ab72ff" />
+            <stop offset="0.3" stopColor="#745cff" />
+            <stop offset="0.56" stopColor="#3f8ff4" />
+            <stop offset="0.77" stopColor="#16c4d4" />
+            <stop offset="1" stopColor="#4be39b" />
+          </linearGradient>
+          <linearGradient
+            id="via-hero-highlight"
+            x1="4"
+            y1="3"
+            x2="80"
+            y2="45"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stopColor="#ffffff" stopOpacity="0.9" />
+            <stop offset="0.42" stopColor="#d9ecff" stopOpacity="0.28" />
+            <stop offset="1" stopColor="#d9fff0" stopOpacity="0.72" />
+          </linearGradient>
+          <filter id="via-hero-glow" x="-40%" y="-60%" width="180%" height="220%">
+            <feGaussianBlur stdDeviation="2.2" />
+          </filter>
+        </defs>
+
+        <g className={styles.wordmarkDepth} transform="translate(2.8 3.2)">
+          <path d="M3 5h14l10 31L37 5h14L34 47H20Z" />
+          <path d="M55 5h13v42H55Z" />
+          <path d="M72 47 89 5h13l17 42h-15l-3.1-9H87l4.2-11h6L95 18 84 47Z" />
+        </g>
+        <g className={styles.wordmarkGlow} filter="url(#via-hero-glow)">
+          <path d="M3 5h14l10 31L37 5h14L34 47H20Z" />
+          <path d="M55 5h13v42H55Z" />
+          <path d="M72 47 89 5h13l17 42h-15l-3.1-9H87l4.2-11h6L95 18 84 47Z" />
+        </g>
+        <g className={styles.wordmarkGlass}>
+          <path d="M3 5h14l10 31L37 5h14L34 47H20Z" />
+          <path d="M55 5h13v42H55Z" />
+          <path d="M72 47 89 5h13l17 42h-15l-3.1-9H87l4.2-11h6L95 18 84 47Z" />
+        </g>
+        <g className={styles.wordmarkHighlight} transform="translate(-0.55 -0.65)">
+          <path d="M3 5h14l10 31L37 5h14L34 47H20Z" />
+          <path d="M55 5h13v42H55Z" />
+          <path d="M72 47 89 5h13l17 42h-15l-3.1-9H87l4.2-11h6L95 18 84 47Z" />
+        </g>
+      </svg>
+      <span className={styles.wordmarkReflection}>
+        <svg viewBox="0 0 122 52" role="presentation">
+          <g>
+            <path d="M3 5h14l10 31L37 5h14L34 47H20Z" />
+            <path d="M55 5h13v42H55Z" />
+            <path d="M72 47 89 5h13l17 42h-15l-3.1-9H87l4.2-11h6L95 18 84 47Z" />
+          </g>
+        </svg>
       </span>
-      <span className={styles.wordmarkReflection}>VIA</span>
     </span>
+  );
+}
+
+function ProjectVisual({ project }) {
+  if (project.visual === "healthPhone") {
+    return (
+      <span className={styles.healthPhoneScreen}>
+        <span className={styles.healthPhoneBar}>VITAE</span>
+        <strong>Cuidado que acolhe, tecnologia que transforma.</strong>
+        <span className={styles.healthPhoneCta}>Agendar consulta</span>
+        <span className={styles.healthPhoneStats}>
+          <span>+18K</span>
+          <span>92%</span>
+          <span>24h</span>
+        </span>
+      </span>
+    );
+  }
+
+  if (project.visual === "moikatoBoard") {
+    return (
+      <span className={styles.moikatoBoardArt}>
+        <Image src={project.src} alt="" fill sizes="34vw" />
+        <span className={styles.moikatoBoardShade} />
+        <span className={styles.moikatoBoardCopy}>
+          <span>BRAND IDENTITY</span>
+          <strong>Moikato</strong>
+          <small>BRAZIL MEETS EUROPE</small>
+        </span>
+        <span className={styles.moikatoBotanical} aria-hidden="true">✦</span>
+      </span>
+    );
+  }
+
+  if (project.visual === "sephieBoard") {
+    return (
+      <span className={styles.sephieBoardArt}>
+        <Image
+          src="/projects/sephie-tarot-signature.webp"
+          alt=""
+          fill
+          sizes="24vw"
+        />
+        <span className={styles.sephieBoardCopy}>
+          <strong>SEPHIE</strong>
+          <small>TAROT</small>
+        </span>
+        <Image
+          className={styles.sephieBoardSymbol}
+          src="/projects/sephie-tarot-symbol.webp"
+          alt=""
+          width={240}
+          height={240}
+        />
+      </span>
+    );
+  }
+
+  if (project.visual === "routeBoard") {
+    return (
+      <span className={styles.routeBoardArt}>
+        <Image src={project.src} alt="" fill sizes="24vw" />
+        <span className={styles.routeBoardShade} />
+        <span className={styles.routeBoardCopy}>
+          <strong>IN THA ROUTE</strong>
+          <small>LOGÍSTICA QUE MOVE O QUE IMPORTA.</small>
+        </span>
+      </span>
+    );
+  }
+
+  if (project.visual === "carolinaBoard") {
+    return (
+      <span className={styles.carolinaBoardArt}>
+        <Image src={project.src} alt="" fill sizes="30vw" />
+        <span className={styles.carolinaBoardShade} />
+        <span className={styles.carolinaBoardCopy}>
+          <strong>CAROLINA</strong>
+          <small>IDENTIDADE VISUAL</small>
+        </span>
+        <Image
+          className={styles.carolinaButterfly}
+          src="/projects/hero/carolina-cutout-v2.webp"
+          alt=""
+          width={520}
+          height={360}
+        />
+      </span>
+    );
+  }
+
+  return (
+    <Image
+      src={project.src}
+      alt={project.alt}
+      fill
+      sizes={project.sizes ?? "(max-width: 1000px) 76vw, 24vw"}
+      preload={project.preload}
+      loading={project.eager ? "eager" : undefined}
+      style={{
+        objectFit: project.fit ?? "cover",
+        objectPosition: project.position ?? "center",
+      }}
+    />
   );
 }
 
 function ProjectArtifact({ project }) {
   return (
     <a
-      className={`${styles.project} ${styles[project.slot]} ${styles[project.surface]} ${project.ambient ? styles.projectAmbient : ""}`}
+      className={`${styles.project} ${styles[project.slot]} ${styles[project.surface]} ${project.visual ? styles[project.visual] : ""} ${project.ambient ? styles.projectAmbient : ""}`}
       href={project.href}
       aria-label={`${project.title} — ${project.type}`}
       {...(project.external ? { target: "_blank", rel: "noreferrer" } : {})}
     >
       <span className={styles.projectSurface}>
-        <Image
-          src={project.src}
-          alt={project.alt}
-          fill
-          sizes="(max-width: 1000px) 76vw, 24vw"
-          preload={project.preload}
-          loading={project.eager ? "eager" : undefined}
-          style={{
-            objectFit: project.fit ?? "cover",
-            objectPosition: project.position ?? "center",
-          }}
-        />
+        <ProjectVisual project={project} />
       </span>
 
       <span className={styles.projectMeta} aria-hidden="true">
@@ -275,6 +427,12 @@ export function HeroB() {
                 <ProjectArtifact project={project} key={project.id} />
               ))}
             </div>
+          ))}
+        </div>
+
+        <div className={styles.orbitNodes} aria-hidden="true">
+          {Array.from({ length: 8 }, (_, index) => (
+            <span key={index} />
           ))}
         </div>
       </div>
