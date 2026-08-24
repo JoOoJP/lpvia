@@ -1,13 +1,13 @@
 /*
  * Hero /b — a marca no centro, os cases orbitando em 3D.
  *
- * Vive num CSS module e nao em reference-redesign.css de proposito: e uma
- * direcao em teste, e mante-la isolada torna a volta atras um apagar de pasta.
+ * Vive num CSS module e não em reference-redesign.css de propósito: é uma
+ * direção em teste, e mantê-la isolada torna a volta atrás um apagar de pasta.
  */
 
 .hero {
   position: relative;
-  min-height: max(760px, 100svh);
+  min-height: max(780px, 100svh);
   padding-top: 72px;
   overflow: clip;
   border-bottom: 1px solid rgb(255 255 255 / 9%);
@@ -19,9 +19,23 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 44%, rgb(91 18 209 / 26%), transparent 34%),
-    radial-gradient(circle at 58% 46%, rgb(0 184 212 / 20%), transparent 32%),
-    radial-gradient(circle at 44% 52%, rgb(57 214 122 / 12%), transparent 30%);
+    radial-gradient(circle at 50% 46%, rgb(91 18 209 / 24%), transparent 32%),
+    radial-gradient(circle at 58% 48%, rgb(0 184 212 / 18%), transparent 30%),
+    radial-gradient(circle at 43% 54%, rgb(57 214 122 / 11%), transparent 28%);
+}
+
+/* Vinheta: apaga os cantos para o olho cair no centro. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 74% 68% at 50% 48%,
+    transparent 40%,
+    rgb(4 5 6 / 42%) 100%
+  );
 }
 
 .scene {
@@ -29,18 +43,19 @@
   --pointer-y: 0;
 
   position: relative;
+  z-index: 2;
   width: min(100% - (2 * var(--layout-gutter)), 1420px);
-  min-height: calc(max(760px, 100svh) - 72px);
+  min-height: calc(max(780px, 100svh) - 72px);
   margin-inline: auto;
   display: grid;
   align-content: center;
   justify-items: center;
-  gap: 1.5rem;
   perspective: 1500px;
   perspective-origin: 50% 46%;
 }
 
-/* Marca */
+/* ---------- Marca ---------- */
+
 .wordmark {
   position: relative;
   z-index: 3;
@@ -48,7 +63,7 @@
   font-family: var(--font-display);
   font-size: clamp(4.5rem, 13vw, 13.5rem);
   font-weight: 700;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.012em;
   line-height: 0.9;
   translate: calc(var(--pointer-x) * -16px) calc(var(--pointer-y) * -10px);
   transition: translate 900ms var(--ease-out);
@@ -64,89 +79,262 @@
 }
 
 .wordmarkStack {
+  display: flex;
+  align-items: baseline;
+  gap: 0.03em;
+}
+
+.glyphs {
   position: relative;
+  display: inline-block;
+}
+
+.layer {
   display: block;
 }
 
-.wordmarkLayer {
-  display: block;
-}
-
-/*
- * As três camadas empilhadas desenham o volume: o vidro colorido na frente, a
- * extrusão escura por trás e o bloom fora de foco no fundo. A camada da frente
- * é a única em fluxo — ela dita a caixa que as outras duas cobrem.
- */
-.wordmarkGlow,
-.wordmarkEdge {
+.layerGlow,
+.layerEdge {
   position: absolute;
   inset: 0;
 }
 
-.wordmarkFace {
+.layerFace {
   position: relative;
-  background: linear-gradient(
-    97deg,
-    #9b6bff 0%,
-    #7b4dff 16%,
-    #4a7cff 36%,
-    #1fb0e8 60%,
-    #22d3b0 80%,
-    #4ee08c 100%
-  );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   /* Fio de luz na quina do bisel — o que faz a letra parecer acrílico. */
-  -webkit-text-stroke: 0.008em rgb(255 255 255 / 34%);
+  -webkit-text-stroke: 0.007em rgb(255 255 255 / 38%);
 }
 
-/* Extrusão: passos em em para a profundidade acompanhar o corpo da fonte. */
-.wordmarkEdge {
+/*
+ * A extrusão é uma pilha de sombras. O passo é sub-pixel de propósito: em
+ * degraus de mais de meio pixel a diagonal do V vira serra ("zíper"), porque
+ * cada cópia cai numa linha inteira de pixel. Abaixo disso o antialiasing
+ * emenda os degraus e a lateral fecha lisa.
+ */
+.layerEdge {
   color: transparent;
   text-shadow:
-    0.008em 0.014em 0 #3a1d70,
-    0.016em 0.028em 0 #371b6a,
-    0.024em 0.042em 0 #341963,
-    0.032em 0.056em 0 #31175d,
-    0.04em 0.07em 0 #2e1556,
-    0.048em 0.084em 0 #2a1350,
-    0.056em 0.098em 0 #271249,
-    0.064em 0.112em 0 #241043,
-    0.072em 0.126em 0 #210e3c,
-    0.08em 0.14em 0 #1e0d36,
-    0.088em 0.154em 0 #1a0b2f,
-    0.096em 0.168em 0 #170929,
-    0.104em 0.182em 0 #140722,
-    0.112em 0.196em 0 #11061c;
+    0.00076em 0.00180em 0 #4e2b91,
+    0.00151em 0.00360em 0 #4c2a8d,
+    0.00227em 0.00540em 0 #4b298b,
+    0.00302em 0.00720em 0 #492988,
+    0.00378em 0.00900em 0 #482885,
+    0.00454em 0.01080em 0 #472783,
+    0.00529em 0.01260em 0 #452681,
+    0.00605em 0.01440em 0 #44267f,
+    0.00680em 0.01620em 0 #43257d,
+    0.00756em 0.01800em 0 #42247b,
+    0.00832em 0.01980em 0 #412479,
+    0.00907em 0.02160em 0 #402377,
+    0.00983em 0.02340em 0 #3f2375,
+    0.01058em 0.02520em 0 #3e2273,
+    0.01134em 0.02700em 0 #3d2172,
+    0.01210em 0.02880em 0 #3c2170,
+    0.01285em 0.03060em 0 #3b206e,
+    0.01361em 0.03240em 0 #3a206c,
+    0.01436em 0.03420em 0 #391f6b,
+    0.01512em 0.03600em 0 #381f69,
+    0.01588em 0.03780em 0 #371e68,
+    0.01663em 0.03960em 0 #361e66,
+    0.01739em 0.04140em 0 #351d64,
+    0.01814em 0.04320em 0 #351d63,
+    0.01890em 0.04500em 0 #341c61,
+    0.01966em 0.04680em 0 #331c60,
+    0.02041em 0.04860em 0 #321b5e,
+    0.02117em 0.05040em 0 #311b5d,
+    0.02192em 0.05220em 0 #301a5b,
+    0.02268em 0.05400em 0 #301a5a,
+    0.02344em 0.05580em 0 #2f1959,
+    0.02419em 0.05760em 0 #2e1957,
+    0.02495em 0.05940em 0 #2d1956,
+    0.02570em 0.06120em 0 #2d1854,
+    0.02646em 0.06300em 0 #2c1853,
+    0.02722em 0.06480em 0 #2b1752,
+    0.02797em 0.06660em 0 #2a1750,
+    0.02873em 0.06840em 0 #29164f,
+    0.02948em 0.07020em 0 #29164d,
+    0.03024em 0.07200em 0 #28164c,
+    0.03100em 0.07380em 0 #27154b,
+    0.03175em 0.07560em 0 #27154a,
+    0.03251em 0.07740em 0 #261448,
+    0.03326em 0.07920em 0 #251447,
+    0.03402em 0.08100em 0 #241346,
+    0.03478em 0.08280em 0 #241344,
+    0.03553em 0.08460em 0 #231343,
+    0.03629em 0.08640em 0 #221242,
+    0.03704em 0.08820em 0 #221241,
+    0.03780em 0.09000em 0 #21113f,
+    0.03856em 0.09180em 0 #20113e,
+    0.03931em 0.09360em 0 #1f113d,
+    0.04007em 0.09540em 0 #1f103c,
+    0.04082em 0.09720em 0 #1e103a,
+    0.04158em 0.09900em 0 #1d1039,
+    0.04234em 0.10080em 0 #1d0f38,
+    0.04309em 0.10260em 0 #1c0f37,
+    0.04385em 0.10440em 0 #1b0e35,
+    0.04460em 0.10620em 0 #1b0e34,
+    0.04536em 0.10800em 0 #1a0e33,
+    0.04612em 0.10980em 0 #190d32,
+    0.04687em 0.11160em 0 #190d31,
+    0.04763em 0.11340em 0 #180c30,
+    0.04838em 0.11520em 0 #170c2e,
+    0.04914em 0.11700em 0 #170c2d,
+    0.04990em 0.11880em 0 #160b2c,
+    0.05065em 0.12060em 0 #160b2b,
+    0.05141em 0.12240em 0 #150b2a,
+    0.05216em 0.12420em 0 #140a29,
+    0.05292em 0.12600em 0 #140a28,
+    0.05368em 0.12780em 0 #130a26,
+    0.05443em 0.12960em 0 #120925,
+    0.05519em 0.13140em 0 #120924,
+    0.05594em 0.13320em 0 #110823,
+    0.05670em 0.13500em 0 #100822,
+    0.05746em 0.13680em 0 #100821,
+    0.05821em 0.13860em 0 #0f0720,
+    0.05897em 0.14040em 0 #0f071f,
+    0.05972em 0.14220em 0 #0e071d,
+    0.06048em 0.14400em 0 #0d061c,
+    0.06124em 0.14580em 0 #0d061b,
+    0.06199em 0.14760em 0 #0c061a,
+    0.06275em 0.14940em 0 #0c0519,
+    0.06350em 0.15120em 0 #0b0518;
 }
 
-.wordmarkGlow {
-  background: linear-gradient(97deg, #a97bff, #1fb0e8 58%, #4ee08c);
+.layerGlow {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  filter: blur(0.085em) saturate(1.6);
-  opacity: 0.85;
-  scale: 1.015;
+  filter: blur(0.08em) saturate(1.7);
+  opacity: 0.62;
 }
 
-.tagline {
+/* O gradiente é único de ponta a ponta: cada grupo carrega a sua fatia. */
+.glyphsLeft .layerFace {
+  background-image: linear-gradient(101deg, #bb8dff 6%, #7d5eff 96%);
+}
+
+.glyphsLeft .layerGlow {
+  background-image: linear-gradient(101deg, #bb8dff, #7d5eff);
+}
+
+.glyphsRight .layerFace {
+  background-image: linear-gradient(
+    101deg,
+    #3f86ff 2%,
+    #1fb0e8 44%,
+    #2ad3ac 76%,
+    #55e58e 100%
+  );
+}
+
+.glyphsRight .layerGlow {
+  background-image: linear-gradient(101deg, #3f86ff, #1fb0e8 48%, #55e58e);
+}
+
+/*
+ * O ponto do V.IA é um cubo, não o pingo redondo da fonte — é o detalhe que
+ * amarra a marca ao resto da cena em 3D.
+ */
+.cube {
   position: relative;
-  z-index: 3;
-  color: #8f9598;
-  font-size: 0.7rem;
-  font-weight: 650;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
+  width: 0.19em;
+  height: 0.19em;
+  border-radius: 0.022em;
+  background:
+    linear-gradient(150deg, rgb(255 255 255 / 34%), transparent 46%),
+    linear-gradient(101deg, #6f57ff, #3f86ff);
+  box-shadow:
+    0.00076em 0.00180em 0 #4e2b91,
+    0.00151em 0.00360em 0 #4c2a8d,
+    0.00227em 0.00540em 0 #4b298b,
+    0.00302em 0.00720em 0 #492988,
+    0.00378em 0.00900em 0 #482885,
+    0.00454em 0.01080em 0 #472783,
+    0.00529em 0.01260em 0 #452681,
+    0.00605em 0.01440em 0 #44267f,
+    0.00680em 0.01620em 0 #43257d,
+    0.00756em 0.01800em 0 #42247b,
+    0.00832em 0.01980em 0 #412479,
+    0.00907em 0.02160em 0 #402377,
+    0.00983em 0.02340em 0 #3f2375,
+    0.01058em 0.02520em 0 #3e2273,
+    0.01134em 0.02700em 0 #3d2172,
+    0.01210em 0.02880em 0 #3c2170,
+    0.01285em 0.03060em 0 #3b206e,
+    0.01361em 0.03240em 0 #3a206c,
+    0.01436em 0.03420em 0 #391f6b,
+    0.01512em 0.03600em 0 #381f69,
+    0.01588em 0.03780em 0 #371e68,
+    0.01663em 0.03960em 0 #361e66,
+    0.01739em 0.04140em 0 #351d64,
+    0.01814em 0.04320em 0 #351d63,
+    0.01890em 0.04500em 0 #341c61,
+    0.01966em 0.04680em 0 #331c60,
+    0.02041em 0.04860em 0 #321b5e,
+    0.02117em 0.05040em 0 #311b5d,
+    0.02192em 0.05220em 0 #301a5b,
+    0.02268em 0.05400em 0 #301a5a,
+    0.02344em 0.05580em 0 #2f1959,
+    0.02419em 0.05760em 0 #2e1957,
+    0.02495em 0.05940em 0 #2d1956,
+    0.02570em 0.06120em 0 #2d1854,
+    0.02646em 0.06300em 0 #2c1853,
+    0.02722em 0.06480em 0 #2b1752,
+    0.02797em 0.06660em 0 #2a1750,
+    0.02873em 0.06840em 0 #29164f,
+    0.02948em 0.07020em 0 #29164d,
+    0.03024em 0.07200em 0 #28164c,
+    0.03100em 0.07380em 0 #27154b,
+    0.03175em 0.07560em 0 #27154a,
+    0.03251em 0.07740em 0 #261448,
+    0.03326em 0.07920em 0 #251447,
+    0.03402em 0.08100em 0 #241346,
+    0.03478em 0.08280em 0 #241344,
+    0.03553em 0.08460em 0 #231343,
+    0.03629em 0.08640em 0 #221242,
+    0.03704em 0.08820em 0 #221241,
+    0.03780em 0.09000em 0 #21113f,
+    0.03856em 0.09180em 0 #20113e,
+    0.03931em 0.09360em 0 #1f113d,
+    0.04007em 0.09540em 0 #1f103c,
+    0.04082em 0.09720em 0 #1e103a,
+    0.04158em 0.09900em 0 #1d1039,
+    0.04234em 0.10080em 0 #1d0f38,
+    0.04309em 0.10260em 0 #1c0f37,
+    0.04385em 0.10440em 0 #1b0e35,
+    0.04460em 0.10620em 0 #1b0e34,
+    0.04536em 0.10800em 0 #1a0e33,
+    0.04612em 0.10980em 0 #190d32,
+    0.04687em 0.11160em 0 #190d31,
+    0.04763em 0.11340em 0 #180c30,
+    0.04838em 0.11520em 0 #170c2e,
+    0.04914em 0.11700em 0 #170c2d,
+    0.04990em 0.11880em 0 #160b2c,
+    0.05065em 0.12060em 0 #160b2b,
+    0.05141em 0.12240em 0 #150b2a,
+    0.05216em 0.12420em 0 #140a29,
+    0.05292em 0.12600em 0 #140a28,
+    0.05368em 0.12780em 0 #130a26,
+    0.05443em 0.12960em 0 #120925,
+    0.05519em 0.13140em 0 #120924,
+    0.05594em 0.13320em 0 #110823,
+    0.05670em 0.13500em 0 #100822,
+    0.05746em 0.13680em 0 #100821,
+    0.05821em 0.13860em 0 #0f0720,
+    0.05897em 0.14040em 0 #0f071f,
+    0.05972em 0.14220em 0 #0e071d,
+    0.06048em 0.14400em 0 #0d061c,
+    0.06124em 0.14580em 0 #0d061b,
+    0.06199em 0.14760em 0 #0c061a,
+    0.06275em 0.14940em 0 #0c0519,
+    0.06350em 0.15120em 0 #0b0518;
 }
 
-.tagline span {
-  margin-inline: 0.15em;
-  color: #4d5457;
-}
+/* ---------- Cards em órbita ---------- */
 
-/* Cards em órbita */
 .card {
   position: absolute;
   z-index: 2;
@@ -157,17 +345,12 @@
   transition: translate 900ms var(--ease-out);
 }
 
+/*
+ * Sem overflow aqui: é esta caixa que o recorte precisa furar. O corte fica na
+ * moldura, uma camada abaixo.
+ */
 .cardTilt {
   position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 12%);
-  border-radius: 16px;
-  background: var(--card-bg, rgb(10 11 12 / 88%));
-  box-shadow:
-    0 2px 0 rgb(255 255 255 / 6%) inset,
-    0 46px 90px rgb(0 0 0 / 62%);
-  color: var(--card-fg, #f4f5f4);
   transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)) rotateZ(var(--rz, 0deg));
   animation: cardFloat var(--float-time, 12s) ease-in-out var(--float-delay, 0s) infinite;
 }
@@ -183,27 +366,49 @@
   }
 }
 
-.cardMedia {
+.cardFrame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--card-border, rgb(255 255 255 / 12%));
+  border-radius: 18px;
+  background: var(--card-bg);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 9%) inset,
+    0 50px 90px -28px rgb(0 0 0 / 78%);
+  color: var(--card-fg, #f4f5f4);
+  transition: border-color var(--duration-normal) ease;
+}
+
+.card:hover .cardFrame {
+  border-color: var(--card-border-hover, rgb(255 255 255 / 26%));
+}
+
+.cardArt {
   position: absolute;
   inset: 0;
 }
 
-.cardMedia img {
+.cardArt img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: var(--card-media-position, center);
-  opacity: var(--card-media-opacity, 1);
+}
+
+/* Arte que entra só como marca d'água atrás do texto. */
+.cardArtWash img {
+  opacity: 0.14;
+  filter: saturate(0.45);
 }
 
 /* Véu que garante o contraste do texto sobre qualquer foto. */
-.cardMedia::after {
+.cardArt::after {
   content: "";
   position: absolute;
   inset: 0;
   background: var(
     --card-scrim,
-    linear-gradient(190deg, rgb(4 5 6 / 34%) 0%, rgb(4 5 6 / 82%) 56%, rgb(4 5 6 / 96%) 100%)
+    linear-gradient(188deg, rgb(4 5 6 / 26%) 0%, rgb(4 5 6 / 80%) 56%, rgb(4 5 6 / 96%) 100%)
   );
 }
 
@@ -211,44 +416,45 @@
   position: relative;
   z-index: 1;
   height: 100%;
-  padding: clamp(0.9rem, 1.5vw, 1.6rem);
+  padding: clamp(0.9rem, 1.5vw, 1.7rem);
   display: grid;
   align-content: end;
-  gap: 0.35rem;
+  gap: 0.3rem;
 }
 
 .cardKicker {
   color: var(--card-fg-muted, #9aa0a3);
   font-size: 0.55rem;
   font-weight: 700;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
 }
 
 .cardTilt .cardTitle {
   font-family: var(--font-editorial);
-  font-size: clamp(1.3rem, 2.4vw, 2.3rem);
+  font-size: clamp(1.3rem, 2.4vw, 2.4rem);
   font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1.05;
+  letter-spacing: 0.01em;
+  line-height: 1.02;
 }
 
 .cardLine {
+  max-width: 62%;
   color: var(--card-fg-muted, #9aa0a3);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
-  line-height: 1.4;
+  letter-spacing: 0.15em;
+  line-height: 1.45;
   text-transform: uppercase;
 }
 
 .cardCta {
-  margin-top: 0.6rem;
+  margin-top: 0.7rem;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
   color: var(--card-fg, #f4f5f4);
-  font-size: 0.58rem;
+  font-size: 0.57rem;
   font-weight: 700;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -259,7 +465,78 @@
   gap: 1.1rem;
 }
 
-/* Posições: cada slot é uma cadeira fixa na cena. */
+/* ---------- Recortes que escapam do quadro ---------- */
+
+.recorte {
+  position: absolute;
+  z-index: 3;
+  width: var(--cut-width);
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 24px 26px rgb(0 0 0 / 55%));
+  transition: scale var(--duration-normal) var(--ease-out);
+  animation: recorteFloat var(--cut-float, 9s) ease-in-out var(--cut-delay, 0s) infinite;
+}
+
+/*
+ * O recorte tem vida própria: flutua fora de fase com o card e gira de leve,
+ * senão a peça parece colada no quadro em vez de escapar dele.
+ */
+@keyframes recorteFloat {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+
+  50% {
+    translate: 0 -18px;
+    rotate: -1.8deg;
+  }
+}
+
+.card:hover .recorte {
+  scale: 1.06;
+}
+
+.escapeRight {
+  --cut-width: 46%;
+  --cut-float: 10s;
+  --cut-delay: -3s;
+
+  top: -4%;
+  right: -22%;
+}
+
+.escapeTop {
+  --cut-width: 40%;
+  --cut-float: 11s;
+  --cut-delay: -5s;
+
+  top: -22%;
+  left: 46%;
+}
+
+.escapeTopLeft {
+  --cut-width: 38%;
+  --cut-float: 8.5s;
+  --cut-delay: -2s;
+
+  top: -36%;
+  left: -21%;
+}
+
+.escapeTopRight {
+  --cut-width: 32%;
+  --cut-float: 12s;
+  --cut-delay: -6s;
+
+  top: -15%;
+  right: 2%;
+}
+
+/* ---------- Posições: cada slot é uma cadeira fixa na cena ---------- */
+
 .slotLeftTop {
   --card-width: 27%;
   --depth: 1.1;
@@ -268,12 +545,12 @@
   --rz: -2deg;
   --float-time: 13s;
 
-  top: 3%;
+  top: 4%;
   left: 0;
 }
 
 .slotLeftBottom {
-  --card-width: 23%;
+  --card-width: 22%;
   --depth: 1.45;
   --ry: 13deg;
   --rx: -6deg;
@@ -281,12 +558,12 @@
   --float-time: 15s;
   --float-delay: -4s;
 
-  top: 50%;
-  left: 2%;
+  top: 52%;
+  left: 3%;
 }
 
 .slotCenterBottom {
-  --card-width: 20%;
+  --card-width: 19%;
   --depth: 1.7;
   --ry: -6deg;
   --rx: -9deg;
@@ -294,8 +571,8 @@
   --float-time: 11s;
   --float-delay: -7s;
 
-  top: 66%;
-  left: 47%;
+  top: 68%;
+  left: 50%;
 }
 
 .slotRightTop {
@@ -307,12 +584,12 @@
   --float-time: 14s;
   --float-delay: -2s;
 
-  top: 5%;
+  top: 10%;
   right: 0;
 }
 
 .slotRightBottom {
-  --card-width: 26%;
+  --card-width: 25%;
   --depth: 1.35;
   --ry: -12deg;
   --rx: -4deg;
@@ -320,55 +597,46 @@
   --float-time: 16s;
   --float-delay: -9s;
 
-  top: 45%;
+  top: 48%;
   right: 0;
 }
 
-/* Tons: a superfície do card acompanha a marca do case. */
-.toneNeutral {
-  --card-bg: rgb(9 10 11 / 88%);
+/* ---------- Tons: a superfície do card acompanha a marca do case ---------- */
+
+.toneNight {
+  --card-bg: rgb(9 10 11 / 90%);
+}
+
+.toneInk {
+  --card-bg: radial-gradient(circle at 72% 22%, #1b1a24, #0a0a0d 68%);
+  --card-fg-muted: #a49c8c;
+}
+
+.toneSunset {
+  --card-bg: linear-gradient(158deg, #46220f 0%, #1d0e08 58%, #0c0605 100%);
+  --card-border: rgb(255 186 120 / 18%);
+  --card-border-hover: rgb(255 186 120 / 38%);
+  --card-fg-muted: #cfa987;
 }
 
 .tonePurple {
-  --card-bg: linear-gradient(150deg, #6b2fa8, #4a1a7a 62%, #33115a);
-  --card-media-opacity: 0.5;
-  --card-scrim: linear-gradient(190deg, rgb(58 18 96 / 45%), rgb(40 12 70 / 82%));
+  --card-bg: linear-gradient(150deg, #6f31ad 0%, #4a1a7a 58%, #2f1055 100%);
+  --card-border: rgb(226 190 255 / 20%);
+  --card-border-hover: rgb(226 190 255 / 42%);
   --card-fg: #f6efff;
   --card-fg-muted: #cbb2e6;
 }
 
-/* Arte clara empurrada para a direita: o texto ocupa a metade calma. */
 .toneCream {
-  --card-bg: #e9e3d6;
-  --card-media-position: 88% center;
-  --card-scrim: linear-gradient(
-    100deg,
-    rgb(233 227 214 / 97%) 0%,
-    rgb(233 227 214 / 84%) 52%,
-    rgb(233 227 214 / 4%) 90%
-  );
+  --card-bg: linear-gradient(120deg, #efe9dc 0%, #e2dbcb 100%);
+  --card-border: rgb(22 20 15 / 14%);
+  --card-border-hover: rgb(22 20 15 / 30%);
   --card-fg: #16140f;
   --card-fg-muted: #5c5646;
 }
 
-/*
- * Arte escura sobre fundo claro (assinaturas, logos). Sob o veu escuro padrao
- * ela vira um borrao cinza; aqui o veu e claro e a arte continua legivel.
- */
-.toneParchment {
-  --card-bg: #ddd8cd;
-  --card-media-opacity: 0.85;
-  --card-scrim: linear-gradient(
-    195deg,
-    rgb(221 216 205 / 30%) 0%,
-    rgb(221 216 205 / 82%) 62%,
-    rgb(221 216 205 / 96%) 100%
-  );
-  --card-fg: #16140f;
-  --card-fg-muted: #5c5646;
-}
+/* ---------- Estilhaços fora de foco ---------- */
 
-/* Estilhaços fora de foco: só profundidade de campo. */
 .shards {
   position: absolute;
   inset: 0;
@@ -382,7 +650,7 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 4px;
-  opacity: var(--shard-opacity, 0.4);
+  opacity: var(--shard-opacity, 0.32);
   filter: blur(var(--shard-blur, 3px));
   translate:
     calc(var(--pointer-x) * var(--depth, 2) * 34px)
@@ -398,70 +666,71 @@
 }
 
 .shardOne {
-  --shard-width: 7%;
+  --shard-width: 6%;
   --depth: 2.4;
   --rz: -12deg;
-  --shard-blur: 2px;
-  --shard-opacity: 0.5;
+  --shard-blur: 2.5px;
+  --shard-opacity: 0.4;
 
-  top: 8%;
-  left: 32%;
+  top: 10%;
+  left: 33%;
 }
 
 .shardTwo {
-  --shard-width: 5%;
+  --shard-width: 4.5%;
   --depth: 3;
   --rz: 18deg;
   --shard-blur: 4px;
 
-  top: 18%;
-  left: 63%;
+  top: 20%;
+  left: 62%;
 }
 
 .shardThree {
-  --shard-width: 4%;
+  --shard-width: 3.5%;
   --depth: 3.4;
   --rz: -24deg;
   --shard-blur: 5px;
-  --shard-opacity: 0.32;
+  --shard-opacity: 0.26;
 
-  top: 66%;
-  left: 30%;
+  top: 68%;
+  left: 31%;
 }
 
 .shardFour {
-  --shard-width: 6%;
+  --shard-width: 5%;
   --depth: 2.2;
   --rz: 9deg;
   --shard-blur: 3px;
 
-  top: 74%;
-  left: 12%;
+  top: 76%;
+  left: 14%;
 }
 
 .shardFive {
-  --shard-width: 5%;
+  --shard-width: 4.5%;
   --depth: 2.8;
   --rz: -8deg;
   --shard-blur: 4px;
-  --shard-opacity: 0.3;
+  --shard-opacity: 0.24;
 
-  top: 12%;
-  left: 47%;
+  top: 14%;
+  left: 48%;
 }
 
 .shardSix {
-  --shard-width: 4.5%;
+  --shard-width: 4%;
   --depth: 3.2;
   --rz: 22deg;
   --shard-blur: 5px;
-  --shard-opacity: 0.34;
+  --shard-opacity: 0.28;
 
-  top: 78%;
-  left: 72%;
+  top: 80%;
+  left: 71%;
 }
 
-/* Chamada para rolar */
+/* ---------- Chamada para rolar ---------- */
+
 .explore {
   position: absolute;
   z-index: 4;
@@ -513,7 +782,8 @@
 
 /*
  * Abaixo de 1000px a cena 3D deixa de caber: os cards se sobrepõem e o texto
- * some. A partir daqui eles voltam a ser uma lista, sem rotação nem parallax.
+ * some. A partir daqui eles voltam a ser uma lista, sem rotação nem parallax —
+ * mas o recorte continua saindo do quadro, que é a ideia da direção.
  */
 @media (max-width: 1000px) {
   .hero {
@@ -524,6 +794,7 @@
   .scene {
     min-height: 0;
     padding-block: clamp(3rem, 12vh, 6rem) 0;
+    gap: 3.5rem;
     perspective: none;
   }
 
@@ -546,14 +817,37 @@
     animation: none;
   }
 
-  .card:first-of-type {
-    margin-top: 1.5rem;
+  .escapeRight {
+    --cut-width: 42%;
+
+    top: -10%;
+    right: -6%;
+  }
+
+  /* Na lista, o recorte encosta na moldura: fora dela o viewport corta. */
+  .escapeTop,
+  .escapeTopLeft,
+  .escapeTopRight {
+    --cut-width: 32%;
+
+    top: -16%;
+  }
+
+  .escapeTop {
+    left: 56%;
+  }
+
+  .escapeTopLeft {
+    left: 2%;
+  }
+
+  .escapeTopRight {
+    right: 2%;
   }
 
   .explore {
     position: static;
     width: fit-content;
-    margin-top: 1rem;
     margin-inline: auto;
     padding-bottom: 0;
     translate: none;
@@ -565,7 +859,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cardTilt {
+  .cardTilt,
+  .recorte {
     animation: none;
   }
 

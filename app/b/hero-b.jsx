@@ -6,6 +6,22 @@ import { Arrow } from "../ui/arrow";
 import { heroCards, heroShards } from "./hero-cards";
 import styles from "./hero-b.module.css";
 
+/*
+ * Três camadas empilhadas desenham o volume da letra: o bloom fora de foco no
+ * fundo, a extrusão escura no meio e a face em gradiente por cima. A ordem no
+ * DOM é a ordem de pintura — a face é a única em fluxo, e é ela que dita a
+ * caixa que as outras duas cobrem.
+ */
+function Glyphs({ text, variant }) {
+  return (
+    <span className={`${styles.glyphs} ${styles[variant]}`}>
+      <span className={`${styles.layer} ${styles.layerGlow}`}>{text}</span>
+      <span className={`${styles.layer} ${styles.layerEdge}`}>{text}</span>
+      <span className={`${styles.layer} ${styles.layerFace}`}>{text}</span>
+    </span>
+  );
+}
+
 export function HeroB() {
   const sceneRef = useRef(null);
 
@@ -30,7 +46,7 @@ export function HeroB() {
     };
 
     // Ler clientX/clientY na hora e pintar no frame: o listener não força
-    // layout e o navegador coalesce vários movimentos em um repaint só.
+    // layout e o navegador junta vários movimentos num repaint só.
     const onMove = (event) => {
       pointer.x = event.clientX / window.innerWidth - 0.5;
       pointer.y = event.clientY / window.innerHeight - 0.5;
@@ -54,27 +70,18 @@ export function HeroB() {
             VIA — estratégia que ganha forma.
           </span>
           <span className={styles.wordmarkStack} aria-hidden="true">
-            <span className={`${styles.wordmarkLayer} ${styles.wordmarkGlow}`}>
-              V.IA
-            </span>
-            <span className={`${styles.wordmarkLayer} ${styles.wordmarkEdge}`}>
-              V.IA
-            </span>
-            <span className={`${styles.wordmarkLayer} ${styles.wordmarkFace}`}>
-              V.IA
-            </span>
+            <Glyphs text="V" variant="glyphsLeft" />
+            <span className={styles.cube} />
+            <Glyphs text="IA" variant="glyphsRight" />
           </span>
         </h1>
 
-        <p className={styles.tagline}>
-          Estratégia <span aria-hidden="true">/</span> Marca{" "}
-          <span aria-hidden="true">/</span> Marketing{" "}
-          <span aria-hidden="true">/</span> Tecnologia
-        </p>
-
         <div className={styles.shards} aria-hidden="true">
           {heroShards.map((shard) => (
-            <span key={shard.id} className={`${styles.shard} ${styles[shard.slot]}`}>
+            <span
+              key={shard.id}
+              className={`${styles.shard} ${styles[shard.slot]}`}
+            >
               <Image src={shard.src} alt="" fill sizes="120px" />
             </span>
           ))}
@@ -86,28 +93,52 @@ export function HeroB() {
             className={`${styles.card} ${styles[card.slot]} ${styles[card.tone]}`}
           >
             <div className={styles.cardTilt}>
-              <div className={styles.cardMedia}>
+              <div className={styles.cardFrame}>
+                {card.art ? (
+                  <div
+                    className={`${styles.cardArt} ${card.art.wash ? styles.cardArtWash : ""}`}
+                  >
+                    <Image
+                      src={card.art.src}
+                      alt={card.art.alt}
+                      fill
+                      sizes="(max-width: 1000px) 92vw, 28vw"
+                      style={{ objectPosition: card.art.position }}
+                    />
+                  </div>
+                ) : null}
+
+                <div className={styles.cardBody}>
+                  <p className={styles.cardKicker}>{card.kicker}</p>
+                  <p className={styles.cardTitle}>{card.title}</p>
+                  <p className={styles.cardLine}>{card.line}</p>
+                  <a
+                    className={styles.cardCta}
+                    href={card.href}
+                    {...(card.external
+                      ? { target: "_blank", rel: "noreferrer" }
+                      : null)}
+                  >
+                    Ver projeto <Arrow />
+                  </a>
+                </div>
+              </div>
+
+              {/*
+               * Fora da moldura de propósito: é o recorte que escapa do quadro.
+               * Decorativo — quem lê por leitor de tela já recebeu o nome do
+               * case no título logo acima.
+               */}
+              {card.recorte ? (
                 <Image
-                  src={card.image.src}
-                  alt={card.image.alt}
-                  fill
-                  sizes="(max-width: 1000px) 46vw, 27vw"
+                  className={`${styles.recorte} ${styles[card.recorte.escape]}`}
+                  src={card.recorte.src}
+                  alt=""
+                  width={card.recorte.width}
+                  height={card.recorte.height}
+                  sizes="(max-width: 1000px) 46vw, 18vw"
                 />
-              </div>
-              <div className={styles.cardBody}>
-                <p className={styles.cardKicker}>{card.kicker}</p>
-                <p className={styles.cardTitle}>{card.title}</p>
-                <p className={styles.cardLine}>{card.line}</p>
-                <a
-                  className={styles.cardCta}
-                  href={card.href}
-                  {...(card.external
-                    ? { target: "_blank", rel: "noreferrer" }
-                    : null)}
-                >
-                  Ver projeto <Arrow />
-                </a>
-              </div>
+              ) : null}
             </div>
           </article>
         ))}
