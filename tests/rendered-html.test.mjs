@@ -94,14 +94,18 @@ test("publica o depoimento da Moikato antes do contato", async () => {
   assert.match(html, /Samuel/);
   assert.equal(html.match(/class="moikato-proof-video"/g)?.length, 1);
   assert.doesNotMatch(html, /dark-testimonial/);
-  assert.ok(html.indexOf("moikato-proof") < html.indexOf("dark-work"));
+  assert.ok(html.indexOf("moikato-proof") < html.indexOf("project-coverflow"));
 });
 
-test("entrega os três trabalhos em contexto", async () => {
+test("entrega os trabalhos em um coverflow acessível", async () => {
   const response = await fetch(pageUrl);
   const html = await response.text();
 
-  assert.match(html, /Projetos selecionados/);
+  assert.match(html, /Projetos que ganharam forma/);
+  assert.match(html, /aria-roledescription="carrossel"/);
+  assert.match(html, /aria-label="Projetos da VIA"/);
+  assert.match(html, /aria-label="Projeto anterior"/);
+  assert.match(html, /aria-label="Próximo projeto"/);
   assert.match(html, /Um universo de marca enraizado na natureza/);
   assert.match(html, /A Tardinha/);
   assert.match(html, /Criação de landing pages para venda de ingressos/);
@@ -111,6 +115,7 @@ test("entrega os três trabalhos em contexto", async () => {
   assert.match(html, /Clínicas na área da saúde/);
   assert.match(html, /Estratégia digital e comunicação para profissionais da área da/);
   assert.match(html, /Cuidado que/);
+  assert.match(html, /Arraste ou use as setas para navegar/);
 });
 
 test("inclui os projetos adicionais construídos pela VIA", async () => {
@@ -126,50 +131,34 @@ test("inclui os projetos adicionais construídos pela VIA", async () => {
   assert.match(html, /Studio da Giu/);
   assert.match(html, /Sweet Popcorn Gourmet/);
   assert.match(html, /Sephie Tarot/);
-  assert.match(html, /Ana Paula Personal Organizer/);
-  assert.match(html, /Rebranding\./);
+  assert.match(html, /Carolina Carvalho/);
+  assert.match(html, /Uma marca antiga transformada em uma identidade preparada/);
   assert.match(html, /Assinatura visual para trazer mais identidade\./);
   assert.match(html, /Panfletos, peças promocionais e campanhas para marcas e eventos\./);
   assert.match(html, /Construção de identidade visual e materiais gráficos\./);
-  assert.match(html, /Logos e branding\./);
+  assert.match(html, /Identidade colorida aplicada à embalagem/);
   assert.match(html, /Logo, símbolo e assinatura visual\./);
-  assert.match(html, /Logo e identidade visual para serviço de organização\./);
   assert.match(assets, /route-before\.webp/);
   assert.match(assets, /route-primary\.webp/);
   assert.match(
     html,
-    /aria-label="Comparar a identidade antiga e a nova da In Tha Route"/,
+    /Comparar a identidade antiga e a nova da In Tha Route/,
   );
-  assert.match(html, /type="range"/);
   assert.match(assets, /projects\/tux7c-primary\.webp/);
   assert.match(assets, /projects\/latino-beats\.webp/);
   assert.match(assets, /projects\/in-tha-route-flyer-full\.webp/);
-  assert.match(assets, /projects\/in-tha-route-flyer-detail\.webp/);
   assert.match(assets, /projects\/studio-giu-pricing\.webp/);
-  assert.match(assets, /projects\/studio-giu-logo\.webp/);
-  assert.match(assets, /projects\/sweet-popcorn-gourmet\.webp/);
-  assert.match(assets, /projects\/sephie-tarot-signature\.webp/);
-  assert.match(assets, /projects\/sephie-tarot-symbol\.webp/);
-  assert.match(assets, /projects\/ana-paula-organizer\.webp/);
-  assert.match(assets, /projects\/moikato-brand\.webp/);
-  assert.match(assets, /projects\/hero\/moikato-cinematic\.webp/);
-  assert.match(assets, /projects\/hero\/sephie-cinematic\.webp/);
-  assert.match(assets, /projects\/hero\/tardinha-cinematic\.webp/);
-  assert.match(assets, /projects\/hero\/carolina-cinematic\.webp/);
   assert.match(assets, /projects\/hero\/sweet-popcorn-cinematic\.webp/);
-  assert.match(assets, /projects\/hero\/moikato-cutout-v3\.webp/);
-  assert.match(assets, /projects\/hero\/sephie-cutout-v3\.webp/);
-  assert.match(assets, /projects\/hero\/tardinha-cutout-v2\.webp/);
-  assert.match(assets, /projects\/hero\/carolina-cutout-v2\.webp/);
-  assert.match(assets, /projects\/recortes\/sweet-popcorn\.webp/);
-
-  assert.match(html, /Carolina Carvalho/);
+  assert.match(assets, /projects\/artes\/sephie-prancha\.webp/);
+  assert.match(assets, /projects\/moikato-brand\.webp/);
+  assert.match(assets, /projects\/hero\/tardinha-cinematic\.webp/);
+  assert.match(assets, /projects\/ghetto-baile-funk\.webp/);
   assert.match(html, /Rebranding, paleta e manual de marca para podóloga\./);
   assert.match(assets, /projects\/carolina-antes\.webp/);
   assert.match(assets, /projects\/carolina-depois\.webp/);
   assert.match(
     html,
-    /aria-label="Comparar a marca antiga e a nova de Carolina Carvalho"/,
+    /Comparar a marca antiga e a nova de Carolina Carvalho/,
   );
 });
 
