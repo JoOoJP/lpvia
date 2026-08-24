@@ -83,7 +83,7 @@ export const heroProjectLayers = [
         alt: "Cena do pôr do sol criada para A Tardinha",
         slot: "projectTardinhaScene",
         surface: "surfaceWarm",
-        priority: true,
+        ambient: true,
       },
       {
         id: "route-flyer",
@@ -148,7 +148,8 @@ export const heroProjectLayers = [
         alt: "Marca Moikato aplicada em uma parede com luz natural",
         slot: "projectMoikato",
         surface: "surfaceMoikato",
-        priority: true,
+        ambient: true,
+        preload: true,
       },
       {
         id: "sephie",
@@ -172,7 +173,7 @@ export const heroProjectLayers = [
         slot: "projectSweet",
         surface: "surfaceWhite",
         fit: "contain",
-        priority: true,
+        ambient: true,
       },
       {
         id: "tardinha-mark",
@@ -185,6 +186,7 @@ export const heroProjectLayers = [
         slot: "projectTardinhaMark",
         surface: "surfaceCutout",
         fit: "contain",
+        eager: true,
       },
     ],
   },

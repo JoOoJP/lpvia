@@ -23,7 +23,7 @@ function Glyphs({ text, variant }) {
 function ProjectArtifact({ project }) {
   return (
     <a
-      className={`${styles.project} ${styles[project.slot]} ${styles[project.surface]}`}
+      className={`${styles.project} ${styles[project.slot]} ${styles[project.surface]} ${project.ambient ? styles.projectAmbient : ""}`}
       href={project.href}
       aria-label={`${project.title} — ${project.type}`}
       {...(project.external ? { target: "_blank", rel: "noreferrer" } : {})}
@@ -34,7 +34,8 @@ function ProjectArtifact({ project }) {
           alt={project.alt}
           fill
           sizes="(max-width: 1000px) 76vw, 24vw"
-          priority={project.priority}
+          preload={project.preload}
+          loading={project.eager ? "eager" : undefined}
           style={{
             objectFit: project.fit ?? "cover",
             objectPosition: project.position ?? "center",
@@ -53,23 +54,21 @@ function ProjectArtifact({ project }) {
 
 export function HeroB() {
   const heroRef = useRef(null);
-  const sceneRef = useRef(null);
 
   useGSAP(
     () => {
       const hero = heroRef.current;
-      const scene = sceneRef.current;
-      if (!hero || !scene) return;
+      if (!hero) return;
 
       const wordmark = hero.querySelector(`.${styles.wordmark}`);
       const glow = hero.querySelector(`.${styles.glowBed}`);
       const explore = hero.querySelector(`.${styles.explore}`);
-      const projects = gsap.utils.toArray(`.${styles.project}`, hero);
       const depthLayers = {
         far: hero.querySelector('[data-depth="far"]'),
         mid: hero.querySelector('[data-depth="mid"]'),
         near: hero.querySelector('[data-depth="near"]'),
       };
+      const depthLayerNodes = Object.values(depthLayers).filter(Boolean);
       const media = gsap.matchMedia();
 
       media.add("(prefers-reduced-motion: no-preference)", () => {
@@ -83,30 +82,28 @@ export function HeroB() {
               scale: 0.72,
               rotationX: 10,
               z: -90,
-              filter: "blur(16px)",
             },
             {
               autoAlpha: 1,
               scale: 1,
               rotationX: 0,
               z: 0,
-              filter: "blur(0px)",
               duration: 1.05,
             },
           )
           .fromTo(
-            projects,
+            depthLayerNodes,
             {
               autoAlpha: 0,
-              scale: 0.86,
-              y: (index) => (index % 2 === 0 ? 34 : -28),
+              scale: 0.95,
+              y: 24,
             },
             {
               autoAlpha: 1,
               scale: 1,
               y: 0,
-              duration: 0.78,
-              stagger: { amount: 0.52, from: "random" },
+              duration: 0.72,
+              stagger: 0.1,
             },
             "-=0.68",
           )
@@ -123,6 +120,10 @@ export function HeroB() {
       media.add(
         "(min-width: 1001px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
         () => {
+          let pendingFrame = 0;
+          let pointerX = 0;
+          let pointerY = 0;
+
           const layerMotion = [
             { node: depthLayers.far, factorX: 18, factorY: 10, duration: 0.78 },
             { node: depthLayers.mid, factorX: -34, factorY: -20, duration: 0.58 },
@@ -147,47 +148,51 @@ export function HeroB() {
             duration: 0.62,
             ease: "power3.out",
           });
-          const wordmarkRotateX = gsap.quickTo(wordmark, "rotationX", {
-            duration: 0.72,
-            ease: "power3.out",
-          });
-          const wordmarkRotateY = gsap.quickTo(wordmark, "rotationY", {
-            duration: 0.72,
-            ease: "power3.out",
-          });
-
           const settle = () => {
+            if (pendingFrame) {
+              cancelAnimationFrame(pendingFrame);
+              pendingFrame = 0;
+            }
             layerMotion.forEach((layer) => {
               layer.x(0);
               layer.y(0);
             });
             wordmarkX(0);
             wordmarkY(0);
-            wordmarkRotateX(0);
-            wordmarkRotateY(0);
+          };
+
+          const renderPointerMotion = () => {
+            pendingFrame = 0;
+            layerMotion.forEach((layer) => {
+              layer.x(pointerX * layer.factorX);
+              layer.y(pointerY * layer.factorY);
+            });
+            wordmarkX(pointerX * -10);
+            wordmarkY(pointerY * -6);
           };
 
           const onMove = (event) => {
-            const bounds = hero.getBoundingClientRect();
-            const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-            const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+            pointerX = event.clientX / window.innerWidth - 0.5;
+            pointerY = event.clientY / window.innerHeight - 0.5;
 
-            layerMotion.forEach((layer) => {
-              layer.x(x * layer.factorX);
-              layer.y(y * layer.factorY);
-            });
-            wordmarkX(x * -10);
-            wordmarkY(y * -6);
-            wordmarkRotateX(y * -2.4);
-            wordmarkRotateY(x * 3.2);
+            if (!pendingFrame) {
+              pendingFrame = requestAnimationFrame(renderPointerMotion);
+            }
+          };
+
+          const onVisibilityChange = () => {
+            if (document.hidden) settle();
           };
 
           hero.addEventListener("pointermove", onMove, { passive: true });
           hero.addEventListener("pointerleave", settle);
+          document.addEventListener("visibilitychange", onVisibilityChange);
 
           return () => {
             hero.removeEventListener("pointermove", onMove);
             hero.removeEventListener("pointerleave", settle);
+            document.removeEventListener("visibilitychange", onVisibilityChange);
+            if (pendingFrame) cancelAnimationFrame(pendingFrame);
           };
         },
       );
@@ -200,7 +205,10 @@ export function HeroB() {
               trigger: hero,
               start: "top top",
               end: "bottom top",
-              scrub: 0.6,
+              scrub: 0.35,
+              onToggle: (self) => {
+                hero.classList.toggle(styles.motionPaused, !self.isActive);
+              },
             },
           });
 
@@ -211,7 +219,10 @@ export function HeroB() {
             .to(depthLayers.mid, { yPercent: -8, ease: "none" }, 0)
             .to(depthLayers.near, { yPercent: -15, ease: "none" }, 0);
 
-          return () => scrollMotion.kill();
+          return () => {
+            hero.classList.remove(styles.motionPaused);
+            scrollMotion.kill();
+          };
         },
       );
 
@@ -224,7 +235,7 @@ export function HeroB() {
     <section className={styles.hero} id="inicio" ref={heroRef}>
       <div className={styles.glowBed} aria-hidden="true" />
 
-      <div className={styles.scene} ref={sceneRef}>
+      <div className={styles.scene}>
         <h1 className={styles.wordmark}>
           <span className={styles.assistive}>
             VIA — estratégia que ganha forma.

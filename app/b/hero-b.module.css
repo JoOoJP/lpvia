@@ -97,7 +97,6 @@
   font-weight: 680;
   letter-spacing: -0.025em;
   line-height: 0.88;
-  filter: drop-shadow(0 1.8rem 2.6rem rgb(0 0 0 / 76%));
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -228,7 +227,6 @@
   color: #f5f5f2;
   outline: none;
   transform-style: preserve-3d;
-  will-change: transform;
 }
 
 .projectSurface {
@@ -248,11 +246,15 @@
     border-color 240ms ease,
     filter 320ms ease,
     opacity 320ms ease;
+}
+
+.projectAmbient .projectSurface {
   animation: artifactFloat var(--float) ease-in-out var(--float-delay) infinite;
+  will-change: translate;
 }
 
 .projectSurface img {
-  filter: saturate(0.94) contrast(1.025);
+  display: block;
 }
 
 .project:hover .projectSurface,
@@ -280,14 +282,12 @@
 
 /* Distância também aparece no foco e na saturação, não só no tamanho. */
 .layerFar .projectSurface {
-  opacity: 0.5;
-  filter: blur(0.7px) saturate(0.72);
+  opacity: 0.46;
   box-shadow: 0 22px 44px -24px rgb(0 0 0 / 92%);
 }
 
 .layerMid .projectSurface {
   opacity: 0.82;
-  filter: saturate(0.88);
 }
 
 .layerFar .project:hover .projectSurface,
@@ -376,6 +376,10 @@
   background: transparent;
   box-shadow: none;
   filter: drop-shadow(0 30px 28px rgb(0 0 0 / 68%));
+}
+
+.motionPaused .projectSurface {
+  animation-play-state: paused;
 }
 
 /* ---------- Plano distante ---------- */
