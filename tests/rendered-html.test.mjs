@@ -170,6 +170,14 @@ test("carrega a serifada apenas no catálogo do design system", async () => {
   assert.match(html, /libre_bodoni[^\"]*variable/);
 });
 
+test("oferece contato fora do WhatsApp", async () => {
+  const response = await fetch(pageUrl);
+  const html = await response.text();
+
+  assert.match(html, /href="mailto:agenciaviamkr@gmail\.com"/);
+  assert.match(html, /aria-label="Contato"/);
+});
+
 test("publica canonical, sitemap e identidade da organização", async () => {
   const response = await fetch(pageUrl);
   const html = await response.text();

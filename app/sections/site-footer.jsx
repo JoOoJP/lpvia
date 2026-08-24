@@ -1,3 +1,4 @@
+import { email, emailUrl, whatsappUrl } from "../contact";
 import { ViaMark } from "../ui/via-mark";
 
 export function SiteFooter() {
@@ -7,7 +8,14 @@ export function SiteFooter() {
         <ViaMark title="VIA, voltar ao início" />
         <small>growth company</small>
       </a>
-      <p>Estratégia · Marca · Growth · Tecnologia</p>
+
+      <nav className="dark-footer-contact" aria-label="Contato">
+        <a href={emailUrl}>{email}</a>
+        <a href={whatsappUrl} target="_blank" rel="noreferrer">
+          WhatsApp
+        </a>
+      </nav>
+
       <small>© 2026 VIA. Crescimento em movimento.</small>
     </footer>
   );

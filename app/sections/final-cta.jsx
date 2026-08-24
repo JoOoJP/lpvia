@@ -1,4 +1,4 @@
-import { whatsappUrl } from "../contact";
+import { email, emailUrl, whatsappUrl } from "../contact";
 import { Arrow } from "../ui/arrow";
 
 export function FinalCta() {
@@ -21,6 +21,9 @@ export function FinalCta() {
         >
           Fale com a VIA <Arrow />
         </a>
+        <p className="dark-contact-email">
+          Prefere e-mail? <a href={emailUrl}>{email}</a>
+        </p>
       </div>
     </section>
   );
