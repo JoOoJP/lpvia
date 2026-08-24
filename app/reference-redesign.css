@@ -1307,19 +1307,26 @@
   margin-top: 2.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  /* Linhas de altura igual: os textos têm comprimentos diferentes e, sem isso,
+     cada dupla de cards fecha numa altura própria. */
+  grid-auto-rows: 1fr;
   gap: 1rem;
 }
 
 .dark-identity-card {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   border: 1px solid rgb(255 255 255 / 13%);
   border-radius: 17px;
   background: #0a0b0b;
 }
 
+/* A sobra da linha fica com a imagem; o texto mantém a altura natural. */
 .dark-identity-media {
   position: relative;
+  flex: 1;
   min-height: 340px;
   overflow: hidden;
 }
@@ -1693,7 +1700,6 @@
 }
 
 .dark-identity-organizer .dark-identity-media {
-  min-height: clamp(340px, 30vw, 420px);
   /* Cor exata do fundo do arquivo: em branco puro apareceria a emenda. */
   background: #fefefe;
 }
@@ -2126,7 +2132,7 @@
 
   .dark-identity-showcase > header { display: block; }
   .dark-identity-showcase h3 { margin-top: 1rem; font-size: clamp(2.45rem, 11vw, 3.7rem); }
-  .dark-identity-grid { grid-template-columns: 1fr; }
+  .dark-identity-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
   .dark-identity-media { min-height: 260px; }
   .dark-identity-poster { width: 52%; }
   .dark-identity-copy { min-height: 0; }
