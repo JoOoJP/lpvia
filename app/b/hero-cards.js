@@ -6,9 +6,13 @@
  *  - `recorte` fica FORA dela — é a peça que escapa do quadro e flutua por
  *    cima, com movimento próprio.
  *
- * Os recortes em `public/projects/recortes/` foram extraídos das artes que já
- * estavam no site (fundo chapado removido). Onde não havia arte recortável, o
- * card fica só com a moldura até chegar o arquivo com fundo transparente.
+ * Os recortes em `public/projects/recortes/` e as artes em
+ * `public/projects/artes/` foram derivados do que já estava no site: fundo
+ * chapado virou alpha, e a cena presa dentro de um selo virou arte de fundo.
+ *
+ * A regra da direção: o recorte precisa CRUZAR a borda — boa parte dele por
+ * cima da moldura, o resto para fora. Peça pequena pairando acima do card lê
+ * como adesivo colado, não como a marca escapando do quadro.
  */
 export const heroCards = [
   {
@@ -34,19 +38,13 @@ export const heroCards = [
     line: "Beleza que transcende",
     href: "#trabalhos",
     slot: "slotLeftBottom",
-    tone: "toneInk",
+    tone: "toneParchment",
     art: {
-      src: "/projects/sephie-tarot-signature.webp",
-      alt: "Assinatura visual da Sephie Tarot",
+      src: "/projects/artes/sephie-prancha.webp",
+      alt: "Assinatura visual da Sephie Tarot sobre prancha de marca",
       position: "center",
-      wash: true,
     },
-    recorte: {
-      src: "/projects/recortes/sephie-simbolo.webp",
-      width: 822,
-      height: 913,
-      escape: "escapeTopRight",
-    },
+    recorte: null,
   },
   {
     id: "tardinha",
@@ -56,13 +54,12 @@ export const heroCards = [
     href: "#case-tardinha",
     slot: "slotCenterBottom",
     tone: "toneSunset",
-    art: null,
-    recorte: {
-      src: "/tardinha.webp",
-      width: 640,
-      height: 640,
-      escape: "escapeTopLeft",
+    art: {
+      src: "/projects/artes/tardinha-cena.webp",
+      alt: "Pôr do sol no Rio Solimões, cena da marca do evento A Tardinha",
+      position: "center 38%",
     },
+    recorte: null,
   },
   {
     id: "carolina",
@@ -75,8 +72,8 @@ export const heroCards = [
     art: null,
     recorte: {
       src: "/projects/recortes/carolina-borboleta.webp",
-      width: 727,
-      height: 557,
+      width: 477,
+      height: 305,
       escape: "escapeTop",
     },
   },

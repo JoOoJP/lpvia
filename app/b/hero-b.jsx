@@ -87,61 +87,62 @@ export function HeroB() {
           ))}
         </div>
 
-        {heroCards.map((card) => (
-          <article
-            key={card.id}
-            className={`${styles.card} ${styles[card.slot]} ${styles[card.tone]}`}
-          >
-            <div className={styles.cardTilt}>
-              <div className={styles.cardFrame}>
-                {card.art ? (
-                  <div
-                    className={`${styles.cardArt} ${card.art.wash ? styles.cardArtWash : ""}`}
-                  >
-                    <Image
-                      src={card.art.src}
-                      alt={card.art.alt}
-                      fill
-                      sizes="(max-width: 1000px) 92vw, 28vw"
-                      style={{ objectPosition: card.art.position }}
-                    />
+        <div className={styles.deck}>
+          {heroCards.map((card, index) => (
+            <article
+              key={card.id}
+              className={`${styles.card} ${styles[card.slot]} ${styles[card.tone]}`}
+            >
+              <div className={styles.cardTilt}>
+                <div className={styles.cardFrame}>
+                  {card.art ? (
+                    <div className={styles.cardArt}>
+                      <Image
+                        src={card.art.src}
+                        alt={card.art.alt}
+                        fill
+                        sizes="(max-width: 1000px) 78vw, 28vw"
+                        priority={index === 0}
+                        style={{ objectPosition: card.art.position }}
+                      />
+                    </div>
+                  ) : null}
+
+                  <div className={styles.cardBody}>
+                    <p className={styles.cardKicker}>{card.kicker}</p>
+                    <p className={styles.cardTitle}>{card.title}</p>
+                    <p className={styles.cardLine}>{card.line}</p>
+                    <a
+                      className={styles.cardCta}
+                      href={card.href}
+                      {...(card.external
+                        ? { target: "_blank", rel: "noreferrer" }
+                        : null)}
+                    >
+                      Ver projeto <Arrow />
+                    </a>
                   </div>
-                ) : null}
-
-                <div className={styles.cardBody}>
-                  <p className={styles.cardKicker}>{card.kicker}</p>
-                  <p className={styles.cardTitle}>{card.title}</p>
-                  <p className={styles.cardLine}>{card.line}</p>
-                  <a
-                    className={styles.cardCta}
-                    href={card.href}
-                    {...(card.external
-                      ? { target: "_blank", rel: "noreferrer" }
-                      : null)}
-                  >
-                    Ver projeto <Arrow />
-                  </a>
                 </div>
-              </div>
 
-              {/*
-               * Fora da moldura de propósito: é o recorte que escapa do quadro.
-               * Decorativo — quem lê por leitor de tela já recebeu o nome do
-               * case no título logo acima.
-               */}
-              {card.recorte ? (
-                <Image
-                  className={`${styles.recorte} ${styles[card.recorte.escape]}`}
-                  src={card.recorte.src}
-                  alt=""
-                  width={card.recorte.width}
-                  height={card.recorte.height}
-                  sizes="(max-width: 1000px) 46vw, 18vw"
-                />
-              ) : null}
-            </div>
-          </article>
-        ))}
+                {/*
+                 * Fora da moldura de propósito: é o recorte que escapa do quadro.
+                 * Decorativo — quem lê por leitor de tela já recebeu o nome do
+                 * case no título logo acima.
+                 */}
+                {card.recorte ? (
+                  <Image
+                    className={`${styles.recorte} ${styles[card.recorte.escape]}`}
+                    src={card.recorte.src}
+                    alt=""
+                    width={card.recorte.width}
+                    height={card.recorte.height}
+                    sizes="(max-width: 1000px) 46vw, 18vw"
+                  />
+                ) : null}
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
 
       <a className={styles.explore} href="#fazemos">

@@ -61,7 +61,7 @@
   z-index: 3;
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(4.5rem, 13vw, 13.5rem);
+  font-size: clamp(6.8rem, min(13.5vw, 24vh), 14rem);
   font-weight: 700;
   letter-spacing: -0.012em;
   line-height: 0.9;
@@ -335,6 +335,16 @@
 
 /* ---------- Cards em órbita ---------- */
 
+/*
+ * No desktop o deck não existe como caixa (`display: contents`), então cada
+ * card continua se posicionando contra `.scene`. No mobile ele vira a faixa
+ * horizontal — é a mesma marcação servindo aos dois layouts.
+ */
+.deck {
+  display: contents;
+}
+
+
 .card {
   position: absolute;
   z-index: 2;
@@ -368,7 +378,7 @@
 
 .cardFrame {
   position: relative;
-  aspect-ratio: 16 / 10;
+  display: grid;
   overflow: hidden;
   border: 1px solid var(--card-border, rgb(255 255 255 / 12%));
   border-radius: 18px;
@@ -384,6 +394,13 @@
   border-color: var(--card-border-hover, rgb(255 255 255 / 26%));
 }
 
+/* Espaçador: garante a proporção mínima sem travar a altura. */
+.cardFrame::before {
+  content: "";
+  grid-area: 1 / 1;
+  padding-top: var(--card-ratio, 62.5%);
+}
+
 .cardArt {
   position: absolute;
   inset: 0;
@@ -393,12 +410,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-/* Arte que entra só como marca d'água atrás do texto. */
-.cardArtWash img {
-  opacity: 0.14;
-  filter: saturate(0.45);
 }
 
 /* Véu que garante o contraste do texto sobre qualquer foto. */
@@ -415,7 +426,7 @@
 .cardBody {
   position: relative;
   z-index: 1;
-  height: 100%;
+  grid-area: 1 / 1;
   padding: clamp(0.9rem, 1.5vw, 1.7rem);
   display: grid;
   align-content: end;
@@ -424,7 +435,7 @@
 
 .cardKicker {
   color: var(--card-fg-muted, #9aa0a3);
-  font-size: 0.55rem;
+  font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -439,9 +450,13 @@
 }
 
 .cardLine {
-  max-width: 62%;
+  max-width: 72%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
   color: var(--card-fg-muted, #9aa0a3);
-  font-size: 0.6rem;
+  font-size: 0.67rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   line-height: 1.45;
@@ -449,20 +464,24 @@
 }
 
 .cardCta {
-  margin-top: 0.7rem;
+  min-height: 28px;
+  margin-top: 0.5rem;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
   color: var(--card-fg, #f4f5f4);
-  font-size: 0.57rem;
+  font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  transition: gap var(--duration-fast) var(--ease-out);
 }
 
-.cardCta:hover {
-  gap: 1.1rem;
+.cardCta :global(.arrow) {
+  transition: translate var(--duration-fast) var(--ease-out);
+}
+
+.cardCta:hover :global(.arrow) {
+  translate: 0.4rem 0;
 }
 
 /* ---------- Recortes que escapam do quadro ---------- */
@@ -499,6 +518,11 @@
   scale: 1.06;
 }
 
+/*
+ * O recorte precisa CRUZAR a borda: boa parte dele por cima da moldura, o
+ * resto para fora. Peça pequena pairando acima do card lê como adesivo colado,
+ * não como a marca escapando do quadro.
+ */
 .escapeRight {
   --cut-width: 46%;
   --cut-float: 10s;
@@ -509,30 +533,12 @@
 }
 
 .escapeTop {
-  --cut-width: 40%;
+  --cut-width: 54%;
   --cut-float: 11s;
   --cut-delay: -5s;
 
-  top: -22%;
-  left: 46%;
-}
-
-.escapeTopLeft {
-  --cut-width: 38%;
-  --cut-float: 8.5s;
-  --cut-delay: -2s;
-
-  top: -36%;
-  left: -21%;
-}
-
-.escapeTopRight {
-  --cut-width: 32%;
-  --cut-float: 12s;
-  --cut-delay: -6s;
-
-  top: -15%;
-  right: 2%;
+  top: -19%;
+  left: 44%;
 }
 
 /* ---------- Posições: cada slot é uma cadeira fixa na cena ---------- */
@@ -563,7 +569,7 @@
 }
 
 .slotCenterBottom {
-  --card-width: 19%;
+  --card-width: 20%;
   --depth: 1.7;
   --ry: -6deg;
   --rx: -9deg;
@@ -572,7 +578,7 @@
   --float-delay: -7s;
 
   top: 68%;
-  left: 50%;
+  left: 55%;
 }
 
 .slotRightTop {
@@ -601,15 +607,15 @@
   right: 0;
 }
 
+/* Card mais estreito da cena: pede 4/3 para o corpo respirar. */
+.slotCenterBottom {
+  --card-ratio: 72%;
+}
+
 /* ---------- Tons: a superfície do card acompanha a marca do case ---------- */
 
 .toneNight {
   --card-bg: rgb(9 10 11 / 90%);
-}
-
-.toneInk {
-  --card-bg: radial-gradient(circle at 72% 22%, #1b1a24, #0a0a0d 68%);
-  --card-fg-muted: #a49c8c;
 }
 
 .toneSunset {
@@ -625,6 +631,26 @@
   --card-border-hover: rgb(226 190 255 / 42%);
   --card-fg: #f6efff;
   --card-fg-muted: #cbb2e6;
+}
+
+/*
+ * Arte escura sobre fundo claro (assinatura, lockup de marca): sob o véu
+ * escuro padrão ela vira um borrão cinza. Aqui o véu é claro e a peça continua
+ * legível — o card lê como uma prancha da marca, não como logo colado.
+ */
+.toneParchment {
+  --card-bg: linear-gradient(135deg, #e6e1d6 0%, #d5cfc2 100%);
+  --card-media-opacity: 0.92;
+  --card-scrim: linear-gradient(
+    196deg,
+    rgb(226 221 210 / 12%) 0%,
+    rgb(226 221 210 / 74%) 58%,
+    rgb(226 221 210 / 94%) 100%
+  );
+  --card-border: rgb(22 20 15 / 14%);
+  --card-border-hover: rgb(22 20 15 / 30%);
+  --card-fg: #16140f;
+  --card-fg-muted: #5c5646;
 }
 
 .toneCream {
@@ -785,20 +811,29 @@
  * some. A partir daqui eles voltam a ser uma lista, sem rotação nem parallax —
  * mas o recorte continua saindo do quadro, que é a ideia da direção.
  */
+/*
+ * Abaixo de 1000px a cena 3D não cabe: empilhados, os cinco cards viravam
+ * 1.7k px de rolagem e a dobra sumia. Aqui eles viram uma faixa horizontal com
+ * scroll-snap — a hero volta a caber numa tela, o card seguinte aparece pela
+ * borda convidando a arrastar, e o recorte continua saindo do quadro (só que
+ * para cima, onde o padding do deck garante espaço e nada é cortado).
+ */
 @media (max-width: 1000px) {
   .hero {
-    min-height: 0;
-    padding-bottom: 4rem;
+    min-height: max(620px, 100svh);
+    padding-bottom: 0;
   }
 
   .scene {
-    min-height: 0;
-    padding-block: clamp(3rem, 12vh, 6rem) 0;
-    gap: 3.5rem;
+    /* Desconta o "explore", que no mobile volta ao fluxo abaixo da cena. */
+    min-height: calc(max(620px, 100svh) - 72px - 5rem);
+    gap: clamp(1.75rem, 5vh, 3rem);
     perspective: none;
   }
 
   .wordmark {
+    /* Fora da cena 3D a marca pode ocupar mais da largura sem esbarrar nos cards. */
+    font-size: clamp(6.8rem, 20vw, 10rem);
     translate: none;
   }
 
@@ -806,9 +841,30 @@
     display: none;
   }
 
+  .deck {
+    /* Sangra até a borda da tela sem tirar a cena do seu contêiner. */
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    padding-inline: var(--layout-gutter);
+    /* O recorte sobe para fora do card; sem esta folga o scroll o cortaria. */
+    padding-top: 3.2rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    gap: 0.9rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .deck::-webkit-scrollbar {
+    display: none;
+  }
+
   .card {
     position: static;
-    width: 100%;
+    flex: 0 0 var(--card-strip-width, 76%);
+    scroll-snap-align: center;
     translate: none;
   }
 
@@ -817,32 +873,49 @@
     animation: none;
   }
 
-  .escapeRight {
-    --cut-width: 42%;
-
-    top: -10%;
-    right: -6%;
+  .card {
+    --card-ratio: 75%;
   }
 
-  /* Na lista, o recorte encosta na moldura: fora dela o viewport corta. */
-  .escapeTop,
-  .escapeTopLeft,
-  .escapeTopRight {
-    --cut-width: 32%;
+  /* Rótulo de 8,8px não se lê num celular; aqui eles voltam ao mínimo legível. */
+  .cardKicker {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+  }
 
-    top: -16%;
+  .cardLine {
+    max-width: 78%;
+    font-size: 0.76rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* Alvo de toque: o link tinha 16px de altura. */
+  .cardCta {
+    min-height: 44px;
+    margin-top: 0.2rem;
+    align-items: center;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+  }
+
+  /*
+   * No toque o recorte escapa só para cima: para os lados ele saía do viewport
+   * e a faixa o cortava.
+   */
+  .escapeRight,
+  .escapeTop {
+    --cut-width: 38%;
+
+    top: -11%;
+    right: auto;
+  }
+
+  .escapeRight {
+    left: 58%;
   }
 
   .escapeTop {
-    left: 56%;
-  }
-
-  .escapeTopLeft {
-    left: 2%;
-  }
-
-  .escapeTopRight {
-    right: 2%;
+    left: 48%;
   }
 
   .explore {
@@ -850,11 +923,19 @@
     width: fit-content;
     margin-inline: auto;
     padding-bottom: 0;
+    display: flex;
     translate: none;
   }
 
   .exploreArrow {
     height: 2rem;
+  }
+}
+
+/* No tablet cabem dois cards por vez na faixa. */
+@media (min-width: 620px) and (max-width: 1000px) {
+  .card {
+    --card-strip-width: 46%;
   }
 }
 
@@ -866,7 +947,8 @@
 
   .card,
   .shard,
-  .wordmark {
+  .wordmark,
+  .recorte {
     transition: none;
   }
 }
