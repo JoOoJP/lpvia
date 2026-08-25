@@ -10,6 +10,15 @@
   isolation: isolate;
 }
 
+/*
+ * A composição desktop é uma única prancha visual. Isso preserva as relações
+ * de escala, oclusão e profundidade da referência; cada projeto continua
+ * independente no carrossel touch abaixo de 1000px.
+ */
+.referenceBackdrop {
+  display: none;
+}
+
 .glowBed {
   position: absolute;
   inset: 0;
@@ -962,6 +971,60 @@
 .exploreArrow::after {
   transform: rotate(40deg);
   transform-origin: bottom;
+}
+
+@media (min-width: 1001px) {
+  .hero {
+    width: 100%;
+    height: 100svh;
+    min-height: 640px;
+    padding-top: 0;
+  }
+
+  .referenceBackdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+    pointer-events: none;
+    background-image: url("/projects/hero/via-orbit-exact-v3.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .hero::before,
+  .hero::after,
+  .glowBed,
+  .scene::before,
+  .scene::after,
+  .wordmarkStage,
+  .projectField,
+  .orbitNodes,
+  .explore {
+    display: none;
+  }
+
+  .scene {
+    min-height: 100%;
+  }
+
+  /* Mantém o único h1 da página disponível para leitores de tela. */
+  .wordmark {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* A versão 21:9 evita o corte lateral em monitores como o da referência. */
+@media (min-width: 1001px) and (min-aspect-ratio: 2 / 1) {
+  .referenceBackdrop {
+    background-image: url("/projects/hero/via-orbit-exact-ultrawide-v3.webp");
+  }
 }
 
 /* No toque, a constelação vira uma galeria horizontal dentro de uma tela. */

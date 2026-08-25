@@ -118,6 +118,16 @@ export const heroProjectLayers = [
         surface: "surfaceCream",
         fit: "contain",
       },
+      {
+        id: "health-phone",
+        title: "Clínicas na área da saúde",
+        type: "Estratégia digital",
+        line: "Comunicação e aquisição para profissionais da saúde",
+        href: "#trabalhos",
+        slot: "projectHealthPhone",
+        surface: "surfaceLight",
+        visual: "healthPhone",
+      },
     ],
   },
   {
@@ -137,16 +147,6 @@ export const heroProjectLayers = [
         visual: "moikatoBoard",
         ambient: true,
         preload: true,
-      },
-      {
-        id: "health-phone",
-        title: "Clínicas na área da saúde",
-        type: "Estratégia digital",
-        line: "Comunicação e aquisição para profissionais da saúde",
-        href: "#trabalhos",
-        slot: "projectHealthPhone",
-        surface: "surfaceLight",
-        visual: "healthPhone",
       },
       {
         id: "sweet-popcorn",

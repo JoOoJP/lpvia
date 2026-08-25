@@ -232,58 +232,61 @@ export function HeroB() {
       const depthLayerNodes = Object.values(depthLayers).filter(Boolean);
       const media = gsap.matchMedia();
 
-      media.add("(prefers-reduced-motion: no-preference)", () => {
-        const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+      media.add(
+        "(max-width: 1000px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-        intro
-          .fromTo(
-            wordmark,
-            {
-              autoAlpha: 0,
-              scale: 0.94,
-              rotationX: 4,
-              z: -44,
-              filter: "blur(7px)",
-            },
-            {
-              autoAlpha: 1,
-              scale: 1,
-              rotationX: 0,
-              z: 0,
-              filter: "blur(0px)",
-              duration: 1.2,
-              ease: "expo.out",
-            },
-          )
-          .fromTo(
-            depthLayerNodes,
-            {
-              autoAlpha: 0,
-              scale: 0.975,
-              y: 16,
-            },
-            {
-              autoAlpha: 1,
-              scale: 1,
-              y: 0,
-              duration: 0.92,
-              stagger: 0.08,
-              ease: "power3.out",
-            },
-            "-=0.82",
-          )
-          .fromTo(
-            explore,
-            { autoAlpha: 0, y: 8 },
-            { autoAlpha: 1, y: 0, duration: 0.45 },
-            "-=0.25",
-          );
+          intro
+            .fromTo(
+              wordmark,
+              {
+                autoAlpha: 0,
+                scale: 0.94,
+                rotationX: 4,
+                z: -44,
+                filter: "blur(7px)",
+              },
+              {
+                autoAlpha: 1,
+                scale: 1,
+                rotationX: 0,
+                z: 0,
+                filter: "blur(0px)",
+                duration: 1.2,
+                ease: "expo.out",
+              },
+            )
+            .fromTo(
+              depthLayerNodes,
+              {
+                autoAlpha: 0,
+                scale: 0.975,
+                y: 16,
+              },
+              {
+                autoAlpha: 1,
+                scale: 1,
+                y: 0,
+                duration: 0.92,
+                stagger: 0.08,
+                ease: "power3.out",
+              },
+              "-=0.82",
+            )
+            .fromTo(
+              explore,
+              { autoAlpha: 0, y: 8 },
+              { autoAlpha: 1, y: 0, duration: 0.45 },
+              "-=0.25",
+            );
 
-        return () => intro.kill();
-      });
+          return () => intro.kill();
+        },
+      );
 
       media.add(
-        "(min-width: 1001px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+        "(max-width: 1000px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
         () => {
           let pendingFrame = 0;
           let pointerX = 0;
@@ -375,7 +378,7 @@ export function HeroB() {
       );
 
       media.add(
-        "(min-width: 1001px) and (prefers-reduced-motion: no-preference)",
+        "(max-width: 1000px) and (prefers-reduced-motion: no-preference)",
         () => {
           const scrollMotion = gsap.timeline({
             scrollTrigger: {
@@ -410,6 +413,7 @@ export function HeroB() {
 
   return (
     <section className={styles.hero} id="inicio" ref={heroRef}>
+      <div className={styles.referenceBackdrop} aria-hidden="true" />
       <div className={styles.glowBed} aria-hidden="true" />
 
       <div className={styles.scene}>
