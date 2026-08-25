@@ -12,8 +12,8 @@
 
 /*
  * A composição desktop é uma única prancha visual. Isso preserva as relações
- * de escala, oclusão e profundidade da referência; cada projeto continua
- * independente no carrossel touch abaixo de 1000px.
+ * de escala, oclusão e profundidade da referência; no mobile, as mesmas peças
+ * são recompostas verticalmente em vez de virarem um carrossel.
  */
 .referenceBackdrop {
   display: none;
@@ -994,7 +994,7 @@
     background-image: url("/projects/hero/via-orbit-exact-v3.webp");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     transform-origin: center;
     will-change: transform, filter;
   }
@@ -1056,7 +1056,7 @@
     background-image: url("/projects/hero/via-orbit-exact-v3.webp");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
   }
 
   .desktopProjectArtwork::after {
@@ -1326,79 +1326,87 @@
   }
 }
 
-/* No toque, a constelação vira uma galeria horizontal dentro de uma tela. */
+/* No mobile, a prancha é recomposta em retrato sem perder o universo desktop. */
 @media (max-width: 1000px) {
   .hero {
-    min-height: max(640px, 100svh);
+    width: 100%;
+    height: 100svh;
+    min-height: 0;
+    padding-top: 72px;
   }
 
   .hero::before {
-    left: -28%;
-    right: -28%;
-    bottom: 12%;
-    height: 48%;
-    opacity: 0.2;
+    left: -55%;
+    right: -55%;
+    bottom: -5%;
+    height: 54%;
+    opacity: 0.14;
+    background-size: 3.4rem 2.4rem;
   }
 
   .scene {
-    min-height: calc(max(640px, 100svh) - 72px);
-    perspective: none;
+    width: 100%;
+    height: calc(100svh - 72px);
+    min-height: 0;
+    perspective: 1100px;
+    perspective-origin: 50% 48%;
   }
 
   .scene::before,
   .scene::after {
-    top: 24%;
-    width: 112%;
-    opacity: 0.56;
+    top: 49%;
+    width: 132%;
+    aspect-ratio: 2.15 / 1;
+    opacity: 0.75;
+    transform: translate(-50%, -50%) rotate(-8deg);
+  }
+
+  .scene::after {
+    top: 55%;
+    width: 106%;
+    transform: translate(-50%, -50%) rotate(11deg);
   }
 
   .wordmark {
     position: absolute;
-    top: 9%;
-    width: clamp(15rem, 58vw, 24rem);
+    top: 48%;
+    left: 50%;
+    z-index: 4;
+    width: min(59vw, 21rem);
+    margin: 0;
+    translate: -50% -50%;
   }
 
   .orbitNodes {
-    display: none;
+    display: block;
+    opacity: 0.72;
   }
 
   .projectField {
-    inset: 34% auto 4.6rem 50%;
-    z-index: 6;
-    width: 100vw;
-    padding: 2.1rem var(--layout-gutter) 3.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    overflow-x: auto;
-    overflow-y: visible;
-    pointer-events: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    overscroll-behavior-x: contain;
-    translate: -50% 0;
-  }
-
-  .projectField::-webkit-scrollbar {
-    display: none;
+    inset: 0;
+    z-index: 2;
+    width: auto;
+    padding: 0;
+    overflow: visible;
+    pointer-events: none;
+    translate: none;
   }
 
   .orbitLayer {
-    display: contents;
+    position: absolute;
+    inset: 0;
+    display: block;
   }
 
   .project {
-    position: relative;
-    inset: auto;
-    order: var(--mobile-order);
-    flex: 0 0 min(76vw, 430px);
-    width: auto;
-    aspect-ratio: 4 / 3;
-    scroll-snap-align: center;
-  }
-
-  .project::before {
-    display: none;
+    position: absolute;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: var(--w);
+    aspect-ratio: var(--ratio);
+    pointer-events: auto;
   }
 
   .projectSurface,
@@ -1406,75 +1414,177 @@
   .layerMid .projectSurface {
     opacity: 1;
     filter: none;
-    transform: none;
-    animation: none;
   }
 
   .surfaceCutout .projectSurface {
-    overflow: hidden;
-    border: 1px solid rgb(255 255 255 / 12%);
-    border-radius: 14px;
-    background: #0c0e10;
-    filter: none;
-  }
-
-  .healthPhone .projectSurface {
-    border-width: 1px;
-    border-radius: 14px;
-  }
-
-  .healthPhone .projectSurface::before {
-    display: none;
-  }
-
-  .healthPhoneScreen {
-    padding: 10%;
-  }
-
-  .healthPhoneScreen > strong {
-    margin-top: 8%;
-    font-size: clamp(1.7rem, 7vw, 2.6rem);
-  }
-
-  .healthPhoneStats {
-    margin-top: 5%;
-    padding-top: 4%;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    filter: drop-shadow(0 24px 22px rgb(0 0 0 / 68%));
   }
 
   .projectMeta {
-    top: auto;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    min-height: 4.75rem;
-    padding: 1.9rem 1rem 0.8rem;
-    align-content: end;
-    gap: 0.12rem;
-    opacity: 1;
-    background: linear-gradient(transparent, rgb(2 3 4 / 90%));
-    transform: none;
+    display: none;
   }
 
-  .projectType {
-    font-size: 0.6rem;
+  .projectAnaPaula,
+  .projectGhetto,
+  .projectStudioGiuFar,
+  .projectRouteSymbol,
+  .projectRouteBoard {
+    display: none;
   }
 
-  .projectTitle {
-    font-size: 1rem;
+  .projectMoikatoBoard {
+    --w: 54%;
+
+    top: 5%;
+    left: -18%;
+    z-index: 3;
+  }
+
+  .projectSephieBoard {
+    --w: 43%;
+
+    top: 7%;
+    right: -5%;
+    z-index: 3;
+  }
+
+  .projectTardinhaScene {
+    --w: 62%;
+
+    top: 24%;
+    left: 19%;
+    z-index: 2;
+  }
+
+  .projectSweetCutout {
+    --w: 40%;
+
+    top: 31%;
+    right: -8%;
+    z-index: 6;
+  }
+
+  .projectHealthPhone {
+    --w: 32%;
+
+    bottom: 11%;
+    left: -2%;
+    z-index: 5;
+  }
+
+  .projectLatino {
+    --w: 28%;
+
+    bottom: 15%;
+    left: 22%;
+    z-index: 3;
+  }
+
+  .projectCarolinaBoard {
+    --w: 44%;
+
+    right: -4%;
+    bottom: 12%;
+    z-index: 5;
+  }
+
+  .projectXango {
+    --w: 24%;
+
+    bottom: 5%;
+    left: 42%;
+    z-index: 4;
   }
 
   .explore {
-    padding-bottom: 2rem;
+    bottom: 0;
+    padding-bottom: 0.65rem;
+    flex-direction: column;
+    gap: 0.35rem;
+    color: #d9dcdd;
+    font-size: 0.67rem;
+    letter-spacing: 0.11em;
   }
 
   .exploreArrow {
-    height: 2rem;
+    height: 1.55rem;
   }
 }
 
 @media (min-width: 700px) and (max-width: 1000px) {
-  .project {
-    flex-basis: min(46vw, 460px);
+  .wordmark {
+    width: min(46vw, 23rem);
+  }
+
+  .projectMoikatoBoard { --w: 38%; left: -10%; }
+  .projectSephieBoard { --w: 31%; right: 1%; }
+  .projectTardinhaScene { --w: 48%; top: 22%; left: 26%; }
+  .projectSweetCutout { --w: 29%; right: -5%; }
+  .projectHealthPhone { --w: 23%; left: 2%; }
+  .projectLatino { --w: 19%; left: 27%; }
+  .projectCarolinaBoard { --w: 32%; right: 1%; }
+  .projectXango { --w: 18%; left: 42%; }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding-top: 64px;
+  }
+
+  .scene {
+    height: calc(100svh - 64px);
+  }
+}
+
+@media (max-width: 480px) {
+  .projectMoikatoBoard {
+    --w: 58%;
+
+    left: -18%;
+  }
+
+  .projectSephieBoard {
+    --w: 45%;
+
+    right: -8%;
+  }
+
+  .projectTardinhaScene {
+    --w: 66%;
+
+    top: 23%;
+    left: 17%;
+  }
+
+  .projectSweetCutout {
+    --w: 42%;
+
+    top: 32%;
+    right: -13%;
+  }
+
+  .projectHealthPhone {
+    --w: 35%;
+
+    left: -3%;
+  }
+
+  .projectLatino {
+    --w: 29%;
+  }
+
+  .projectCarolinaBoard {
+    --w: 46%;
+
+    right: -4%;
+  }
+
+  .projectXango {
+    --w: 25%;
   }
 }
 
