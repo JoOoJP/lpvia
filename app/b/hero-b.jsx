@@ -275,7 +275,8 @@ const desktopHeroProjects = [
     label: "Conhecer o case de clínicas na área da saúde",
     href: "#case-saude",
     slot: "hotspotHealth",
-    depth: 1.5,
+    depth: 0,
+    motion: "fixed",
   },
 ];
 
@@ -286,6 +287,7 @@ function DesktopProjectInteractions() {
         <a
           className={`${styles.desktopProjectHotspot} ${styles[project.slot]}`}
           data-depth={project.depth}
+          data-motion={project.motion ?? "depth"}
           href={project.href}
           key={project.id}
           aria-label={project.label}
@@ -386,6 +388,19 @@ export function HeroB() {
               `.${styles.desktopProjectArtwork}`,
             );
             const depth = Number(hotspot.dataset.depth || 1);
+
+            // O celular já está recortado na composição-base. Deslocar uma
+            // segunda cópia revela o original por baixo e cria uma borda dupla.
+            if (hotspot.dataset.motion === "fixed") {
+              return {
+                depth: 0,
+                x: () => {},
+                y: () => {},
+                settleTilt: () => {},
+                cleanup: () => {},
+              };
+            }
+
             const x = gsap.quickTo(artwork, "x", {
               duration: 0.62,
               ease: "power3.out",
