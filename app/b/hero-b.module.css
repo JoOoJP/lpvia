@@ -1201,7 +1201,13 @@
     --backdrop-y: -57svh;
     --hotspot-z: 4;
     --hotspot-radius: 28px;
-    --hotspot-clip: polygon(14% 4%, 84% 0, 100% 100%, 0 100%);
+    /* O aparelho inclina para a direita; a máscara anterior começava em 14%
+       e deixava a lateral esquerda presa ao fundo durante o hover. */
+    --hotspot-clip: polygon(0 0, 88% 0, 100% 100%, 0 100%);
+  }
+
+  .hotspotHealth .desktopProjectArtwork::after {
+    display: none;
   }
 
   .hero::before,
