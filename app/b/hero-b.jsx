@@ -310,9 +310,6 @@ export function HeroB() {
       const wordmark = hero.querySelector(`.${styles.wordmark}`);
       const glow = hero.querySelector(`.${styles.glowBed}`);
       const explore = hero.querySelector(`.${styles.explore}`);
-      const referenceBackdrop = hero.querySelector(
-        `.${styles.referenceBackdrop}`,
-      );
       const desktopHotspots = gsap.utils.toArray(
         `.${styles.desktopProjectHotspot}`,
       );
@@ -489,41 +486,6 @@ export function HeroB() {
             cardMotion.forEach((motion) => motion.cleanup());
             if (pendingFrame) cancelAnimationFrame(pendingFrame);
           };
-        },
-      );
-
-      media.add(
-        "(min-width: 1001px) and (prefers-reduced-motion: no-preference)",
-        () => {
-          const scrollMotion = gsap.timeline({
-            scrollTrigger: {
-              trigger: hero,
-              start: "top top",
-              end: "bottom top",
-              scrub: 0.7,
-            },
-          });
-
-          scrollMotion.to(
-            referenceBackdrop,
-            {
-              scaleX: 1.008,
-              scaleY: 1.008,
-              filter: "brightness(0.9)",
-              ease: "none",
-            },
-            0,
-          );
-          desktopHotspots.forEach((hotspot) => {
-            const depth = Number(hotspot.dataset.depth || 1);
-            scrollMotion.to(
-              hotspot,
-              { y: depth * -8, ease: "none" },
-              0,
-            );
-          });
-
-          return () => scrollMotion.kill();
         },
       );
 
