@@ -19,6 +19,10 @@
   display: none;
 }
 
+.desktopInteractions {
+  display: none;
+}
+
 .glowBed {
   position: absolute;
   inset: 0;
@@ -991,6 +995,213 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    transform-origin: center;
+    will-change: transform, filter;
+  }
+
+  .desktopInteractions {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: block;
+    pointer-events: none;
+    perspective: 1500px;
+    perspective-origin: 50% 48%;
+  }
+
+  .desktopProjectHotspot {
+    position: absolute;
+    top: var(--hotspot-y);
+    left: var(--hotspot-x);
+    width: var(--hotspot-w);
+    height: var(--hotspot-h);
+    z-index: var(--hotspot-z, 1);
+    display: block;
+    pointer-events: auto;
+    outline: none;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .desktopProjectHotspot:hover,
+  .desktopProjectHotspot:focus-visible {
+    z-index: 20;
+  }
+
+  .desktopProjectArtwork {
+    position: absolute;
+    inset: 0;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--hotspot-radius, 14px);
+    clip-path: var(--hotspot-clip, inset(0 round 14px));
+    filter: brightness(1);
+    transform-style: preserve-3d;
+    transform-origin: center;
+    transition:
+      filter 220ms ease,
+      box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  /* Repete exatamente o mesmo frame sob cada área clicável. Em repouso, a
+     sobreposição é pixel a pixel; só se separa do plano ao receber intenção. */
+  .desktopProjectArtwork::before {
+    content: "";
+    position: absolute;
+    top: var(--backdrop-y);
+    left: var(--backdrop-x);
+    width: 100vw;
+    height: 100svh;
+    background-image: url("/projects/hero/via-orbit-exact-v3.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .desktopProjectArtwork::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border: 1px solid rgb(184 222 255 / 0%);
+    border-radius: inherit;
+    box-shadow:
+      0 18px 34px -22px rgb(0 0 0 / 0%),
+      0 0 0 1px rgb(91 213 255 / 0%) inset;
+    transition:
+      border-color 180ms ease,
+      box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .desktopProjectHotspot:hover .desktopProjectArtwork,
+  .desktopProjectHotspot:focus-visible .desktopProjectArtwork {
+    filter: brightness(1.08) contrast(1.025);
+    box-shadow: 0 26px 50px -24px rgb(0 0 0 / 92%);
+  }
+
+  .desktopProjectHotspot:hover .desktopProjectArtwork::after,
+  .desktopProjectHotspot:focus-visible .desktopProjectArtwork::after {
+    border-color: rgb(184 222 255 / 28%);
+    box-shadow:
+      0 20px 36px -24px rgb(0 0 0 / 88%),
+      0 0 0 1px rgb(91 213 255 / 13%) inset;
+  }
+
+  .desktopProjectHint {
+    position: absolute;
+    right: 0.7rem;
+    bottom: 0.7rem;
+    z-index: 2;
+    padding: 0.42rem 0.62rem;
+    border: 1px solid rgb(255 255 255 / 18%);
+    border-radius: 999px;
+    color: #f7f9f8;
+    background: rgb(4 6 8 / 76%);
+    backdrop-filter: blur(10px);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+    opacity: 0;
+    translate: 0 5px;
+    transition:
+      opacity 160ms ease,
+      translate 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .desktopProjectHotspot:hover .desktopProjectHint,
+  .desktopProjectHotspot:focus-visible .desktopProjectHint {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .hotspotMoikato {
+    --hotspot-x: 0%;
+    --hotspot-y: 10%;
+    --hotspot-w: 26%;
+    --hotspot-h: 63%;
+    --backdrop-x: 0vw;
+    --backdrop-y: -10svh;
+    --hotspot-clip: polygon(0 0, 93% 2%, 100% 96%, 0 100%);
+  }
+
+  .hotspotSephie {
+    --hotspot-x: 22.5%;
+    --hotspot-y: 13%;
+    --hotspot-w: 14.5%;
+    --hotspot-h: 26%;
+    --backdrop-x: -22.5vw;
+    --backdrop-y: -13svh;
+  }
+
+  .hotspotTardinha {
+    --hotspot-x: 43%;
+    --hotspot-y: 10.5%;
+    --hotspot-w: 19%;
+    --hotspot-h: 21%;
+    --backdrop-x: -43vw;
+    --backdrop-y: -10.5svh;
+  }
+
+  .hotspotRoute {
+    --hotspot-x: 67.5%;
+    --hotspot-y: 10.5%;
+    --hotspot-w: 15%;
+    --hotspot-h: 26%;
+    --backdrop-x: -67.5vw;
+    --backdrop-y: -10.5svh;
+  }
+
+  .hotspotSweet {
+    --hotspot-x: 83.5%;
+    --hotspot-y: 12%;
+    --hotspot-w: 14.5%;
+    --hotspot-h: 40%;
+    --backdrop-x: -83.5vw;
+    --backdrop-y: -12svh;
+    --hotspot-radius: 42% 35% 32% 38%;
+    --hotspot-clip: polygon(25% 0, 81% 0, 100% 100%, 0 100%);
+  }
+
+  .hotspotLatino {
+    --hotspot-x: 26%;
+    --hotspot-y: 59%;
+    --hotspot-w: 10.5%;
+    --hotspot-h: 30%;
+    --backdrop-x: -26vw;
+    --backdrop-y: -59svh;
+  }
+
+  .hotspotXango {
+    --hotspot-x: 43%;
+    --hotspot-y: 64%;
+    --hotspot-w: 10%;
+    --hotspot-h: 25%;
+    --backdrop-x: -43vw;
+    --backdrop-y: -64svh;
+  }
+
+  .hotspotLuna {
+    --hotspot-x: 64%;
+    --hotspot-y: 50%;
+    --hotspot-w: 35%;
+    --hotspot-h: 49%;
+    --backdrop-x: -64vw;
+    --backdrop-y: -50svh;
+    --hotspot-clip: polygon(13% 10%, 100% 0, 100% 100%, 0 100%, 0 28%);
+  }
+
+  .hotspotHealth {
+    --hotspot-x: 2.5%;
+    --hotspot-y: 57%;
+    --hotspot-w: 20%;
+    --hotspot-h: 43%;
+    --backdrop-x: -2.5vw;
+    --backdrop-y: -57svh;
+    --hotspot-z: 4;
+    --hotspot-radius: 28px;
+    --hotspot-clip: polygon(14% 4%, 84% 0, 100% 100%, 0 100%);
   }
 
   .hero::before,
@@ -1022,8 +1233,90 @@
 
 /* A versão 21:9 evita o corte lateral em monitores como o da referência. */
 @media (min-width: 1001px) and (min-aspect-ratio: 2 / 1) {
-  .referenceBackdrop {
+  .referenceBackdrop,
+  .desktopProjectArtwork::before {
     background-image: url("/projects/hero/via-orbit-exact-ultrawide-v3.webp");
+  }
+
+  .hotspotMoikato {
+    --hotspot-x: 0%;
+    --hotspot-y: 7%;
+    --hotspot-w: 21%;
+    --hotspot-h: 66%;
+    --backdrop-x: 0vw;
+    --backdrop-y: -7svh;
+  }
+
+  .hotspotSephie {
+    --hotspot-x: 26%;
+    --hotspot-y: 11.5%;
+    --hotspot-w: 12%;
+    --hotspot-h: 26%;
+    --backdrop-x: -26vw;
+    --backdrop-y: -11.5svh;
+  }
+
+  .hotspotTardinha {
+    --hotspot-x: 43.5%;
+    --hotspot-y: 7%;
+    --hotspot-w: 19%;
+    --hotspot-h: 26%;
+    --backdrop-x: -43.5vw;
+    --backdrop-y: -7svh;
+  }
+
+  .hotspotRoute {
+    --hotspot-x: 67.5%;
+    --hotspot-y: 8%;
+    --hotspot-w: 13.5%;
+    --hotspot-h: 30%;
+    --backdrop-x: -67.5vw;
+    --backdrop-y: -8svh;
+  }
+
+  .hotspotSweet {
+    --hotspot-x: 83.5%;
+    --hotspot-y: 13%;
+    --hotspot-w: 12%;
+    --hotspot-h: 43%;
+    --backdrop-x: -83.5vw;
+    --backdrop-y: -13svh;
+  }
+
+  .hotspotLatino {
+    --hotspot-x: 25%;
+    --hotspot-y: 60%;
+    --hotspot-w: 11%;
+    --hotspot-h: 33%;
+    --backdrop-x: -25vw;
+    --backdrop-y: -60svh;
+  }
+
+  .hotspotXango {
+    --hotspot-x: 42.5%;
+    --hotspot-y: 68%;
+    --hotspot-w: 10%;
+    --hotspot-h: 24%;
+    --backdrop-x: -42.5vw;
+    --backdrop-y: -68svh;
+  }
+
+  .hotspotLuna {
+    --hotspot-x: 65%;
+    --hotspot-y: 53%;
+    --hotspot-w: 32%;
+    --hotspot-h: 46%;
+    --backdrop-x: -65vw;
+    --backdrop-y: -53svh;
+  }
+
+  .hotspotHealth {
+    --hotspot-x: 3.5%;
+    --hotspot-y: 60%;
+    --hotspot-w: 16%;
+    --hotspot-h: 40%;
+    --backdrop-x: -3.5vw;
+    --backdrop-y: -60svh;
   }
 }
 
@@ -1189,5 +1482,11 @@
   .wordmark,
   .orbitLayer {
     transition: none;
+  }
+
+  .desktopProjectArtwork,
+  .desktopProjectArtwork::after,
+  .desktopProjectHint {
+    transition-duration: 0.01ms;
   }
 }

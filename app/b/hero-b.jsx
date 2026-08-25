@@ -213,6 +213,92 @@ function ProjectArtifact({ project }) {
   );
 }
 
+const desktopHeroProjects = [
+  {
+    id: "moikato",
+    label: "Conhecer o case Moikato",
+    href: "#case-moikato",
+    slot: "hotspotMoikato",
+    depth: 1.35,
+  },
+  {
+    id: "sephie",
+    label: "Conhecer o case Sephie Tarot",
+    href: "#case-sephie-tarot",
+    slot: "hotspotSephie",
+    depth: 0.72,
+  },
+  {
+    id: "tardinha",
+    label: "Conhecer o case A Tardinha",
+    href: "#case-tardinha",
+    slot: "hotspotTardinha",
+    depth: 0.58,
+  },
+  {
+    id: "route",
+    label: "Conhecer o case In Tha Route",
+    href: "#case-in-tha-route",
+    slot: "hotspotRoute",
+    depth: 0.78,
+  },
+  {
+    id: "sweet",
+    label: "Conhecer o case Sweet Popcorn Gourmet",
+    href: "#case-sweet-popcorn",
+    slot: "hotspotSweet",
+    depth: 1.22,
+  },
+  {
+    id: "latino",
+    label: "Ver os projetos de conteúdo visual",
+    href: "#case-conteudo-visual",
+    slot: "hotspotLatino",
+    depth: 0.92,
+  },
+  {
+    id: "xango",
+    label: "Conhecer o case Xangô",
+    href: "#case-xango",
+    slot: "hotspotXango",
+    depth: 0.68,
+  },
+  {
+    id: "luna",
+    label: "Ver os projetos de identidade visual",
+    href: "#trabalhos",
+    slot: "hotspotLuna",
+    depth: 1.08,
+  },
+  {
+    id: "saude",
+    label: "Conhecer o case de clínicas na área da saúde",
+    href: "#case-saude",
+    slot: "hotspotHealth",
+    depth: 1.5,
+  },
+];
+
+function DesktopProjectInteractions() {
+  return (
+    <nav className={styles.desktopInteractions} aria-label="Projetos em destaque">
+      {desktopHeroProjects.map((project) => (
+        <a
+          className={`${styles.desktopProjectHotspot} ${styles[project.slot]}`}
+          data-depth={project.depth}
+          href={project.href}
+          key={project.id}
+          aria-label={project.label}
+        >
+          <span className={styles.desktopProjectArtwork} aria-hidden="true">
+            <span className={styles.desktopProjectHint}>Ver projeto</span>
+          </span>
+        </a>
+      ))}
+    </nav>
+  );
+}
+
 export function HeroB() {
   const heroRef = useRef(null);
 
@@ -224,6 +310,12 @@ export function HeroB() {
       const wordmark = hero.querySelector(`.${styles.wordmark}`);
       const glow = hero.querySelector(`.${styles.glowBed}`);
       const explore = hero.querySelector(`.${styles.explore}`);
+      const referenceBackdrop = hero.querySelector(
+        `.${styles.referenceBackdrop}`,
+      );
+      const desktopHotspots = gsap.utils.toArray(
+        `.${styles.desktopProjectHotspot}`,
+      );
       const depthLayers = {
         far: hero.querySelector('[data-depth="far"]'),
         mid: hero.querySelector('[data-depth="mid"]'),
@@ -282,6 +374,156 @@ export function HeroB() {
             );
 
           return () => intro.kill();
+        },
+      );
+
+      media.add(
+        "(min-width: 1001px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+        () => {
+          let pendingFrame = 0;
+          let pointerX = 0;
+          let pointerY = 0;
+
+          const cardMotion = desktopHotspots.map((hotspot) => {
+            const artwork = hotspot.querySelector(
+              `.${styles.desktopProjectArtwork}`,
+            );
+            const depth = Number(hotspot.dataset.depth || 1);
+            const x = gsap.quickTo(artwork, "x", {
+              duration: 0.62,
+              ease: "power3.out",
+            });
+            const y = gsap.quickTo(artwork, "y", {
+              duration: 0.72,
+              ease: "power3.out",
+            });
+            const rotateX = gsap.quickTo(artwork, "rotationX", {
+              duration: 0.38,
+              ease: "power3.out",
+            });
+            const rotateY = gsap.quickTo(artwork, "rotationY", {
+              duration: 0.38,
+              ease: "power3.out",
+            });
+            const scaleX = gsap.quickTo(artwork, "scaleX", {
+              duration: 0.32,
+              ease: "power3.out",
+            });
+            const scaleY = gsap.quickTo(artwork, "scaleY", {
+              duration: 0.32,
+              ease: "power3.out",
+            });
+            const setScale = (value) => {
+              scaleX(value);
+              scaleY(value);
+            };
+
+            const settleTilt = () => {
+              rotateX(0);
+              rotateY(0);
+              setScale(1);
+            };
+            const activate = () => setScale(1.018);
+            const tilt = (event) => {
+              const bounds = hotspot.getBoundingClientRect();
+              const localX = (event.clientX - bounds.left) / bounds.width - 0.5;
+              const localY = (event.clientY - bounds.top) / bounds.height - 0.5;
+              rotateX(localY * -4.5);
+              rotateY(localX * 5.5);
+            };
+
+            hotspot.addEventListener("pointerenter", activate);
+            hotspot.addEventListener("pointermove", tilt, { passive: true });
+            hotspot.addEventListener("pointerleave", settleTilt);
+            hotspot.addEventListener("focus", activate);
+            hotspot.addEventListener("blur", settleTilt);
+
+            return {
+              depth,
+              x,
+              y,
+              settleTilt,
+              cleanup: () => {
+                hotspot.removeEventListener("pointerenter", activate);
+                hotspot.removeEventListener("pointermove", tilt);
+                hotspot.removeEventListener("pointerleave", settleTilt);
+                hotspot.removeEventListener("focus", activate);
+                hotspot.removeEventListener("blur", settleTilt);
+              },
+            };
+          });
+
+          const renderDepth = () => {
+            pendingFrame = 0;
+            cardMotion.forEach((motion) => {
+              motion.x(pointerX * motion.depth * 7);
+              motion.y(pointerY * motion.depth * 5);
+            });
+          };
+          const settleDepth = () => {
+            if (pendingFrame) cancelAnimationFrame(pendingFrame);
+            pendingFrame = 0;
+            cardMotion.forEach((motion) => {
+              motion.x(0);
+              motion.y(0);
+              motion.settleTilt();
+            });
+          };
+          const moveDepth = (event) => {
+            pointerX = event.clientX / window.innerWidth - 0.5;
+            pointerY = event.clientY / window.innerHeight - 0.5;
+            if (!pendingFrame) pendingFrame = requestAnimationFrame(renderDepth);
+          };
+          const handleVisibility = () => {
+            if (document.hidden) settleDepth();
+          };
+
+          hero.addEventListener("pointermove", moveDepth, { passive: true });
+          hero.addEventListener("pointerleave", settleDepth);
+          document.addEventListener("visibilitychange", handleVisibility);
+
+          return () => {
+            hero.removeEventListener("pointermove", moveDepth);
+            hero.removeEventListener("pointerleave", settleDepth);
+            document.removeEventListener("visibilitychange", handleVisibility);
+            cardMotion.forEach((motion) => motion.cleanup());
+            if (pendingFrame) cancelAnimationFrame(pendingFrame);
+          };
+        },
+      );
+
+      media.add(
+        "(min-width: 1001px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const scrollMotion = gsap.timeline({
+            scrollTrigger: {
+              trigger: hero,
+              start: "top top",
+              end: "bottom top",
+              scrub: 0.7,
+            },
+          });
+
+          scrollMotion.to(
+            referenceBackdrop,
+            {
+              scaleX: 1.008,
+              scaleY: 1.008,
+              filter: "brightness(0.9)",
+              ease: "none",
+            },
+            0,
+          );
+          desktopHotspots.forEach((hotspot) => {
+            const depth = Number(hotspot.dataset.depth || 1);
+            scrollMotion.to(
+              hotspot,
+              { y: depth * -8, ease: "none" },
+              0,
+            );
+          });
+
+          return () => scrollMotion.kill();
         },
       );
 
@@ -414,6 +656,7 @@ export function HeroB() {
   return (
     <section className={styles.hero} id="inicio" ref={heroRef}>
       <div className={styles.referenceBackdrop} aria-hidden="true" />
+      <DesktopProjectInteractions />
       <div className={styles.glowBed} aria-hidden="true" />
 
       <div className={styles.scene}>
