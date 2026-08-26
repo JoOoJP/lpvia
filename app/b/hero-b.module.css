@@ -1628,91 +1628,173 @@
 }
 
 @media (max-width: 480px) {
-  .scene::before,
-  .scene::after {
+  .hero::after {
+    background:
+      linear-gradient(180deg, rgb(3 4 5 / 14%), transparent 13%, transparent 86%, rgb(3 4 5 / 24%)),
+      radial-gradient(ellipse 118% 96% at 50% 47%, transparent 64%, rgb(1 2 3 / 22%) 100%);
+  }
+
+  .scene {
+    perspective-origin: 50% 46%;
+  }
+
+  .scene::before {
     top: 48%;
-    width: 118%;
-    opacity: 0.72;
+    width: 126%;
+    opacity: 0.58;
+    transform: translate(-50%, -50%) rotate(-5deg);
   }
 
   .scene::after {
-    top: 53%;
-    width: 94%;
+    top: 54%;
+    width: 98%;
+    opacity: 0.34;
+    transform: translate(-50%, -50%) rotate(8deg);
   }
 
   .wordmark {
-    top: 48%;
-    width: 59vw;
+    top: 48.5%;
+    width: 56vw;
   }
 
+  /*
+   * O retrato usa três planos claros: moldura, protagonistas e ambiente.
+   * Os recortes laterais são intencionais e fazem a instalação continuar
+   * para fora da tela, em vez de parecer uma grade desktop comprimida.
+   */
   .projectMoikatoBoard {
-    --w: 54%;
+    --w: 58%;
+    --ry: 6deg;
+    --rz: -2deg;
 
-    top: 5%;
-    left: -18%;
+    top: -2%;
+    left: -24%;
     z-index: 1;
-    opacity: 0.78;
   }
 
   .projectSephieBoard {
-    --w: 42%;
+    --w: 45%;
+    --ry: -6deg;
+    --rz: 2deg;
 
-    top: 5%;
-    right: -6%;
+    top: 3%;
+    right: -9%;
     z-index: 2;
-    opacity: 0.9;
   }
 
   .projectTardinhaScene {
-    --w: 64%;
+    --w: 70%;
+    --rx: 1deg;
+    --ry: 0deg;
+    --rz: -1deg;
 
-    top: 20%;
-    left: 18%;
+    top: 17%;
+    left: 15%;
     z-index: 3;
   }
 
   .projectSweetCutout {
-    --w: 37%;
+    --w: 40%;
+    --ry: -7deg;
+    --rz: 3deg;
 
-    top: 30%;
-    right: -6%;
-    z-index: 5;
+    top: 26%;
+    right: -10%;
+    z-index: 6;
   }
 
   .projectHealthPhone {
-    --w: 32%;
+    --w: 37%;
+    --ry: 8deg;
+    --rz: -5deg;
 
-    bottom: 10%;
-    left: -4%;
-    z-index: 4;
+    bottom: 2%;
+    left: -6%;
+    z-index: 6;
   }
 
   .projectLatino {
-    --w: 27%;
+    --w: 24%;
+    --ry: 4deg;
+    --rz: -4deg;
 
-    bottom: 18%;
-    left: 21%;
+    bottom: 15%;
+    left: 22%;
+    z-index: 2;
   }
 
   .projectCarolinaBoard {
-    --w: 43%;
+    --w: 41%;
+    --ry: -7deg;
+    --rz: 5deg;
 
-    right: -7%;
-    bottom: 20%;
-    z-index: 3;
+    right: -8%;
+    bottom: 11%;
+    z-index: 2;
   }
 
   .projectXango {
-    --w: 22%;
+    --w: 21%;
+    --ry: -3deg;
+    --rz: 2deg;
 
-    bottom: 11%;
-    left: 41%;
+    bottom: 5%;
+    left: 58%;
+    z-index: 3;
   }
 
   .projectMoikatoBoard .projectSurface,
-  .projectSephieBoard .projectSurface,
-  .projectCarolinaBoard .projectSurface {
-    box-shadow: 0 24px 38px -24px rgb(0 0 0 / 88%);
+  .projectSephieBoard .projectSurface {
+    opacity: 0.86;
+    filter: brightness(0.88) saturate(0.9);
+    box-shadow: 0 28px 46px -26px rgb(0 0 0 / 92%);
+  }
+
+  .projectTardinhaScene .projectSurface,
+  .projectSweetCutout .projectSurface,
+  .projectHealthPhone .projectSurface {
+    opacity: 1;
+    filter: brightness(1.03) saturate(1.04);
+  }
+
+  .projectLatino .projectSurface,
+  .projectCarolinaBoard .projectSurface,
+  .projectXango .projectSurface {
+    opacity: 0.66;
+    filter: brightness(0.8) saturate(0.82) blur(0.2px);
+    box-shadow: 0 20px 34px -24px rgb(0 0 0 / 90%);
+  }
+
+  .projectTardinhaScene .projectSurface {
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 14%) inset,
+      0 30px 54px -24px rgb(0 0 0 / 96%);
+  }
+
+  .projectSweetCutout .projectSurface {
+    filter: brightness(1.03) saturate(1.04) drop-shadow(0 26px 24px rgb(0 0 0 / 76%));
+  }
+
+  .projectHealthPhone .projectSurface {
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 28%) inset,
+      0 34px 54px -26px rgb(0 0 0 / 96%);
+  }
+
+  .orbitNodes span:nth-child(3),
+  .orbitNodes span:nth-child(7) {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 480px) and (hover: none) {
+  .project:hover .projectSurface,
+  .project:focus-visible .projectSurface {
+    scale: 1;
+  }
+
+  .project:active .projectSurface {
+    scale: 1.018;
   }
 }
 
