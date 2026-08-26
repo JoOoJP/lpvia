@@ -1530,6 +1530,92 @@
   .projectXango { --w: 18%; left: 42%; }
 }
 
+/*
+ * Notebooks compactos e tablets em paisagem precisam de uma constelação
+ * horizontal própria. A composição acima é deliberadamente vertical; quando
+ * aplicada a uma janela larga e baixa, as peças crescem pela largura e tomam
+ * o centro. Aqui preservamos o mesmo universo, mas protegemos uma faixa limpa
+ * ao redor da VIA e distribuímos os projetos entre topo, laterais e base.
+ */
+@media (min-width: 700px) and (max-width: 1000px) and (orientation: landscape) {
+  .scene::before,
+  .scene::after {
+    top: 50%;
+    width: 94%;
+    aspect-ratio: 3.1 / 1;
+  }
+
+  .scene::after {
+    top: 54%;
+    width: 72%;
+  }
+
+  .wordmark {
+    top: 52%;
+    width: min(30vw, 18rem);
+  }
+
+  .projectMoikatoBoard {
+    --w: 27%;
+
+    top: 4%;
+    left: -5%;
+  }
+
+  .projectSephieBoard {
+    --w: 21%;
+
+    top: 6%;
+    right: 3%;
+  }
+
+  .projectTardinhaScene {
+    --w: 31%;
+
+    top: 4%;
+    left: 34.5%;
+  }
+
+  .projectSweetCutout {
+    --w: 20%;
+
+    top: 27%;
+    right: -2%;
+  }
+
+  .projectHealthPhone {
+    --w: 13.5%;
+
+    bottom: 4%;
+    left: 1%;
+  }
+
+  .projectLatino {
+    --w: 12%;
+
+    bottom: 5%;
+    left: 24%;
+  }
+
+  .projectCarolinaBoard {
+    --w: 25%;
+
+    right: 0;
+    bottom: 2%;
+  }
+
+  .projectXango {
+    --w: 11%;
+
+    bottom: 9%;
+    left: 44%;
+  }
+
+  .explore {
+    padding-bottom: 0.45rem;
+  }
+}
+
 @media (max-width: 720px) {
   .hero {
     padding-top: 64px;
@@ -1541,50 +1627,91 @@
 }
 
 @media (max-width: 480px) {
-  .projectMoikatoBoard {
-    --w: 58%;
+  .scene::before,
+  .scene::after {
+    top: 48%;
+    width: 118%;
+    opacity: 0.58;
+  }
 
-    left: -18%;
+  .scene::after {
+    top: 53%;
+    width: 94%;
+  }
+
+  .wordmark {
+    top: 48%;
+    width: 55vw;
+  }
+
+  .projectMoikatoBoard {
+    --w: 46%;
+
+    top: 7%;
+    left: -16%;
+    z-index: 1;
+    opacity: 0.66;
   }
 
   .projectSephieBoard {
-    --w: 45%;
+    --w: 35%;
 
-    right: -8%;
+    top: 6%;
+    right: -3%;
+    z-index: 2;
+    opacity: 0.82;
   }
 
   .projectTardinhaScene {
-    --w: 66%;
+    --w: 58%;
 
-    top: 23%;
-    left: 17%;
+    top: 21%;
+    left: 21%;
+    z-index: 3;
   }
 
   .projectSweetCutout {
-    --w: 42%;
+    --w: 29%;
 
-    top: 32%;
-    right: -13%;
+    top: 31%;
+    right: -3%;
+    z-index: 5;
   }
 
   .projectHealthPhone {
-    --w: 35%;
+    --w: 25%;
 
+    bottom: 7%;
     left: -3%;
+    z-index: 4;
   }
 
   .projectLatino {
-    --w: 29%;
+    --w: 21%;
+
+    bottom: 15%;
+    left: 23%;
   }
 
   .projectCarolinaBoard {
-    --w: 46%;
+    --w: 35%;
 
-    right: -4%;
+    right: -3%;
+    bottom: 10%;
+    z-index: 3;
   }
 
   .projectXango {
-    --w: 25%;
+    --w: 16%;
+
+    bottom: 8%;
+    left: 44%;
+  }
+
+  .projectMoikatoBoard .projectSurface,
+  .projectSephieBoard .projectSurface,
+  .projectCarolinaBoard .projectSurface {
+    box-shadow: 0 24px 38px -24px rgb(0 0 0 / 88%);
   }
 }
 
