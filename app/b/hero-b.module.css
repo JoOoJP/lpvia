@@ -124,6 +124,7 @@
   display: block;
   width: 100%;
   transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .wordmarkSvg {
@@ -1374,7 +1375,7 @@
     z-index: 4;
     width: min(59vw, 21rem);
     margin: 0;
-    translate: -50% -50%;
+    transform: translate(-50%, -50%);
   }
 
   .orbitNodes {
@@ -1631,7 +1632,7 @@
   .scene::after {
     top: 48%;
     width: 118%;
-    opacity: 0.58;
+    opacity: 0.72;
   }
 
   .scene::after {
@@ -1641,71 +1642,71 @@
 
   .wordmark {
     top: 48%;
-    width: 55vw;
+    width: 59vw;
   }
 
   .projectMoikatoBoard {
-    --w: 46%;
+    --w: 54%;
 
-    top: 7%;
-    left: -16%;
+    top: 5%;
+    left: -18%;
     z-index: 1;
-    opacity: 0.66;
+    opacity: 0.78;
   }
 
   .projectSephieBoard {
-    --w: 35%;
+    --w: 42%;
 
-    top: 6%;
-    right: -3%;
+    top: 5%;
+    right: -6%;
     z-index: 2;
-    opacity: 0.82;
+    opacity: 0.9;
   }
 
   .projectTardinhaScene {
-    --w: 58%;
+    --w: 64%;
 
-    top: 21%;
-    left: 21%;
+    top: 20%;
+    left: 18%;
     z-index: 3;
   }
 
   .projectSweetCutout {
-    --w: 29%;
+    --w: 37%;
 
-    top: 31%;
-    right: -3%;
+    top: 30%;
+    right: -6%;
     z-index: 5;
   }
 
   .projectHealthPhone {
-    --w: 25%;
+    --w: 32%;
 
-    bottom: 7%;
-    left: -3%;
+    bottom: 10%;
+    left: -4%;
     z-index: 4;
   }
 
   .projectLatino {
-    --w: 21%;
+    --w: 27%;
 
-    bottom: 15%;
-    left: 23%;
+    bottom: 18%;
+    left: 21%;
   }
 
   .projectCarolinaBoard {
-    --w: 35%;
+    --w: 43%;
 
-    right: -3%;
-    bottom: 10%;
+    right: -7%;
+    bottom: 20%;
     z-index: 3;
   }
 
   .projectXango {
-    --w: 16%;
+    --w: 22%;
 
-    bottom: 8%;
-    left: 44%;
+    bottom: 11%;
+    left: 41%;
   }
 
   .projectMoikatoBoard .projectSurface,

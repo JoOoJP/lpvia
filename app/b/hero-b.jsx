@@ -310,6 +310,9 @@ export function HeroB() {
       if (!hero) return;
 
       const wordmark = hero.querySelector(`.${styles.wordmark}`);
+      const wordmarkMotion = wordmark?.querySelector(
+        `.${styles.wordmarkStage}`,
+      );
       const glow = hero.querySelector(`.${styles.glowBed}`);
       const explore = hero.querySelector(`.${styles.explore}`);
       const desktopHotspots = gsap.utils.toArray(
@@ -330,7 +333,7 @@ export function HeroB() {
 
           intro
             .fromTo(
-              wordmark,
+              wordmarkMotion,
               {
                 autoAlpha: 0,
                 scale: 0.94,
@@ -527,19 +530,19 @@ export function HeroB() {
             }),
           }));
 
-          const wordmarkX = gsap.quickTo(wordmark, "x", {
+          const wordmarkX = gsap.quickTo(wordmarkMotion, "x", {
             duration: 0.62,
             ease: "power3.out",
           });
-          const wordmarkY = gsap.quickTo(wordmark, "y", {
+          const wordmarkY = gsap.quickTo(wordmarkMotion, "y", {
             duration: 0.82,
             ease: "power3.out",
           });
-          const wordmarkRotateX = gsap.quickTo(wordmark, "rotationX", {
+          const wordmarkRotateX = gsap.quickTo(wordmarkMotion, "rotationX", {
             duration: 0.92,
             ease: "power3.out",
           });
-          const wordmarkRotateY = gsap.quickTo(wordmark, "rotationY", {
+          const wordmarkRotateY = gsap.quickTo(wordmarkMotion, "rotationY", {
             duration: 0.92,
             ease: "power3.out",
           });
@@ -612,7 +615,7 @@ export function HeroB() {
           });
 
           scrollMotion
-            .to(wordmark, { yPercent: -3, scale: 0.98, ease: "none" }, 0)
+            .to(wordmarkMotion, { yPercent: -3, scale: 0.98, ease: "none" }, 0)
             .to(glow, { yPercent: 5, scale: 1.05, opacity: 0.5, ease: "none" }, 0)
             .to(depthLayers.far, { yPercent: -2, ease: "none" }, 0)
             .to(depthLayers.mid, { yPercent: -5, ease: "none" }, 0)
