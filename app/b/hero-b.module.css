@@ -407,10 +407,6 @@
   display: none;
 }
 
-.motionPaused .projectSurface {
-  animation-play-state: paused;
-}
-
 /* ---------- Direção de arte das peças principais ---------- */
 
 .moikatoBoard .projectSurface,
@@ -978,6 +974,16 @@
   transform-origin: bottom;
 }
 
+/* ---------- Bloco de conversão (só mobile) ---------- */
+
+/*
+ * O desktop resolve a promessa com a instalação inteira; no mobile ela não
+ * cabe, então a mesma mensagem volta como texto e ação.
+ */
+.mobilePitch {
+  display: none;
+}
+
 @media (min-width: 1001px) {
   .hero {
     width: 100%;
@@ -1327,89 +1333,187 @@
   }
 }
 
-/* No mobile, a prancha é recomposta em retrato sem perder o universo desktop. */
+/*
+ * No mobile o hero deixa de ser colagem e passa a vender: marca, promessa,
+ * ação e um trilho com os mesmos projetos da instalação desktop. Os planos
+ * de profundidade viram `display: contents`, então cada peça mantém a arte e
+ * a proporção originais como card do carrossel — sem markup duplicado.
+ */
 @media (max-width: 1000px) {
   .hero {
     width: 100%;
-    height: 100svh;
+    height: auto;
     min-height: 0;
-    padding-top: 72px;
+    padding-top: 6rem;
+    padding-bottom: 1.25rem;
   }
 
   .hero::before {
     left: -55%;
     right: -55%;
-    bottom: -5%;
-    height: 54%;
-    opacity: 0.14;
+    bottom: -8%;
+    height: 46%;
+    opacity: 0.12;
     background-size: 3.4rem 2.4rem;
+  }
+
+  .hero::after {
+    background: linear-gradient(
+      180deg,
+      rgb(3 4 5 / 26%),
+      transparent 18%,
+      transparent 76%,
+      rgb(3 4 5 / 48%)
+    );
+  }
+
+  .glowBed {
+    background:
+      radial-gradient(ellipse 78% 32% at 30% 16%, rgb(89 52 224 / 22%), transparent 72%),
+      radial-gradient(ellipse 70% 26% at 74% 34%, rgb(0 182 214 / 16%), transparent 74%);
   }
 
   .scene {
     width: 100%;
-    height: calc(100svh - 72px);
+    height: auto;
     min-height: 0;
-    perspective: 1100px;
-    perspective-origin: 50% 48%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding-inline: var(--layout-gutter);
+    perspective: 900px;
+    perspective-origin: 50% 50%;
   }
 
+  /* Órbitas e partículas emolduravam a colagem; no fluxo vertical só poluem. */
   .scene::before,
-  .scene::after {
-    top: 49%;
-    width: 132%;
-    aspect-ratio: 2.15 / 1;
-    opacity: 0.75;
-    transform: translate(-50%, -50%) rotate(-8deg);
-  }
-
-  .scene::after {
-    top: 55%;
-    width: 106%;
-    transform: translate(-50%, -50%) rotate(11deg);
+  .scene::after,
+  .orbitNodes,
+  .explore {
+    display: none;
   }
 
   .wordmark {
-    position: absolute;
-    top: 48%;
-    left: 50%;
+    position: relative;
     z-index: 4;
-    width: min(59vw, 21rem);
+    width: min(38vw, 10.5rem);
     margin: 0;
-    transform: translate(-50%, -50%);
   }
 
-  .orbitNodes {
-    display: block;
-    opacity: 0.72;
+  .mobilePitch {
+    display: grid;
+    gap: 0.9rem;
+    max-width: 34rem;
   }
+
+  .mobileHeadline {
+    margin: 0;
+    color: var(--color-text-via-dark);
+    font-size: clamp(2rem, 9.4vw, 2.85rem);
+    font-weight: 700;
+    letter-spacing: -0.032em;
+    line-height: 1.04;
+  }
+
+  .mobileHeadline span {
+    background: var(--gradient-brand-text);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .mobileLead {
+    margin: 0;
+    max-width: 30rem;
+    color: var(--color-text-via-muted);
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+
+  .mobileActions {
+    display: grid;
+    gap: 0.65rem;
+    max-width: 25rem;
+    margin-top: 0.35rem;
+  }
+
+  .mobileActions :global(.dark-button) {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* ---------- Trilho de projetos ---------- */
 
   .projectField {
-    inset: 0;
+    position: static;
     z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
     width: auto;
-    padding: 0;
-    overflow: visible;
-    pointer-events: none;
+    margin-inline: calc(-1 * var(--layout-gutter));
+    padding: 0.35rem var(--layout-gutter) 4.75rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    pointer-events: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--layout-gutter);
+    scrollbar-width: none;
+    transform-style: flat;
     translate: none;
   }
 
+  .projectField::-webkit-scrollbar {
+    display: none;
+  }
+
   .orbitLayer {
-    position: absolute;
-    inset: 0;
-    display: block;
+    display: contents;
   }
 
   .project {
-    position: absolute;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
-    width: var(--w);
+    --rx: 0deg;
+    --ry: 0deg;
+    --rz: 0deg;
+
+    position: relative;
+    inset: auto;
+    order: var(--mobile-order);
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 8.5rem;
+    height: 13.5rem;
     aspect-ratio: var(--ratio);
     pointer-events: auto;
+    scroll-snap-align: center;
   }
 
+  /*
+   * Sem hover no toque o nome precisa nascer visível — e preso à largura do
+   * card, senão a legenda de uma peça invade a vizinha no trilho.
+   */
+  .projectMeta {
+    left: 0;
+    right: 0;
+    top: calc(100% + 0.55rem);
+    opacity: 1;
+    transform: none;
+  }
+
+  .projectType {
+    font-size: 0.5rem;
+    letter-spacing: 0.14em;
+  }
+
+  .projectTitle {
+    font-size: 0.82rem;
+    line-height: 1.2;
+  }
+
+  /*
+   * Profundidade era o que separava os planos na colagem. Num trilho, todos
+   * os cards estão à mesma distância do olho.
+   */
   .projectSurface,
   .layerFar .projectSurface,
   .layerMid .projectSurface {
@@ -1417,18 +1521,19 @@
     filter: none;
   }
 
+  .projectAmbient .projectSurface {
+    animation: none;
+  }
+
   .surfaceCutout .projectSurface {
     overflow: visible;
     border: 0;
     border-radius: 0;
     background: transparent;
-    filter: drop-shadow(0 24px 22px rgb(0 0 0 / 68%));
+    filter: drop-shadow(0 20px 20px rgb(0 0 0 / 68%));
   }
 
-  .projectMeta {
-    display: none;
-  }
-
+  /* Marcas pequenas demais para virar card: viviam de escala na colagem. */
   .projectAnaPaula,
   .projectGhetto,
   .projectStudioGiuFar,
@@ -1436,358 +1541,30 @@
   .projectRouteBoard {
     display: none;
   }
-
-  .projectMoikatoBoard {
-    --w: 54%;
-
-    top: 5%;
-    left: -18%;
-    z-index: 3;
-  }
-
-  .projectSephieBoard {
-    --w: 43%;
-
-    top: 7%;
-    right: -5%;
-    z-index: 3;
-  }
-
-  .projectTardinhaScene {
-    --w: 62%;
-
-    top: 24%;
-    left: 19%;
-    z-index: 2;
-  }
-
-  .projectSweetCutout {
-    --w: 40%;
-
-    top: 31%;
-    right: -8%;
-    z-index: 6;
-  }
-
-  .projectHealthPhone {
-    --w: 32%;
-
-    bottom: 11%;
-    left: -2%;
-    z-index: 5;
-  }
-
-  .projectLatino {
-    --w: 28%;
-
-    bottom: 15%;
-    left: 22%;
-    z-index: 3;
-  }
-
-  .projectCarolinaBoard {
-    --w: 44%;
-
-    right: -4%;
-    bottom: 12%;
-    z-index: 5;
-  }
-
-  .projectXango {
-    --w: 24%;
-
-    bottom: 5%;
-    left: 42%;
-    z-index: 4;
-  }
-
-  .explore {
-    bottom: 0;
-    padding-bottom: 0.65rem;
-    flex-direction: column;
-    gap: 0.35rem;
-    color: #d9dcdd;
-    font-size: 0.67rem;
-    letter-spacing: 0.11em;
-  }
-
-  .exploreArrow {
-    height: 1.55rem;
-  }
-}
-
-@media (min-width: 700px) and (max-width: 1000px) {
-  .wordmark {
-    width: min(46vw, 23rem);
-  }
-
-  .projectMoikatoBoard { --w: 38%; left: -10%; }
-  .projectSephieBoard { --w: 31%; right: 1%; }
-  .projectTardinhaScene { --w: 48%; top: 22%; left: 26%; }
-  .projectSweetCutout { --w: 29%; right: -5%; }
-  .projectHealthPhone { --w: 23%; left: 2%; }
-  .projectLatino { --w: 19%; left: 27%; }
-  .projectCarolinaBoard { --w: 32%; right: 1%; }
-  .projectXango { --w: 18%; left: 42%; }
-}
-
-/*
- * Notebooks compactos e tablets em paisagem precisam de uma constelação
- * horizontal própria. A composição acima é deliberadamente vertical; quando
- * aplicada a uma janela larga e baixa, as peças crescem pela largura e tomam
- * o centro. Aqui preservamos o mesmo universo, mas protegemos uma faixa limpa
- * ao redor da VIA e distribuímos os projetos entre topo, laterais e base.
- */
-@media (min-width: 700px) and (max-width: 1000px) and (orientation: landscape) {
-  .scene::before,
-  .scene::after {
-    top: 50%;
-    width: 94%;
-    aspect-ratio: 3.1 / 1;
-  }
-
-  .scene::after {
-    top: 54%;
-    width: 72%;
-  }
-
-  .wordmark {
-    top: 52%;
-    width: min(30vw, 18rem);
-  }
-
-  .projectMoikatoBoard {
-    --w: 27%;
-
-    top: 4%;
-    left: -5%;
-  }
-
-  .projectSephieBoard {
-    --w: 21%;
-
-    top: 6%;
-    right: 3%;
-  }
-
-  .projectTardinhaScene {
-    --w: 31%;
-
-    top: 4%;
-    left: 34.5%;
-  }
-
-  .projectSweetCutout {
-    --w: 20%;
-
-    top: 27%;
-    right: -2%;
-  }
-
-  .projectHealthPhone {
-    --w: 13.5%;
-
-    bottom: 4%;
-    left: 1%;
-  }
-
-  .projectLatino {
-    --w: 12%;
-
-    bottom: 5%;
-    left: 24%;
-  }
-
-  .projectCarolinaBoard {
-    --w: 25%;
-
-    right: 0;
-    bottom: 2%;
-  }
-
-  .projectXango {
-    --w: 11%;
-
-    bottom: 9%;
-    left: 44%;
-  }
-
-  .explore {
-    padding-bottom: 0.45rem;
-  }
 }
 
 @media (max-width: 720px) {
   .hero {
-    padding-top: 64px;
+    padding-top: 5.5rem;
   }
 
-  .scene {
-    height: calc(100svh - 64px);
+  .project {
+    height: 12.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .hero::after {
-    background:
-      linear-gradient(180deg, rgb(3 4 5 / 14%), transparent 13%, transparent 86%, rgb(3 4 5 / 24%)),
-      radial-gradient(ellipse 118% 96% at 50% 47%, transparent 64%, rgb(1 2 3 / 22%) 100%);
-  }
-
-  .scene {
-    perspective-origin: 50% 46%;
-  }
-
-  .scene::before {
-    top: 48%;
-    width: 126%;
-    opacity: 0.58;
-    transform: translate(-50%, -50%) rotate(-5deg);
-  }
-
-  .scene::after {
-    top: 54%;
-    width: 98%;
-    opacity: 0.34;
-    transform: translate(-50%, -50%) rotate(8deg);
-  }
-
   .wordmark {
-    top: 48.5%;
-    width: 56vw;
+    width: min(44vw, 9rem);
   }
 
-  /*
-   * O retrato usa três planos claros: moldura, protagonistas e ambiente.
-   * Os recortes laterais são intencionais e fazem a instalação continuar
-   * para fora da tela, em vez de parecer uma grade desktop comprimida.
-   */
-  .projectMoikatoBoard {
-    --w: 58%;
-    --ry: 6deg;
-    --rz: -2deg;
-
-    top: -2%;
-    left: -24%;
-    z-index: 1;
-  }
-
-  .projectSephieBoard {
-    --w: 45%;
-    --ry: -6deg;
-    --rz: 2deg;
-
-    top: 3%;
-    right: -9%;
-    z-index: 2;
-  }
-
-  .projectTardinhaScene {
-    --w: 70%;
-    --rx: 1deg;
-    --ry: 0deg;
-    --rz: -1deg;
-
-    top: 17%;
-    left: 15%;
-    z-index: 3;
-  }
-
-  .projectSweetCutout {
-    --w: 40%;
-    --ry: -7deg;
-    --rz: 3deg;
-
-    top: 26%;
-    right: -10%;
-    z-index: 6;
-  }
-
-  .projectHealthPhone {
-    --w: 37%;
-    --ry: 8deg;
-    --rz: -5deg;
-
-    bottom: 2%;
-    left: -6%;
-    z-index: 6;
-  }
-
-  .projectLatino {
-    --w: 24%;
-    --ry: 4deg;
-    --rz: -4deg;
-
-    bottom: 15%;
-    left: 22%;
-    z-index: 2;
-  }
-
-  .projectCarolinaBoard {
-    --w: 41%;
-    --ry: -7deg;
-    --rz: 5deg;
-
-    right: -8%;
-    bottom: 11%;
-    z-index: 2;
-  }
-
-  .projectXango {
-    --w: 21%;
-    --ry: -3deg;
-    --rz: 2deg;
-
-    bottom: 5%;
-    left: 58%;
-    z-index: 3;
-  }
-
-  .projectMoikatoBoard .projectSurface,
-  .projectSephieBoard .projectSurface {
-    opacity: 0.86;
-    filter: brightness(0.88) saturate(0.9);
-    box-shadow: 0 28px 46px -26px rgb(0 0 0 / 92%);
-  }
-
-  .projectTardinhaScene .projectSurface,
-  .projectSweetCutout .projectSurface,
-  .projectHealthPhone .projectSurface {
-    opacity: 1;
-    filter: brightness(1.03) saturate(1.04);
-  }
-
-  .projectLatino .projectSurface,
-  .projectCarolinaBoard .projectSurface,
-  .projectXango .projectSurface {
-    opacity: 0.66;
-    filter: brightness(0.8) saturate(0.82) blur(0.2px);
-    box-shadow: 0 20px 34px -24px rgb(0 0 0 / 90%);
-  }
-
-  .projectTardinhaScene .projectSurface {
-    box-shadow:
-      0 1px 0 rgb(255 255 255 / 14%) inset,
-      0 30px 54px -24px rgb(0 0 0 / 96%);
-  }
-
-  .projectSweetCutout .projectSurface {
-    filter: brightness(1.03) saturate(1.04) drop-shadow(0 26px 24px rgb(0 0 0 / 76%));
-  }
-
-  .projectHealthPhone .projectSurface {
-    box-shadow:
-      0 0 0 1px rgb(255 255 255 / 28%) inset,
-      0 34px 54px -26px rgb(0 0 0 / 96%);
-  }
-
-  .orbitNodes span:nth-child(3),
-  .orbitNodes span:nth-child(7) {
-    opacity: 0.35;
+  .project {
+    min-width: 7.5rem;
+    height: 11.5rem;
   }
 }
 
-@media (max-width: 480px) and (hover: none) {
+@media (max-width: 1000px) and (hover: none) {
   .project:hover .projectSurface,
   .project:focus-visible .projectSurface {
     scale: 1;

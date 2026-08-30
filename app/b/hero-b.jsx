@@ -2,13 +2,14 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useRef } from "react";
+import { whatsappUrl } from "../contact";
+import { Arrow } from "../ui/arrow";
 import { heroProjectLayers } from "./hero-cards";
 import styles from "./hero-b.module.css";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP);
 
 function Wordmark3D() {
   return (
@@ -313,22 +314,22 @@ export function HeroB() {
       const wordmarkMotion = wordmark?.querySelector(
         `.${styles.wordmarkStage}`,
       );
-      const glow = hero.querySelector(`.${styles.glowBed}`);
-      const explore = hero.querySelector(`.${styles.explore}`);
       const desktopHotspots = gsap.utils.toArray(
         `.${styles.desktopProjectHotspot}`,
       );
-      const depthLayers = {
-        far: hero.querySelector('[data-depth="far"]'),
-        mid: hero.querySelector('[data-depth="mid"]'),
-        near: hero.querySelector('[data-depth="near"]'),
-      };
-      const depthLayerNodes = Object.values(depthLayers).filter(Boolean);
       const media = gsap.matchMedia();
 
       media.add(
         "(max-width: 1000px) and (prefers-reduced-motion: no-preference)",
         () => {
+          const pitchItems = gsap.utils.toArray(
+            `.${styles.mobilePitch} > *`,
+            hero,
+          );
+          const railCards = gsap.utils.toArray(
+            `.${styles.projectField} .${styles.project}`,
+            hero,
+          );
           const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
 
           intro
@@ -347,32 +348,21 @@ export function HeroB() {
                 rotationX: 0,
                 z: 0,
                 filter: "blur(0px)",
-                duration: 1.2,
+                duration: 1.1,
                 ease: "expo.out",
               },
             )
             .fromTo(
-              depthLayerNodes,
-              {
-                autoAlpha: 0,
-                scale: 0.975,
-                y: 16,
-              },
-              {
-                autoAlpha: 1,
-                scale: 1,
-                y: 0,
-                duration: 0.92,
-                stagger: 0.08,
-                ease: "power3.out",
-              },
-              "-=0.82",
+              pitchItems,
+              { autoAlpha: 0, y: 14 },
+              { autoAlpha: 1, y: 0, duration: 0.62, stagger: 0.08 },
+              "-=0.8",
             )
             .fromTo(
-              explore,
-              { autoAlpha: 0, y: 8 },
-              { autoAlpha: 1, y: 0, duration: 0.45 },
-              "-=0.25",
+              railCards,
+              { autoAlpha: 0, y: 20 },
+              { autoAlpha: 1, y: 0, duration: 0.56, stagger: 0.06 },
+              "-=0.42",
             );
 
           return () => intro.kill();
@@ -507,127 +497,6 @@ export function HeroB() {
         },
       );
 
-      media.add(
-        "(max-width: 1000px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
-        () => {
-          let pendingFrame = 0;
-          let pointerX = 0;
-          let pointerY = 0;
-
-          const layerMotion = [
-            { node: depthLayers.far, factorX: 8, factorY: 5, duration: 0.95 },
-            { node: depthLayers.mid, factorX: -16, factorY: -10, duration: 0.78 },
-            { node: depthLayers.near, factorX: 28, factorY: 17, duration: 0.62 },
-          ].map((layer) => ({
-            ...layer,
-            x: gsap.quickTo(layer.node, "x", {
-              duration: layer.duration,
-              ease: "power3.out",
-            }),
-            y: gsap.quickTo(layer.node, "y", {
-              duration: layer.duration,
-              ease: "power3.out",
-            }),
-          }));
-
-          const wordmarkX = gsap.quickTo(wordmarkMotion, "x", {
-            duration: 0.62,
-            ease: "power3.out",
-          });
-          const wordmarkY = gsap.quickTo(wordmarkMotion, "y", {
-            duration: 0.82,
-            ease: "power3.out",
-          });
-          const wordmarkRotateX = gsap.quickTo(wordmarkMotion, "rotationX", {
-            duration: 0.92,
-            ease: "power3.out",
-          });
-          const wordmarkRotateY = gsap.quickTo(wordmarkMotion, "rotationY", {
-            duration: 0.92,
-            ease: "power3.out",
-          });
-          const settle = () => {
-            if (pendingFrame) {
-              cancelAnimationFrame(pendingFrame);
-              pendingFrame = 0;
-            }
-            layerMotion.forEach((layer) => {
-              layer.x(0);
-              layer.y(0);
-            });
-            wordmarkX(0);
-            wordmarkY(0);
-            wordmarkRotateX(0);
-            wordmarkRotateY(0);
-          };
-
-          const renderPointerMotion = () => {
-            pendingFrame = 0;
-            layerMotion.forEach((layer) => {
-              layer.x(pointerX * layer.factorX);
-              layer.y(pointerY * layer.factorY);
-            });
-            wordmarkX(pointerX * -7);
-            wordmarkY(pointerY * -4);
-            wordmarkRotateX(pointerY * -1.8);
-            wordmarkRotateY(pointerX * 2.4);
-          };
-
-          const onMove = (event) => {
-            pointerX = event.clientX / window.innerWidth - 0.5;
-            pointerY = event.clientY / window.innerHeight - 0.5;
-
-            if (!pendingFrame) {
-              pendingFrame = requestAnimationFrame(renderPointerMotion);
-            }
-          };
-
-          const onVisibilityChange = () => {
-            if (document.hidden) settle();
-          };
-
-          hero.addEventListener("pointermove", onMove, { passive: true });
-          hero.addEventListener("pointerleave", settle);
-          document.addEventListener("visibilitychange", onVisibilityChange);
-
-          return () => {
-            hero.removeEventListener("pointermove", onMove);
-            hero.removeEventListener("pointerleave", settle);
-            document.removeEventListener("visibilitychange", onVisibilityChange);
-            if (pendingFrame) cancelAnimationFrame(pendingFrame);
-          };
-        },
-      );
-
-      media.add(
-        "(max-width: 1000px) and (prefers-reduced-motion: no-preference)",
-        () => {
-          const scrollMotion = gsap.timeline({
-            scrollTrigger: {
-              trigger: hero,
-              start: "top top",
-              end: "bottom top",
-              scrub: 0.75,
-              onToggle: (self) => {
-                hero.classList.toggle(styles.motionPaused, !self.isActive);
-              },
-            },
-          });
-
-          scrollMotion
-            .to(wordmarkMotion, { yPercent: -3, scale: 0.98, ease: "none" }, 0)
-            .to(glow, { yPercent: 5, scale: 1.05, opacity: 0.5, ease: "none" }, 0)
-            .to(depthLayers.far, { yPercent: -2, ease: "none" }, 0)
-            .to(depthLayers.mid, { yPercent: -5, ease: "none" }, 0)
-            .to(depthLayers.near, { yPercent: -9, ease: "none" }, 0);
-
-          return () => {
-            hero.classList.remove(styles.motionPaused);
-            scrollMotion.kill();
-          };
-        },
-      );
-
       return () => media.revert();
     },
     { scope: heroRef },
@@ -646,6 +515,30 @@ export function HeroB() {
           </span>
           <Wordmark3D />
         </h1>
+
+        <div className={styles.mobilePitch}>
+          <p className="dark-kicker">VIA / GROWTH COMPANY</p>
+          <p className={styles.mobileHeadline} aria-hidden="true">
+            Estratégia que <span>ganha forma.</span>
+          </p>
+          <p className={styles.mobileLead}>
+            Estratégia, marketing, comercial e tecnologia no mesmo movimento —
+            para construir marcas e negócios digitais com clareza e performance.
+          </p>
+          <div className={styles.mobileActions}>
+            <a
+              className="dark-button dark-button-primary"
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Vamos conversar <Arrow />
+            </a>
+            <a className="dark-button dark-button-secondary" href="#fazemos">
+              Conheça a VIA <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+        </div>
 
         <div className={styles.projectField}>
           {heroProjectLayers.map((layer) => (
