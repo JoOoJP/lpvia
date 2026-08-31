@@ -31,6 +31,9 @@ a {
 button,
 a {
   touch-action: manipulation;
+  /* iOS/Android pintam um retângulo cinza no toque; sobre botão redondo
+     isso virava um quadrado por cima do círculo. */
+  -webkit-tap-highlight-color: transparent;
 }
 
 img,

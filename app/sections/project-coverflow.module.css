@@ -48,6 +48,10 @@
   perspective-origin: 50% 48%;
   touch-action: pan-y;
   cursor: grab;
+  /* Arrastar para trocar de projeto não pode virar seleção de texto/imagem —
+     no celular o realce roxo do ::selection aparecia no meio do gesto. */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .track:active {
@@ -118,6 +122,7 @@
   border-radius: clamp(10px, 1.1vw, 17px);
   background: transparent;
   cursor: pointer;
+  -webkit-touch-callout: none;
 }
 
 .selectSlide:focus-visible {
