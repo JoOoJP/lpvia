@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowIcon } from "../ui/arrow";
 import { BeforeAfterSlider } from "../ui/before-after-slider";
 import styles from "./project-coverflow.module.css";
 
@@ -438,7 +439,7 @@ export function ProjectCoverflow({ projects }) {
 
       <div className={styles.rail}>
         <button className={styles.arrowButton} type="button" onClick={previous} aria-label="Projeto anterior">
-          <span aria-hidden="true">←</span>
+          <ArrowIcon direction="left" className={styles.arrowIcon} />
         </button>
 
         <div className={styles.info} ref={infoRef} aria-live="polite">
@@ -492,7 +493,7 @@ export function ProjectCoverflow({ projects }) {
         </div>
 
         <button className={styles.arrowButton} type="button" onClick={next} aria-label="Próximo projeto">
-          <span aria-hidden="true">→</span>
+          <ArrowIcon className={styles.arrowIcon} />
         </button>
       </div>
 
