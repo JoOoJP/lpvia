@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { whatsappUrl } from "../contact";
 import { Arrow } from "../ui/arrow";
-import { heroProjectLayers } from "./hero-cards";
+import { heroProjects } from "./hero-cards";
 import styles from "./hero-b.module.css";
 
 gsap.registerPlugin(useGSAP);
@@ -196,7 +196,7 @@ function ProjectVisual({ project }) {
 function ProjectArtifact({ project }) {
   return (
     <a
-      className={`${styles.project} ${styles[project.slot]} ${styles[project.surface]} ${project.visual ? styles[project.visual] : ""} ${project.ambient ? styles.projectAmbient : ""}`}
+      className={`${styles.project} ${styles[project.slot]} ${styles[project.surface]} ${(project.visual && styles[project.visual]) || ""}`}
       href={project.href}
       aria-label={`${project.title} — ${project.type}`}
       {...(project.external ? { target: "_blank", rel: "noreferrer" } : {})}
@@ -214,94 +214,6 @@ function ProjectArtifact({ project }) {
   );
 }
 
-const desktopHeroProjects = [
-  {
-    id: "moikato",
-    label: "Conhecer o case Moikato",
-    href: "#case-moikato",
-    slot: "hotspotMoikato",
-    depth: 1.35,
-  },
-  {
-    id: "sephie",
-    label: "Conhecer o case Sephie Tarot",
-    href: "#case-sephie-tarot",
-    slot: "hotspotSephie",
-    depth: 0.72,
-  },
-  {
-    id: "tardinha",
-    label: "Conhecer o case A Tardinha",
-    href: "#case-tardinha",
-    slot: "hotspotTardinha",
-    depth: 0.58,
-  },
-  {
-    id: "route",
-    label: "Conhecer o case In Tha Route",
-    href: "#case-in-tha-route",
-    slot: "hotspotRoute",
-    depth: 0.78,
-  },
-  {
-    id: "sweet",
-    label: "Conhecer o case Sweet Popcorn Gourmet",
-    href: "#case-sweet-popcorn",
-    slot: "hotspotSweet",
-    depth: 1.22,
-  },
-  {
-    id: "latino",
-    label: "Ver os projetos de conteúdo visual",
-    href: "#case-conteudo-visual",
-    slot: "hotspotLatino",
-    depth: 0.92,
-  },
-  {
-    id: "xango",
-    label: "Conhecer o case Xangô",
-    href: "#case-xango",
-    slot: "hotspotXango",
-    depth: 0.68,
-  },
-  {
-    id: "luna",
-    label: "Ver os projetos de identidade visual",
-    href: "#trabalhos",
-    slot: "hotspotLuna",
-    depth: 1.08,
-  },
-  {
-    id: "saude",
-    label: "Conhecer o case de clínicas na área da saúde",
-    href: "#case-saude",
-    slot: "hotspotHealth",
-    depth: 0,
-    motion: "fixed",
-  },
-];
-
-function DesktopProjectInteractions() {
-  return (
-    <nav className={styles.desktopInteractions} aria-label="Projetos em destaque">
-      {desktopHeroProjects.map((project) => (
-        <a
-          className={`${styles.desktopProjectHotspot} ${styles[project.slot]}`}
-          data-depth={project.depth}
-          data-motion={project.motion ?? "depth"}
-          href={project.href}
-          key={project.id}
-          aria-label={project.label}
-        >
-          <span className={styles.desktopProjectArtwork} aria-hidden="true">
-            <span className={styles.desktopProjectHint}>Ver projeto</span>
-          </span>
-        </a>
-      ))}
-    </nav>
-  );
-}
-
 export function HeroB() {
   const heroRef = useRef(null);
 
@@ -310,192 +222,49 @@ export function HeroB() {
       const hero = heroRef.current;
       if (!hero) return;
 
-      const wordmark = hero.querySelector(`.${styles.wordmark}`);
-      const wordmarkMotion = wordmark?.querySelector(
-        `.${styles.wordmarkStage}`,
-      );
-      const desktopHotspots = gsap.utils.toArray(
-        `.${styles.desktopProjectHotspot}`,
-      );
+      const wordmarkMotion = hero.querySelector(`.${styles.wordmarkStage}`);
+      const pitchItems = gsap.utils.toArray(`.${styles.pitch} > *`, hero);
+      const railCards = gsap.utils.toArray(`.${styles.project}`, hero);
       const media = gsap.matchMedia();
 
-      media.add(
-        "(max-width: 1000px) and (prefers-reduced-motion: no-preference)",
-        () => {
-          const pitchItems = gsap.utils.toArray(
-            `.${styles.mobilePitch} > *`,
-            hero,
+      media.add("(prefers-reduced-motion: no-preference)", () => {
+        const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        intro
+          .fromTo(
+            wordmarkMotion,
+            {
+              autoAlpha: 0,
+              scale: 0.94,
+              rotationX: 4,
+              z: -44,
+              filter: "blur(7px)",
+            },
+            {
+              autoAlpha: 1,
+              scale: 1,
+              rotationX: 0,
+              z: 0,
+              filter: "blur(0px)",
+              duration: 1.1,
+              ease: "expo.out",
+            },
+          )
+          .fromTo(
+            pitchItems,
+            { autoAlpha: 0, y: 14 },
+            { autoAlpha: 1, y: 0, duration: 0.62, stagger: 0.08 },
+            "-=0.8",
+          )
+          .fromTo(
+            railCards,
+            { autoAlpha: 0, y: 20 },
+            { autoAlpha: 1, y: 0, duration: 0.56, stagger: 0.06 },
+            "-=0.42",
           );
-          const railCards = gsap.utils.toArray(
-            `.${styles.projectField} .${styles.project}`,
-            hero,
-          );
-          const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-          intro
-            .fromTo(
-              wordmarkMotion,
-              {
-                autoAlpha: 0,
-                scale: 0.94,
-                rotationX: 4,
-                z: -44,
-                filter: "blur(7px)",
-              },
-              {
-                autoAlpha: 1,
-                scale: 1,
-                rotationX: 0,
-                z: 0,
-                filter: "blur(0px)",
-                duration: 1.1,
-                ease: "expo.out",
-              },
-            )
-            .fromTo(
-              pitchItems,
-              { autoAlpha: 0, y: 14 },
-              { autoAlpha: 1, y: 0, duration: 0.62, stagger: 0.08 },
-              "-=0.8",
-            )
-            .fromTo(
-              railCards,
-              { autoAlpha: 0, y: 20 },
-              { autoAlpha: 1, y: 0, duration: 0.56, stagger: 0.06 },
-              "-=0.42",
-            );
-
-          return () => intro.kill();
-        },
-      );
-
-      media.add(
-        "(min-width: 1001px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
-        () => {
-          let pendingFrame = 0;
-          let pointerX = 0;
-          let pointerY = 0;
-
-          const cardMotion = desktopHotspots.map((hotspot) => {
-            const artwork = hotspot.querySelector(
-              `.${styles.desktopProjectArtwork}`,
-            );
-            const depth = Number(hotspot.dataset.depth || 1);
-
-            // O celular já está recortado na composição-base. Deslocar uma
-            // segunda cópia revela o original por baixo e cria uma borda dupla.
-            if (hotspot.dataset.motion === "fixed") {
-              return {
-                depth: 0,
-                x: () => {},
-                y: () => {},
-                settleTilt: () => {},
-                cleanup: () => {},
-              };
-            }
-
-            const x = gsap.quickTo(artwork, "x", {
-              duration: 0.62,
-              ease: "power3.out",
-            });
-            const y = gsap.quickTo(artwork, "y", {
-              duration: 0.72,
-              ease: "power3.out",
-            });
-            const rotateX = gsap.quickTo(artwork, "rotationX", {
-              duration: 0.38,
-              ease: "power3.out",
-            });
-            const rotateY = gsap.quickTo(artwork, "rotationY", {
-              duration: 0.38,
-              ease: "power3.out",
-            });
-            const scaleX = gsap.quickTo(artwork, "scaleX", {
-              duration: 0.32,
-              ease: "power3.out",
-            });
-            const scaleY = gsap.quickTo(artwork, "scaleY", {
-              duration: 0.32,
-              ease: "power3.out",
-            });
-            const setScale = (value) => {
-              scaleX(value);
-              scaleY(value);
-            };
-
-            const settleTilt = () => {
-              rotateX(0);
-              rotateY(0);
-              setScale(1);
-            };
-            const activate = () => setScale(1.018);
-            const tilt = (event) => {
-              const bounds = hotspot.getBoundingClientRect();
-              const localX = (event.clientX - bounds.left) / bounds.width - 0.5;
-              const localY = (event.clientY - bounds.top) / bounds.height - 0.5;
-              rotateX(localY * -4.5);
-              rotateY(localX * 5.5);
-            };
-
-            hotspot.addEventListener("pointerenter", activate);
-            hotspot.addEventListener("pointermove", tilt, { passive: true });
-            hotspot.addEventListener("pointerleave", settleTilt);
-            hotspot.addEventListener("focus", activate);
-            hotspot.addEventListener("blur", settleTilt);
-
-            return {
-              depth,
-              x,
-              y,
-              settleTilt,
-              cleanup: () => {
-                hotspot.removeEventListener("pointerenter", activate);
-                hotspot.removeEventListener("pointermove", tilt);
-                hotspot.removeEventListener("pointerleave", settleTilt);
-                hotspot.removeEventListener("focus", activate);
-                hotspot.removeEventListener("blur", settleTilt);
-              },
-            };
-          });
-
-          const renderDepth = () => {
-            pendingFrame = 0;
-            cardMotion.forEach((motion) => {
-              motion.x(pointerX * motion.depth * 7);
-              motion.y(pointerY * motion.depth * 5);
-            });
-          };
-          const settleDepth = () => {
-            if (pendingFrame) cancelAnimationFrame(pendingFrame);
-            pendingFrame = 0;
-            cardMotion.forEach((motion) => {
-              motion.x(0);
-              motion.y(0);
-              motion.settleTilt();
-            });
-          };
-          const moveDepth = (event) => {
-            pointerX = event.clientX / window.innerWidth - 0.5;
-            pointerY = event.clientY / window.innerHeight - 0.5;
-            if (!pendingFrame) pendingFrame = requestAnimationFrame(renderDepth);
-          };
-          const handleVisibility = () => {
-            if (document.hidden) settleDepth();
-          };
-
-          hero.addEventListener("pointermove", moveDepth, { passive: true });
-          hero.addEventListener("pointerleave", settleDepth);
-          document.addEventListener("visibilitychange", handleVisibility);
-
-          return () => {
-            hero.removeEventListener("pointermove", moveDepth);
-            hero.removeEventListener("pointerleave", settleDepth);
-            document.removeEventListener("visibilitychange", handleVisibility);
-            cardMotion.forEach((motion) => motion.cleanup());
-            if (pendingFrame) cancelAnimationFrame(pendingFrame);
-          };
-        },
-      );
+        return () => intro.kill();
+      });
 
       return () => media.revert();
     },
@@ -504,8 +273,6 @@ export function HeroB() {
 
   return (
     <section className={styles.hero} id="inicio" ref={heroRef}>
-      <div className={styles.referenceBackdrop} aria-hidden="true" />
-      <DesktopProjectInteractions />
       <div className={styles.glowBed} aria-hidden="true" />
 
       <div className={styles.scene}>
@@ -516,16 +283,16 @@ export function HeroB() {
           <Wordmark3D />
         </h1>
 
-        <div className={styles.mobilePitch}>
+        <div className={styles.pitch}>
           <p className="dark-kicker">VIA / GROWTH COMPANY</p>
-          <p className={styles.mobileHeadline} aria-hidden="true">
+          <p className={styles.headline} aria-hidden="true">
             Estratégia que <span>ganha forma.</span>
           </p>
-          <p className={styles.mobileLead}>
+          <p className={styles.lead}>
             Estratégia, marketing, comercial e tecnologia no mesmo movimento —
             para construir marcas e negócios digitais com clareza e performance.
           </p>
-          <div className={styles.mobileActions}>
+          <div className={styles.actions}>
             <a
               className="dark-button dark-button-primary"
               href={whatsappUrl}
@@ -541,29 +308,11 @@ export function HeroB() {
         </div>
 
         <div className={styles.projectField}>
-          {heroProjectLayers.map((layer) => (
-            <div
-              className={`${styles.orbitLayer} ${styles[`layer${layer.id[0].toUpperCase()}${layer.id.slice(1)}`]}`}
-              data-depth={layer.id}
-              key={layer.id}
-            >
-              {layer.projects.map((project) => (
-                <ProjectArtifact project={project} key={project.id} />
-              ))}
-            </div>
-          ))}
-        </div>
-
-        <div className={styles.orbitNodes} aria-hidden="true">
-          {Array.from({ length: 8 }, (_, index) => (
-            <span key={index} />
+          {heroProjects.map((project) => (
+            <ProjectArtifact project={project} key={project.id} />
           ))}
         </div>
       </div>
-
-      <a className={styles.explore} href="#fazemos">
-        explore <span aria-hidden="true" className={styles.exploreArrow} />
-      </a>
     </section>
   );
 }
