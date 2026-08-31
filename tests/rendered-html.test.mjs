@@ -38,9 +38,9 @@ test("renderiza a apresentação da VIA", async () => {
   assert.match(html, /ganha forma\./);
   assert.match(html, /VIA — estratégia que ganha forma\./);
   assert.doesNotMatch(html, /V\.IA/);
-  assert.match(html, /Brazil meets Europe/);
-  assert.match(html, /Beleza que transcende/);
-  assert.match(html, /Estourado com ingredientes reais/);
+  assert.match(html, /VIA . GROWTH COMPANY/);
+  assert.match(html, /Vamos conversar/);
+  assert.match(html, /<h2[^>]*id="project-coverflow-title"[^>]*>/);
   assert.match(html, /A VIA pensa e faz\./);
   assert.match(html, /CASE \/ MOIKATO \/ BRASIL → REINO UNIDO/);
   assert.doesNotMatch(html, /GROWTH PLUS \/ PRODUTO PRINCIPAL/);
@@ -95,7 +95,7 @@ test("publica o depoimento da Moikato antes do contato", async () => {
   assert.match(html, /Samuel/);
   assert.equal(html.match(/class="moikato-proof-video"/g)?.length, 1);
   assert.doesNotMatch(html, /dark-testimonial/);
-  assert.ok(html.indexOf("moikato-proof") < html.indexOf("project-coverflow"));
+  assert.ok(html.indexOf("moikato-proof") < html.indexOf('id="contato"'));
 });
 
 test("entrega os trabalhos em um coverflow acessível", async () => {
@@ -170,8 +170,8 @@ test("declara as fontes no mesmo escopo dos tokens", async () => {
 
   assert.match(tagHtml, /inter[^\"]*variable/);
   assert.match(tagHtml, /space_grotesk[^\"]*variable/);
-  // A serifada entra só nos nomes editoriais dos cases da primeira dobra.
-  assert.match(html, /libre_bodoni/i);
+  // A serifada saiu com os cards da hero antiga: só o catálogo ainda a usa.
+  assert.doesNotMatch(html, /libre_bodoni/i);
 });
 
 test("mantém a serifada disponível no catálogo do design system", async () => {

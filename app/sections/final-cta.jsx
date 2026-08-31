@@ -4,7 +4,6 @@ import { Arrow } from "../ui/arrow";
 export function FinalCta() {
   return (
     <section className="dark-contact" id="contato">
-      <div className="dark-contact-glow" aria-hidden="true" />
       <div className="dark-contact-inner section">
         <p className="dark-kicker">PRÓXIMO MOVIMENTO</p>
         <h2>

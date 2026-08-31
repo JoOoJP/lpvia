@@ -3,7 +3,6 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { siteDescription, siteTitle, siteUrl } from "./site";
 import "./design-tokens.css";
 import "./globals.css";
-import "./portfolio.css";
 import "./reference-redesign.css";
 
 const inter = Inter({
@@ -12,6 +11,8 @@ const inter = Inter({
 });
 
 const spaceGrotesk = Space_Grotesk({
+  // Só pinta o painel do menu no mobile: não precisa disputar a primeira dobra.
+  preload: false,
   variable: "--font-space-grotesk",
   subsets: ["latin"],
 });

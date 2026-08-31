@@ -111,14 +111,16 @@
     var(--via-green) 100%
   );
   /*
-   * Versão para texto. O roxo da marca entrega 2.3:1 sobre o preto — abaixo
-   * até do mínimo de display —, então o recorte começa no ciano: 8.3:1 no
-   * início e 10.4:1 no fim. Superfícies seguem com o gradiente completo.
+   * Versão para texto: o mesmo arco da marca, com o roxo clareado. O roxo
+   * puro (--via-purple) entrega 2.4:1 sobre o preto, abaixo do mínimo de
+   * display; --via-purple-bright entrega 6,5:1 e preserva a assinatura
+   * inteira, como no wordmark.
    */
   --gradient-brand-text: linear-gradient(
-    100deg,
-    var(--via-cyan),
-    var(--via-green)
+    98deg,
+    var(--via-purple-bright) 2%,
+    var(--via-cyan) 55%,
+    var(--via-green) 98%
   );
   /* Recorte equivalente para superfícies claras: cada parada mantém 4.5:1. */
   --gradient-brand-text-light: linear-gradient(

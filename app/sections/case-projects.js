@@ -1,6 +1,4 @@
-import { ProjectCoverflow } from "./project-coverflow";
-
-const projects = [
+export const caseProjects = [
   {
     id: "case-moikato",
     name: "Moikato",
@@ -136,7 +134,9 @@ const projects = [
     description: "Construção de identidade visual e materiais gráficos.",
     image: "/projects/studio-giu-pricing.webp",
     alt: "Tabela de preços criada para o Studio da Giu",
-    fit: "cover",
+    // Peça quadrada: com cover, o quadro 16:9 mostrava só 56% da altura e
+    // decapitava o título.
+    fit: "contain",
     position: "center",
     surface: "studio",
   },
@@ -166,7 +166,3 @@ const projects = [
     },
   },
 ];
-
-export function Cases() {
-  return <ProjectCoverflow projects={projects} />;
-}

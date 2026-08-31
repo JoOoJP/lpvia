@@ -1,0 +1,278 @@
+/*
+ * Hero — marca, promessa, ação e o coverflow de projetos. A composição
+ * espacial antiga era uma imagem única com áreas clicáveis por cima: bonita
+ * na prancha, muda no retrato e impossível de manter em duas versões.
+ */
+
+.hero {
+  position: relative;
+  padding-top: 6rem;
+  padding-bottom: 1.25rem;
+  overflow: clip;
+  border-bottom: 1px solid rgb(255 255 255 / 8%);
+  background: #030405;
+  isolation: isolate;
+}
+
+.glowBed {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 78% 32% at 30% 16%, rgb(89 52 224 / 13%), transparent 72%),
+    radial-gradient(ellipse 70% 26% at 74% 34%, rgb(0 182 214 / 9%), transparent 74%);
+}
+
+/* Piso em perspectiva: quase some nos cantos e dá escala ao eixo central. */
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: -55%;
+  right: -55%;
+  bottom: -8%;
+  height: 46%;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image:
+    linear-gradient(rgb(58 145 208 / 12%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(58 145 208 / 12%) 1px, transparent 1px);
+  background-size: 3.4rem 2.4rem;
+  mask-image: radial-gradient(ellipse 66% 70% at 50% 54%, #000 0%, transparent 74%);
+  transform: perspective(650px) rotateX(64deg);
+  transform-origin: bottom;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgb(3 4 5 / 26%),
+    transparent 18%,
+    transparent 76%,
+    rgb(3 4 5 / 48%)
+  );
+}
+
+.scene {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1680px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+  padding-inline: var(--layout-gutter);
+  perspective: 900px;
+  perspective-origin: 50% 50%;
+}
+
+/* ---------- Marca central ---------- */
+
+.wordmark {
+  position: relative;
+  z-index: 4;
+  width: min(38vw, 10.5rem);
+  margin: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.assistive {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.wordmarkStage {
+  position: relative;
+  display: block;
+  width: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.wordmarkSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter:
+    drop-shadow(0 16px 9px rgb(0 0 0 / 75%))
+    drop-shadow(0 0 16px rgb(56 135 255 / 24%));
+}
+
+.wordmarkSvg path,
+.wordmarkReflection path {
+  stroke-linejoin: round;
+}
+
+.wordmarkDepth {
+  fill: #11152d;
+  stroke: rgb(97 107 183 / 42%);
+  stroke-width: 1.2;
+  opacity: 0.98;
+  filter: drop-shadow(3px 7px 2px #080a15);
+}
+
+.wordmarkGlow {
+  fill: url("#via-hero-glass");
+  stroke: url("#via-hero-glass");
+  stroke-width: 3;
+  opacity: 0.5;
+}
+
+.wordmarkGlass {
+  fill: url("#via-hero-glass");
+  stroke: rgb(223 244 255 / 58%);
+  stroke-width: 0.75;
+  opacity: 0.9;
+}
+
+.wordmarkHighlight {
+  fill: none;
+  stroke: url("#via-hero-highlight");
+  stroke-width: 0.65;
+  opacity: 0.76;
+}
+
+.wordmarkReflection {
+  position: absolute;
+  top: 80%;
+  left: 3%;
+  z-index: -1;
+  display: block;
+  width: 94%;
+  opacity: 0.12;
+  filter: blur(3px);
+  pointer-events: none;
+  transform: scaleY(-0.4) skewX(-2deg);
+  transform-origin: top;
+  mask-image: linear-gradient(to bottom, #000, transparent 72%);
+}
+
+.wordmarkReflection svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.wordmarkReflection path {
+  fill: rgb(57 149 217 / 42%);
+  stroke: none;
+}
+
+/* ---------- Promessa e ação ---------- */
+
+.pitch {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 34rem;
+}
+
+.headline {
+  margin: 0;
+  color: var(--color-text-via-dark);
+  font-size: clamp(2rem, 9.4vw, 2.85rem);
+  font-weight: 700;
+  letter-spacing: -0.032em;
+  line-height: 1.04;
+}
+
+.headline span {
+  background: var(--gradient-brand-text);
+  background-clip: text;
+  color: transparent;
+}
+
+.actions {
+  display: grid;
+  gap: 0.65rem;
+  max-width: 25rem;
+  margin-top: 0.35rem;
+}
+
+.actions :global(.dark-button) {
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* ---------- Escala por largura ---------- */
+
+@media (min-width: 721px) {
+  .hero {
+    padding-top: 7rem;
+    padding-bottom: 2rem;
+  }
+
+  .scene {
+    gap: 1.6rem;
+  }
+
+  .wordmark {
+    width: min(24vw, 13rem);
+  }
+
+  .headline {
+    font-size: clamp(2.8rem, 5.4vw, 3.6rem);
+  }
+
+  /*
+   * Com largura sobrando os botões param de ocupar a linha inteira, mas
+   * continuam do mesmo tamanho: colunas de 1fr numa grade que encolhe até o
+   * conteúdo dão a largura do rótulo mais longo aos dois, sem chumbar medida.
+   */
+  .actions {
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    width: fit-content;
+    max-width: none;
+  }
+
+  .actions :global(.dark-button) {
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1001px) {
+  .hero {
+    min-height: 100svh;
+    padding-top: 4.5rem;
+    padding-bottom: 0.75rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    /* `safe` evita que o conteúdo mais alto que a dobra suba por baixo do
+       cabeçalho fixo quando a centralização não tem folga. */
+    align-content: safe center;
+  }
+
+  .scene {
+    gap: 1rem;
+  }
+
+  .wordmark {
+    width: min(8vw, 8rem);
+  }
+
+  .headline {
+    font-size: clamp(2.6rem, 3.9vw, 4.4rem);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark {
+    transition: none;
+  }
+}

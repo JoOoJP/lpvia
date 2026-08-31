@@ -22,7 +22,11 @@ function shortestOffset(index, activeIndex, length) {
 function ProjectMedia({ project, active }) {
   if (project.compare && active) {
     return (
-      <div className={`${styles.media} ${styles.compare}`}>
+      // A superfície carrega as cores de letterbox de cada arte; sem ela o
+      // comparador caía no roxo padrão e emendava com o fundo do arquivo.
+      <div
+        className={`${styles.media} ${styles.compare} ${styles[`surface${project.surface}`] ?? ""}`}
+      >
         <BeforeAfterSlider
           before={project.compare.before}
           after={project.compare.after}
@@ -34,29 +38,69 @@ function ProjectMedia({ project, active }) {
   }
 
   if (project.kind === "health") {
+    /*
+     * Case sem ativo fotográfico. Em vez de simular uma tela parada, a lâmina
+     * mostra o que o trabalho produz: o agendamento acontecendo. Sem moldura
+     * de aparelho — a profundidade vem das duas peças em planos diferentes.
+     */
     return (
-      <div className={`${styles.media} ${styles.healthVisual}`} aria-label={project.alt}>
+      <div className={`${styles.media} ${styles.healthVisual}`}>
         <div className={styles.healthGlow} aria-hidden="true" />
-        <div className={styles.healthPhone} aria-hidden="true">
-          <span>SAÚDE / AUTORIDADE</span>
-          <strong>
-            Cuidado que
-            <br />
-            transforma vidas.
-          </strong>
-          <p>Conteúdo que informa. Estratégia que aproxima.</p>
-          <i>CONHEÇA NOSSO TRABALHO</i>
+        <svg
+          className={styles.healthCross}
+          viewBox="0 0 100 100"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <rect x="41" y="4" width="18" height="92" rx="9" />
+          <rect x="4" y="41" width="92" height="18" rx="9" />
+        </svg>
+
+        <div className={styles.healthCopy}>
+          <p className={styles.healthStatement}>Cuidado que transforma vidas.</p>
+          <p className={styles.healthDisciplines}>
+            Estratégia <i>·</i> Conteúdo <i>·</i> Mídia
+          </p>
         </div>
-        <div className={styles.healthMetric} aria-hidden="true">
-          <span>DEMANDA QUALIFICADA</span>
-          <strong>Estratégia + conteúdo + mídia</strong>
-          <i />
+
+        <div className={styles.healthStack} aria-hidden="true">
+          <div className={styles.healthAlert}>
+            <span className={styles.healthAlertDot} />
+            Novo agendamento
+          </div>
+
+          <div className={styles.healthTicket}>
+            <svg
+              className={styles.healthCheck}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              focusable="false"
+            >
+              <path d="M4 12.5 9.5 18 20 6.5" />
+            </svg>
+            <strong className={styles.healthTicketTitle}>
+              Consulta confirmada
+            </strong>
+            <p className={styles.healthTicketMeta}>Vitae · Cardiologia</p>
+            <span className={styles.healthTicketRow}>
+              <i>Terça, 14h</i>
+              <i>Presencial</i>
+            </span>
+          </div>
         </div>
       </div>
     );
   }
 
-  if (project.kind === "content" && active) {
+
+  // A colagem não depende de foco: são imagens estáticas, e trocar de
+  // conteúdo entre ativo e inativo fazia o cartaz retrato ser decepado pelo
+  // recorte 16:9 do fallback.
+  if (project.kind === "content") {
     return (
       <div className={`${styles.media} ${styles.contentVisual}`}>
         {project.collage.map((piece, index) => (
@@ -243,17 +287,6 @@ export function ProjectCoverflow({ projects }) {
     },
   );
 
-  const handleKeyDown = (event) => {
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      previous();
-    }
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
-      next();
-    }
-  };
-
   const handlePointerDown = (event) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     pointerStart.current = { x: event.clientX, y: event.clientY };
@@ -315,6 +348,40 @@ export function ProjectCoverflow({ projects }) {
     return () => track.removeEventListener("wheel", handleWheel);
   }, [handleWheel]);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+
+      // Campo de texto e o comparador antes/depois têm seta própria.
+      const target = event.target;
+      if (
+        target instanceof HTMLElement &&
+        (target.isContentEditable ||
+          ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))
+      ) {
+        return;
+      }
+
+      // Fora da vista, a seta é da página, não do carrossel.
+      const bounds = section.getBoundingClientRect();
+      const visible =
+        bounds.top < window.innerHeight * 0.75 &&
+        bounds.bottom > window.innerHeight * 0.25;
+      if (!visible) return;
+
+      event.preventDefault();
+      if (event.key === "ArrowRight") next();
+      else previous();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [next, previous]);
+
   return (
     <section
       className={`${styles.section} project-coverflow`}
@@ -322,13 +389,11 @@ export function ProjectCoverflow({ projects }) {
       ref={sectionRef}
       aria-labelledby="project-coverflow-title"
     >
-      <header className={styles.header}>
-        <i aria-hidden="true" />
-        <h2 id="project-coverflow-title">Projetos que ganharam forma.</h2>
-        <p>
-          Estratégia, identidade e execução em trabalhos que já estão no mundo.
-        </p>
-      </header>
+      {/* O hero já apresenta a página; aqui o título serve à estrutura do
+          documento e ao leitor de tela, sem competir com a headline. */}
+      <h2 className={styles.assistiveTitle} id="project-coverflow-title">
+        Projetos que ganharam forma.
+      </h2>
 
       <div
         className={styles.track}
@@ -337,7 +402,6 @@ export function ProjectCoverflow({ projects }) {
         aria-roledescription="carrossel"
         aria-label="Projetos da VIA"
         tabIndex={0}
-        onKeyDown={handleKeyDown}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
         onPointerCancel={() => {
