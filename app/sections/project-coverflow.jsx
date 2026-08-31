@@ -443,14 +443,44 @@ export function ProjectCoverflow({ projects }) {
 
         <div className={styles.info} ref={infoRef} aria-live="polite">
           <div className={styles.infoTop}>
-            <strong>{activeProject.label}</strong>
-            <span>{activeProject.tags}</span>
+            <div className={styles.infoStack}>
+              {projects.map((project, index) => (
+                <strong
+                  aria-hidden={index === activeIndex ? undefined : "true"}
+                  data-current={index === activeIndex ? "true" : "false"}
+                  key={project.id}
+                >
+                  {project.label}
+                </strong>
+              ))}
+            </div>
+            <div className={styles.infoStack}>
+              {projects.map((project, index) => (
+                <span
+                  aria-hidden={index === activeIndex ? undefined : "true"}
+                  data-current={index === activeIndex ? "true" : "false"}
+                  key={project.id}
+                >
+                  {project.tags}
+                </span>
+              ))}
+            </div>
             <small>
               {String(activeIndex + 1).padStart(2, "0")} — {String(projects.length).padStart(2, "0")}
             </small>
           </div>
           <div className={styles.infoBottom}>
-            <p>{activeProject.description}</p>
+            <div className={styles.infoDescriptions}>
+              {projects.map((project, index) => (
+                <p
+                  aria-hidden={index === activeIndex ? undefined : "true"}
+                  data-current={index === activeIndex ? "true" : "false"}
+                  key={project.id}
+                >
+                  {project.description}
+                </p>
+              ))}
+            </div>
             {activeProject.href ? (
               <a href={activeProject.href} target="_blank" rel="noreferrer">
                 {activeProject.cta} <span aria-hidden="true">↗</span>

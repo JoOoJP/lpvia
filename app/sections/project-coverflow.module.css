@@ -460,6 +460,7 @@
 
 .infoTop strong {
   color: #f4f5f3;
+  margin: 0;
   font-size: 0.82rem;
   font-weight: 730;
   letter-spacing: 0.05em;
@@ -469,7 +470,7 @@
   color: #59e895;
 }
 
-.infoTop > span,
+.infoTop span,
 .infoTop small,
 .projectBy {
   color: #8e9598;
@@ -487,16 +488,42 @@
   padding-top: 1rem;
 }
 
-.infoBottom p {
+/*
+ * Todas as descrições ocupam a mesma célula da grade: a altura passa a ser a
+ * da maior delas, então trocar de projeto não mexe mais na altura da barra
+ * nem desloca o carrossel.
+ */
+.infoDescriptions,
+.infoStack {
+  display: grid;
+  min-width: 0;
+}
+
+.infoStack > * {
+  grid-area: 1 / 1;
+}
+
+.infoStack > [data-current="false"] {
+  visibility: hidden;
+}
+
+.infoDescriptions > p {
+  grid-area: 1 / 1;
   max-width: 690px;
+  margin: 0;
   color: #9ea5a7;
   font-size: clamp(0.9rem, 1.1vw, 1.02rem);
   line-height: 1.55;
 }
 
+.infoDescriptions > p[data-current="false"] {
+  visibility: hidden;
+}
+
 .infoBottom a {
   /* 24px de alvo: o texto sozinho dava 21px de altura clicável. */
   padding-block: 0.35rem 0.3rem;
+  line-height: 1.2;
   border-bottom: 1px solid #20b7e4;
   color: #f4f5f3;
   font-size: 0.72rem;
@@ -507,6 +534,11 @@
 
 .projectBy {
   justify-self: end;
+  /* Mesma caixa do link ao lado: sem isso a barra encolhe nos projetos que
+     não têm link externo. */
+  padding-block: 0.35rem 0.3rem;
+  border-bottom: 1px solid transparent;
+  line-height: 1.2;
 }
 
 .gestureHint {
