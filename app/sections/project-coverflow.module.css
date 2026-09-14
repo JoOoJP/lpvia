@@ -412,12 +412,16 @@
 }
 
 .rail {
-  width: min(100% - (2 * var(--layout-gutter)), 1180px);
+  width: 100%;
   margin: clamp(0.85rem, 1.5vw, 1.4rem) auto 0;
+  padding: 0.9rem var(--layout-gutter);
   display: grid;
   grid-template-columns: 64px minmax(0, 1fr) 64px;
   align-items: center;
   gap: clamp(1rem, 3vw, 3rem);
+  border-block: 1px solid var(--via-keyline);
+  background: var(--via-surface-strong);
+  backdrop-filter: blur(8px);
 }
 
 .arrowButton {
@@ -725,5 +729,66 @@
   .slide,
   .arrowButton {
     transition: none;
+  }
+}
+
+/* On phones, keep navigation and project copy on separate, stable rows. */
+@media (max-width: 720px) {
+  .rail {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    row-gap: 0.9rem;
+  }
+
+  .arrowButton {
+    grid-row: 1;
+    margin-top: 0;
+    touch-action: manipulation;
+  }
+
+  .arrowButton:last-child {
+    grid-column: 3;
+  }
+
+  .info {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .infoTop {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+
+  .infoStack:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .infoStack:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .infoTop small {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .infoStack span {
+    font-size: 0.56rem;
+    line-height: 1.4;
+  }
+
+  .infoBottom a,
+  .projectBy {
+    min-height: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .slide {
+    transform-style: flat;
   }
 }

@@ -21,12 +21,13 @@ function shortestOffset(index, activeIndex, length) {
 }
 
 function ProjectMedia({ project, active }) {
-  if (project.compare && active) {
+  if (project.compare) {
     return (
       // A superfície carrega as cores de letterbox de cada arte; sem ela o
       // comparador caía no roxo padrão e emendava com o fundo do arquivo.
       <div
         className={`${styles.media} ${styles.compare} ${styles[`surface${project.surface}`] ?? ""}`}
+        inert={!active}
       >
         <BeforeAfterSlider
           before={project.compare.before}
@@ -139,7 +140,6 @@ export function ProjectCoverflow({ projects }) {
   const [trackWidth, setTrackWidth] = useState(0);
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
-  const infoRef = useRef(null);
   const pointerStart = useRef(null);
   const initialLayout = useRef(true);
   const wheelAccumulator = useRef(0);
@@ -224,10 +224,13 @@ export function ProjectCoverflow({ projects }) {
         const direction = Math.sign(offset);
         const visibleDistance = compact ? 1 : 2;
 
+        // Cancel interrupted motion before parking slides outside the viewport.
+        gsap.killTweensOf(slide);
         if (distance > visibleDistance) {
           gsap.set(slide, {
             xPercent: -50,
             yPercent: -50,
+            x: direction * trackWidth * 1.5,
             autoAlpha: 0,
             pointerEvents: "none",
           });
@@ -235,7 +238,7 @@ export function ProjectCoverflow({ projects }) {
         }
 
         const firstStep = compact
-          ? trackWidth * 0.68
+          ? trackWidth * 0.9
           : Math.min(Math.max(trackWidth * 0.29, 250), 390);
         const nextStep = compact
           ? 0
@@ -262,23 +265,6 @@ export function ProjectCoverflow({ projects }) {
           overwrite: true,
         });
       });
-
-      if (infoRef.current) {
-        if (shouldAnimate) {
-          gsap.fromTo(
-            infoRef.current.children,
-            { autoAlpha: 0, y: 6 },
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.24,
-              ease: "power2.out",
-            },
-          );
-        } else {
-          gsap.set(infoRef.current.children, { autoAlpha: 1, y: 0 });
-        }
-      }
 
       initialLayout.current = false;
     },
@@ -442,7 +428,7 @@ export function ProjectCoverflow({ projects }) {
           <ArrowIcon direction="left" className={styles.arrowIcon} />
         </button>
 
-        <div className={styles.info} ref={infoRef} aria-live="polite">
+        <div className={styles.info} aria-live="polite">
           <div className={styles.infoTop}>
             <div className={styles.infoStack}>
               {projects.map((project, index) => (

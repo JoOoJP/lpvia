@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = "5541991014546";
+const WHATSAPP_NUMBER = "5541987383806";
 
 export const phoneE164 = `+${WHATSAPP_NUMBER}`;
 

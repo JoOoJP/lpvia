@@ -5,6 +5,29 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
+  scrollbar-color: #745cff #070809;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar {
+  width: 12px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #070809;
+  box-shadow: inset 1px 0 rgb(255 255 255 / 8%);
+}
+
+html::-webkit-scrollbar-thumb {
+  min-height: 72px;
+  border: 3px solid #070809;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #745cff 0%, #20b7e4 52%, #59e895 100%);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8d79ff 0%, #32c8ee 52%, #6df0a6 100%);
 }
 
 body {

@@ -58,7 +58,7 @@ test("publica metadados sociais e navegação essenciais", async () => {
   assert.match(html, /href="#fazemos"/);
   assert.match(html, /href="#moikato"/);
   assert.match(html, /href="#trabalhos"/);
-  assert.match(html, /wa\.me\/5541991014546/);
+  assert.match(html, /wa\.me\/5541987383806/);
 });
 
 test("mostra o escopo real da VIA", async () => {
@@ -196,7 +196,7 @@ test("publica canonical, sitemap e identidade da organização", async () => {
 
   assert.match(html, /<link rel="canonical" href="[^"]+"\/>/);
   assert.match(html, /"@type":"Organization"/);
-  assert.match(html, /"telephone":"\+5541991014546"/);
+  assert.match(html, /"telephone":"\+5541987383806"/);
 
   const sitemap = await fetch(`${pageUrl}sitemap.xml`);
   assert.equal(sitemap.status, 200);
