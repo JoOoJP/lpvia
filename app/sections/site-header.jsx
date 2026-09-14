@@ -183,7 +183,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <a
-          className="button button-gradient"
+          className="contact-module-cta menu-contact-module"
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
@@ -192,7 +192,13 @@ export function SiteHeader() {
             setMenuOpen(false);
           }}
         >
-          Fale com a VIA <Arrow />
+          <span className="contact-module-copy">
+            <span className="contact-module-note">Tem um projeto em mente?</span>
+            <span className="contact-module-label">Fale com a VIA</span>
+          </span>
+          <span className="contact-module-arrow">
+            <Arrow />
+          </span>
         </a>
       </div>
     </header>

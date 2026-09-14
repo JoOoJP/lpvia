@@ -143,18 +143,25 @@ export function Capabilities() {
       </header>
 
       <div className="dark-capability-grid">
-        {capabilities.map((capability) => (
-          <CapabilityCard key={capability.title} {...capability} />
+        {capabilities.map((capability, index) => (
+          <CapabilityCard
+            key={capability.title}
+            number={String(index + 1).padStart(2, "0")}
+            {...capability}
+          />
         ))}
       </div>
     </section>
   );
 }
 
-function CapabilityCard({ accent, icon, title, text, reference }) {
+function CapabilityCard({ accent, icon, number, title, text, reference }) {
   return (
     <article className={`dark-capability-card dark-capability-${accent}`}>
-      <CapabilityIcon name={icon} />
+      <div className="dark-capability-meta" aria-hidden="true">
+        <span>{number}</span>
+        <CapabilityIcon name={icon} />
+      </div>
       <h3>{title}</h3>
       <p>{text}</p>
       <a

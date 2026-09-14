@@ -13,12 +13,18 @@ export function FinalCta() {
         </h2>
         <p>Soluções digitais de estratégia, criatividade e tecnologia.</p>
         <a
-          className="dark-button dark-button-primary"
+          className="contact-module-cta"
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
         >
-          Fale com a VIA <Arrow />
+          <span className="contact-module-copy">
+            <span className="contact-module-note">Tem um projeto em mente?</span>
+            <span className="contact-module-label">Fale com a VIA</span>
+          </span>
+          <span className="contact-module-arrow">
+            <Arrow />
+          </span>
         </a>
         <p className="dark-contact-email">
           Prefere e-mail? <a href={emailUrl}>{email}</a>

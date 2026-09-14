@@ -89,7 +89,8 @@
   margin-top: 0.35rem;
 }
 
-.actions :global(.dark-button) {
+.actions :global(.dark-button),
+.actions :global(.contact-module-cta) {
   width: 100%;
   justify-content: space-between;
 }

@@ -50,14 +50,23 @@ export function Hero({ projects }) {
           </h1>
           <div className={styles.actions}>
             <a
-              className="dark-button dark-button-primary"
+              className="contact-module-cta"
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
             >
-              Vamos conversar <Arrow />
+              <span className="contact-module-copy">
+                <span className="contact-module-note">Tem um projeto em mente?</span>
+                <span className="contact-module-label">Vamos conversar</span>
+              </span>
+              <span className="contact-module-arrow">
+                <Arrow />
+              </span>
             </a>
-            <a className="dark-button dark-button-secondary" href="#fazemos">
+            <a
+              className="dark-button dark-button-secondary dark-button-editorial"
+              href="#fazemos"
+            >
               Conheça a VIA <span aria-hidden="true">↓</span>
             </a>
           </div>
