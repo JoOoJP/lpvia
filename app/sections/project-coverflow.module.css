@@ -597,6 +597,25 @@
 }
 
 @media (max-width: 720px) {
+  /*
+   * Os dois halos custam caro e quase não aparecem num telefone: a 12% de
+   * opacidade, atrás do tabuleiro, são névoa. Um raio de 120px sobre um círculo
+   * de 30rem é uma superfície maior que a tela inteira para o navegador
+   * desfocar. Menor e menos borrado, a cor continua lá.
+   */
+  .section::before,
+  .section::after {
+    width: 18rem;
+    filter: blur(60px);
+  }
+
+  .section::before { left: -10rem; }
+  .section::after { right: -10rem; }
+
+  .healthGlow {
+    filter: blur(28px);
+  }
+
   .track {
     height: min(31svh, 290px);
     margin-top: 1.4rem;
@@ -643,10 +662,14 @@
     width: 36%;
   }
 
+  /* A barra já é 90% opaca: o borrão atrás dela paga um custo de rolagem sem
+     ter o que mostrar. Ver o bloco do cabeçalho em reference-redesign.css. */
   .rail {
     grid-template-columns: 46px minmax(0, 1fr) 46px;
     align-items: start;
     gap: 0.6rem;
+    background: rgb(5 6 8 / 95%);
+    backdrop-filter: none;
   }
 
   .arrowButton {

@@ -21,15 +21,21 @@
   min-width: 0;
   overflow: clip;
   background-color: #08090a;
+  /*
+   * O tabuleiro era um `conic-gradient` repetido por toda a altura do
+   * documento. Gradiente cônico é avaliado pixel a pixel (um atan por ponto),
+   * e como o desenho é do <main> inteiro, cada faixa nova que entra na tela ao
+   * rolar é rasterizada de novo — no celular, com a peça de 120px, são dezenas
+   * de repetições por tela. O mesmo xadrez como ladrilho SVG é decodificado uma
+   * vez e depois só copiado.
+   *
+   * As cores vêm achatadas: #5b595d é o rgb(238 232 241 / 36%) e #3a1f6c é o
+   * rgb(98 49 188 / 55%), ambos já compostos sobre o #08090a acima. Mexer numa
+   * das três cores exige refazer a conta.
+   */
   background-image:
     var(--via-checker-veil),
-    conic-gradient(
-      from 90deg,
-      rgb(238 232 241 / 36%) 0 25%,
-      rgb(98 49 188 / 55%) 0 50%,
-      rgb(238 232 241 / 36%) 0 75%,
-      rgb(98 49 188 / 55%) 0 100%
-    );
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2 2' shape-rendering='crispEdges'%3E%3Cpath fill='%235b595d' d='M0 0h1v1H0zM1 1h1v1H1z'/%3E%3Cpath fill='%233a1f6c' d='M1 0h1v1H1zM0 1h1v1H0z'/%3E%3C/svg%3E");
   background-position: center top, center top;
   background-size:
     auto,
@@ -1182,7 +1188,28 @@
     );
   }
 
-  .via-dark-site .site-header { height: 64px; }
+  /*
+   * Nenhum `backdrop-filter` no celular. Um cabeçalho fixo que borra o fundo
+   * obriga o compositor a fotografar e desfocar a faixa atrás dele em TODO
+   * quadro de rolagem — e o que está atrás é o tabuleiro, o desenho mais caro
+   * da página. A translucidez sozinha é barata; o borrão é que não é. Subir a
+   * opacidade cobre a diferença: sobre um fundo escuro, um borrão a 78% e uma
+   * chapa a 90% chegam ao olho praticamente iguais.
+   */
+  .via-dark-site .site-header {
+    height: 64px;
+    background: rgb(6 7 7 / 90%);
+    backdrop-filter: none;
+  }
+
+  .via-dark-site .site-header-solid,
+  .via-dark-site .site-header-open { background: rgb(6 7 7 / 97%); }
+
+  .before-after-label {
+    background: rgb(6 7 7 / 90%);
+    backdrop-filter: none;
+  }
+
   .via-dark-site .logo,
   .via-dark-site .logo .via-mark { width: 52px; }
   .via-dark-site .menu-panel { top: 64px; min-height: calc(100dvh - 64px); }

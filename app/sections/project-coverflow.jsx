@@ -20,6 +20,28 @@ function shortestOffset(index, activeIndex, length) {
   return offset;
 }
 
+const COMPACT_QUERY = "(max-width: 720px)";
+
+// Antes de decidir o eixo, o toque é só ruído: o polegar sempre começa torto.
+const AXIS_LOCK = 8;
+
+// Quanto um projeto anda para ocupar o lugar do vizinho. O arrasto precisa da
+// mesma medida que a montagem das lâminas, senão o dedo e o carrossel andam em
+// escalas diferentes.
+function firstStepFor(trackWidth, compact) {
+  return compact
+    ? trackWidth * 0.9
+    : Math.min(Math.max(trackWidth * 0.29, 250), 390);
+}
+
+// Passado um projeto inteiro o arrasto endurece: o carrossel continua vivo sob
+// o dedo, mas para de prometer um salto de dois que ele não vai dar.
+function resist(delta, step) {
+  const excess = Math.abs(delta) - step;
+  if (excess <= 0) return delta;
+  return Math.sign(delta) * (step + excess * 0.22);
+}
+
 function ProjectMedia({ project, active }) {
   if (project.compare) {
     return (
@@ -140,7 +162,10 @@ export function ProjectCoverflow({ projects }) {
   const [trackWidth, setTrackWidth] = useState(0);
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
-  const pointerStart = useRef(null);
+  const drag = useRef(null);
+  // Um arrasto que trocou de projeto não pode virar clique no vizinho: o
+  // ponteiro termina em cima de outra lâmina, e o clique seguiria sozinho.
+  const swiped = useRef(false);
   const initialLayout = useRef(true);
   const wheelAccumulator = useRef(0);
   const wheelLock = useRef(false);
@@ -213,7 +238,7 @@ export function ProjectCoverflow({ projects }) {
     () => {
       if (!trackWidth) return;
 
-      const compact = window.matchMedia("(max-width: 720px)").matches;
+      const compact = window.matchMedia(COMPACT_QUERY).matches;
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const slides = gsap.utils.toArray(`.${styles.slide}`, sectionRef.current);
       const shouldAnimate = !reduced && !initialLayout.current;
@@ -237,9 +262,7 @@ export function ProjectCoverflow({ projects }) {
           return;
         }
 
-        const firstStep = compact
-          ? trackWidth * 0.9
-          : Math.min(Math.max(trackWidth * 0.29, 250), 390);
+        const firstStep = firstStepFor(trackWidth, compact);
         const nextStep = compact
           ? 0
           : Math.min(trackWidth * 0.085, 105);
@@ -274,21 +297,103 @@ export function ProjectCoverflow({ projects }) {
     },
   );
 
+  // O trilho volta para o zero enquanto as lâminas se remontam: os dois usam a
+  // mesma curva e a mesma duração, então o movimento chega como um só.
+  const settleTrack = useCallback(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    gsap.to(trackRef.current, {
+      x: 0,
+      duration: reduced ? 0 : 0.42,
+      ease: "power3.out",
+      overwrite: true,
+    });
+  }, []);
+
   const handlePointerDown = (event) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
-    pointerStart.current = { x: event.clientX, y: event.clientY };
-    event.currentTarget.setPointerCapture?.(event.pointerId);
+
+    gsap.killTweensOf(trackRef.current);
+    swiped.current = false;
+    drag.current = {
+      id: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      lastX: event.clientX,
+      lastTime: event.timeStamp,
+      speed: 0,
+      axis: null,
+      step: firstStepFor(
+        trackWidth,
+        window.matchMedia(COMPACT_QUERY).matches,
+      ),
+    };
+  };
+
+  const handlePointerMove = (event) => {
+    const state = drag.current;
+    if (!state || event.pointerId !== state.id) return;
+
+    const deltaX = event.clientX - state.x;
+    const deltaY = event.clientY - state.y;
+
+    if (!state.axis) {
+      if (Math.abs(deltaX) < AXIS_LOCK && Math.abs(deltaY) < AXIS_LOCK) return;
+      state.axis = Math.abs(deltaX) > Math.abs(deltaY) ? "x" : "y";
+      // Só sequestra o ponteiro quando o gesto é do carrossel; no eixo
+      // vertical quem manda é a rolagem da página. A liberação é implícita no
+      // pointerup, e capturar pode falhar se o ponteiro já saiu de cena.
+      if (state.axis === "x") {
+        try {
+          event.currentTarget.setPointerCapture(event.pointerId);
+        } catch {
+          /* ponteiro encerrado entre o move e aqui: seguir sem captura. */
+        }
+      }
+    }
+
+    if (state.axis !== "x" || !state.step) return;
+
+    // A velocidade sai de uma janela de um quadro, não de dois eventos
+    // seguidos: o navegador entrega rajadas com carimbo de tempo quase igual, e
+    // dividir por um intervalo perto de zero transformava tremor de dedo em
+    // peteleco de 600px/s.
+    const elapsed = event.timeStamp - state.lastTime;
+    if (elapsed >= 16) {
+      state.speed = (event.clientX - state.lastX) / elapsed;
+      state.lastX = event.clientX;
+      state.lastTime = event.timeStamp;
+    }
+
+    gsap.set(trackRef.current, { x: resist(deltaX, state.step) });
   };
 
   const handlePointerUp = (event) => {
-    if (!pointerStart.current) return;
-    const deltaX = event.clientX - pointerStart.current.x;
-    const deltaY = event.clientY - pointerStart.current.y;
-    pointerStart.current = null;
+    const state = drag.current;
+    if (!state || event.pointerId !== state.id) return;
+    drag.current = null;
 
-    if (Math.abs(deltaX) < 42 || Math.abs(deltaX) < Math.abs(deltaY)) return;
-    if (deltaX < 0) next();
-    else previous();
+    if (state.axis !== "x") return;
+
+    const deltaX = event.clientX - state.x;
+    swiped.current = Math.abs(deltaX) > AXIS_LOCK;
+
+    // Um peteleco curto e rápido vale tanto quanto um arrasto longo e lento:
+    // no celular o polegar dá pressa, não distância.
+    const flicked = Math.abs(state.speed) > 0.45 && Math.abs(deltaX) > 24;
+    const crossed = Math.abs(deltaX) > Math.min(state.step * 0.22, 64);
+
+    if (flicked || crossed) {
+      if (deltaX < 0) next();
+      else previous();
+    }
+
+    settleTrack();
+  };
+
+  const handlePointerCancel = () => {
+    if (!drag.current) return;
+    drag.current = null;
+    settleTrack();
   };
 
   const handleWheel = useCallback(
@@ -390,9 +495,14 @@ export function ProjectCoverflow({ projects }) {
         aria-label="Projetos da VIA"
         tabIndex={0}
         onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
-        onPointerCancel={() => {
-          pointerStart.current = null;
+        onPointerCancel={handlePointerCancel}
+        onClickCapture={(event) => {
+          if (!swiped.current) return;
+          swiped.current = false;
+          event.preventDefault();
+          event.stopPropagation();
         }}
       >
         {projects.map((project, index) => {
