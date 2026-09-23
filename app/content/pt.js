@@ -47,9 +47,6 @@ export const pt = {
     headlineAriaLabel: "VIA — estratégia que ganha forma.",
     headlineLead: "Estratégia que ",
     headlineHighlight: "ganha forma.",
-    ctaNote: "Tem um projeto em mente?",
-    ctaLabel: "Vamos conversar",
-    secondaryCtaLabel: "Conheça a VIA",
   },
 
   coverflow: {

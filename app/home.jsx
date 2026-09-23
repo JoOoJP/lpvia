@@ -43,7 +43,6 @@ export function Home({ content }) {
         content={content.hero}
         coverflowContent={content.coverflow}
         projects={content.caseProjects}
-        whatsappUrl={whatsappUrl}
       />
       <Capabilities content={content.capabilities} />
       <System content={content.system} />

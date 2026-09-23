@@ -4,12 +4,11 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
 import { ProjectCoverflow } from "./project-coverflow";
-import { Arrow } from "../ui/arrow";
 import styles from "./hero.module.css";
 
 gsap.registerPlugin(useGSAP);
 
-export function Hero({ content, coverflowContent, projects, whatsappUrl }) {
+export function Hero({ content, coverflowContent, projects }) {
   const heroRef = useRef(null);
 
   useGSAP(
@@ -48,28 +47,6 @@ export function Hero({ content, coverflowContent, projects, whatsappUrl }) {
             {content.headlineLead}
             <span>{content.headlineHighlight}</span>
           </h1>
-          <div className={styles.actions}>
-            <a
-              className="contact-module-cta"
-              href={whatsappUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span className="contact-module-copy">
-                <span className="contact-module-note">{content.ctaNote}</span>
-                <span className="contact-module-label">{content.ctaLabel}</span>
-              </span>
-              <span className="contact-module-arrow">
-                <Arrow />
-              </span>
-            </a>
-            <a
-              className="dark-button dark-button-secondary dark-button-editorial"
-              href="#fazemos"
-            >
-              {content.secondaryCtaLabel} <span aria-hidden="true">↓</span>
-            </a>
-          </div>
         </div>
       </div>
 

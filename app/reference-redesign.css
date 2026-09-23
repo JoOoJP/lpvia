@@ -146,15 +146,6 @@
   color: #f7f7f5;
 }
 
-.via-dark-site .lang-toggle {
-  border-color: rgb(255 255 255 / 18%);
-  transition: border-color var(--duration-fast) ease;
-}
-
-.via-dark-site .lang-toggle:has(.lang-toggle-link:hover) {
-  border-color: rgb(255 255 255 / 38%);
-}
-
 .via-dark-site .lang-toggle-current {
   color: #f7f7f5;
 }

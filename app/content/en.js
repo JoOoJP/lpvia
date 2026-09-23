@@ -47,9 +47,6 @@ export const en = {
     headlineAriaLabel: "VIA — strategy that takes shape.",
     headlineLead: "Strategy that ",
     headlineHighlight: "takes shape.",
-    ctaNote: "Have a project in mind?",
-    ctaLabel: "Let's talk",
-    secondaryCtaLabel: "Meet VIA",
   },
 
   coverflow: {

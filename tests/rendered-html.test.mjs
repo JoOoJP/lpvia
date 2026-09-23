@@ -39,7 +39,7 @@ test("renderiza a apresentação da VIA", async () => {
   assert.match(html, /VIA — estratégia que ganha forma\./);
   assert.doesNotMatch(html, /V\.IA/);
   assert.match(html, /VIA . GROWTH COMPANY/);
-  assert.match(html, /Vamos conversar/);
+  assert.match(html, /Fale com a VIA/);
   assert.match(html, /<h2[^>]*id="project-coverflow-title"[^>]*>/);
   assert.match(html, /A VIA pensa e faz\./);
   assert.match(html, /CASE \/ MOIKATO \/ BRASIL → REINO UNIDO/);
@@ -225,7 +225,7 @@ test("publica a versão em inglês em /en", async () => {
   assert.match(html, /<title>VIA — Strategy that takes shape<\/title>/i);
   assert.match(html, /Strategy that/);
   assert.match(html, /takes shape\./);
-  assert.match(html, /Let's talk/);
+  assert.match(html, /Talk to VIA/);
   assert.match(html, /VIA thinks and builds\./);
   assert.match(html, /CASE STUDY \/ MOIKATO \/ BRAZIL → UK/);
   assert.match(html, /wa\.me\/5541987383806/);
