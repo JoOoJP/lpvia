@@ -1,13 +1,33 @@
 import { siteUrl } from "./site";
 
-// Uma página só: o catálogo do design system fica de fora porque é noindex.
+// O catálogo do design system fica de fora porque é noindex.
 export default function sitemap() {
+  const lastModified = new Date();
+
   return [
     {
       url: siteUrl,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: "monthly",
       priority: 1,
+      alternates: {
+        languages: {
+          "pt-BR": siteUrl,
+          en: `${siteUrl}/en`,
+        },
+      },
+    },
+    {
+      url: `${siteUrl}/en`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+      alternates: {
+        languages: {
+          "pt-BR": siteUrl,
+          en: `${siteUrl}/en`,
+        },
+      },
     },
   ];
 }

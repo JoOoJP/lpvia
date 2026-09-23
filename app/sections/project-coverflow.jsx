@@ -42,7 +42,7 @@ function resist(delta, step) {
   return Math.sign(delta) * (step + excess * 0.22);
 }
 
-function ProjectMedia({ project, active }) {
+function ProjectMedia({ project, active, healthContent, beforeAfterContent }) {
   if (project.compare) {
     return (
       // A superfície carrega as cores de letterbox de cada arte; sem ela o
@@ -56,6 +56,9 @@ function ProjectMedia({ project, active }) {
           after={project.compare.after}
           ariaLabel={project.compare.ariaLabel}
           caption={project.compare.caption}
+          beforeLabel={beforeAfterContent.beforeLabel}
+          afterLabel={beforeAfterContent.afterLabel}
+          valueTextSuffix={beforeAfterContent.valueTextSuffix}
         />
       </div>
     );
@@ -81,16 +84,17 @@ function ProjectMedia({ project, active }) {
         </svg>
 
         <div className={styles.healthCopy}>
-          <p className={styles.healthStatement}>Cuidado que transforma vidas.</p>
+          <p className={styles.healthStatement}>{healthContent.statement}</p>
           <p className={styles.healthDisciplines}>
-            Estratégia <i>·</i> Conteúdo <i>·</i> Mídia
+            {healthContent.disciplines[0]} <i>·</i> {healthContent.disciplines[1]}{" "}
+            <i>·</i> {healthContent.disciplines[2]}
           </p>
         </div>
 
         <div className={styles.healthStack} aria-hidden="true">
           <div className={styles.healthAlert}>
             <span className={styles.healthAlertDot} />
-            Novo agendamento
+            {healthContent.alertLabel}
           </div>
 
           <div className={styles.healthTicket}>
@@ -107,12 +111,12 @@ function ProjectMedia({ project, active }) {
               <path d="M4 12.5 9.5 18 20 6.5" />
             </svg>
             <strong className={styles.healthTicketTitle}>
-              Consulta confirmada
+              {healthContent.ticketTitle}
             </strong>
-            <p className={styles.healthTicketMeta}>Vitae · Cardiologia</p>
+            <p className={styles.healthTicketMeta}>{healthContent.ticketMeta}</p>
             <span className={styles.healthTicketRow}>
-              <i>Terça, 14h</i>
-              <i>Presencial</i>
+              <i>{healthContent.ticketDay}</i>
+              <i>{healthContent.ticketMode}</i>
             </span>
           </div>
         </div>
@@ -157,7 +161,7 @@ function ProjectMedia({ project, active }) {
   );
 }
 
-export function ProjectCoverflow({ projects }) {
+export function ProjectCoverflow({ content, projects }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [trackWidth, setTrackWidth] = useState(0);
   const sectionRef = useRef(null);
@@ -484,15 +488,15 @@ export function ProjectCoverflow({ projects }) {
       {/* O hero já apresenta a página; aqui o título serve à estrutura do
           documento e ao leitor de tela, sem competir com a headline. */}
       <h2 className={styles.assistiveTitle} id="project-coverflow-title">
-        Projetos que ganharam forma.
+        {content.assistiveTitle}
       </h2>
 
       <div
         className={styles.track}
         ref={trackRef}
         role="region"
-        aria-roledescription="carrossel"
-        aria-label="Projetos da VIA"
+        aria-roledescription={content.regionRoleDescription}
+        aria-label={content.regionLabel}
         tabIndex={0}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -516,16 +520,21 @@ export function ProjectCoverflow({ projects }) {
               data-distance={distance}
               id={project.id}
               key={project.id}
-              aria-label={`${project.name}. Projeto ${index + 1} de ${projects.length}.`}
+              aria-label={`${project.name}. ${content.slideLabelProjectWord} ${index + 1} ${content.slideLabelOfWord} ${projects.length}.`}
             >
-              <ProjectMedia project={project} active={active} />
+              <ProjectMedia
+                project={project}
+                active={active}
+                healthContent={content.health}
+                beforeAfterContent={content.beforeAfter}
+              />
               {!active ? (
                 <button
                   className={styles.selectSlide}
                   type="button"
                   tabIndex={distance === 1 ? 0 : -1}
                   onClick={() => selectProject(index)}
-                  aria-label={`Selecionar projeto ${project.name}`}
+                  aria-label={`${content.selectLabelPrefix} ${project.name}`}
                 />
               ) : null}
             </article>
@@ -534,7 +543,7 @@ export function ProjectCoverflow({ projects }) {
       </div>
 
       <div className={styles.rail}>
-        <button className={styles.arrowButton} type="button" onClick={previous} aria-label="Projeto anterior">
+        <button className={styles.arrowButton} type="button" onClick={previous} aria-label={content.prevLabel}>
           <ArrowIcon direction="left" className={styles.arrowIcon} />
         </button>
 
@@ -583,19 +592,17 @@ export function ProjectCoverflow({ projects }) {
                 {activeProject.cta} <span aria-hidden="true">↗</span>
               </a>
             ) : (
-              <span className={styles.projectBy}>PROJETO VIA</span>
+              <span className={styles.projectBy}>{content.byVia}</span>
             )}
           </div>
         </div>
 
-        <button className={styles.arrowButton} type="button" onClick={next} aria-label="Próximo projeto">
+        <button className={styles.arrowButton} type="button" onClick={next} aria-label={content.nextLabel}>
           <ArrowIcon className={styles.arrowIcon} />
         </button>
       </div>
 
-      <p className={styles.gestureHint}>
-        Deslize, use o scroll lateral ou as setas.
-      </p>
+      <p className={styles.gestureHint}>{content.gestureHint}</p>
     </section>
   );
 }

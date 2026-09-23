@@ -1,84 +1,6 @@
 import Image from "next/image";
 import { Arrow } from "../ui/arrow";
 
-const capabilities = [
-  {
-    accent: "purple",
-    icon: "marca",
-    title: "Marca & identidade",
-    text: "Posicionamento, naming, logo e um sistema visual que sustenta a marca.",
-    reference: {
-      client: "In Tha Route",
-      href: "#case-in-tha-route",
-      image: "/projects/route-primary.webp",
-      // Marca precisa caber inteira: recorte em faixa come o lettering.
-      position: "right center",
-      fit: "contain",
-    },
-  },
-  {
-    accent: "blue",
-    icon: "site",
-    title: "Sites & landing pages",
-    text: "Experiências digitais para apresentar, conduzir e converter.",
-    reference: {
-      client: "A Tardinha",
-      href: "#case-tardinha",
-      image: "/tardinha.webp",
-      position: "center",
-      fit: "contain",
-    },
-  },
-  {
-    accent: "cyan",
-    icon: "conteudo",
-    title: "Conteúdo & campanhas",
-    text: "Social media, gestão de redes, roteiros e campanhas com direção criativa.",
-    reference: {
-      client: "Conteúdo visual",
-      href: "#case-conteudo-visual",
-      image: "/projects/latino-beats.webp",
-      position: "center 34%",
-    },
-  },
-  {
-    accent: "green",
-    icon: "trafego",
-    title: "Tráfego & performance",
-    text: "Crescimento orgânico e pago com leitura, aprendizado e próxima ação.",
-    reference: {
-      client: "Clínicas na área da saúde",
-      href: "#case-saude",
-    },
-  },
-  {
-    accent: "blue",
-    icon: "estrategia",
-    title: "Estratégia & comercial",
-    text: "Oferta e processo conectados para aproximar demanda de receita.",
-    reference: {
-      client: "Moikato",
-      href: "#case-moikato",
-      image: "/projects/moikato-brand.webp",
-      // Letreiro largo: em miniatura quadrada, cover corta o lettering no meio.
-      position: "center",
-      fit: "contain",
-    },
-  },
-  {
-    accent: "cyan",
-    icon: "tecnologia",
-    title: "Tecnologia & automação",
-    text: "Sites, CRM, automações e IA aplicados ao negócio.",
-    reference: {
-      client: "Moikato",
-      href: "#case-moikato",
-      image: "/via-moikato-london.webp",
-      position: "center 38%",
-    },
-  },
-];
-
 const capabilityIcons = {
   marca: (
     <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" />
@@ -130,23 +52,22 @@ function CapabilityIcon({ name }) {
   );
 }
 
-export function Capabilities() {
+export function Capabilities({ content }) {
   return (
     <section className="dark-capabilities section" id="fazemos">
       <header className="dark-capabilities-head">
-        <p className="dark-kicker">DA IDEIA À OPERAÇÃO</p>
-        <h2>A VIA pensa e faz.</h2>
-        <p>
-          Estratégia e execução caminham juntas para transformar ideias em
-          marcas, experiências e crescimento real.
-        </p>
+        <p className="dark-kicker">{content.kicker}</p>
+        <h2>{content.title}</h2>
+        <p>{content.description}</p>
       </header>
 
       <div className="dark-capability-grid">
-        {capabilities.map((capability, index) => (
+        {content.items.map((capability, index) => (
           <CapabilityCard
             key={capability.title}
             number={String(index + 1).padStart(2, "0")}
+            previewAriaPrefix={content.previewAriaPrefix}
+            previewAriaMiddle={content.previewAriaMiddle}
             {...capability}
           />
         ))}
@@ -155,7 +76,16 @@ export function Capabilities() {
   );
 }
 
-function CapabilityCard({ accent, icon, number, title, text, reference }) {
+function CapabilityCard({
+  accent,
+  icon,
+  number,
+  title,
+  text,
+  reference,
+  previewAriaPrefix,
+  previewAriaMiddle,
+}) {
   return (
     <article className={`dark-capability-card dark-capability-${accent}`}>
       <div className="dark-capability-meta" aria-hidden="true">
@@ -167,7 +97,7 @@ function CapabilityCard({ accent, icon, number, title, text, reference }) {
       <a
         className="dark-capability-preview"
         href={reference.href}
-        aria-label={`Ver ${reference.client} como exemplo de ${title}`}
+        aria-label={`${previewAriaPrefix} ${reference.client} ${previewAriaMiddle} ${title}`}
       >
         {reference.image ? (
           <span className="dark-capability-art">

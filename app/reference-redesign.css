@@ -146,6 +146,17 @@
   color: #f7f7f5;
 }
 
+.via-dark-site .lang-switch {
+  border-color: rgb(255 255 255 / 22%);
+  color: #b7bdbf;
+  transition: border-color var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+
+.via-dark-site .lang-switch:hover {
+  border-color: rgb(255 255 255 / 45%);
+  color: #f7f7f5;
+}
+
 /* O hambúrguer só entra quando a navegação não cabe (ver @media 900px). */
 .via-dark-site .menu-toggle {
   width: 48px;

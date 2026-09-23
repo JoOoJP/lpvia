@@ -1,15 +1,6 @@
 import Image from "next/image";
 
-const moikatoDeliveries = [
-  { number: "01", title: "Posicionamento" },
-  { number: "02", title: "Marca" },
-  { number: "03", title: "Narrativa" },
-  { number: "04", title: "Conteúdo" },
-  { number: "05", title: "Site bilíngue" },
-  { number: "06", title: "Internacionalização" },
-];
-
-export function System() {
+export function System({ content }) {
   return (
     <section
       className="moikato-proof section"
@@ -27,63 +18,39 @@ export function System() {
               playsInline
               preload="none"
               poster="/depoimento-samuel-moikato.jpg"
-              aria-label="Depoimento em vídeo de Samuel, da Moikato, sobre o trabalho da VIA"
+              aria-label={content.videoAriaLabel}
               aria-describedby="samuel-testimonial-summary"
             >
               <source src="/depoimento-samuel-moikato.mp4" type="video/mp4" />
-              Seu navegador não consegue reproduzir este vídeo.
+              {content.videoFallback}
             </video>
-            <span aria-hidden="true">DEPOIMENTO REAL · LONDRES</span>
+            <span aria-hidden="true">{content.videoBadge}</span>
           </div>
 
           <div className="moikato-proof-quote">
-            <p className="dark-kicker">RESULTADO EM PRIMEIRA PESSOA</p>
-            <blockquote id="samuel-testimonial-title">
-              “Eles acreditaram no meu trabalho.”
-            </blockquote>
-            <p id="samuel-testimonial-summary">
-              Samuel · Moikato · Empresário em Londres
-            </p>
+            <p className="dark-kicker">{content.quoteKicker}</p>
+            <blockquote id="samuel-testimonial-title">{content.quote}</blockquote>
+            <p id="samuel-testimonial-summary">{content.quoteAttribution}</p>
           </div>
         </aside>
 
         <div className="moikato-proof-content">
           <header className="moikato-proof-copy">
-            <p className="dark-kicker">CASE / MOIKATO / BRASIL → REINO UNIDO</p>
-            <h2 id="moikato-proof-title">
-              Uma história brasileira, contada por quem a vive.
-            </h2>
-            <p>
-              A Moikato cresceu do Brasil para o Reino Unido. A VIA conectou
-              origem, marca e experiência digital para acompanhar esse movimento.
-            </p>
+            <p className="dark-kicker">{content.caseKicker}</p>
+            <h2 id="moikato-proof-title">{content.title}</h2>
+            <p>{content.description}</p>
           </header>
 
-          <div
-            className="moikato-proof-story"
-            aria-label="A história do projeto em três momentos"
-          >
-            <article>
-              <span>01 · ORIGEM</span>
-              <div>
-                <h3>Preservar a essência.</h3>
-                <p>Artesanato sustentável e uma identidade conectada à natureza.</p>
-              </div>
-            </article>
-            <article>
-              <span>02 · CONSTRUÇÃO</span>
-              <div>
-                <h3>Dar forma à marca.</h3>
-                <p>Posicionamento, narrativa, conteúdo e experiência digital alinhados.</p>
-              </div>
-            </article>
-            <article>
-              <span>03 · EXPANSÃO</span>
-              <div>
-                <h3>Atravessar fronteiras.</h3>
-                <p>Um site bilíngue e uma comunicação preparados para dois mercados.</p>
-              </div>
-            </article>
+          <div className="moikato-proof-story" aria-label={content.storyAriaLabel}>
+            {content.story.map((moment) => (
+              <article key={moment.step}>
+                <span>{moment.step}</span>
+                <div>
+                  <h3>{moment.title}</h3>
+                  <p>{moment.text}</p>
+                </div>
+              </article>
+            ))}
           </div>
 
           <div className="moikato-proof-visuals" aria-hidden="true">
@@ -94,7 +61,7 @@ export function System() {
                 fill
                 sizes="(max-width: 720px) 50vw, 28vw"
               />
-              <span>MARCA / ORIGEM</span>
+              <span>{content.visualBrandLabel}</span>
             </div>
             <div className="moikato-proof-site">
               <div className="moikato-proof-browser">
@@ -109,15 +76,12 @@ export function System() {
                 fill
                 sizes="(max-width: 720px) 50vw, 24vw"
               />
-              <span>SITE / INTERNACIONALIZAÇÃO</span>
+              <span>{content.visualSiteLabel}</span>
             </div>
           </div>
 
-          <ul
-            className="moikato-proof-credits"
-            aria-label="Entregas realizadas pela VIA para a Moikato"
-          >
-            {moikatoDeliveries.map((delivery) => (
+          <ul className="moikato-proof-credits" aria-label={content.creditsAriaLabel}>
+            {content.deliveries.map((delivery) => (
               <li key={delivery.number}>{delivery.title}</li>
             ))}
           </ul>

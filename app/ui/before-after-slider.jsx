@@ -13,6 +13,9 @@ export function BeforeAfterSlider({
   after,
   ariaLabel,
   caption,
+  beforeLabel,
+  afterLabel,
+  valueTextSuffix,
   initialPosition = 20,
 }) {
   const [position, setPosition] = useState(initialPosition);
@@ -46,8 +49,8 @@ export function BeforeAfterSlider({
 
       {/* Fora das camadas: dentro delas o rótulo era cortado junto com a
           imagem, e some justo quando a faixa fica estreita. */}
-      <span className="before-after-label before-after-label-old">Antes</span>
-      <span className="before-after-label before-after-label-new">Depois</span>
+      <span className="before-after-label before-after-label-old">{beforeLabel}</span>
+      <span className="before-after-label before-after-label-new">{afterLabel}</span>
 
       <input
         className="before-after-range"
@@ -58,7 +61,7 @@ export function BeforeAfterSlider({
         onInput={(event) => setPosition(Number(event.currentTarget.value))}
         aria-label={ariaLabel}
         aria-describedby={captionId}
-        aria-valuetext={`${100 - position}% da nova identidade visível`}
+        aria-valuetext={`${100 - position}% ${valueTextSuffix}`}
       />
 
       <span

@@ -1,21 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { whatsappUrl } from "../contact";
 import { Arrow } from "../ui/arrow";
 import { ViaMark } from "../ui/via-mark";
-
-const navItems = [
-  { id: "fazemos", label: "O que fazemos" },
-  { id: "moikato", label: "Moikato" },
-  { id: "trabalhos", label: "Trabalhos" },
-  { id: "contato", label: "Contato" },
-];
 
 // Faixa estreita no meio da tela: a seção que a cruza é a que o visitante lê.
 const ACTIVE_BAND = "-45% 0px -50% 0px";
 
-export function SiteHeader() {
+export function SiteHeader({ content, whatsappUrl }) {
+  const navItems = content.nav;
   const [scrolled, setScrolled] = useState(false);
   const [activeId, setActiveId] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -56,7 +49,7 @@ export function SiteHeader() {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [navItems]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -119,10 +112,10 @@ export function SiteHeader() {
   return (
     <header className={headerClass}>
       <a className="logo" href="#inicio">
-        <ViaMark title="VIA, início" />
+        <ViaMark title={content.logoLabel} />
       </a>
 
-      <nav className="site-nav" aria-label="Navegação principal">
+      <nav className="site-nav" aria-label={content.navAriaLabel}>
         {navItems.map((item) => (
           <a
             key={item.id}
@@ -136,12 +129,20 @@ export function SiteHeader() {
 
       <div className="header-actions">
         <a
+          className="lang-switch"
+          href={content.langSwitch.href}
+          aria-label={content.langSwitch.ariaLabel}
+        >
+          {content.langSwitch.label}
+        </a>
+
+        <a
           className="header-cta"
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
         >
-          Fale com a VIA <Arrow />
+          {content.ctaLabel} <Arrow />
         </a>
 
         <button
@@ -150,7 +151,7 @@ export function SiteHeader() {
           ref={toggleRef}
           aria-expanded={menuOpen}
           aria-controls="menu-mobile"
-          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+          aria-label={menuOpen ? content.closeMenuLabel : content.openMenuLabel}
           onClick={() => setMenuOpen((open) => !open)}
         >
           <span aria-hidden="true" />
@@ -164,10 +165,10 @@ export function SiteHeader() {
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-label="Menu"
+        aria-label={content.menuAriaLabel}
         hidden={!menuOpen}
       >
-        <nav aria-label="Navegação principal, versão compacta">
+        <nav aria-label={content.navCompactAriaLabel}>
           {navItems.map((item) => (
             <a
               key={item.id}
@@ -193,8 +194,8 @@ export function SiteHeader() {
           }}
         >
           <span className="contact-module-copy">
-            <span className="contact-module-note">Tem um projeto em mente?</span>
-            <span className="contact-module-label">Fale com a VIA</span>
+            <span className="contact-module-note">{content.menuContactNote}</span>
+            <span className="contact-module-label">{content.menuContactLabel}</span>
           </span>
           <span className="contact-module-arrow">
             <Arrow />

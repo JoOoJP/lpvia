@@ -216,6 +216,27 @@ test("entrega a navegação compacta já no HTML", async () => {
   assert.match(html, /class="site-header"/);
 });
 
+test("publica a versão em inglês em /en", async () => {
+  const response = await fetch(`${pageUrl}en`);
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /<html[^>]*lang="en"/);
+  assert.match(html, /<title>VIA — Strategy that takes shape<\/title>/i);
+  assert.match(html, /Strategy that/);
+  assert.match(html, /takes shape\./);
+  assert.match(html, /Let's talk/);
+  assert.match(html, /VIA thinks and builds\./);
+  assert.match(html, /CASE STUDY \/ MOIKATO \/ BRAZIL → UK/);
+  assert.match(html, /wa\.me\/5541987383806/);
+  assert.match(html, /text=Hi%2C%20I%20found%20VIA/);
+  assert.match(html, /href="\/"[^>]*>\s*PT/);
+
+  const ptResponse = await fetch(pageUrl);
+  const ptHtml = await ptResponse.text();
+  assert.match(ptHtml, /href="\/en"[^>]*>\s*EN/);
+});
+
 function findAvailablePort() {
   return new Promise((resolve, reject) => {
     const listener = net.createServer();

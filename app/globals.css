@@ -225,6 +225,19 @@ figure {
   color: var(--neutral-950);
 }
 
+.lang-switch {
+  min-height: 44px;
+  padding-inline: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--neutral-300);
+  border-radius: 999px;
+  color: var(--neutral-700);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
 .menu-toggle,
 .menu-panel {
   display: none;

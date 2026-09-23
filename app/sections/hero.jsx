@@ -3,14 +3,13 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
-import { whatsappUrl } from "../contact";
 import { ProjectCoverflow } from "./project-coverflow";
 import { Arrow } from "../ui/arrow";
 import styles from "./hero.module.css";
 
 gsap.registerPlugin(useGSAP);
 
-export function Hero({ projects }) {
+export function Hero({ content, coverflowContent, projects, whatsappUrl }) {
   const heroRef = useRef(null);
 
   useGSAP(
@@ -44,9 +43,10 @@ export function Hero({ projects }) {
 
       <div className={styles.scene}>
         <div className={styles.pitch}>
-          <p className="dark-kicker">VIA / GROWTH COMPANY</p>
-          <h1 className={styles.headline} aria-label="VIA — estratégia que ganha forma.">
-            Estratégia que <span>ganha forma.</span>
+          <p className="dark-kicker">{content.kicker}</p>
+          <h1 className={styles.headline} aria-label={content.headlineAriaLabel}>
+            {content.headlineLead}
+            <span>{content.headlineHighlight}</span>
           </h1>
           <div className={styles.actions}>
             <a
@@ -56,8 +56,8 @@ export function Hero({ projects }) {
               rel="noreferrer"
             >
               <span className="contact-module-copy">
-                <span className="contact-module-note">Tem um projeto em mente?</span>
-                <span className="contact-module-label">Vamos conversar</span>
+                <span className="contact-module-note">{content.ctaNote}</span>
+                <span className="contact-module-label">{content.ctaLabel}</span>
               </span>
               <span className="contact-module-arrow">
                 <Arrow />
@@ -67,13 +67,13 @@ export function Hero({ projects }) {
               className="dark-button dark-button-secondary dark-button-editorial"
               href="#fazemos"
             >
-              Conheça a VIA <span aria-hidden="true">↓</span>
+              {content.secondaryCtaLabel} <span aria-hidden="true">↓</span>
             </a>
           </div>
         </div>
       </div>
 
-      <ProjectCoverflow projects={projects} />
+      <ProjectCoverflow content={coverflowContent} projects={projects} />
     </section>
   );
 }

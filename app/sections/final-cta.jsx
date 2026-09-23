@@ -1,17 +1,18 @@
-import { email, emailUrl, whatsappUrl } from "../contact";
+import { email, emailUrl } from "../contact";
 import { Arrow } from "../ui/arrow";
 
-export function FinalCta() {
+export function FinalCta({ content, whatsappUrl }) {
   return (
     <section className="dark-contact" id="contato">
       <div className="dark-contact-inner section">
-        <p className="dark-kicker">PRÓXIMO MOVIMENTO</p>
+        <p className="dark-kicker">{content.kicker}</p>
         <h2>
-          Vamos construir
+          {content.titleLine1}
           <br />
-          o que <span>vem a seguir.</span>
+          {content.titleLine2Lead}
+          <span>{content.titleLine2Highlight}</span>
         </h2>
-        <p>Soluções digitais de estratégia, criatividade e tecnologia.</p>
+        <p>{content.description}</p>
         <a
           className="contact-module-cta"
           href={whatsappUrl}
@@ -19,15 +20,15 @@ export function FinalCta() {
           rel="noreferrer"
         >
           <span className="contact-module-copy">
-            <span className="contact-module-note">Tem um projeto em mente?</span>
-            <span className="contact-module-label">Fale com a VIA</span>
+            <span className="contact-module-note">{content.ctaNote}</span>
+            <span className="contact-module-label">{content.ctaLabel}</span>
           </span>
           <span className="contact-module-arrow">
             <Arrow />
           </span>
         </a>
         <p className="dark-contact-email">
-          Prefere e-mail? <a href={emailUrl}>{email}</a>
+          {content.emailPrompt} <a href={emailUrl}>{email}</a>
         </p>
       </div>
     </section>
