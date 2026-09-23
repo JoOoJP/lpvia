@@ -225,17 +225,53 @@ figure {
   color: var(--neutral-950);
 }
 
-.lang-switch {
+.lang-toggle {
   min-height: 44px;
-  padding-inline: 0.6rem;
+  padding-inline: 0.85rem;
   display: inline-flex;
   align-items: center;
+  gap: 0.32rem;
   border: 1px solid var(--neutral-300);
   border-radius: 999px;
-  color: var(--neutral-700);
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+}
+
+.lang-toggle-current {
+  color: var(--neutral-950);
+}
+
+.lang-toggle-divider {
+  color: var(--neutral-300);
+  font-weight: 400;
+}
+
+.lang-toggle-link {
+  position: relative;
+  color: var(--neutral-500);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.lang-toggle-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  left: 0;
+  height: 1.5px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--gradient-brand);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.lang-toggle-link:hover {
+  color: var(--neutral-950);
+}
+
+.lang-toggle-link:hover::after {
+  transform: scaleX(1);
 }
 
 .menu-toggle,

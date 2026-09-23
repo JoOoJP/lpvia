@@ -128,13 +128,21 @@ export function SiteHeader({ content, whatsappUrl }) {
       </nav>
 
       <div className="header-actions">
-        <a
-          className="lang-switch"
-          href={content.langSwitch.href}
-          aria-label={content.langSwitch.ariaLabel}
-        >
-          {content.langSwitch.label}
-        </a>
+        <div className="lang-toggle" role="group" aria-label={content.langSwitch.groupAriaLabel}>
+          <span className="lang-toggle-current" aria-current="true">
+            {content.langSwitch.current}
+          </span>
+          <span className="lang-toggle-divider" aria-hidden="true">/</span>
+          <a
+            className="lang-toggle-link"
+            href={content.langSwitch.href}
+            aria-label={content.langSwitch.ariaLabel}
+            hrefLang={content.langSwitch.otherHtmlLang}
+            lang={content.langSwitch.otherHtmlLang}
+          >
+            {content.langSwitch.other}
+          </a>
+        </div>
 
         <a
           className="header-cta"

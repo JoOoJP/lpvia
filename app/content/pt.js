@@ -33,7 +33,10 @@ export const pt = {
     menuContactNote: "Tem um projeto em mente?",
     menuContactLabel: "Fale com a VIA",
     langSwitch: {
-      label: "EN",
+      groupAriaLabel: "Idioma",
+      current: "PT",
+      other: "EN",
+      otherHtmlLang: "en",
       href: "/en",
       ariaLabel: "Ver o site em inglês",
     },
