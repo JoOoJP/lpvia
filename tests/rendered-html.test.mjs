@@ -249,6 +249,9 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.doesNotMatch(ptHtml, /Marcas que já trabalharam com a VIA/);
   assert.match(ptHtml, /Falar com a Sté/);
   assert.match(ptHtml, /Oi%2C%20St%C3%A9!/);
+  assert.match(ptHtml, /id="contato"/);
+  assert.match(ptHtml, /E-mail · Clique para copiar/);
+  assert.match(ptHtml, /mailto:agenciaviamkt@gmail\.com/);
   assert.match(ptHtml, /aria-current="page"[^>]*>Portfólio</);
   assert.match(ptHtml, /href="\/#fazemos"/);
   assert.match(ptHtml, /href="#contato"/);
@@ -273,6 +276,8 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(enHtml, /Hi, I&#x27;m <span>Sté\.<\/span>|Hi, I'm <span>Sté\.<\/span>/);
   assert.match(enHtml, /Open video: Testimonial — Samuel Moikato/);
   assert.match(enHtml, /Open video: Beauty reels — Hair salon/);
+  assert.match(enHtml, /Talk to Sté/);
+  assert.match(enHtml, /Email · Click to copy/);
   assert.match(enHtml, /rel="canonical" href="[^"]*\/en\/portfolio"/);
 
   const home = await (await fetch(pageUrl)).text();

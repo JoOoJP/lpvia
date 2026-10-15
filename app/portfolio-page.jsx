@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { buildWhatsappUrl } from "./contact";
-import { FinalCta } from "./sections/final-cta";
+import { buildWhatsappUrl, email } from "./contact";
+import { PortfolioContact, PortfolioFooter } from "./sections/portfolio-contact";
 import { PortfolioGallery } from "./sections/portfolio-gallery";
 import { PortfolioShowreel } from "./sections/portfolio-showreel";
-import { SiteFooter } from "./sections/site-footer";
 import { SiteHeader } from "./sections/site-header";
 import styles from "./portfolio-page.module.css";
 
@@ -180,11 +179,19 @@ export function PortfolioPage({ content }) {
         </header>
       </PortfolioGallery>
 
-      <FinalCta
-        content={{ ...content.finalCta, ...portfolio.finalCta }}
+      <PortfolioContact
+        id="contato"
+        cta={{ ...content.finalCta, ...portfolio.finalCta }}
+        whatsappLabel={content.footer.whatsappLabel}
         whatsappUrl={productionWhatsappUrl}
+        email={email}
       />
-      <SiteFooter content={content.footer} whatsappUrl={whatsappUrl} />
+      <PortfolioFooter
+        footer={content.footer}
+        cta={portfolio.finalCta}
+        email={email}
+        whatsappUrl={whatsappUrl}
+      />
     </main>
   );
 }
