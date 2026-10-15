@@ -1,6 +1,3 @@
-import Image from "next/image";
-import { Arrow } from "../ui/arrow";
-
 const capabilityIcons = {
   marca: (
     <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" />
@@ -66,8 +63,6 @@ export function Capabilities({ content }) {
           <CapabilityCard
             key={capability.title}
             number={String(index + 1).padStart(2, "0")}
-            previewAriaPrefix={content.previewAriaPrefix}
-            previewAriaMiddle={content.previewAriaMiddle}
             {...capability}
           />
         ))}
@@ -76,50 +71,15 @@ export function Capabilities({ content }) {
   );
 }
 
-function CapabilityCard({
-  accent,
-  icon,
-  number,
-  title,
-  text,
-  reference,
-  previewAriaPrefix,
-  previewAriaMiddle,
-}) {
+function CapabilityCard({ accent, icon, number, title, text }) {
   return (
     <article className={`dark-capability-card dark-capability-${accent}`}>
       <div className="dark-capability-meta" aria-hidden="true">
-        <span>{number}</span>
         <CapabilityIcon name={icon} />
+        <span>{number}</span>
       </div>
       <h3>{title}</h3>
       <p>{text}</p>
-      <a
-        className="dark-capability-preview"
-        href={reference.href}
-        aria-label={`${previewAriaPrefix} ${reference.client} ${previewAriaMiddle} ${title}`}
-      >
-        {reference.image ? (
-          <span className="dark-capability-art">
-            <Image
-              src={reference.image}
-              alt=""
-              fill
-              sizes="84px"
-              style={{
-                objectPosition: reference.position,
-                objectFit: reference.fit,
-              }}
-            />
-          </span>
-        ) : (
-          <span className="dark-capability-art dark-capability-art-empty" aria-hidden="true">
-            +
-          </span>
-        )}
-        <strong>{reference.client}</strong>
-        <Arrow />
-      </a>
     </article>
   );
 }

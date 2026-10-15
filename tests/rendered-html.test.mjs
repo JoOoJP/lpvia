@@ -72,13 +72,8 @@ test("mostra o escopo real da VIA", async () => {
   assert.match(html, /Estratégia &amp; comercial/);
   assert.match(html, /Tecnologia &amp; automação/);
   assert.match(html, /Crescimento orgânico e pago/);
-  assert.match(html, /class="dark-capability-preview/);
+  assert.doesNotMatch(html, /dark-capability-preview/);
   assert.doesNotMatch(html, /CASO APLICADO/);
-  assert.match(html, /href="#case-in-tha-route"/);
-  assert.match(html, /href="#case-tardinha"/);
-  assert.match(html, /href="#case-conteudo-visual"/);
-  assert.match(html, /href="#case-saude"/);
-  assert.match(html, /href="#case-moikato"/);
 });
 
 test("publica o depoimento da Moikato antes do contato", async () => {
