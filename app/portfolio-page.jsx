@@ -182,16 +182,10 @@ export function PortfolioPage({ content }) {
       <PortfolioContact
         id="contato"
         cta={{ ...content.finalCta, ...portfolio.finalCta }}
-        whatsappLabel={content.footer.whatsappLabel}
         whatsappUrl={productionWhatsappUrl}
         email={email}
       />
-      <PortfolioFooter
-        footer={content.footer}
-        cta={portfolio.finalCta}
-        email={email}
-        whatsappUrl={whatsappUrl}
-      />
+      <PortfolioFooter footer={content.footer} />
     </main>
   );
 }

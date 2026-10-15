@@ -243,7 +243,7 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(ptHtml, /<title>Portfólio — VIA<\/title>/i);
   assert.match(ptHtml, /Fotos e vídeos que/);
   assert.match(ptHtml, /<h1[^>]*>Oi, eu sou a <span>Sté\.<\/span><\/h1>/);
-  assert.match(ptHtml, /começou aos 10 anos, no Blogspot/);
+  assert.match(ptHtml, /Aos 10 anos, eu já tinha um blog do Justin Bieber no Blogspot/);
   assert.match(ptHtml, /VIDEOMAKER &amp; FOTÓGRAFA/);
   assert.match(ptHtml, /Cobertura de eventos/);
   assert.doesNotMatch(ptHtml, /Marcas que já trabalharam com a VIA/);
@@ -251,7 +251,9 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(ptHtml, /Oi%2C%20St%C3%A9!/);
   assert.match(ptHtml, /id="contato"/);
   assert.match(ptHtml, /E-mail · Clique para copiar/);
-  assert.match(ptHtml, /mailto:agenciaviamkt@gmail\.com/);
+  const ptFooter = ptHtml.match(/<footer[\s\S]*<\/footer>/)?.[0] ?? "";
+  assert.ok(ptFooter.length > 0);
+  assert.doesNotMatch(ptFooter, /mailto:|wa\.me/);
   assert.match(ptHtml, /aria-current="page"[^>]*>Portfólio</);
   assert.match(ptHtml, /href="\/#fazemos"/);
   assert.match(ptHtml, /href="#contato"/);

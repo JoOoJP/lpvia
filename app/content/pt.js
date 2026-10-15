@@ -93,9 +93,9 @@ export const pt = {
       titleLead: "Oi, eu sou a ",
       titleHighlight: "Sté.",
       paragraphs: [
-        "Minha história com marketing começou aos 10 anos, no Blogspot: eu tinha um blog do Justin Bieber e mexia no HTML só para ele ficar mais bonito.",
-        "Hoje sou criadora de conteúdo e estrategista digital, apaixonada por captar momentos e transformá-los em histórias com profundidade, propósito e alma.",
-        "Trabalho unindo estética, criatividade e tecnologia a serviço das marcas.",
+        "Minha história com o marketing começou antes mesmo de eu saber o que era marketing. Aos 10 anos, eu já tinha um blog do Justin Bieber no Blogspot e me aventurava no HTML para deixar tudo mais bonito. Mal sabia eu que aquilo já dizia muito sobre o meu futuro. Kkk",
+        "Hoje, sou estrategista digital, apaixonada por transformar ideias em estratégias e histórias que conectam marcas e pessoas.",
+        "Tenho um olhar especial para o design, a edição e a construção de narrativas visuais. Gosto de explorar como estética, criatividade e tecnologia podem trabalhar juntas para dar vida a ideias e fortalecer marcas.",
       ],
       image: {
         src: "/portfolio/stephani.webp",
@@ -148,7 +148,6 @@ export const pt = {
       titleLine1: "Vamos filmar",
       titleLine2Lead: "a sua ",
       titleLine2Highlight: "história?",
-      description: "Conte o que você precisa e a Sté monta a proposta de foto e vídeo.",
       ctaNote: "Evento, marca ou produto?",
       ctaLabel: "Falar com a Sté",
       emailLabel: "E-mail",

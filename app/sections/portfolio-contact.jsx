@@ -62,24 +62,25 @@ function CheckIcon() {
   );
 }
 
-function EmailRow({ cta, email, index }) {
+// Mesma anatomia do botão de contato do site (texto à esquerda, célula de
+// ação à direita), em versão neutra: o WhatsApp é a ação principal.
+function EmailButton({ cta, email }) {
   const [copied, copy] = useCopy(email);
 
   return (
     <button
       type="button"
-      className={styles.row}
+      className={styles.emailButton}
       data-copied={copied || undefined}
       onClick={copy}
     >
-      <span className={styles.rowIndex}>{index}</span>
-      <span className={styles.rowText}>
-        <small aria-live="polite">
+      <span className={styles.emailCopy}>
+        <span className={styles.emailNote} aria-live="polite">
           {copied ? `${cta.copiedLabel} ✓` : `${cta.emailLabel} · ${cta.copyHint}`}
-        </small>
-        <strong>{email}</strong>
+        </span>
+        <span className={styles.emailLabel}>{email}</span>
       </span>
-      <span className={styles.rowIcon}>{copied ? <CheckIcon /> : <CopyIcon />}</span>
+      <span className={styles.emailCell}>{copied ? <CheckIcon /> : <CopyIcon />}</span>
     </button>
   );
 }
@@ -88,7 +89,7 @@ function EmailRow({ cta, email, index }) {
  * Fechamento da aba de portfólio: o convite à esquerda e, à direita, os dois
  * canais em linhas numeradas. O WhatsApp abre a conversa; o e-mail copia.
  */
-export function PortfolioContact({ id, cta, whatsappLabel, whatsappUrl, email }) {
+export function PortfolioContact({ id, cta, whatsappUrl, email }) {
   return (
     <section id={id} className={`${styles.contact} section`}>
       <div>
@@ -99,44 +100,35 @@ export function PortfolioContact({ id, cta, whatsappLabel, whatsappUrl, email })
           {cta.titleLine2Lead}
           <span>{cta.titleLine2Highlight}</span>
         </h2>
-        <p className={styles.lead}>{cta.description}</p>
       </div>
 
-      <div className={styles.rows}>
+      <div className={styles.actions}>
         <a
-          className={styles.row}
+          className="contact-module-cta"
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
         >
-          <span className={styles.rowIndex}>01</span>
-          <span className={styles.rowText}>
-            <small>{whatsappLabel}</small>
-            <strong>{cta.ctaLabel}</strong>
+          <span className="contact-module-copy">
+            <span className="contact-module-note">{cta.ctaNote}</span>
+            <span className="contact-module-label">{cta.ctaLabel}</span>
           </span>
-          <span className={styles.rowIcon}>
+          <span className="contact-module-arrow">
             <Arrow />
           </span>
         </a>
-        <EmailRow cta={cta} email={email} index="02" />
-        <p className={styles.rowsNote}>{cta.ctaNote}</p>
+        <EmailButton cta={cta} email={email} />
       </div>
     </section>
   );
 }
 
-export function PortfolioFooter({ footer, cta, email, whatsappUrl }) {
+export function PortfolioFooter({ footer }) {
   return (
     <footer className={`${styles.footer} section`}>
       <a className="logo" href="#inicio">
         <ViaMark title={footer.logoLabel} />
       </a>
-      <nav aria-label={footer.contactAriaLabel}>
-        <a href={`mailto:${email}`}>{cta.emailLabel}</a>
-        <a href={whatsappUrl} target="_blank" rel="noreferrer">
-          {footer.whatsappLabel}
-        </a>
-      </nav>
       <small>{footer.copyright}</small>
     </footer>
   );

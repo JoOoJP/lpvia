@@ -93,9 +93,9 @@ export const en = {
       titleLead: "Hi, I'm ",
       titleHighlight: "Sté.",
       paragraphs: [
-        "My marketing story started at 10, on Blogspot: I had a Justin Bieber blog and I'd tinker with the HTML just to make it look better.",
-        "Today I'm a content creator and digital strategist, passionate about capturing moments and turning them into stories with depth, purpose, and soul.",
-        "I work at the intersection of aesthetics, creativity, and technology for brands.",
+        "My story with marketing began before I even knew what marketing was. At 10, I already had a Justin Bieber blog on Blogspot and I was dabbling in HTML to make everything look prettier. Little did I know it already said a lot about my future. Lol",
+        "Today, I'm a digital strategist, passionate about turning ideas into strategies and stories that connect brands and people.",
+        "I have a special eye for design, editing, and building visual narratives. I like exploring how aesthetics, creativity, and technology can work together to bring ideas to life and strengthen brands.",
       ],
       image: {
         src: "/portfolio/stephani.webp",
@@ -146,7 +146,6 @@ export const en = {
       titleLine1: "Shall we film",
       titleLine2Lead: "your ",
       titleLine2Highlight: "story?",
-      description: "Tell us what you need and Sté will put together a photo and video proposal.",
       ctaNote: "Event, brand, or product?",
       ctaLabel: "Talk to Sté",
       emailLabel: "Email",
