@@ -1,0 +1,184 @@
+/* Fechamento da aba de portfólio: convite, canais de contato e rodapé. */
+
+.headline {
+  margin: 1rem 0 0;
+  color: #f7f7f5;
+  font-size: clamp(2.6rem, 6.4vw, 5.2rem);
+  font-weight: 650;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+.headline span {
+  background: var(--gradient-brand-text);
+  background-clip: text;
+  color: transparent;
+}
+
+/* ================= Convite ================= */
+
+.contact {
+  --section-plate: linear-gradient(180deg, rgb(4 5 6 / 76%), rgb(8 5 16 / 70%));
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: end;
+  gap: clamp(2.5rem, 6vw, 6rem);
+  padding-block: clamp(5rem, 10vw, 8.5rem) clamp(3.5rem, 7vw, 6rem);
+}
+
+/* ================= Canais ================= */
+
+.actions {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.actions :global(.contact-module-cta) {
+  width: 100%;
+  min-height: 92px;
+  grid-template-columns: minmax(0, 1fr) 76px;
+}
+
+.actions :global(.contact-module-copy) {
+  padding-inline: 1.5rem;
+}
+
+.actions :global(.contact-module-label) {
+  font-size: 1.25rem;
+}
+
+.actions :global(.contact-module-arrow .arrow) {
+  font-size: 1.5rem;
+}
+
+.emailButton {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 76px;
+  width: 100%;
+  min-height: 92px;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 18%);
+  background: linear-gradient(#121517, #0b0d0e);
+  color: #f5f3ee;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--duration-fast) ease;
+}
+
+.emailButton:hover,
+.emailButton:focus-visible {
+  border-color: rgb(255 255 255 / 42%);
+}
+
+.emailCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0.9rem 1.5rem;
+}
+
+.emailNote {
+  color: #9ea4a7;
+  font-size: 0.64rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.emailLabel {
+  font-size: 1.25rem;
+  font-weight: 730;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.emailCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid rgb(255 255 255 / 12%);
+  background: rgb(255 255 255 / 4%);
+  color: #f5f3ee;
+  transition:
+    background var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+}
+
+.emailCell svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.emailButton:hover .emailCell,
+.emailButton:focus-visible .emailCell {
+  background: rgb(255 255 255 / 9%);
+}
+
+.emailButton[data-copied] {
+  border-color: #68e49b;
+}
+
+.emailButton[data-copied] .emailNote {
+  color: #68e49b;
+}
+
+.emailButton[data-copied] .emailCell {
+  border-left-color: #68e49b;
+  background: #68e49b;
+  color: #06110b;
+}
+
+/* ================= Rodapé ================= */
+
+.footer {
+  --section-plate: rgb(2 2 3 / 78%);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 2rem 2.4rem;
+  border-top: 1px solid rgb(255 255 255 / 10%);
+}
+
+.footer small {
+  color: #777e81;
+  font-size: 0.78rem;
+}
+
+/* ================= Responsivo ================= */
+
+@media (max-width: 860px) {
+  .contact {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* O e-mail inteiro precisa caber numa linha em telas de 360–390px. */
+@media (max-width: 480px) {
+  .actions :global(.contact-module-cta),
+  .emailButton {
+    min-height: 84px;
+    grid-template-columns: minmax(0, 1fr) 62px;
+  }
+
+  .actions :global(.contact-module-copy),
+  .emailCopy {
+    padding-inline: 1.1rem;
+  }
+
+  .actions :global(.contact-module-label),
+  .emailLabel {
+    font-size: 1rem;
+  }
+}

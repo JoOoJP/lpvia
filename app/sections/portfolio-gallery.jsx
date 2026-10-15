@@ -5,7 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./portfolio-gallery.module.css";
 
 const FILTERS = ["all", "photo", "video"];
-const TILE_SIZES = "(max-width: 620px) 100vw, (max-width: 1080px) 50vw, 33vw";
+// Vídeos primeiro: são o que mais pesa no portfólio, e a ordem do visualizador
+// segue a da tela.
+const GROUP_ORDER = ["video", "photo"];
+const TILE_SIZES = {
+  video: "(max-width: 620px) 50vw, (max-width: 1080px) 33vw, 20vw",
+  photo: "(max-width: 620px) 50vw, (max-width: 1080px) 33vw, 25vw",
+  wide: "(max-width: 620px) 100vw, (max-width: 1080px) 66vw, 50vw",
+};
 
 function PlayIcon() {
   return (
@@ -26,14 +33,15 @@ function wantsPreview(event) {
 
 function Tile({ item, typeLabel, openLabel, onOpen }) {
   const isVideo = item.type === "video";
+  // Foto em paisagem ocupa duas colunas; retrato ocupa uma.
+  const isWide = !isVideo && item.width / item.height > 1.2;
   const [previewing, setPreviewing] = useState(false);
 
   return (
-    <li className={styles.item}>
+    <li className={styles.item} data-wide={isWide || undefined}>
       <button
         type="button"
         className={styles.tile}
-        style={{ aspectRatio: `${item.width} / ${item.height}` }}
         onClick={onOpen}
         onPointerEnter={(event) => {
           if (isVideo && wantsPreview(event)) setPreviewing(true);
@@ -46,7 +54,7 @@ function Tile({ item, typeLabel, openLabel, onOpen }) {
           src={isVideo ? item.poster : item.src}
           alt=""
           fill
-          sizes={TILE_SIZES}
+          sizes={TILE_SIZES[isWide ? "wide" : item.type]}
         />
         {previewing ? (
           <video
@@ -88,8 +96,21 @@ export function PortfolioGallery({ content, items, children }) {
   const [openIndex, setOpenIndex] = useState(null);
   const dialogRef = useRef(null);
 
-  const visible =
-    filter === "all" ? items : items.filter((item) => item.type === filter);
+  const groups = GROUP_ORDER.filter(
+    (type) => filter === "all" || filter === type,
+  )
+    .map((type) => ({
+      type,
+      items: items.filter((item) => item.type === type),
+    }))
+    .filter((group) => group.items.length > 0)
+    .map((group, index, all) => ({
+      ...group,
+      start: all
+        .slice(0, index)
+        .reduce((total, previous) => total + previous.items.length, 0),
+    }));
+  const visible = groups.flatMap((group) => group.items);
   const current = openIndex === null ? null : visible[openIndex];
 
   useEffect(() => {
@@ -142,17 +163,25 @@ export function PortfolioGallery({ content, items, children }) {
         })}
       </div>
 
-      <ul className={styles.grid}>
-        {visible.map((item, index) => (
-          <Tile
-            key={item.id}
-            item={item}
-            typeLabel={content.typeLabels[item.type]}
-            openLabel={content.openLabel}
-            onOpen={() => setOpenIndex(index)}
-          />
-        ))}
-      </ul>
+      {groups.map((group) => (
+        <div className={styles.group} key={group.type}>
+          <h3 className={styles.groupTitle}>
+            {content.filters[group.type]}
+            <span aria-hidden="true">{group.items.length}</span>
+          </h3>
+          <ul className={`${styles.grid} ${styles[`${group.type}s`]}`}>
+            {group.items.map((item, index) => (
+              <Tile
+                key={item.id}
+                item={item}
+                typeLabel={content.typeLabels[item.type]}
+                openLabel={content.openLabel}
+                onOpen={() => setOpenIndex(group.start + index)}
+              />
+            ))}
+          </ul>
+        </div>
+      ))}
 
       <dialog
         ref={dialogRef}
