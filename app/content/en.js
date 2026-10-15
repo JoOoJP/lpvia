@@ -345,16 +345,6 @@ export const en = {
         client: "London",
         alt: "Row of red telephone boxes leaning like dominoes along a sidewalk",
       },
-      {
-        id: "galaticos-arte",
-        type: "photo",
-        src: "/portfolio/galaticos-arte.webp",
-        width: 1080,
-        height: 1350,
-        title: "Social media artwork",
-        client: "Galáticos FT",
-        alt: "Social media layout with photos of a woman in a wine-colored top in overlapping frames, set on grass among plants",
-      },
     ],
   },
 

@@ -349,16 +349,6 @@ export const pt = {
         client: "Londres",
         alt: "Fileira de cabines telefônicas vermelhas inclinadas como dominós ao longo de uma calçada",
       },
-      {
-        id: "galaticos-arte",
-        type: "photo",
-        src: "/portfolio/galaticos-arte.webp",
-        width: 1080,
-        height: 1350,
-        title: "Arte para redes sociais",
-        client: "Galáticos FT",
-        alt: "Layout para redes sociais com fotos de uma mulher de top vinho em molduras sobrepostas, em um ambiente com gramado e plantas",
-      },
     ],
   },
 

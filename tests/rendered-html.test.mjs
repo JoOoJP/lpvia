@@ -269,7 +269,7 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(ptHtml, /Abrir foto: Cabines telefônicas — Londres/);
   assert.match(ptHtml, /Abrir foto: Mesa de salgados — Gastronomia/);
   assert.match(ptHtml, /portfolio%2Fcachoeira-jardim\.webp/);
-  assert.match(ptHtml, /FOTOS<span[^>]*>12|Fotos<span[^>]*>12/i);
+  assert.match(ptHtml, /FOTOS<span[^>]*>11|Fotos<span[^>]*>11/i);
   assert.match(ptHtml, /Abrir foto: Retrato pet — Pets/);
   assert.match(ptHtml, /portfolio%2Fmundo-egipcio-poster\.webp/);
   assert.match(ptHtml, /rel="canonical" href="[^"]*\/portfolio"/);
