@@ -39,6 +39,7 @@ function Tile({ item, typeLabel, openLabel, onOpen }) {
       <button
         type="button"
         className={styles.tile}
+        data-tile=""
         onClick={onOpen}
         onPointerEnter={(event) => {
           if (isVideo && wantsPreview(event)) setPreviewing(true);
@@ -95,8 +96,10 @@ export function PortfolioGallery({ content, items, children }) {
   const sectionRef = useRef(null);
   const cameraRef = useRef(null);
   const openTimer = useRef(null);
+  const pressTimer = useRef(null);
   const lastFlash = useRef(0);
   const lastPointer = useRef(null);
+  const frameMotion = useRef({ x: 0, y: 0, targetX: 0, targetY: 0, raf: 0 });
   const [flash, setFlash] = useState(null);
 
   const groups = GROUP_ORDER.filter(
@@ -123,7 +126,14 @@ export function PortfolioGallery({ content, items, children }) {
     if (!current && dialog.open) dialog.close();
   }, [current]);
 
-  useEffect(() => () => window.clearTimeout(openTimer.current), []);
+  useEffect(() => {
+    const motion = frameMotion.current;
+    return () => {
+      window.clearTimeout(openTimer.current);
+      window.clearTimeout(pressTimer.current);
+      window.cancelAnimationFrame(motion.raf);
+    };
+  }, []);
 
   // O flash sai por animationend; o tempo é a rede de segurança para quando a
   // animação não roda (aba em segundo plano), senão ele ficaria aceso na tela.
@@ -143,11 +153,51 @@ export function PortfolioGallery({ content, items, children }) {
   const motionAllowed = () =>
     !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /*
+   * O ponto central acompanha o mouse sem atraso (é onde o clique acontece);
+   * os cantos do visor vêm atrás com um pequeno atraso suave.
+   */
+  function moveFrame() {
+    const motion = frameMotion.current;
+    const camera = cameraRef.current;
+    const ease = motionAllowed() ? 0.22 : 1;
+
+    motion.x += (motion.targetX - motion.x) * ease;
+    motion.y += (motion.targetY - motion.y) * ease;
+    camera?.style.setProperty("--fx", `${motion.x}px`);
+    camera?.style.setProperty("--fy", `${motion.y}px`);
+
+    const settled =
+      Math.abs(motion.targetX - motion.x) < 0.1 &&
+      Math.abs(motion.targetY - motion.y) < 0.1;
+    motion.raf = settled ? 0 : window.requestAnimationFrame(moveFrame);
+  }
+
   function trackPointer(event) {
     if (event.pointerType !== "mouse" || !sectionRef.current) return;
+
+    const motion = frameMotion.current;
+    const wasOn = cameraOn();
     sectionRef.current.dataset.camera = "on";
     lastPointer.current = { x: event.clientX, y: event.clientY };
-    placeCamera(cameraRef.current);
+    motion.targetX = event.clientX;
+    motion.targetY = event.clientY;
+
+    // Na primeira entrada o visor nasce sob o mouse, sem voar de onde estava.
+    if (!wasOn) {
+      motion.x = event.clientX;
+      motion.y = event.clientY;
+    }
+
+    const camera = cameraRef.current;
+    camera?.style.setProperty("--dx", `${event.clientX}px`);
+    camera?.style.setProperty("--dy", `${event.clientY}px`);
+    camera?.toggleAttribute(
+      "data-focus",
+      event.target instanceof Element && event.target.closest("[data-tile]") !== null,
+    );
+
+    if (!motion.raf) motion.raf = window.requestAnimationFrame(moveFrame);
   }
 
   // A câmera sai de cena enquanto o visualizador está aberto; ao voltar ela
@@ -155,17 +205,37 @@ export function PortfolioGallery({ content, items, children }) {
   function placeCamera(element) {
     if (!element || !lastPointer.current) return;
     const { x, y } = lastPointer.current;
-    element.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    const motion = frameMotion.current;
+    motion.x = x;
+    motion.y = y;
+    motion.targetX = x;
+    motion.targetY = y;
+    for (const [name, value] of [["--dx", x], ["--dy", y], ["--fx", x], ["--fy", y]]) {
+      element.style.setProperty(name, `${value}px`);
+    }
   }
 
   function leavePointer() {
     if (sectionRef.current) delete sectionRef.current.dataset.camera;
     cameraRef.current?.removeAttribute("data-pressed");
+    cameraRef.current?.removeAttribute("data-focus");
   }
 
+  // Ao soltar, o visor ainda segura o "foco travado" por um instante: um clique
+  // rápido dura poucos milissegundos e o aperto passaria despercebido.
   function pressCamera(event, pressed) {
     if (event.pointerType !== "mouse") return;
-    cameraRef.current?.toggleAttribute("data-pressed", pressed);
+    window.clearTimeout(pressTimer.current);
+
+    if (pressed) {
+      cameraRef.current?.setAttribute("data-pressed", "");
+      return;
+    }
+
+    pressTimer.current = window.setTimeout(
+      () => cameraRef.current?.removeAttribute("data-pressed"),
+      140,
+    );
   }
 
   function snap(event) {
@@ -349,21 +419,10 @@ export function PortfolioGallery({ content, items, children }) {
           }}
           aria-hidden="true"
         >
-          <svg
-            viewBox="0 0 48 48"
-            fill="none"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path
-              className={styles.cameraBody}
-              d="M8 16a4 4 0 0 1 4-4h4.5l2.2-3.3A3 3 0 0 1 21.2 7h5.6a3 3 0 0 1 2.5 1.7L31.5 12H36a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V16Z"
-            />
-            <circle className={styles.cameraLens} cx="24" cy="25" r="7.5" />
-            <circle className={styles.cameraDot} cx="24" cy="25" r="2.6" />
-            <circle className={styles.cameraLed} cx="34" cy="17.5" r="1.3" />
+          <svg className={styles.cameraFrame} viewBox="0 0 32 32" fill="none">
+            <path d="M2 10V5a3 3 0 0 1 3-3h5M22 2h5a3 3 0 0 1 3 3v5M30 22v5a3 3 0 0 1-3 3h-5M10 30H5a3 3 0 0 1-3-3v-5" />
           </svg>
+          <span className={styles.cameraDot} />
         </span>
       )}
 

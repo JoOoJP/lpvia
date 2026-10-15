@@ -477,60 +477,80 @@
 
 /* ---------- Câmera no lugar do cursor ---------- */
 
+/*
+ * Visor de câmera no lugar do cursor: quatro cantos finos e um ponto. Os cantos
+ * se abrem ("focam") sobre um card e fecham ao clicar; o ponto é o clique.
+ */
 .camera {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 80;
-  width: 46px;
-  height: 46px;
-  margin: -23px 0 0 -23px;
+  width: 0;
+  height: 0;
   opacity: 0;
   pointer-events: none;
-  filter: drop-shadow(0 4px 10px rgb(0 0 0 / 55%));
+  transition: opacity 180ms ease;
+}
+
+/* A posição vai em `translate` (e não em `transform`) porque o `scale` abaixo
+   se aplica depois dela e multiplicaria a coordenada do mouse. */
+.cameraFrame,
+.cameraDot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: translate;
+}
+
+.cameraFrame {
+  /* O contêiner tem largura zero; sem isso o reset global (svg { max-width:
+     100% }) achata o visor. */
+  max-width: none;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  translate: var(--fx, 0px) var(--fy, 0px);
+  stroke: rgb(247 247 245 / 92%);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 1px rgb(0 0 0 / 70%));
   transition:
-    opacity 160ms ease,
-    scale 120ms var(--ease-out, ease);
-  will-change: transform;
-}
-
-.camera svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  stroke: #f7f7f5;
-}
-
-.cameraBody {
-  fill: rgb(8 9 10 / 62%);
-}
-
-.cameraLens {
-  transition: stroke var(--duration-fast) ease;
+    scale 320ms var(--ease-out, ease),
+    stroke 160ms ease;
 }
 
 .cameraDot {
-  fill: #f7f7f5;
-  stroke: none;
-  transition: fill var(--duration-fast) ease;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: #f7f7f5;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 35%);
+  translate: var(--dx, 0px) var(--dy, 0px);
+  transition:
+    scale 200ms var(--ease-out, ease),
+    background 160ms ease;
 }
 
-.cameraLed {
-  fill: #68e49b;
-  stroke: none;
+.camera[data-focus] .cameraFrame {
+  scale: 1.32;
 }
 
-/* Ao apertar, a câmera encolhe um pouco e a lente acende. */
-.camera[data-pressed] {
-  scale: 0.86;
+.camera[data-focus] .cameraDot {
+  background: #68e49b;
 }
 
-.camera[data-pressed] .cameraLens {
+/* Ao apertar, o foco "trava": os cantos fecham e o ponto acende. */
+.camera[data-pressed] .cameraFrame {
+  scale: 0.7;
   stroke: #68e49b;
+  transition-duration: 110ms;
 }
 
 .camera[data-pressed] .cameraDot {
-  fill: #68e49b;
+  scale: 1.8;
+  background: #68e49b;
 }
 
 /* O flash é um clarão localizado no ponto do clique, uma vez só. */
@@ -541,12 +561,12 @@
   pointer-events: none;
   background: radial-gradient(
     circle at var(--x) var(--y),
-    rgb(255 255 255 / 88%) 0,
-    rgb(255 255 255 / 34%) 9rem,
-    rgb(255 255 255 / 9%) 26rem,
-    transparent 44rem
+    rgb(255 255 255 / 72%) 0,
+    rgb(255 255 255 / 26%) 4.5rem,
+    rgb(255 255 255 / 7%) 13rem,
+    transparent 22rem
   );
-  animation: shutter-flash 480ms ease-out forwards;
+  animation: shutter-flash 380ms ease-out forwards;
 }
 
 @keyframes shutter-flash {
