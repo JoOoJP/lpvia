@@ -156,22 +156,35 @@
 .specialtyList {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.6vw, 1.25rem);
   margin: 0;
   padding: 0;
-  border-top: 1px solid rgb(255 255 255 / 12%);
   list-style: none;
 }
 
 .specialtyList li {
   display: grid;
   align-content: start;
-  gap: 0.6rem;
-  padding: 1.5rem clamp(1rem, 2vw, 1.75rem) 0.5rem 0;
+  gap: 0.7rem;
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: clamp(12px, 1.2vw, 18px);
+  background: linear-gradient(180deg, rgb(255 255 255 / 4.5%), rgb(255 255 255 / 1.5%));
+  transition:
+    border-color var(--duration-fast) ease,
+    background var(--duration-fast) ease;
 }
 
-.specialtyList li + li {
-  padding-left: clamp(1rem, 2vw, 1.75rem);
-  border-left: 1px solid rgb(255 255 255 / 12%);
+.specialtyList li:hover {
+  border-color: rgb(255 255 255 / 24%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 6.5%), rgb(255 255 255 / 2.5%));
+}
+
+.specialtyTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
 }
 
 .specialtyNumber {
@@ -179,6 +192,17 @@
   font-size: 0.75rem;
   font-weight: 750;
   letter-spacing: 0.16em;
+}
+
+.specialtyIcon {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: #8e969a;
+  transition: color var(--duration-fast) ease;
+}
+
+.specialtyList li:hover .specialtyIcon {
+  color: #68e49b;
 }
 
 .specialtyList h3 {
@@ -192,7 +216,7 @@
 
 .specialtyList p {
   margin: 0;
-  color: #848a8d;
+  color: #a3a9ac;
   font-size: 0.92rem;
   line-height: 1.6;
 }
@@ -201,25 +225,10 @@
   .specialtyList {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .specialtyList li:nth-child(3) {
-    padding-left: 0;
-    border-left: 0;
-  }
 }
 
 @media (max-width: 620px) {
   .specialtyList {
     grid-template-columns: 1fr;
-  }
-
-  .specialtyList li,
-  .specialtyList li + li {
-    padding: 1.25rem 0;
-    border-left: 0;
-  }
-
-  .specialtyList li + li {
-    border-top: 1px solid rgb(255 255 255 / 12%);
   }
 }

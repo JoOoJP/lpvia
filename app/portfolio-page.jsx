@@ -7,6 +7,52 @@ import { SiteFooter } from "./sections/site-footer";
 import { SiteHeader } from "./sections/site-header";
 import styles from "./portfolio-page.module.css";
 
+const specialtyIcons = {
+  camera: (
+    <>
+      <path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2.2l1.1-1.8A1.5 1.5 0 0 1 10.1 4.5h3.8a1.5 1.5 0 0 1 1.3.7L16.3 7h2.2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5v-9Z" />
+      <circle cx="12" cy="13" r="3.4" />
+    </>
+  ),
+  film: (
+    <>
+      <rect x="3.5" y="5" width="17" height="14" rx="2" />
+      <path d="M7.5 5v14M16.5 5v14M3.5 9.5h4M3.5 14.5h4M16.5 9.5h4M16.5 14.5h4" />
+    </>
+  ),
+  phone: (
+    <>
+      <rect x="7" y="3" width="10" height="18" rx="2.4" />
+      <path d="m10.8 9.6 3.2 2.4-3.2 2.4V9.6Z" />
+    </>
+  ),
+  image: (
+    <>
+      <rect x="3.5" y="4.5" width="17" height="15" rx="2" />
+      <circle cx="9" cy="10" r="1.6" />
+      <path d="m4 17 4.6-4.4a1.5 1.5 0 0 1 2.1 0L14 16l2-2a1.5 1.5 0 0 1 2.1 0L20 15.8" />
+    </>
+  ),
+};
+
+function SpecialtyIcon({ name }) {
+  return (
+    <svg
+      className={styles.specialtyIcon}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      {specialtyIcons[name]}
+    </svg>
+  );
+}
+
 // O openGraph da página substitui o do layout por inteiro, então a imagem
 // social precisa ser declarada de novo aqui.
 export function portfolioMetadata(content, languages) {
@@ -110,9 +156,12 @@ export function PortfolioPage({ content }) {
         <ol className={styles.specialtyList}>
           {specialties.items.map((item, index) => (
             <li key={item.title}>
-              <span className={styles.specialtyNumber} aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+              <div className={styles.specialtyTop}>
+                <span className={styles.specialtyNumber} aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <SpecialtyIcon name={item.icon} />
+              </div>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </li>

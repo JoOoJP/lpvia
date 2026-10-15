@@ -93,7 +93,7 @@ export const pt = {
       titleLead: "Oi, eu sou a ",
       titleHighlight: "Sté.",
       paragraphs: [
-        "Faz 10 anos que trabalho com marketing, mas a história é mais antiga. Aos 8 anos eu tinha um blog do Justin Bieber no Blogspot e mexia no HTML só para ele ficar mais bonito.",
+        "Minha história com marketing começou aos 10 anos, no Blogspot: eu tinha um blog do Justin Bieber e mexia no HTML só para ele ficar mais bonito.",
         "Hoje sou criadora de conteúdo e estrategista digital, apaixonada por captar momentos e transformá-los em histórias com profundidade, propósito e alma.",
         "Trabalho unindo estética, criatividade e tecnologia a serviço das marcas.",
       ],
@@ -122,18 +122,22 @@ export const pt = {
       titleHighlight: "edição final.",
       items: [
         {
+          icon: "camera",
           title: "Cobertura de eventos",
           text: "Fotos e vídeos que contam o evento enquanto ele acontece, com entregas rápidas para as redes no mesmo dia.",
         },
         {
+          icon: "film",
           title: "Filmes de marca",
           text: "Institucionais, depoimentos e bastidores com roteiro, direção, captação e edição sob o mesmo olhar.",
         },
         {
+          icon: "phone",
           title: "Reels e conteúdo vertical",
           text: "Vídeos curtos feitos para o feed: gancho nos primeiros segundos, ritmo, legenda e trilha.",
         },
         {
+          icon: "image",
           title: "Produto, retrato e editorial",
           text: "Stills e retratos com direção de luz e de arte, prontos para site, campanha e catálogo.",
         },
