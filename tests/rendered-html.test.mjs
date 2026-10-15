@@ -260,7 +260,7 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(ptHtml, /aria-label="Filtrar por tipo de mídia"/);
   assert.match(ptHtml, /aria-pressed="true"[^>]*>Todos/);
   assert.match(ptHtml, /Abrir vídeo: Depoimento — Samuel Moikato/);
-  assert.match(ptHtml, /Abrir foto: Still de produto — Sweet Popcorn Gourmet/);
+  assert.doesNotMatch(ptHtml, /Abrir foto: (Still de produto|Evento ao pôr do sol|Editorial em Londres)/);
   assert.match(ptHtml, /Abrir vídeo: Vídeo institucional — Clínica odontológica/);
   assert.match(ptHtml, /Abrir vídeo: Cobertura de evento — Galáticos FT/);
   assert.match(ptHtml, /Abrir vídeo: Reels para loja — Mundo Egípcio/);
@@ -269,7 +269,7 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(ptHtml, /Abrir foto: Cabines telefônicas — Londres/);
   assert.match(ptHtml, /Abrir foto: Mesa de salgados — Gastronomia/);
   assert.match(ptHtml, /portfolio%2Fcachoeira-jardim\.webp/);
-  assert.match(ptHtml, /FOTOS<span[^>]*>14|Fotos<span[^>]*>14/i);
+  assert.match(ptHtml, /FOTOS<span[^>]*>11|Fotos<span[^>]*>11/i);
   assert.match(ptHtml, /portfolio%2Fmundo-egipcio-poster\.webp/);
   assert.match(ptHtml, /rel="canonical" href="[^"]*\/portfolio"/);
 
