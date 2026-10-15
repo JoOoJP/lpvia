@@ -144,31 +144,38 @@
   border-color: rgb(255 255 255 / 30%);
 }
 
-/* Ao passar o mouse a mídia cresce 120% dentro da moldura. O preview do vídeo
-   monta no hover, então anima do zero com a mesma curva e duração do poster
-   que está embaixo dele. */
-@media (prefers-reduced-motion: no-preference) {
-  .tile img {
-    transition: transform 600ms var(--ease-out, ease);
-  }
-
-  .tile:hover img,
-  .tile:focus-visible img {
-    transform: scale(1.2);
-  }
-
-  .preview {
-    animation: preview-zoom 600ms var(--ease-out, ease) both;
-  }
+/*
+ * Ao passar o mouse o próprio quadrado cresce 120% e passa por cima dos
+ * vizinhos. O z-index vai no item da grade: a animação de entrada faz cada <li>
+ * ser seu próprio contexto de empilhamento, e sem isso o card ampliado ficaria
+ * atrás dos que vêm depois dele.
+ */
+.item:hover,
+.item:focus-within {
+  z-index: 10;
 }
 
-@keyframes preview-zoom {
-  from {
-    transform: scale(1);
+.tile:hover,
+.tile:focus-visible {
+  box-shadow: 0 44px 80px -24px rgb(0 0 0 / 85%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tile {
+    transition:
+      border-color var(--duration-fast) ease,
+      box-shadow 320ms ease,
+      transform 320ms var(--ease-out, ease);
   }
 
-  to {
+  .tile:focus-visible {
     transform: scale(1.2);
+  }
+
+  @media (hover: hover) {
+    .tile:hover {
+      transform: scale(1.2);
+    }
   }
 }
 

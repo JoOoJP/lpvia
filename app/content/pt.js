@@ -196,7 +196,7 @@ export const pt = {
         width: 720,
         height: 1280,
         duration: "0:25",
-        title: "Segredo para uma criança colaborar",
+        title: "Vídeo institucional",
         client: "Clínica odontológica",
         alt: "Dentista explica, em um reel legendado, como conduzir uma criança com cuidado antes da consulta",
       },

@@ -261,7 +261,7 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(ptHtml, /aria-pressed="true"[^>]*>Todos/);
   assert.match(ptHtml, /Abrir vídeo: Depoimento — Samuel Moikato/);
   assert.match(ptHtml, /Abrir foto: Still de produto — Sweet Popcorn Gourmet/);
-  assert.match(ptHtml, /Abrir vídeo: Segredo para uma criança colaborar — Clínica odontológica/);
+  assert.match(ptHtml, /Abrir vídeo: Vídeo institucional — Clínica odontológica/);
   assert.match(ptHtml, /Abrir vídeo: Cobertura de evento — Galáticos FT/);
   assert.match(ptHtml, /Abrir vídeo: Reels para loja — Mundo Egípcio/);
   assert.match(ptHtml, /Abrir vídeo: Reels de beleza — Salão de beleza/);

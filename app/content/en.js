@@ -192,7 +192,7 @@ export const en = {
         width: 720,
         height: 1280,
         duration: "0:25",
-        title: "The secret to getting kids to cooperate",
+        title: "Institutional video",
         client: "Dental clinic",
         alt: "A dentist explains, in a captioned reel, how to guide a child with care before the appointment",
       },
