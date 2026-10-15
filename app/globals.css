@@ -209,7 +209,8 @@ figure {
 }
 
 .site-nav a:hover::after,
-.site-nav a[aria-current="true"]::after {
+.site-nav a[aria-current="true"]::after,
+.site-nav a[aria-current="page"]::after {
   transform: scaleX(1);
 }
 
@@ -298,14 +299,6 @@ figure {
 
 .logo-stacked .via-mark {
   width: 68px;
-}
-
-.logo-stacked small {
-  margin-top: 0.25rem;
-  color: var(--neutral-500);
-  font-size: 0.52rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
 .site-footer > p,

@@ -1,0 +1,44 @@
+/* O xadrez do fundo precisa do mesmo véu que o hero da home usa. */
+.intro {
+  position: relative;
+  isolation: isolate;
+  padding-top: clamp(8rem, 14vw, 11.5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.intro h1 {
+  max-width: 16ch;
+  margin: 1rem 0 0;
+  color: var(--color-text-via-dark);
+  font-size: clamp(2.65rem, 7.4vw, 5.6rem);
+  font-weight: 650;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+.intro h1 span {
+  background: var(--gradient-brand-text);
+  background-clip: text;
+  color: transparent;
+}
+
+.lead {
+  max-width: 34rem;
+  margin: 1.5rem 0 0;
+  color: #9ea4a7;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.intro::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(3 4 5 / 94%), rgb(4 5 6 / 80%));
+  translate: -50% 0;
+}

@@ -138,7 +138,8 @@
 }
 
 .via-dark-site .site-nav a:hover,
-.via-dark-site .site-nav a[aria-current="true"] {
+.via-dark-site .site-nav a[aria-current="true"],
+.via-dark-site .site-nav a[aria-current="page"] {
   color: #f7f7f5;
 }
 
@@ -1117,7 +1118,6 @@
 
 .dark-footer .logo-stacked { width: 76px; min-height: 70px; }
 .dark-footer .logo-stacked .via-mark { width: 68px; }
-.dark-footer .logo-stacked small,
 .dark-footer > p,
 .dark-footer > small { color: #777e81; font-size: 0.78rem; }
 .dark-footer > small { justify-self: end; }

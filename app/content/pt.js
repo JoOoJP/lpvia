@@ -24,6 +24,7 @@ export const pt = {
       { id: "fazemos", label: "O que fazemos" },
       { id: "moikato", label: "Moikato" },
       { id: "trabalhos", label: "Trabalhos" },
+      { id: "portfolio", label: "Portfólio", href: "/portfolio" },
       { id: "contato", label: "Contato" },
     ],
     ctaLabel: "Fale com a VIA",
@@ -74,6 +75,22 @@ export const pt = {
       ticketDay: "Terça, 14h",
       ticketMode: "Presencial",
     },
+  },
+
+  portfolio: {
+    path: "/portfolio",
+    langHref: "/en/portfolio",
+    meta: {
+      title: "Portfólio — VIA",
+      description:
+        "Marcas, sites e campanhas que a VIA pensou e construiu, do posicionamento à execução.",
+    },
+    kicker: "PORTFÓLIO",
+    titleLead: "Projetos que ",
+    titleHighlight: "ganharam forma.",
+    description:
+      "Marcas, sites e campanhas que a VIA pensou e construiu, do posicionamento à execução.",
+    gridAriaLabel: "Projetos da VIA",
   },
 
   capabilities: {
@@ -215,7 +232,6 @@ export const pt = {
 
   footer: {
     logoLabel: "VIA, voltar ao início",
-    tagline: "growth company",
     contactAriaLabel: "Contato",
     whatsappLabel: "WhatsApp",
     copyright: "© 2026 VIA. Crescimento em movimento.",

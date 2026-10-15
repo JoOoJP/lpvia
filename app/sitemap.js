@@ -4,30 +4,19 @@ import { siteUrl } from "./site";
 export default function sitemap() {
   const lastModified = new Date();
 
-  return [
-    {
-      url: siteUrl,
+  const pair = (ptPath, enPath, priority) =>
+    [ptPath, enPath].map((path, index) => ({
+      url: `${siteUrl}${path === "/" ? "" : path}`,
       lastModified,
       changeFrequency: "monthly",
-      priority: 1,
+      priority: index === 0 ? priority : priority - 0.1,
       alternates: {
         languages: {
-          "pt-BR": siteUrl,
-          en: `${siteUrl}/en`,
+          "pt-BR": `${siteUrl}${ptPath === "/" ? "" : ptPath}`,
+          en: `${siteUrl}${enPath}`,
         },
       },
-    },
-    {
-      url: `${siteUrl}/en`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.9,
-      alternates: {
-        languages: {
-          "pt-BR": siteUrl,
-          en: `${siteUrl}/en`,
-        },
-      },
-    },
-  ];
+    }));
+
+  return [...pair("/", "/en", 1), ...pair("/portfolio", "/en/portfolio", 0.8)];
 }

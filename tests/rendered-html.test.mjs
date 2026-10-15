@@ -237,6 +237,39 @@ test("publica a versão em inglês em /en", async () => {
   assert.match(ptHtml, /href="\/en"[^>]*>\s*EN/);
 });
 
+test("publica a aba de portfólio em português e inglês", async () => {
+  const ptHtml = await (await fetch(`${pageUrl}portfolio`)).text();
+
+  assert.match(ptHtml, /<title>Portfólio — VIA<\/title>/i);
+  assert.match(ptHtml, /Projetos que/);
+  assert.match(ptHtml, /aria-current="page"[^>]*>Portfólio</);
+  assert.match(ptHtml, /href="\/#fazemos"/);
+  assert.match(ptHtml, /href="#contato"/);
+  assert.match(ptHtml, /id="case-in-tha-route"/);
+  assert.match(ptHtml, /Comparar a identidade antiga e a nova da In Tha Route/);
+  assert.match(ptHtml, /rel="canonical" href="[^"]*\/portfolio"/);
+
+  const enResponse = await fetch(`${pageUrl}en/portfolio`);
+  const enHtml = await enResponse.text();
+
+  assert.equal(enResponse.status, 200);
+  assert.match(enHtml, /<html[^>]*lang="en"/);
+  assert.match(enHtml, /<title>Portfolio — VIA<\/title>/i);
+  assert.match(enHtml, /Projects that/);
+  assert.match(enHtml, /rel="canonical" href="[^"]*\/en\/portfolio"/);
+
+  const home = await (await fetch(pageUrl)).text();
+  assert.match(home, /href="\/portfolio"[^>]*>Portfólio</);
+});
+
+test("o rodapé não repete o slogan growth company", async () => {
+  const html = await (await fetch(pageUrl)).text();
+  const footer = html.match(/<footer[\s\S]*<\/footer>/)?.[0] ?? "";
+
+  assert.ok(footer.length > 0);
+  assert.doesNotMatch(footer, /growth company/i);
+});
+
 function findAvailablePort() {
   return new Promise((resolve, reject) => {
     const listener = net.createServer();

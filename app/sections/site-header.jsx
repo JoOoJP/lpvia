@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Arrow } from "../ui/arrow";
 import { ViaMark } from "../ui/via-mark";
@@ -7,7 +8,25 @@ import { ViaMark } from "../ui/via-mark";
 // Faixa estreita no meio da tela: a seção que a cruza é a que o visitante lê.
 const ACTIVE_BAND = "-45% 0px -50% 0px";
 
-export function SiteHeader({ content, whatsappUrl }) {
+function NavLink({ item, href, ariaCurrent, onClick }) {
+  const Anchor = item.href ? Link : "a";
+
+  return (
+    <Anchor href={href} aria-current={ariaCurrent} onClick={onClick}>
+      {item.label}
+    </Anchor>
+  );
+}
+
+// `pageBase` e `localAnchors` servem às páginas internas: as âncoras que não
+// existem na página atual voltam para a home em vez de apontar para o vazio.
+export function SiteHeader({
+  content,
+  whatsappUrl,
+  pageBase = "",
+  localAnchors = null,
+  currentPage = null,
+}) {
   const navItems = content.nav;
   const [scrolled, setScrolled] = useState(false);
   const [activeId, setActiveId] = useState(null);
@@ -101,6 +120,22 @@ export function SiteHeader({ content, whatsappUrl }) {
     };
   }, [menuOpen]);
 
+  const hrefFor = (item) => {
+    if (item.href) return item.href;
+    const isLocal = !localAnchors || localAnchors.includes(item.id);
+    return isLocal ? `#${item.id}` : `${pageBase}#${item.id}`;
+  };
+
+  const ariaCurrentFor = (item) => {
+    if (currentPage === item.id) return "page";
+    return activeId === item.id ? "true" : undefined;
+  };
+
+  const closeMenuFromLink = () => {
+    returnFocusRef.current = false;
+    setMenuOpen(false);
+  };
+
   const headerClass = [
     "site-header",
     scrolled ? "site-header-solid" : "",
@@ -111,19 +146,18 @@ export function SiteHeader({ content, whatsappUrl }) {
 
   return (
     <header className={headerClass}>
-      <a className="logo" href="#inicio">
+      <a className="logo" href={`${pageBase}#inicio`}>
         <ViaMark title={content.logoLabel} />
       </a>
 
       <nav className="site-nav" aria-label={content.navAriaLabel}>
         {navItems.map((item) => (
-          <a
+          <NavLink
             key={item.id}
-            href={`#${item.id}`}
-            aria-current={activeId === item.id ? "true" : undefined}
-          >
-            {item.label}
-          </a>
+            item={item}
+            href={hrefFor(item)}
+            ariaCurrent={ariaCurrentFor(item)}
+          />
         ))}
       </nav>
 
@@ -178,17 +212,13 @@ export function SiteHeader({ content, whatsappUrl }) {
       >
         <nav aria-label={content.navCompactAriaLabel}>
           {navItems.map((item) => (
-            <a
+            <NavLink
               key={item.id}
-              href={`#${item.id}`}
-              aria-current={activeId === item.id ? "true" : undefined}
-              onClick={() => {
-                returnFocusRef.current = false;
-                setMenuOpen(false);
-              }}
-            >
-              {item.label}
-            </a>
+              item={item}
+              href={hrefFor(item)}
+              ariaCurrent={ariaCurrentFor(item)}
+              onClick={closeMenuFromLink}
+            />
           ))}
         </nav>
         <a

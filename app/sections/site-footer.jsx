@@ -6,7 +6,6 @@ export function SiteFooter({ content, whatsappUrl }) {
     <footer className="dark-footer section">
       <a className="logo logo-stacked" href="#inicio">
         <ViaMark title={content.logoLabel} />
-        <small>{content.tagline}</small>
       </a>
 
       <nav className="dark-footer-contact" aria-label={content.contactAriaLabel}>
