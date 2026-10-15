@@ -296,6 +296,16 @@ export const en = {
         alt: "Smiling boy sitting in an orange hammock on a wooden porch, garden in the background",
       },
       {
+        id: "pet-golden",
+        type: "photo",
+        src: "/portfolio/pet-golden.webp",
+        width: 1066,
+        height: 1600,
+        title: "Pet portrait",
+        client: "Pets",
+        alt: "Golden retriever smiling with its tongue out, looking at the camera on a wooden deck",
+      },
+      {
         id: "ensaio-cachoeira",
         type: "photo",
         src: "/portfolio/ensaio-cachoeira.webp",

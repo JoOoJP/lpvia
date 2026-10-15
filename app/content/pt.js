@@ -300,6 +300,16 @@ export const pt = {
         alt: "Menino sorrindo sentado em uma rede laranja numa varanda de madeira, com jardim ao fundo",
       },
       {
+        id: "pet-golden",
+        type: "photo",
+        src: "/portfolio/pet-golden.webp",
+        width: 1066,
+        height: 1600,
+        title: "Retrato pet",
+        client: "Pets",
+        alt: "Cachorro golden retriever sorrindo, com a língua de fora, olhando para a câmera sobre um deck de madeira",
+      },
+      {
         id: "ensaio-cachoeira",
         type: "photo",
         src: "/portfolio/ensaio-cachoeira.webp",
