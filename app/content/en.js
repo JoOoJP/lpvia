@@ -85,6 +85,8 @@ export const en = {
       description:
         "Photo and video portfolio of Sté, videomaker, photographer, and VIA partner: events, brand films, reels, and product photography.",
     },
+    whatsappMessage:
+      "Hi, Sté! I saw your portfolio on VIA's site and I'd like to talk about a photo or video production.",
     about: {
       kicker: "VIDEOMAKER & PHOTOGRAPHER · VIA PARTNER",
       skills: ["Directing", "Shooting", "Photography", "Editing & color"],
@@ -134,6 +136,15 @@ export const en = {
           text: "Stills and portraits with lighting and art direction, ready for websites, campaigns, and catalogs.",
         },
       ],
+    },
+    finalCta: {
+      kicker: "NEXT PRODUCTION",
+      titleLine1: "Shall we film",
+      titleLine2Lead: "your ",
+      titleLine2Highlight: "story?",
+      description: "Tell us what you need and Sté will put together a photo and video proposal.",
+      ctaNote: "Event, brand, or product?",
+      ctaLabel: "Talk to Sté",
     },
     kicker: "PORTFOLIO",
     titleLead: "Selected ",

@@ -85,6 +85,8 @@ export const pt = {
       description:
         "Portfólio de foto e vídeo da Sté, videomaker, fotógrafa e sócia da VIA: eventos, filmes de marca, reels e fotografia de produto.",
     },
+    whatsappMessage:
+      "Oi, Sté! Vi seu portfólio na VIA e quero conversar sobre uma produção de foto ou vídeo.",
     about: {
       kicker: "VIDEOMAKER & FOTÓGRAFA · SÓCIA DA VIA",
       skills: ["Direção", "Captação", "Fotografia", "Edição & cor"],
@@ -136,6 +138,15 @@ export const pt = {
           text: "Stills e retratos com direção de luz e de arte, prontos para site, campanha e catálogo.",
         },
       ],
+    },
+    finalCta: {
+      kicker: "PRÓXIMA PRODUÇÃO",
+      titleLine1: "Vamos filmar",
+      titleLine2Lead: "a sua ",
+      titleLine2Highlight: "história?",
+      description: "Conte o que você precisa e a Sté monta a proposta de foto e vídeo.",
+      ctaNote: "Evento, marca ou produto?",
+      ctaLabel: "Falar com a Sté",
     },
     kicker: "PORTFÓLIO",
     titleLead: "Trabalhos ",

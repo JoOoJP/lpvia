@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { buildWhatsappUrl } from "./contact";
+import { FinalCta } from "./sections/final-cta";
 import { PortfolioGallery } from "./sections/portfolio-gallery";
 import { PortfolioShowreel } from "./sections/portfolio-showreel";
 import { SiteFooter } from "./sections/site-footer";
@@ -42,6 +43,8 @@ export function PortfolioPage({ content }) {
   const { portfolio } = content;
   const { about, specialties } = portfolio;
   const whatsappUrl = buildWhatsappUrl(content.contact.whatsappMessage);
+  // O convite do fim já chega na conversa como pedido de produção para a Sté.
+  const productionWhatsappUrl = buildWhatsappUrl(portfolio.whatsappMessage);
   const header = {
     ...content.header,
     langSwitch: { ...content.header.langSwitch, href: portfolio.langHref },
@@ -53,7 +56,7 @@ export function PortfolioPage({ content }) {
         content={header}
         whatsappUrl={whatsappUrl}
         pageBase={content.path}
-        localAnchors={[]}
+        localAnchors={["contato"]}
         currentPage="portfolio"
       />
 
@@ -128,6 +131,10 @@ export function PortfolioPage({ content }) {
         </header>
       </PortfolioGallery>
 
+      <FinalCta
+        content={{ ...content.finalCta, ...portfolio.finalCta }}
+        whatsappUrl={productionWhatsappUrl}
+      />
       <SiteFooter content={content.footer} whatsappUrl={whatsappUrl} />
     </main>
   );
