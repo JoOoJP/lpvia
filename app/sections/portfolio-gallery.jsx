@@ -10,7 +10,8 @@ const FILTERS = ["all", "photo", "video"];
 const GROUP_ORDER = ["video", "photo"];
 const TILE_SIZES = {
   video: "(max-width: 620px) 50vw, (max-width: 1080px) 33vw, 20vw",
-  photo: "(max-width: 620px) 100vw, (max-width: 1080px) 50vw, 33vw",
+  photo: "(max-width: 620px) 50vw, (max-width: 1080px) 33vw, 25vw",
+  wide: "(max-width: 620px) 100vw, (max-width: 1080px) 66vw, 50vw",
 };
 
 function PlayIcon() {
@@ -32,10 +33,12 @@ function wantsPreview(event) {
 
 function Tile({ item, typeLabel, openLabel, onOpen }) {
   const isVideo = item.type === "video";
+  // Foto em paisagem ocupa duas colunas; retrato ocupa uma.
+  const isWide = !isVideo && item.width / item.height > 1.2;
   const [previewing, setPreviewing] = useState(false);
 
   return (
-    <li className={styles.item}>
+    <li className={styles.item} data-wide={isWide || undefined}>
       <button
         type="button"
         className={styles.tile}
@@ -52,7 +55,7 @@ function Tile({ item, typeLabel, openLabel, onOpen }) {
           src={isVideo ? item.poster : item.src}
           alt=""
           fill
-          sizes={TILE_SIZES[item.type]}
+          sizes={TILE_SIZES[isWide ? "wide" : item.type]}
         />
         {previewing ? (
           <video
