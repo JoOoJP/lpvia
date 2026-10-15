@@ -65,9 +65,7 @@
 
 .group {
   display: grid;
-  gap: 1rem;
-  /* Dá às alturas dos cards uma medida em função da largura da galeria. */
-  container-type: inline-size;
+  gap: 1.6rem;
 }
 
 .groupTitle {
@@ -148,85 +146,48 @@
   border-color: rgb(255 255 255 / 30%);
 }
 
-.tile:hover,
-.tile:focus-visible {
-  box-shadow: 0 44px 80px -24px rgb(0 0 0 / 85%);
-}
-
 /*
- * Em tela larga, com mouse, o card sob o cursor abre espaço: a coluna dele
- * cresce e as vizinhas se estreitam, sem passar por cima de ninguém. A altura
- * das linhas fica fixa (a do card em repouso), então o card mais largo mostra
- * mais do quadro em vez de empurrar a página. Os demais esmaecem de leve para
- * o olhar ficar no card ativo.
+ * Pop-up: com mouse, o card sob o cursor salta da grade — sobe, cresce com uma
+ * mola leve, ganha sombra e um fio de brilho — enquanto os outros recuam e
+ * esmaecem. O z-index vai no item da grade porque a animação de entrada faz cada
+ * <li> ser seu próprio contexto de empilhamento; na saída ele só desce depois
+ * que o card terminou de voltar, senão passaria por baixo dos vizinhos no meio
+ * do movimento.
  */
-@media (min-width: 1081px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .videos {
-    grid-template-columns: repeat(5, 1fr);
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .item {
+    transition: z-index 0s linear 420ms;
   }
 
-  .photos {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .videos,
-  .photos {
-    transition: grid-template-columns 600ms var(--ease-out, ease);
-  }
-
-  .videos .tile {
-    aspect-ratio: auto;
-    height: calc((100cqw - 4 * var(--grid-gap)) / 5 * 16 / 9);
-  }
-
-  .photos .tile {
-    aspect-ratio: auto;
-    height: calc((100cqw - 2 * var(--grid-gap)) / 3 * 2 / 3);
+  .item:hover,
+  .item:focus-within {
+    z-index: 10;
+    transition-delay: 0s;
   }
 
   .tile {
     transition:
-      border-color var(--duration-fast) ease,
-      box-shadow 500ms ease,
-      opacity 500ms ease,
-      filter 500ms ease;
+      transform 420ms cubic-bezier(0.34, 1.45, 0.64, 1),
+      box-shadow 420ms ease,
+      border-color 220ms ease,
+      opacity 360ms ease,
+      filter 360ms ease;
   }
 
-  .grid:has(.tile:is(:hover, :focus-visible)) .tile:not(:hover, :focus-visible) {
-    opacity: 0.55;
-    filter: saturate(0.75);
+  .tile:hover,
+  .tile:focus-visible {
+    transform: translateY(-8px) scale(1.13);
+    border-color: rgb(255 255 255 / 42%);
+    box-shadow:
+      0 56px 90px -26px rgb(0 0 0 / 92%),
+      0 0 0 1px rgb(255 255 255 / 16%),
+      0 0 70px -14px rgb(104 228 155 / 28%);
   }
 
-  .videos:has(> li:nth-child(5n + 1) .tile:is(:hover, :focus-visible)) {
-    grid-template-columns: 1.8fr repeat(4, 1fr);
-  }
-
-  .videos:has(> li:nth-child(5n + 2) .tile:is(:hover, :focus-visible)) {
-    grid-template-columns: 1fr 1.8fr repeat(3, 1fr);
-  }
-
-  .videos:has(> li:nth-child(5n + 3) .tile:is(:hover, :focus-visible)) {
-    grid-template-columns: repeat(2, 1fr) 1.8fr repeat(2, 1fr);
-  }
-
-  .videos:has(> li:nth-child(5n + 4) .tile:is(:hover, :focus-visible)) {
-    grid-template-columns: repeat(3, 1fr) 1.8fr 1fr;
-  }
-
-  .videos:has(> li:nth-child(5n) .tile:is(:hover, :focus-visible)) {
-    grid-template-columns: repeat(4, 1fr) 1.8fr;
-  }
-
-  .photos:has(> li:nth-child(3n + 1) .tile:is(:hover, :focus-visible)) {
-    grid-template-columns: 1.6fr 1fr 1fr;
-  }
-
-  .photos:has(> li:nth-child(3n + 2) .tile:is(:hover, :focus-visible)) {
-    grid-template-columns: 1fr 1.6fr 1fr;
-  }
-
-  .photos:has(> li:nth-child(3n) .tile:is(:hover, :focus-visible)) {
-    grid-template-columns: 1fr 1fr 1.6fr;
+  .gallery:has(.tile:is(:hover, :focus-visible)) .tile:not(:hover, :focus-visible) {
+    opacity: 0.5;
+    filter: saturate(0.7);
+    transform: scale(0.97);
   }
 }
 
@@ -511,5 +472,112 @@
 
   .videos .caption span {
     font-size: 0.62rem;
+  }
+}
+
+/* ---------- Câmera no lugar do cursor ---------- */
+
+.camera {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 80;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 10px rgb(0 0 0 / 55%));
+  transition:
+    opacity 160ms ease,
+    scale 120ms var(--ease-out, ease);
+  will-change: transform;
+}
+
+.camera svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  stroke: #f7f7f5;
+}
+
+.cameraBody {
+  fill: rgb(8 9 10 / 62%);
+}
+
+.cameraLens {
+  transition: stroke var(--duration-fast) ease;
+}
+
+.cameraDot {
+  fill: #f7f7f5;
+  stroke: none;
+  transition: fill var(--duration-fast) ease;
+}
+
+.cameraLed {
+  fill: #68e49b;
+  stroke: none;
+}
+
+/* Ao apertar, a câmera encolhe um pouco e a lente acende. */
+.camera[data-pressed] {
+  scale: 0.86;
+}
+
+.camera[data-pressed] .cameraLens {
+  stroke: #68e49b;
+}
+
+.camera[data-pressed] .cameraDot {
+  fill: #68e49b;
+}
+
+/* O flash é um clarão localizado no ponto do clique, uma vez só. */
+.flash {
+  position: fixed;
+  inset: 0;
+  z-index: 79;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--x) var(--y),
+    rgb(255 255 255 / 88%) 0,
+    rgb(255 255 255 / 34%) 9rem,
+    rgb(255 255 255 / 9%) 26rem,
+    transparent 44rem
+  );
+  animation: shutter-flash 480ms ease-out forwards;
+}
+
+@keyframes shutter-flash {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* Só com mouse de verdade: o cursor nativo some e a câmera assume. */
+@media (hover: hover) and (pointer: fine) {
+  .gallery[data-camera="on"] .camera {
+    opacity: 1;
+  }
+
+  .gallery[data-camera="on"],
+  .gallery[data-camera="on"] * {
+    cursor: none;
+  }
+
+  /* No visualizador a câmera sai de cena e o cursor volta ao normal. */
+  .gallery[data-camera="on"] .viewer,
+  .gallery[data-camera="on"] .viewer * {
+    cursor: auto;
+  }
+
+  .gallery[data-camera="on"] .viewer button,
+  .gallery[data-camera="on"] .viewer summary {
+    cursor: pointer;
   }
 }

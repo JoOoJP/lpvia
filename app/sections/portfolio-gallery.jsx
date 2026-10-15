@@ -92,6 +92,12 @@ export function PortfolioGallery({ content, items, children }) {
   const [filter, setFilter] = useState("all");
   const [openIndex, setOpenIndex] = useState(null);
   const dialogRef = useRef(null);
+  const sectionRef = useRef(null);
+  const cameraRef = useRef(null);
+  const openTimer = useRef(null);
+  const lastFlash = useRef(0);
+  const lastPointer = useRef(null);
+  const [flash, setFlash] = useState(null);
 
   const groups = GROUP_ORDER.filter(
     (type) => filter === "all" || filter === type,
@@ -117,6 +123,73 @@ export function PortfolioGallery({ content, items, children }) {
     if (!current && dialog.open) dialog.close();
   }, [current]);
 
+  useEffect(() => () => window.clearTimeout(openTimer.current), []);
+
+  // O flash sai por animationend; o tempo é a rede de segurança para quando a
+  // animação não roda (aba em segundo plano), senão ele ficaria aceso na tela.
+  useEffect(() => {
+    if (!flash) return undefined;
+    const timer = window.setTimeout(() => setFlash(null), 700);
+    return () => window.clearTimeout(timer);
+  }, [flash]);
+
+  /*
+   * Com mouse, o cursor vira uma câmera: segue o ponteiro dentro da galeria,
+   * "aperta" ao pressionar e, ao clicar, dispara um flash antes de abrir a
+   * mídia. O modo só liga depois do primeiro movimento de mouse, então toque e
+   * teclado seguem como sempre.
+   */
+  const cameraOn = () => sectionRef.current?.dataset.camera === "on";
+  const motionAllowed = () =>
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function trackPointer(event) {
+    if (event.pointerType !== "mouse" || !sectionRef.current) return;
+    sectionRef.current.dataset.camera = "on";
+    lastPointer.current = { x: event.clientX, y: event.clientY };
+    placeCamera(cameraRef.current);
+  }
+
+  // A câmera sai de cena enquanto o visualizador está aberto; ao voltar ela
+  // reaparece onde o mouse está, não no canto da tela.
+  function placeCamera(element) {
+    if (!element || !lastPointer.current) return;
+    const { x, y } = lastPointer.current;
+    element.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  }
+
+  function leavePointer() {
+    if (sectionRef.current) delete sectionRef.current.dataset.camera;
+    cameraRef.current?.removeAttribute("data-pressed");
+  }
+
+  function pressCamera(event, pressed) {
+    if (event.pointerType !== "mouse") return;
+    cameraRef.current?.toggleAttribute("data-pressed", pressed);
+  }
+
+  function snap(event) {
+    if (current || event.detail === 0 || !cameraOn() || !motionAllowed()) return;
+
+    // Um flash por clique, nunca em rajada.
+    const now = performance.now();
+    if (now - lastFlash.current < 400) return;
+    lastFlash.current = now;
+    setFlash({ id: now, x: event.clientX, y: event.clientY });
+  }
+
+  function open(index, event) {
+    window.clearTimeout(openTimer.current);
+
+    // Com a câmera, a mídia abre logo depois do flash, para o clarão aparecer.
+    if (event.detail > 0 && cameraOn() && motionAllowed()) {
+      openTimer.current = window.setTimeout(() => setOpenIndex(index), 160);
+      return;
+    }
+
+    setOpenIndex(index);
+  }
+
   function step(delta) {
     setOpenIndex((index) => (index + delta + visible.length) % visible.length);
   }
@@ -129,8 +202,15 @@ export function PortfolioGallery({ content, items, children }) {
 
   return (
     <section
+      ref={sectionRef}
       className={`${styles.gallery} section`}
       aria-label={content.ariaLabel}
+      onPointerMove={trackPointer}
+      onPointerLeave={leavePointer}
+      onPointerDown={(event) => pressCamera(event, true)}
+      onPointerUp={(event) => pressCamera(event, false)}
+      onPointerCancel={(event) => pressCamera(event, false)}
+      onClick={snap}
     >
       {children}
 
@@ -173,7 +253,7 @@ export function PortfolioGallery({ content, items, children }) {
                 item={item}
                 typeLabel={content.typeLabels[item.type]}
                 openLabel={content.openLabel}
-                onOpen={() => setOpenIndex(group.start + index)}
+                onOpen={(event) => open(group.start + index, event)}
               />
             ))}
           </ul>
@@ -259,6 +339,43 @@ export function PortfolioGallery({ content, items, children }) {
           </>
         ) : null}
       </dialog>
+
+      {current ? null : (
+        <span
+          className={styles.camera}
+          ref={(element) => {
+            cameraRef.current = element;
+            placeCamera(element);
+          }}
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 48 48"
+            fill="none"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path
+              className={styles.cameraBody}
+              d="M8 16a4 4 0 0 1 4-4h4.5l2.2-3.3A3 3 0 0 1 21.2 7h5.6a3 3 0 0 1 2.5 1.7L31.5 12H36a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V16Z"
+            />
+            <circle className={styles.cameraLens} cx="24" cy="25" r="7.5" />
+            <circle className={styles.cameraDot} cx="24" cy="25" r="2.6" />
+            <circle className={styles.cameraLed} cx="34" cy="17.5" r="1.3" />
+          </svg>
+        </span>
+      )}
+
+      {flash ? (
+        <span
+          key={flash.id}
+          className={styles.flash}
+          style={{ "--x": `${flash.x}px`, "--y": `${flash.y}px` }}
+          aria-hidden="true"
+          onAnimationEnd={() => setFlash(null)}
+        />
+      ) : null}
     </section>
   );
 }
