@@ -66,6 +66,8 @@
 .group {
   display: grid;
   gap: 1rem;
+  /* Dá às alturas dos cards uma medida em função da largura da galeria. */
+  container-type: inline-size;
 }
 
 .groupTitle {
@@ -93,8 +95,10 @@
 }
 
 .grid {
+  --grid-gap: clamp(0.75rem, 1.6vw, 1.25rem);
+
   display: grid;
-  gap: clamp(0.75rem, 1.6vw, 1.25rem);
+  gap: var(--grid-gap);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -144,38 +148,85 @@
   border-color: rgb(255 255 255 / 30%);
 }
 
-/*
- * Ao passar o mouse o próprio quadrado cresce 120% e passa por cima dos
- * vizinhos. O z-index vai no item da grade: a animação de entrada faz cada <li>
- * ser seu próprio contexto de empilhamento, e sem isso o card ampliado ficaria
- * atrás dos que vêm depois dele.
- */
-.item:hover,
-.item:focus-within {
-  z-index: 10;
-}
-
 .tile:hover,
 .tile:focus-visible {
   box-shadow: 0 44px 80px -24px rgb(0 0 0 / 85%);
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/*
+ * Em tela larga, com mouse, o card sob o cursor abre espaço: a coluna dele
+ * cresce e as vizinhas se estreitam, sem passar por cima de ninguém. A altura
+ * das linhas fica fixa (a do card em repouso), então o card mais largo mostra
+ * mais do quadro em vez de empurrar a página. Os demais esmaecem de leve para
+ * o olhar ficar no card ativo.
+ */
+@media (min-width: 1081px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .videos {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .photos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .videos,
+  .photos {
+    transition: grid-template-columns 600ms var(--ease-out, ease);
+  }
+
+  .videos .tile {
+    aspect-ratio: auto;
+    height: calc((100cqw - 4 * var(--grid-gap)) / 5 * 16 / 9);
+  }
+
+  .photos .tile {
+    aspect-ratio: auto;
+    height: calc((100cqw - 2 * var(--grid-gap)) / 3 * 2 / 3);
+  }
+
   .tile {
     transition:
       border-color var(--duration-fast) ease,
-      box-shadow 320ms ease,
-      transform 320ms var(--ease-out, ease);
+      box-shadow 500ms ease,
+      opacity 500ms ease,
+      filter 500ms ease;
   }
 
-  .tile:focus-visible {
-    transform: scale(1.2);
+  .grid:has(.tile:is(:hover, :focus-visible)) .tile:not(:hover, :focus-visible) {
+    opacity: 0.55;
+    filter: saturate(0.75);
   }
 
-  @media (hover: hover) {
-    .tile:hover {
-      transform: scale(1.2);
-    }
+  .videos:has(> li:nth-child(5n + 1) .tile:is(:hover, :focus-visible)) {
+    grid-template-columns: 1.8fr repeat(4, 1fr);
+  }
+
+  .videos:has(> li:nth-child(5n + 2) .tile:is(:hover, :focus-visible)) {
+    grid-template-columns: 1fr 1.8fr repeat(3, 1fr);
+  }
+
+  .videos:has(> li:nth-child(5n + 3) .tile:is(:hover, :focus-visible)) {
+    grid-template-columns: repeat(2, 1fr) 1.8fr repeat(2, 1fr);
+  }
+
+  .videos:has(> li:nth-child(5n + 4) .tile:is(:hover, :focus-visible)) {
+    grid-template-columns: repeat(3, 1fr) 1.8fr 1fr;
+  }
+
+  .videos:has(> li:nth-child(5n) .tile:is(:hover, :focus-visible)) {
+    grid-template-columns: repeat(4, 1fr) 1.8fr;
+  }
+
+  .photos:has(> li:nth-child(3n + 1) .tile:is(:hover, :focus-visible)) {
+    grid-template-columns: 1.6fr 1fr 1fr;
+  }
+
+  .photos:has(> li:nth-child(3n + 2) .tile:is(:hover, :focus-visible)) {
+    grid-template-columns: 1fr 1.6fr 1fr;
+  }
+
+  .photos:has(> li:nth-child(3n) .tile:is(:hover, :focus-visible)) {
+    grid-template-columns: 1fr 1fr 1.6fr;
   }
 }
 
