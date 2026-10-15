@@ -57,7 +57,7 @@ function Tile({ item, typeLabel, openLabel, onOpen }) {
  * tipo. Cada peça abre num visualizador em tela cheia (um <dialog> nativo, que
  * já cuida do foco e do Esc); o vídeo só é montado ali, então fechar para tudo.
  */
-export function PortfolioGallery({ content, items }) {
+export function PortfolioGallery({ content, items, children }) {
   const [filter, setFilter] = useState("all");
   const [openIndex, setOpenIndex] = useState(null);
   const dialogRef = useRef(null);
@@ -88,6 +88,8 @@ export function PortfolioGallery({ content, items }) {
       className={`${styles.gallery} section`}
       aria-label={content.ariaLabel}
     >
+      {children}
+
       <div
         className={styles.filters}
         role="group"

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { buildWhatsappUrl } from "./contact";
 import { FinalCta } from "./sections/final-cta";
 import { PortfolioGallery } from "./sections/portfolio-gallery";
@@ -39,6 +40,7 @@ export function portfolioMetadata(content, languages) {
 
 export function PortfolioPage({ content }) {
   const { portfolio } = content;
+  const { about } = portfolio;
   const whatsappUrl = buildWhatsappUrl(content.contact.whatsappMessage);
   const header = {
     ...content.header,
@@ -55,16 +57,45 @@ export function PortfolioPage({ content }) {
         currentPage="portfolio"
       />
 
-      <section className={`${styles.intro} section`} id="inicio">
-        <p className="dark-kicker">{portfolio.kicker}</p>
-        <h1>
-          {portfolio.titleLead}
-          <span>{portfolio.titleHighlight}</span>
-        </h1>
-        <p className={styles.lead}>{portfolio.description}</p>
+      <section
+        className={`${styles.intro} section`}
+        id="inicio"
+        aria-labelledby="sobre-titulo"
+      >
+        <div className={styles.portrait}>
+          <Image
+            src={about.image.src}
+            alt={about.image.alt}
+            width={about.image.width}
+            height={about.image.height}
+            sizes="(max-width: 760px) 100vw, 40vw"
+            priority
+          />
+        </div>
+        <div className={styles.aboutCopy}>
+          <p className="dark-kicker">{about.kicker}</p>
+          <h1 id="sobre-titulo">
+            {about.titleLead}
+            <span>{about.titleHighlight}</span>
+          </h1>
+          {about.paragraphs.map((paragraph) => (
+            <p className={styles.lead} key={paragraph}>
+              {paragraph}
+            </p>
+          ))}
+        </div>
       </section>
 
-      <PortfolioGallery content={portfolio.gallery} items={portfolio.items} />
+      <PortfolioGallery content={portfolio.gallery} items={portfolio.items}>
+        <header className={styles.galleryHeader}>
+          <p className="dark-kicker">{portfolio.kicker}</p>
+          <h2>
+            {portfolio.titleLead}
+            <span>{portfolio.titleHighlight}</span>
+          </h2>
+          <p className={styles.lead}>{portfolio.description}</p>
+        </header>
+      </PortfolioGallery>
 
       <FinalCta content={content.finalCta} whatsappUrl={whatsappUrl} />
       <SiteFooter content={content.footer} whatsappUrl={whatsappUrl} />

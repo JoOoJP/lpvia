@@ -85,6 +85,22 @@ export const en = {
       description:
         "Photos and videos VIA produced for brands, products, and events.",
     },
+    about: {
+      kicker: "ABOUT",
+      titleLead: "Hi, I'm ",
+      titleHighlight: "Sté.",
+      paragraphs: [
+        "I've been a marketer since the Blogspot days: at 8, I already ran a Justin Bieber blog and edited its HTML just to make it look better.",
+        "Today I'm a content creator and digital strategist, passionate about capturing moments and turning them into stories with depth, purpose, and soul.",
+        "I work at the intersection of aesthetics, creativity, and technology for brands.",
+      ],
+      image: {
+        src: "/portfolio/stephani.webp",
+        width: 840,
+        height: 1050,
+        alt: "Stephani, known as Sté, holding a camera while covering an event",
+      },
+    },
     kicker: "PORTFOLIO",
     titleLead: "Photos and videos that ",
     titleHighlight: "took shape.",

@@ -242,6 +242,8 @@ test("publica a aba de portfólio em português e inglês", async () => {
 
   assert.match(ptHtml, /<title>Portfólio — VIA<\/title>/i);
   assert.match(ptHtml, /Fotos e vídeos que/);
+  assert.match(ptHtml, /<h1[^>]*>Oi, eu sou a <span>Sté\.<\/span><\/h1>/);
+  assert.match(ptHtml, /aos 8 anos eu já tinha um blog do Justin Bieber/);
   assert.match(ptHtml, /aria-current="page"[^>]*>Portfólio</);
   assert.match(ptHtml, /href="\/#fazemos"/);
   assert.match(ptHtml, /href="#contato"/);
@@ -258,6 +260,7 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(enHtml, /<html[^>]*lang="en"/);
   assert.match(enHtml, /<title>Portfolio — VIA<\/title>/i);
   assert.match(enHtml, /Photos and videos that/);
+  assert.match(enHtml, /Hi, I&#x27;m <span>Sté\.<\/span>|Hi, I'm <span>Sté\.<\/span>/);
   assert.match(enHtml, /Open video: Testimonial — Samuel Moikato/);
   assert.match(enHtml, /rel="canonical" href="[^"]*\/en\/portfolio"/);
 

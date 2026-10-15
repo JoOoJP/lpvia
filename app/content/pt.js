@@ -85,6 +85,22 @@ export const pt = {
       description:
         "Fotos e vídeos produzidos pela VIA para marcas, produtos e eventos.",
     },
+    about: {
+      kicker: "SOBRE",
+      titleLead: "Oi, eu sou a ",
+      titleHighlight: "Sté.",
+      paragraphs: [
+        "Sou marketeira desde os tempos do Blogspot: aos 8 anos eu já tinha um blog do Justin Bieber e editava o HTML só para deixá-lo mais bonito.",
+        "Hoje sou criadora de conteúdo e estrategista digital, apaixonada por captar momentos e transformá-los em histórias com profundidade, propósito e alma.",
+        "Trabalho unindo estética, criatividade e tecnologia a serviço das marcas.",
+      ],
+      image: {
+        src: "/portfolio/stephani.webp",
+        width: 840,
+        height: 1050,
+        alt: "Stephani, a Sté, com a câmera na mão durante a cobertura de um evento",
+      },
+    },
     kicker: "PORTFÓLIO",
     titleLead: "Fotos e vídeos que ",
     titleHighlight: "ganharam forma.",
