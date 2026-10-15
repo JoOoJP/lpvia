@@ -261,18 +261,22 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(ptHtml, /aria-pressed="true"[^>]*>Todos/);
   assert.match(ptHtml, /Abrir vídeo: Depoimento — Samuel Moikato/);
   assert.doesNotMatch(ptHtml, /Abrir foto: (Still de produto|Evento ao pôr do sol|Editorial em Londres)/);
+  assert.doesNotMatch(ptHtml, /Galáticos FT/);
   assert.match(ptHtml, /Abrir vídeo: Vídeo institucional — Clínica odontológica/);
-  assert.match(ptHtml, /Abrir vídeo: Cobertura de evento — Galáticos FT/);
+  assert.match(ptHtml, /Abrir vídeo: Cobertura — Eventos/);
   assert.match(ptHtml, /Abrir vídeo: Reels para loja — Mundo Egípcio/);
   assert.match(ptHtml, /Abrir vídeo: Reels de beleza — Salão de beleza/);
-  assert.match(ptHtml, /Abrir foto: Lounge no gramado — Galáticos FT/);
-  assert.match(ptHtml, /Abrir foto: Cabines telefônicas — Londres/);
-  assert.match(ptHtml, /Abrir foto: Mesa de salgados — Gastronomia/);
+  assert.match(ptHtml, /Abrir foto: Cobertura — Eventos/);
+  assert.match(ptHtml, /Abrir foto: Fotos Urbanas — Londres/);
+  assert.match(ptHtml, /Abrir foto: Foto Dump — Corporativo/);
+  assert.match(ptHtml, /Abrir foto: Foto de Catálogo — Comercial/);
   assert.match(ptHtml, /portfolio%2Fcachoeira-jardim\.webp/);
   assert.match(ptHtml, /FOTOS<span[^>]*>11|Fotos<span[^>]*>11/i);
   assert.match(ptHtml, /Abrir foto: Retrato pet — Pets/);
   assert.match(ptHtml, /portfolio%2Fmundo-egipcio-poster\.webp/);
   assert.match(ptHtml, /rel="canonical" href="[^"]*\/portfolio"/);
+  assert.match(ptHtml, /property="og:image" content="[^"]*\/og-portfolio\.jpg"/);
+  assert.match(ptHtml, /name="twitter:image" content="[^"]*\/og-portfolio\.jpg"/);
 
   const enResponse = await fetch(`${pageUrl}en/portfolio`);
   const enHtml = await enResponse.text();
@@ -284,7 +288,8 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(enHtml, /Hi, I&#x27;m <span>Sté\.<\/span>|Hi, I'm <span>Sté\.<\/span>/);
   assert.match(enHtml, /Open video: Testimonial — Samuel Moikato/);
   assert.match(enHtml, /Open video: Beauty reels — Hair salon/);
-  assert.match(enHtml, /Open photo: Garden waterfall — Nature/);
+  assert.match(enHtml, /Open photo: Garden waterfall — Landscapes/);
+  assert.match(enHtml, /property="og:image" content="[^"]*\/og-portfolio-en\.jpg"/);
   assert.match(enHtml, /Talk to Sté/);
   assert.match(enHtml, /Email · Click to copy/);
   assert.match(enHtml, /rel="canonical" href="[^"]*\/en\/portfolio"/);

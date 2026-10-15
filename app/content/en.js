@@ -84,6 +84,9 @@ export const en = {
       title: "Portfolio — VIA",
       description:
         "Photo and video portfolio of Sté, videomaker, photographer, and VIA partner: events, brand films, reels, and product photography.",
+      ogImage: "/og-portfolio-en.jpg",
+      ogImageAlt:
+        "VIA — Photo and video portfolio, with a strip of photos and frames from the work.",
     },
     whatsappMessage:
       "Hi, Sté! I saw your portfolio on VIA's site and I'd like to talk about a photo or video production.",
@@ -155,8 +158,6 @@ export const en = {
     kicker: "PORTFOLIO",
     titleLead: "Selected ",
     titleHighlight: "work.",
-    description:
-      "Events, brands, and products through Sté's lens: photos and videos she directed, shot, and edited.",
     gallery: {
       ariaLabel: "VIA's photo and video gallery",
       filtersAriaLabel: "Filter by media type",
@@ -205,8 +206,8 @@ export const en = {
         width: 720,
         height: 1280,
         duration: "1:00",
-        title: "Event coverage",
-        client: "Galáticos FT",
+        title: "Coverage",
+        client: "Events",
         alt: "Two hosts at an event on the pitch of a stadium, in captioned vertical video",
       },
       {
@@ -241,8 +242,8 @@ export const en = {
         src: "/portfolio/galaticos-lounge.webp",
         width: 1066,
         height: 1600,
-        title: "Lounge on the pitch",
-        client: "Galáticos FT",
+        title: "Coverage",
+        client: "Events",
         alt: "Two women chat seated on the stadium grass, each holding a beer, in a lounge with light armchairs",
       },
       {
@@ -251,8 +252,8 @@ export const en = {
         src: "/portfolio/galaticos-retrato.webp",
         width: 720,
         height: 1280,
-        title: "Portrait at the stadium",
-        client: "Galáticos FT",
+        title: "Coverage",
+        client: "Events",
         alt: "Woman in a wine-colored top and jeans poses in front of a stadium grandstand",
       },
       {
@@ -261,8 +262,8 @@ export const en = {
         src: "/portfolio/galaticos-bastidor.webp",
         width: 1066,
         height: 1600,
-        title: "Behind the presentation",
-        client: "Galáticos FT",
+        title: "Coverage",
+        client: "Events",
         alt: "A host reads her script seated at a high table in the stadium lounge",
       },
       {
@@ -271,8 +272,8 @@ export const en = {
         src: "/portfolio/retrato-salao.webp",
         width: 1066,
         height: 1600,
-        title: "Portrait at the salon",
-        client: "Beauty",
+        title: "Catalog photo",
+        client: "Commercial",
         alt: "A hairstylist in a black shirt next to a client in a pink shirt, in a bright salon",
       },
       {
@@ -281,8 +282,8 @@ export const en = {
         src: "/portfolio/mesa-salgados.webp",
         width: 1066,
         height: 1600,
-        title: "Savory snacks table",
-        client: "Food",
+        title: "Photo Dump",
+        client: "Corporate",
         alt: "Savory snacks and sweets on glass platters over a light wooden table",
       },
       {
@@ -322,7 +323,7 @@ export const en = {
         width: 1066,
         height: 1600,
         title: "Garden waterfall",
-        client: "Nature",
+        client: "Landscapes",
         alt: "A small waterfall falling over rocks into a pond surrounded by greenery",
       },
       {
@@ -331,7 +332,7 @@ export const en = {
         src: "/portfolio/onibus-londres.webp",
         width: 1200,
         height: 1600,
-        title: "Red bus",
+        title: "Urban Photos",
         client: "London",
         alt: "Red double-decker bus passing along a red-brick street in London",
       },
@@ -341,7 +342,7 @@ export const en = {
         src: "/portfolio/cabines-londres.webp",
         width: 1200,
         height: 1600,
-        title: "Telephone boxes",
+        title: "Urban Photos",
         client: "London",
         alt: "Row of red telephone boxes leaning like dominoes along a sidewalk",
       },

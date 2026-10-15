@@ -84,6 +84,9 @@ export const pt = {
       title: "Portfólio — VIA",
       description:
         "Portfólio de foto e vídeo da Sté, videomaker, fotógrafa e sócia da VIA: eventos, filmes de marca, reels e fotografia de produto.",
+      ogImage: "/og-portfolio.jpg",
+      ogImageAlt:
+        "VIA — Portfólio de foto e vídeo, com uma faixa de fotos e frames dos trabalhos.",
     },
     whatsappMessage:
       "Oi, Sté! Vi seu portfólio na VIA e quero conversar sobre uma produção de foto ou vídeo.",
@@ -157,8 +160,6 @@ export const pt = {
     kicker: "PORTFÓLIO",
     titleLead: "Trabalhos ",
     titleHighlight: "selecionados.",
-    description:
-      "Eventos, marcas e produtos pelas lentes da Sté: fotos e vídeos dirigidos, captados e editados por ela.",
     gallery: {
       ariaLabel: "Galeria de fotos e vídeos da VIA",
       filtersAriaLabel: "Filtrar por tipo de mídia",
@@ -209,8 +210,8 @@ export const pt = {
         width: 720,
         height: 1280,
         duration: "1:00",
-        title: "Cobertura de evento",
-        client: "Galáticos FT",
+        title: "Cobertura",
+        client: "Eventos",
         alt: "Duas apresentadoras em um evento no gramado de um estádio, em vídeo vertical legendado",
       },
       {
@@ -245,8 +246,8 @@ export const pt = {
         src: "/portfolio/galaticos-lounge.webp",
         width: 1066,
         height: 1600,
-        title: "Lounge no gramado",
-        client: "Galáticos FT",
+        title: "Cobertura",
+        client: "Eventos",
         alt: "Duas mulheres conversam sentadas no gramado do estádio, cada uma com um copo de cerveja, em um lounge com poltronas claras",
       },
       {
@@ -255,8 +256,8 @@ export const pt = {
         src: "/portfolio/galaticos-retrato.webp",
         width: 720,
         height: 1280,
-        title: "Retrato no estádio",
-        client: "Galáticos FT",
+        title: "Cobertura",
+        client: "Eventos",
         alt: "Mulher de top vinho e calça jeans posa em frente à arquibancada de um estádio",
       },
       {
@@ -265,8 +266,8 @@ export const pt = {
         src: "/portfolio/galaticos-bastidor.webp",
         width: 1066,
         height: 1600,
-        title: "Bastidor da apresentação",
-        client: "Galáticos FT",
+        title: "Cobertura",
+        client: "Eventos",
         alt: "Apresentadora lê o roteiro sentada a uma mesa alta no lounge do estádio",
       },
       {
@@ -275,8 +276,8 @@ export const pt = {
         src: "/portfolio/retrato-salao.webp",
         width: 1066,
         height: 1600,
-        title: "Retrato no salão",
-        client: "Beleza",
+        title: "Foto de Catálogo",
+        client: "Comercial",
         alt: "Cabeleireiro de blusa preta ao lado de uma cliente de camisa rosa, em um salão claro",
       },
       {
@@ -285,8 +286,8 @@ export const pt = {
         src: "/portfolio/mesa-salgados.webp",
         width: 1066,
         height: 1600,
-        title: "Mesa de salgados",
-        client: "Gastronomia",
+        title: "Foto Dump",
+        client: "Corporativo",
         alt: "Salgados e doces em travessas de vidro sobre uma mesa de madeira clara",
       },
       {
@@ -326,7 +327,7 @@ export const pt = {
         width: 1066,
         height: 1600,
         title: "Cachoeira no jardim",
-        client: "Natureza",
+        client: "Paisagens",
         alt: "Pequena cachoeira caindo sobre pedras em um lago cercado por vegetação",
       },
       {
@@ -335,7 +336,7 @@ export const pt = {
         src: "/portfolio/onibus-londres.webp",
         width: 1200,
         height: 1600,
-        title: "Ônibus vermelho",
+        title: "Fotos Urbanas",
         client: "Londres",
         alt: "Ônibus vermelho de dois andares passando por uma rua de tijolos aparentes em Londres",
       },
@@ -345,7 +346,7 @@ export const pt = {
         src: "/portfolio/cabines-londres.webp",
         width: 1200,
         height: 1600,
-        title: "Cabines telefônicas",
+        title: "Fotos Urbanas",
         client: "Londres",
         alt: "Fileira de cabines telefônicas vermelhas inclinadas como dominós ao longo de uma calçada",
       },

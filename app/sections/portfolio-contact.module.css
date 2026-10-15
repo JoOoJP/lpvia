@@ -18,7 +18,7 @@
 /* ================= Convite ================= */
 
 .contact {
-  --section-plate: linear-gradient(180deg, rgb(4 5 6 / 80%), rgb(8 5 16 / 70%));
+  --section-plate: linear-gradient(180deg, rgb(4 5 6 / 76%), rgb(8 5 16 / 70%));
 
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);

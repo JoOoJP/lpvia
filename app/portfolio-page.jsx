@@ -53,9 +53,9 @@ function SpecialtyIcon({ name }) {
 }
 
 // O openGraph da página substitui o do layout por inteiro, então a imagem
-// social precisa ser declarada de novo aqui.
+// social precisa ser declarada de novo aqui, com a prévia própria do portfólio.
 export function portfolioMetadata(content, languages) {
-  const { title, description } = content.portfolio.meta;
+  const { title, description, ogImage, ogImageAlt } = content.portfolio.meta;
 
   return {
     title,
@@ -67,11 +67,11 @@ export function portfolioMetadata(content, languages) {
       type: "website",
       images: [
         {
-          url: "/og-via.jpg",
+          url: ogImage,
           width: 1200,
           height: 630,
           type: "image/jpeg",
-          alt: content.meta.ogImageAlt,
+          alt: ogImageAlt,
         },
       ],
     },
@@ -79,7 +79,7 @@ export function portfolioMetadata(content, languages) {
       card: "summary_large_image",
       title,
       description,
-      images: ["/og-via.jpg"],
+      images: [ogImage],
     },
   };
 }
@@ -175,7 +175,6 @@ export function PortfolioPage({ content }) {
             {portfolio.titleLead}
             <span>{portfolio.titleHighlight}</span>
           </h2>
-          <p className={styles.lead}>{portfolio.description}</p>
         </header>
       </PortfolioGallery>
 
