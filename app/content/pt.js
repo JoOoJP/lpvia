@@ -85,15 +85,13 @@ export const pt = {
       description:
         "Portfólio de foto e vídeo da Sté, videomaker, fotógrafa e sócia da VIA: eventos, filmes de marca, reels e fotografia de produto.",
     },
-    whatsappMessage:
-      "Oi, Sté! Vi seu portfólio na VIA e quero conversar sobre uma produção de foto ou vídeo.",
     about: {
       kicker: "VIDEOMAKER & FOTÓGRAFA · SÓCIA DA VIA",
       skills: ["Direção", "Captação", "Fotografia", "Edição & cor"],
       titleLead: "Oi, eu sou a ",
       titleHighlight: "Sté.",
       paragraphs: [
-        "Sou marketeira desde os tempos do Blogspot: aos 8 anos eu já tinha um blog do Justin Bieber e editava o HTML só para deixá-lo mais bonito.",
+        "Faz 10 anos que trabalho com marketing, mas a história é mais antiga. Aos 8 anos eu tinha um blog do Justin Bieber no Blogspot e mexia no HTML só para ele ficar mais bonito.",
         "Hoje sou criadora de conteúdo e estrategista digital, apaixonada por captar momentos e transformá-los em histórias com profundidade, propósito e alma.",
         "Trabalho unindo estética, criatividade e tecnologia a serviço das marcas.",
       ],
@@ -138,26 +136,6 @@ export const pt = {
           text: "Stills e retratos com direção de luz e de arte, prontos para site, campanha e catálogo.",
         },
       ],
-    },
-    clients: {
-      label: "Marcas que já trabalharam com a VIA",
-      names: [
-        "Moikato",
-        "A Tardinha",
-        "Sweet Popcorn Gourmet",
-        "In Tha Route",
-        "Sephie Tarot",
-        "Studio da Giu",
-      ],
-    },
-    finalCta: {
-      kicker: "PRÓXIMA PRODUÇÃO",
-      titleLine1: "Vamos filmar",
-      titleLine2Lead: "a sua ",
-      titleLine2Highlight: "história?",
-      description: "Conte o que você precisa e a Sté monta a proposta de foto e vídeo.",
-      ctaNote: "Evento, marca ou produto?",
-      ctaLabel: "Falar com a Sté",
     },
     kicker: "PORTFÓLIO",
     titleLead: "Trabalhos ",
