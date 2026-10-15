@@ -15,8 +15,18 @@ function PlayIcon() {
   );
 }
 
+// Com o mouse em cima, o vídeo roda mudo no próprio card, como nos portfólios
+// de filmmakers. O <video> só é montado no hover, então nada baixa antes disso.
+function wantsPreview(event) {
+  return (
+    event.pointerType === "mouse" &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 function Tile({ item, typeLabel, openLabel, onOpen }) {
   const isVideo = item.type === "video";
+  const [previewing, setPreviewing] = useState(false);
 
   return (
     <li className={styles.item}>
@@ -25,6 +35,11 @@ function Tile({ item, typeLabel, openLabel, onOpen }) {
         className={styles.tile}
         style={{ aspectRatio: `${item.width} / ${item.height}` }}
         onClick={onOpen}
+        onPointerEnter={(event) => {
+          if (isVideo && wantsPreview(event)) setPreviewing(true);
+        }}
+        onPointerLeave={() => setPreviewing(false)}
+        data-previewing={previewing || undefined}
         aria-label={`${openLabel} ${typeLabel.toLowerCase()}: ${item.title} — ${item.client}`}
       >
         <Image
@@ -33,6 +48,17 @@ function Tile({ item, typeLabel, openLabel, onOpen }) {
           fill
           sizes={TILE_SIZES}
         />
+        {previewing ? (
+          <video
+            className={styles.preview}
+            src={item.preview ?? item.src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-hidden="true"
+          />
+        ) : null}
         <span className={styles.badge}>
           {isVideo ? <PlayIcon /> : null}
           {typeLabel}

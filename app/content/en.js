@@ -83,10 +83,13 @@ export const en = {
     meta: {
       title: "Portfolio — VIA",
       description:
-        "Photos and videos VIA produced for brands, products, and events.",
+        "Photo and video portfolio of Sté, videomaker, photographer, and VIA partner: events, brand films, reels, and product photography.",
     },
+    whatsappMessage:
+      "Hi, Sté! I saw your portfolio on VIA's site and I'd like to talk about a photo or video production.",
     about: {
-      kicker: "ABOUT",
+      kicker: "VIDEOMAKER & PHOTOGRAPHER · VIA PARTNER",
+      skills: ["Directing", "Shooting", "Photography", "Editing & color"],
       titleLead: "Hi, I'm ",
       titleHighlight: "Sté.",
       paragraphs: [
@@ -101,11 +104,64 @@ export const en = {
         alt: "Stephani, known as Sté, holding a camera while covering an event",
       },
     },
+    showreel: {
+      kicker: "SHOWREEL",
+      title: "One minute of what Sté shoots.",
+      playLabel: "Watch the showreel",
+      closeLabel: "Close",
+      videoFallback: "Your browser can't play this video.",
+      src: null,
+      loopSrc: null,
+      poster: null,
+    },
+    specialties: {
+      kicker: "SPECIALTIES",
+      titleLead: "From the brief to the ",
+      titleHighlight: "final cut.",
+      items: [
+        {
+          title: "Event coverage",
+          text: "Photos and videos that tell the event as it happens, with same-day deliveries for social media.",
+        },
+        {
+          title: "Brand films",
+          text: "Corporate films, testimonials, and behind-the-scenes, with script, direction, shooting, and editing under one eye.",
+        },
+        {
+          title: "Reels and vertical content",
+          text: "Short videos made for the feed: a hook in the first seconds, rhythm, captions, and soundtrack.",
+        },
+        {
+          title: "Product, portrait, and editorial",
+          text: "Stills and portraits with lighting and art direction, ready for websites, campaigns, and catalogs.",
+        },
+      ],
+    },
+    clients: {
+      label: "Brands that have worked with VIA",
+      names: [
+        "Moikato",
+        "A Tardinha",
+        "Sweet Popcorn Gourmet",
+        "In Tha Route",
+        "Sephie Tarot",
+        "Studio da Giu",
+      ],
+    },
+    finalCta: {
+      kicker: "NEXT PRODUCTION",
+      titleLine1: "Shall we film",
+      titleLine2Lead: "your ",
+      titleLine2Highlight: "story?",
+      description: "Tell us what you need and Sté will put together a photo and video proposal.",
+      ctaNote: "Event, brand, or product?",
+      ctaLabel: "Talk to Sté",
+    },
     kicker: "PORTFOLIO",
-    titleLead: "Photos and videos that ",
-    titleHighlight: "took shape.",
+    titleLead: "Selected ",
+    titleHighlight: "work.",
     description:
-      "VIA's photo and video productions for brands, products, and events, from creative direction to the final cut.",
+      "Events, brands, and products through Sté's lens: photos and videos she directed, shot, and edited.",
     gallery: {
       ariaLabel: "VIA's photo and video gallery",
       filtersAriaLabel: "Filter by media type",

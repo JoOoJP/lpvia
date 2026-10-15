@@ -83,10 +83,13 @@ export const pt = {
     meta: {
       title: "Portfólio — VIA",
       description:
-        "Fotos e vídeos produzidos pela VIA para marcas, produtos e eventos.",
+        "Portfólio de foto e vídeo da Sté, videomaker, fotógrafa e sócia da VIA: eventos, filmes de marca, reels e fotografia de produto.",
     },
+    whatsappMessage:
+      "Oi, Sté! Vi seu portfólio na VIA e quero conversar sobre uma produção de foto ou vídeo.",
     about: {
-      kicker: "SOBRE",
+      kicker: "VIDEOMAKER & FOTÓGRAFA · SÓCIA DA VIA",
+      skills: ["Direção", "Captação", "Fotografia", "Edição & cor"],
       titleLead: "Oi, eu sou a ",
       titleHighlight: "Sté.",
       paragraphs: [
@@ -101,11 +104,66 @@ export const pt = {
         alt: "Stephani, a Sté, com a câmera na mão durante a cobertura de um evento",
       },
     },
+    // O showreel só aparece quando houver um vídeo em src (curto, 1–2 min,
+    // em /public/portfolio). A versão "loop" é o trecho mudo do fundo.
+    showreel: {
+      kicker: "SHOWREEL",
+      title: "Um minuto do que a Sté filma.",
+      playLabel: "Assistir ao showreel",
+      closeLabel: "Fechar",
+      videoFallback: "Seu navegador não reproduz este vídeo.",
+      src: null,
+      loopSrc: null,
+      poster: null,
+    },
+    specialties: {
+      kicker: "ESPECIALIDADES",
+      titleLead: "Da pauta à ",
+      titleHighlight: "edição final.",
+      items: [
+        {
+          title: "Cobertura de eventos",
+          text: "Fotos e vídeos que contam o evento enquanto ele acontece, com entregas rápidas para as redes no mesmo dia.",
+        },
+        {
+          title: "Filmes de marca",
+          text: "Institucionais, depoimentos e bastidores com roteiro, direção, captação e edição sob o mesmo olhar.",
+        },
+        {
+          title: "Reels e conteúdo vertical",
+          text: "Vídeos curtos feitos para o feed: gancho nos primeiros segundos, ritmo, legenda e trilha.",
+        },
+        {
+          title: "Produto, retrato e editorial",
+          text: "Stills e retratos com direção de luz e de arte, prontos para site, campanha e catálogo.",
+        },
+      ],
+    },
+    clients: {
+      label: "Marcas que já trabalharam com a VIA",
+      names: [
+        "Moikato",
+        "A Tardinha",
+        "Sweet Popcorn Gourmet",
+        "In Tha Route",
+        "Sephie Tarot",
+        "Studio da Giu",
+      ],
+    },
+    finalCta: {
+      kicker: "PRÓXIMA PRODUÇÃO",
+      titleLine1: "Vamos filmar",
+      titleLine2Lead: "a sua ",
+      titleLine2Highlight: "história?",
+      description: "Conte o que você precisa e a Sté monta a proposta de foto e vídeo.",
+      ctaNote: "Evento, marca ou produto?",
+      ctaLabel: "Falar com a Sté",
+    },
     kicker: "PORTFÓLIO",
-    titleLead: "Fotos e vídeos que ",
-    titleHighlight: "ganharam forma.",
+    titleLead: "Trabalhos ",
+    titleHighlight: "selecionados.",
     description:
-      "Produções de foto e vídeo da VIA para marcas, produtos e eventos, da direção criativa à edição final.",
+      "Eventos, marcas e produtos pelas lentes da Sté: fotos e vídeos dirigidos, captados e editados por ela.",
     gallery: {
       ariaLabel: "Galeria de fotos e vídeos da VIA",
       filtersAriaLabel: "Filtrar por tipo de mídia",
@@ -119,7 +177,8 @@ export const pt = {
       videoFallback: "Seu navegador não reproduz este vídeo.",
     },
     // Para incluir uma mídia, coloque o arquivo em /public/portfolio e adicione
-    // um item aqui (e o mesmo item em en.js). Vídeos precisam de um poster.
+    // um item aqui (e o mesmo item em en.js). Vídeos precisam de um poster e
+    // podem ter um "preview": um trecho leve que roda no card ao passar o mouse.
     items: [
       {
         id: "depoimento-samuel-moikato",

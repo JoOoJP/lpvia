@@ -119,6 +119,18 @@
   pointer-events: none;
 }
 
+.preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tile[data-previewing] .play {
+  opacity: 0;
+}
+
 .badge {
   position: absolute;
   z-index: 2;
@@ -158,7 +170,9 @@
   background: rgb(5 6 7 / 50%);
   backdrop-filter: blur(10px);
   translate: -50% -50%;
-  transition: scale var(--duration-fast) ease;
+  transition:
+    scale var(--duration-fast) ease,
+    opacity var(--duration-fast) ease;
 }
 
 .play svg {

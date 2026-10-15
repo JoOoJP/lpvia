@@ -244,6 +244,10 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(ptHtml, /Fotos e vídeos que/);
   assert.match(ptHtml, /<h1[^>]*>Oi, eu sou a <span>Sté\.<\/span><\/h1>/);
   assert.match(ptHtml, /aos 8 anos eu já tinha um blog do Justin Bieber/);
+  assert.match(ptHtml, /VIDEOMAKER &amp; FOTÓGRAFA/);
+  assert.match(ptHtml, /Cobertura de eventos/);
+  assert.match(ptHtml, /Falar com a Sté/);
+  assert.match(ptHtml, /Oi%2C%20St%C3%A9!/);
   assert.match(ptHtml, /aria-current="page"[^>]*>Portfólio</);
   assert.match(ptHtml, /href="\/#fazemos"/);
   assert.match(ptHtml, /href="#contato"/);
