@@ -255,6 +255,11 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(ptHtml, /aria-pressed="true"[^>]*>Todos/);
   assert.match(ptHtml, /Abrir vídeo: Depoimento — Samuel Moikato/);
   assert.match(ptHtml, /Abrir foto: Still de produto — Sweet Popcorn Gourmet/);
+  assert.match(ptHtml, /Abrir vídeo: Segredo para uma criança colaborar — Clínica odontológica/);
+  assert.match(ptHtml, /Abrir vídeo: Cobertura de evento — Galáticos FT/);
+  assert.match(ptHtml, /Abrir vídeo: Reels para loja — Mundo Egípcio/);
+  assert.match(ptHtml, /Abrir vídeo: Reels de beleza — Salão de beleza/);
+  assert.match(ptHtml, /portfolio%2Fmundo-egipcio-poster\.webp/);
   assert.match(ptHtml, /rel="canonical" href="[^"]*\/portfolio"/);
 
   const enResponse = await fetch(`${pageUrl}en/portfolio`);
@@ -266,6 +271,7 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(enHtml, /Photos and videos that/);
   assert.match(enHtml, /Hi, I&#x27;m <span>Sté\.<\/span>|Hi, I'm <span>Sté\.<\/span>/);
   assert.match(enHtml, /Open video: Testimonial — Samuel Moikato/);
+  assert.match(enHtml, /Open video: Beauty reels — Hair salon/);
   assert.match(enHtml, /rel="canonical" href="[^"]*\/en\/portfolio"/);
 
   const home = await (await fetch(pageUrl)).text();
