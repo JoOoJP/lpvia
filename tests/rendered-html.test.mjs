@@ -241,12 +241,14 @@ test("publica a aba de portfólio em português e inglês", async () => {
   const ptHtml = await (await fetch(`${pageUrl}portfolio`)).text();
 
   assert.match(ptHtml, /<title>Portfólio — VIA<\/title>/i);
-  assert.match(ptHtml, /Projetos que/);
+  assert.match(ptHtml, /Fotos e vídeos que/);
   assert.match(ptHtml, /aria-current="page"[^>]*>Portfólio</);
   assert.match(ptHtml, /href="\/#fazemos"/);
   assert.match(ptHtml, /href="#contato"/);
-  assert.match(ptHtml, /id="case-in-tha-route"/);
-  assert.match(ptHtml, /Comparar a identidade antiga e a nova da In Tha Route/);
+  assert.match(ptHtml, /aria-label="Filtrar por tipo de mídia"/);
+  assert.match(ptHtml, /aria-pressed="true"[^>]*>Todos/);
+  assert.match(ptHtml, /Abrir vídeo: Depoimento — Samuel Moikato/);
+  assert.match(ptHtml, /Abrir foto: Still de produto — Sweet Popcorn Gourmet/);
   assert.match(ptHtml, /rel="canonical" href="[^"]*\/portfolio"/);
 
   const enResponse = await fetch(`${pageUrl}en/portfolio`);
@@ -255,7 +257,8 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.equal(enResponse.status, 200);
   assert.match(enHtml, /<html[^>]*lang="en"/);
   assert.match(enHtml, /<title>Portfolio — VIA<\/title>/i);
-  assert.match(enHtml, /Projects that/);
+  assert.match(enHtml, /Photos and videos that/);
+  assert.match(enHtml, /Open video: Testimonial — Samuel Moikato/);
   assert.match(enHtml, /rel="canonical" href="[^"]*\/en\/portfolio"/);
 
   const home = await (await fetch(pageUrl)).text();

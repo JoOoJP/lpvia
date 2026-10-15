@@ -1,0 +1,350 @@
+/*
+ * Portfólio — filtros por tipo, uma grade em colunas que respeita a proporção
+ * de cada foto ou vídeo e um visualizador em tela cheia.
+ */
+
+.gallery {
+  --section-plate: linear-gradient(180deg, rgb(4 5 6 / 80%), rgb(5 6 7 / 72%));
+
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  padding-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+/* ---------- Filtros ---------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: 1px solid rgb(255 255 255 / 16%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 3%);
+  color: #c9cdcf;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) ease,
+    background var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+}
+
+.filter span {
+  color: #6f7578;
+  font-size: 0.7rem;
+}
+
+.filter:hover {
+  border-color: rgb(255 255 255 / 32%);
+  color: #f7f7f5;
+}
+
+.filter[aria-pressed="true"] {
+  border-color: #68e49b;
+  background: rgb(104 228 155 / 10%);
+  color: #f7f7f5;
+}
+
+.filter[aria-pressed="true"] span {
+  color: #68e49b;
+}
+
+/* ---------- Grade ---------- */
+
+.grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  columns: 3 18rem;
+  column-gap: clamp(0.85rem, 2vw, 1.4rem);
+}
+
+.item {
+  margin-bottom: clamp(0.85rem, 2vw, 1.4rem);
+  break-inside: avoid;
+}
+
+.tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: clamp(10px, 1.1vw, 16px);
+  background: #0d0f10;
+  box-shadow: 0 34px 60px -38px rgb(0 0 0 / 90%);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: zoom-in;
+  transition: border-color var(--duration-fast) ease;
+}
+
+.tile img {
+  object-fit: cover;
+  transition: transform 600ms var(--ease-out, ease);
+}
+
+.tile:hover,
+.tile:focus-visible {
+  border-color: rgb(255 255 255 / 30%);
+}
+
+.tile:hover img,
+.tile:focus-visible img {
+  transform: scale(1.03);
+}
+
+/* Véu inferior para a legenda ficar legível sobre qualquer imagem. */
+.tile::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 45% 0 0;
+  background: linear-gradient(180deg, transparent, rgb(0 0 0 / 78%));
+  pointer-events: none;
+}
+
+.badge {
+  position: absolute;
+  z-index: 2;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 999px;
+  background: rgb(5 6 7 / 62%);
+  backdrop-filter: blur(8px);
+  color: #f7f7f5;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.badge svg {
+  width: 0.7rem;
+  fill: #68e49b;
+}
+
+.play {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: clamp(3.2rem, 18%, 4.5rem);
+  aspect-ratio: 1;
+  border: 1px solid rgb(255 255 255 / 30%);
+  border-radius: 50%;
+  background: rgb(5 6 7 / 50%);
+  backdrop-filter: blur(10px);
+  translate: -50% -50%;
+  transition: scale var(--duration-fast) ease;
+}
+
+.play svg {
+  width: 38%;
+  margin-left: 8%;
+  fill: #f7f7f5;
+}
+
+.tile:hover .play {
+  scale: 1.08;
+}
+
+.caption {
+  position: absolute;
+  z-index: 2;
+  right: 0.9rem;
+  bottom: 0.85rem;
+  left: 0.9rem;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.caption strong {
+  color: #f7f7f5;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.caption span {
+  color: #b5babc;
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ---------- Visualizador ---------- */
+
+.viewer {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: clamp(3.5rem, 6vw, 4.5rem) clamp(1rem, 6vw, 5.5rem);
+  border: 0;
+  background: transparent;
+  color: #f7f7f5;
+}
+
+.viewer[open] {
+  display: grid;
+  place-items: center;
+}
+
+.viewer::backdrop {
+  background: rgb(3 4 5 / 94%);
+  backdrop-filter: blur(6px);
+}
+
+.stage {
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+}
+
+.stageMedia {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 10rem);
+  border-radius: 12px;
+  background: #000;
+}
+
+.stage figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 0.75rem;
+  color: #b5babc;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.stage figcaption strong {
+  color: #f7f7f5;
+  font-weight: 650;
+}
+
+.stage figcaption .counter {
+  color: #6f7578;
+  font-variant-numeric: tabular-nums;
+}
+
+.close,
+.nav {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 6%);
+  color: #f7f7f5;
+  font: inherit;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) ease,
+    background var(--duration-fast) ease;
+}
+
+.close:hover,
+.nav:hover {
+  border-color: #68e49b;
+  background: rgb(104 228 155 / 12%);
+}
+
+.close {
+  top: 0.9rem;
+  right: 0.9rem;
+  font-size: 1.5rem;
+}
+
+.nav {
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.prev {
+  left: clamp(0.5rem, 2vw, 1.5rem);
+}
+
+.next {
+  right: clamp(0.5rem, 2vw, 1.5rem);
+}
+
+@media (max-width: 620px) {
+  /* No celular as setas descem para não cobrir a mídia. */
+  .viewer {
+    padding-bottom: 4.5rem;
+  }
+
+  .nav {
+    top: auto;
+    bottom: 0.9rem;
+    translate: none;
+  }
+
+  .prev {
+    left: calc(50% - 3.25rem);
+  }
+
+  .next {
+    right: calc(50% - 3.25rem);
+  }
+}
+
+/* Entrada ao rolar, só onde o navegador sabe amarrá-la à rolagem. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .item {
+      animation: item-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 38%;
+    }
+  }
+}
+
+@keyframes item-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

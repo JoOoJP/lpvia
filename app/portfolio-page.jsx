@@ -1,6 +1,6 @@
 import { buildWhatsappUrl } from "./contact";
 import { FinalCta } from "./sections/final-cta";
-import { PortfolioGrid } from "./sections/portfolio-grid";
+import { PortfolioGallery } from "./sections/portfolio-gallery";
 import { SiteFooter } from "./sections/site-footer";
 import { SiteHeader } from "./sections/site-header";
 import styles from "./portfolio-page.module.css";
@@ -64,11 +64,7 @@ export function PortfolioPage({ content }) {
         <p className={styles.lead}>{portfolio.description}</p>
       </section>
 
-      <PortfolioGrid
-        content={portfolio}
-        projects={content.caseProjects}
-        coverflowContent={content.coverflow}
-      />
+      <PortfolioGallery content={portfolio.gallery} items={portfolio.items} />
 
       <FinalCta content={content.finalCta} whatsappUrl={whatsappUrl} />
       <SiteFooter content={content.footer} whatsappUrl={whatsappUrl} />
