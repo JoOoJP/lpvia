@@ -137,7 +137,6 @@
 
 .tile img {
   object-fit: cover;
-  transition: transform 600ms var(--ease-out, ease);
 }
 
 .tile:hover,
@@ -145,9 +144,32 @@
   border-color: rgb(255 255 255 / 30%);
 }
 
-.tile:hover img,
-.tile:focus-visible img {
-  transform: scale(1.03);
+/* Ao passar o mouse a mídia cresce 120% dentro da moldura. O preview do vídeo
+   monta no hover, então anima do zero com a mesma curva e duração do poster
+   que está embaixo dele. */
+@media (prefers-reduced-motion: no-preference) {
+  .tile img {
+    transition: transform 600ms var(--ease-out, ease);
+  }
+
+  .tile:hover img,
+  .tile:focus-visible img {
+    transform: scale(1.2);
+  }
+
+  .preview {
+    animation: preview-zoom 600ms var(--ease-out, ease) both;
+  }
+}
+
+@keyframes preview-zoom {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.2);
+  }
 }
 
 /* Véu inferior para a legenda ficar legível sobre qualquer imagem. */
