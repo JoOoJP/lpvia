@@ -1,0 +1,59 @@
+.page {
+  --card-w: min(88vw, 820px);
+
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(72px, 12vh, 140px);
+  padding: 80px 16px 120px;
+}
+
+.heading {
+  margin: 0;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.logo {
+  position: relative;
+  width: 24cqw;
+  overflow: visible;
+}
+
+.caption {
+  max-width: 44ch;
+  text-align: center;
+}
+
+.name {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.name span {
+  margin-right: 0.4em;
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-weight: 400;
+}
+
+.description {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}

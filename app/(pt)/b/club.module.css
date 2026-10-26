@@ -1,0 +1,1442 @@
+/*
+ * VIA / B — clube fechado. Preto quase absoluto, um cartão de visita e uma
+ * linha de neon nas cores da marca: roxo, azul, ciano e verde.
+ */
+
+.root {
+  --violet: #7b3cff;
+  --blue: #3d7bff;
+  --cyan: #14d2ec;
+  --green: #45ec8c;
+  --neon-soft: rgb(61 123 255 / 38%);
+  --neon-gradient: linear-gradient(90deg, var(--violet), var(--blue) 38%, var(--cyan) 62%, var(--green));
+  --ink: #f2f2ef;
+  --ink-dim: #1e2022;
+  --ink-muted: #6d7174;
+  --black: #030303;
+  --card-w: min(90vw, 880px, 112vh);
+  --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, monospace;
+
+  position: relative;
+  overflow-x: clip;
+  background: var(--black);
+  color: var(--ink);
+  /* Peça de exibição, não documento: o texto não se seleciona. */
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+:global(html):has(.root),
+:global(body):has(.root) {
+  background: #030303;
+  scrollbar-color: #3d7bff #030303;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Abertura: o cartão */
+
+.hero {
+  height: 180vh;
+}
+
+.sticky {
+  isolation: isolate;
+  position: sticky;
+  top: 0;
+  display: grid;
+  height: 100vh;
+  height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  background: var(--black);
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  perspective: 1600px;
+}
+
+/*
+ * Luz da primeira tela: um traço fino de --dash pixels, numa cor só, sem
+ * halo. A ponta vai de 0 até --len + --tail, então a luz sai inteira da tela.
+ * A máscara apaga a luz perto das bordas da tela: ela nasce do escuro e é
+ * mais nítida junto ao cartão.
+ */
+.ambient {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mask-image: radial-gradient(75% 75% at 50% 50%, #000 45%, transparent 100%);
+}
+
+.trailGroup {
+  /* Maior traço: a ponta de todas as camadas vai até --len + --tail. */
+  --tail: 320;
+
+  will-change: opacity;
+}
+
+.route {
+  --len: 3000;
+  --color: #6fa3ff;
+
+  stroke: var(--color);
+}
+
+.trail {
+  --dash: 140;
+
+  fill: none;
+  stroke-dasharray: calc(var(--dash) * 1px) calc((var(--len) + 1000) * 1px);
+  stroke-dashoffset: calc(var(--dash) * 1px);
+  stroke-width: 1;
+  opacity: 0.75;
+  animation: beam var(--cycle) cubic-bezier(0.45, 0, 0.55, 1) var(--delay) infinite both;
+}
+
+/* Rastro na mesma cor, só mais tênue: a luz afina em vez de mudar de cor. */
+.trailTail {
+  --dash: 320;
+
+  opacity: 0.22;
+}
+
+/* 3,5 s de travessia num ciclo de 20 s (BEAM_CYCLE em club.jsx). */
+@keyframes beam {
+  0% { stroke-dashoffset: calc(var(--dash) * 1px); }
+  17.5%, 100% { stroke-dashoffset: calc((var(--dash) - var(--len) - var(--tail)) * 1px); }
+}
+
+.cardMove,
+.cardTilt {
+  transform-style: preserve-3d;
+}
+
+/*
+ * Cartão de visita 90 × 51 mm, papel preto fosco. A aspereza vem de ruído
+ * iluminado (feDiffuseLighting): relevo de verdade, não granulado chapado.
+ */
+.card {
+  --mx: 50%;
+  --my: 30%;
+
+  position: relative;
+  display: grid;
+  width: var(--card-w);
+  aspect-ratio: 1.75;
+  place-items: center;
+  container-type: inline-size;
+  border-radius: calc(var(--card-w) * 0.02);
+  background:
+    radial-gradient(130% 120% at 30% 0%, #0f1011 0%, #070708 55%, #040404 100%);
+  box-shadow:
+    0 1px 0 #1a1b1c,
+    0 60px 90px -30px rgb(0 0 0 / 95%),
+    0 30px 40px -20px rgb(0 0 0 / 80%),
+    inset 0 1px 0 rgb(255 255 255 / 5%);
+}
+
+.paper {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/><feDiffuseLighting surfaceScale='2.2' lighting-color='%23ffffff' diffuseConstant='1.05'><feDistantLight azimuth='225' elevation='48'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(%23r)'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.08 0.5' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23f)'/></svg>");
+  background-size: 240px 240px, 420px 420px;
+  mix-blend-mode: soft-light;
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+/*
+ * Borda de neon e linha num traço só (ver buildSnake em club.jsx). O SVG tem
+ * o tamanho do cartão e transborda para baixo, por onde a linha sai.
+ */
+.snakeSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 4px rgb(61 123 255 / 45%));
+  pointer-events: none;
+}
+
+.snake {
+  visibility: hidden;
+  fill: none;
+  stroke-dasharray: 0 100000;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+}
+
+/* Fosco: só um véu largo de luz, sem reflexo de verniz. */
+.sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    70% 90% at var(--mx) var(--my),
+    rgb(255 255 255 / 4.5%),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.logo {
+  position: relative;
+  width: 26cqw;
+  overflow: visible;
+}
+
+.cardBody {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+/* A linha */
+
+.flow {
+  position: relative;
+}
+
+.line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.linePath {
+  fill: none;
+  stroke: url(#club-line);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lineHalo {
+  stroke-width: 18;
+  opacity: 0.06;
+}
+
+.lineGlow {
+  stroke-width: 7;
+  opacity: 0.22;
+}
+
+/* Mesma espessura da linha que sai do cartão encolhido (2,4 × 0,62). */
+.lineCore {
+  stroke-width: 1.5;
+}
+
+.tip {
+  fill: #eafff4;
+  filter: drop-shadow(0 0 6px var(--cyan)) drop-shadow(0 0 16px var(--blue));
+  opacity: 0;
+}
+
+/* Frases que acendem quando a linha passa */
+
+.chapter {
+  display: flex;
+  min-height: 95vh;
+  align-items: center;
+  padding: 0 clamp(28px, 8vw, 120px);
+}
+
+.chapter[data-side="right"] {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.phrase {
+  position: relative;
+  max-width: min(64vw, 900px);
+}
+
+.kicker {
+  margin: 0 0 1.2rem;
+  color: var(--ink-dim);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  transition: color 600ms ease;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink-dim);
+  font-size: clamp(2.4rem, 7vw, 6.6rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  text-wrap: balance;
+  transition: color 900ms ease;
+}
+
+.highlight {
+  transition: color 300ms ease, text-shadow 300ms ease;
+}
+
+.note {
+  max-width: 34ch;
+  margin: 1.6rem 0 0;
+  color: var(--ink-dim);
+  font-size: 1rem;
+  line-height: 1.6;
+  transition: color 900ms ease;
+}
+
+.chapter[data-side="right"] .note {
+  margin-left: auto;
+}
+
+.phrase.lit .kicker {
+  color: var(--cyan);
+}
+
+.phrase.lit .title {
+  color: var(--ink);
+}
+
+.phrase.lit .note {
+  color: var(--ink-muted);
+}
+
+.phrase.lit .highlight {
+  background: var(--neon-gradient);
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 18px var(--neon-soft));
+  animation: flicker 900ms steps(1, end) both;
+}
+
+/*
+ * Cenas dos benefícios. Cada cena trava a tela (sticky) enquanto a linha
+ * local desenha o símbolo; a palavra fica no centro e o texto num canto
+ * livre do desenho.
+ */
+.scene {
+  position: relative;
+  height: 170vh;
+}
+
+/* Cena com galeria: mais scroll, um trecho para cada trabalho. */
+.scene[data-window] {
+  height: 320vh;
+}
+
+/* Dossiê do caso: escada, painel, lente com depoimento. Mais scroll. */
+.scene[data-scene="crescimento"] {
+  height: 320vh;
+}
+
+/*
+ * Tecnologia: a moldura do circuito vira uma tela. Texto na coluna à
+ * esquerda da moldura (28% da largura); a palavra no centro da moldura.
+ */
+.scene[data-scene="tecnologia"] .benefitName {
+  left: 59%;
+}
+
+.scene[data-scene="tecnologia"] .benefitText {
+  top: calc(14vh + 2rem);
+  bottom: auto;
+  max-width: 19vw;
+}
+
+/* Tecnologia é rápida: muitas telas em pouco scroll. */
+.scene[data-scene="tecnologia"] {
+  height: 240vh;
+}
+
+/*
+ * Mais específico que .lens (redonda). A tela não recorta: as telas já vistas
+ * ficam empilhadas em cascata para trás e para cima da moldura.
+ */
+.lens.screen {
+  overflow: visible;
+  border-radius: 10px;
+}
+
+.screen .browser {
+  overflow: hidden;
+  border-radius: 10px;
+  background: #0e0f10;
+  box-shadow:
+    0 30px 60px -20px rgb(0 0 0 / 90%),
+    inset 0 0 0 1px rgb(255 255 255 / 7%);
+}
+
+/* Escondida, a janela não pode ser clicada. */
+.scene:not(.gallery) .lens {
+  pointer-events: none;
+}
+
+.lens.screen::after {
+  display: none;
+}
+
+/* Página ainda sem print: esqueleto discreto de site. */
+.skeleton {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 9% 8%;
+  background: radial-gradient(70% 60% at 30% 20%, #121315, #08090a);
+}
+
+.skeleton span {
+  height: 12px;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 5%);
+}
+
+.skeleton span:first-child {
+  width: 55%;
+  height: 34px;
+}
+
+.skeleton span:nth-child(2) {
+  width: 80%;
+}
+
+.skeleton span:nth-child(3) {
+  width: 38%;
+  height: 30px;
+  margin-top: 10px;
+  background: rgb(26 168 238 / 14%);
+}
+
+
+.browser {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.browserBar {
+  display: flex;
+  height: 38px;
+  flex: none;
+  align-items: center;
+  gap: 18px;
+  padding: 0 16px;
+  border-bottom: 1px solid rgb(255 255 255 / 6%);
+  background: #0e0f10;
+}
+
+/* Os três pontos da janela, em cinza: discretos, sem as cores do sistema. */
+.browserDots {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2a2c2e;
+  box-shadow: 12px 0 0 #2a2c2e, 24px 0 0 #2a2c2e;
+  margin-right: 24px;
+}
+
+.browserUrl {
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 4%);
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+/* Abas: uma por site, com o ponto na cor da VIA. A ativa encosta na barra. */
+.tabs {
+  display: flex;
+  gap: 2px;
+  padding: 8px 8px 0;
+  overflow-x: auto;
+  background: #08090a;
+  scrollbar-width: none;
+}
+
+.tab {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 8px 8px 0 0;
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  transition: background 250ms ease, color 250ms ease;
+}
+
+.tab:hover {
+  color: var(--ink);
+}
+
+.tab[aria-selected="true"] {
+  background: #0e0f10;
+  color: var(--ink);
+}
+
+.tab:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: -2px;
+}
+
+.tabDot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--tab);
+  box-shadow: 0 0 8px var(--tab);
+}
+
+.browserOpen {
+  margin-left: auto;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.browserOpen:hover,
+.browserOpen:focus-visible {
+  color: var(--ink);
+}
+
+.browserView {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: #0b0b0c;
+}
+
+/* Site ao vivo na largura de computador, reduzido para caber na janela. */
+.browserFrame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  /* Escuro enquanto o site carrega: sem clarão branco na janela. */
+  background: #0b0b0c;
+  transform-origin: 0 0;
+}
+
+.browserShot {
+  position: absolute;
+  inset: 0;
+  background: #0b0b0c center / cover no-repeat;
+}
+
+/* Abaixo da moldura: a tela fica 26px para dentro do fio. */
+.browserHint {
+  position: absolute;
+  top: calc(100% + 44px);
+  left: 0;
+  margin: 0;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+
+/* Palco da etapa: tipografia grande, troca a cada degrau, sai na última. */
+.panel {
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 800ms ease;
+}
+
+.panel.lit {
+  opacity: 1;
+}
+
+.panelSlide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.1rem;
+  opacity: 0;
+  translate: 0 18px;
+  transition: opacity 800ms ease, translate 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.panelSlide.lit {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.panelNumeral {
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+}
+
+.panelTitle {
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 650;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+
+.panelText {
+  max-width: 26ch;
+  color: var(--ink-muted);
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.5;
+}
+
+/*
+ * Entregas como conquistas desbloqueadas: selos finos que surgem no degrau
+ * em que aconteceram e ficam, subindo em diagonal junto com a escada.
+ */
+.chips {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.chip {
+  --chip: #1aa8ee;
+
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.9rem 0.5rem 0.7rem;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 999px;
+  background: rgb(10 10 11 / 85%);
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  scale: 0.85;
+  translate: 0 10px;
+  transition:
+    opacity 500ms ease,
+    scale 700ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    translate 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 900ms ease,
+    color 900ms ease,
+    box-shadow 900ms ease;
+}
+
+/* O ponto do selo, na cor dele, com brilho. */
+.chip::before {
+  position: relative;
+  z-index: 1;
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--chip);
+  box-shadow: 0 0 8px var(--chip), 0 0 16px var(--chip);
+  content: "";
+}
+
+/* Um véu da cor entra pela esquerda do selo, como tinta sobre o preto. */
+.chip::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--chip) 22%, transparent),
+    color-mix(in srgb, var(--chip) 6%, transparent) 70%,
+    transparent
+  );
+  content: "";
+  opacity: 0;
+  transition: opacity 900ms ease 200ms;
+}
+
+.chip.lit {
+  border-color: color-mix(in srgb, var(--chip) 45%, transparent);
+  color: color-mix(in srgb, var(--chip) 35%, var(--ink));
+  box-shadow: 0 0 24px -8px var(--chip);
+  opacity: 1;
+  scale: 1;
+  translate: 0 0;
+}
+
+.chip.lit::after {
+  opacity: 1;
+}
+
+.chipLabel {
+  position: relative;
+  z-index: 1;
+}
+
+/* Em cada degrau os selos entram um depois do outro. */
+.chip.lit:nth-child(2),
+.chip.lit:nth-child(4) {
+  transition-delay: 160ms;
+}
+
+.chip.lit:nth-child(3) {
+  transition-delay: 320ms;
+}
+
+/* Rótulos dos patamares: numeral e nome, sobre a linha. */
+.step {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  margin: 0;
+  color: var(--ink-dim);
+  transition: color 700ms ease;
+}
+
+.step.lit {
+  color: var(--ink-muted);
+}
+
+.step.current {
+  color: var(--ink);
+}
+
+.stepNumeral {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+}
+
+.step.lit .stepNumeral {
+  color: var(--cyan);
+}
+
+.stepTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.story {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+.scene.gallery .story {
+  opacity: 1;
+}
+
+/* Citação do cliente, grande, acima da lente do depoimento. */
+.quote {
+  position: absolute;
+  z-index: 2;
+  width: min(34rem, 80vw);
+  margin: 0;
+  text-align: center;
+  opacity: 0;
+  translate: -50% 12px;
+  transition: opacity 900ms ease, translate 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.quote.lit {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+.quoteText {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.6vw, 2.3rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.quoteAuthor {
+  margin-top: 0.8rem;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.sceneStage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.sceneSvg {
+  position: absolute;
+  inset: 0;
+  /* Por cima da lente: o fio desenha a borda do vídeo. */
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.scenePath {
+  fill: none;
+  stroke-dasharray: 0 100000;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  visibility: hidden;
+}
+
+.sceneGlow {
+  stroke-width: 7;
+  opacity: 0.22;
+}
+
+.sceneCore {
+  stroke-width: 1.5;
+}
+
+.sceneTip {
+  transition: none;
+}
+
+.sceneNodes circle {
+  fill: var(--black);
+  stroke: rgb(255 255 255 / 14%);
+  stroke-width: 1;
+  transition: fill 300ms ease, stroke 300ms ease;
+}
+
+.sceneNodes circle.lit {
+  fill: #eafff4;
+  stroke: #eafff4;
+}
+
+.benefitName {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  color: var(--ink-dim);
+  font-size: clamp(3rem, 9vw, 8.5rem);
+  font-weight: 650;
+  letter-spacing: -0.05em;
+  /* Folga para as descendentes (g, ç): o gradiente recorta na caixa do texto. */
+  line-height: 1.2;
+  padding: 0 0.06em 0.08em;
+  white-space: nowrap;
+  translate: -50% -50%;
+  transition: color 900ms ease, filter 900ms ease, opacity 600ms ease, scale 800ms ease;
+}
+
+/* Quando a galeria começa, a palavra sai da lente para os trabalhos entrarem. */
+.scene.gallery .benefitName {
+  opacity: 0;
+  scale: 1.08;
+}
+
+.lens {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+.scene.gallery .lens {
+  opacity: 1;
+}
+
+/* No dossiê a lente só aparece junto com a citação, no fim da escada. */
+.scene[data-scene="crescimento"] .lens {
+  opacity: 0;
+}
+
+.scene[data-scene="crescimento"]:has(.quote.lit) .lens {
+  opacity: 1;
+}
+
+/* Sombra interna: o vídeo afunda no círculo em vez de colar no fio. */
+.lens::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px rgb(0 0 0 / 60%),
+    inset 0 0 48px 6px rgb(0 0 0 / 55%);
+  content: "";
+  pointer-events: none;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  scale: 1.08;
+  transition: opacity 700ms ease, scale 1400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slide.lit {
+  opacity: 1;
+  scale: 1;
+}
+
+.slideImage,
+.slide video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #0b0b0c center / cover no-repeat;
+  object-fit: cover;
+}
+
+/* Legenda do trabalho: logo abaixo da lente, à direita da linha que sai. */
+.slideCaptions {
+  position: absolute;
+  top: calc(50% + var(--lens-r, 200px) + 18px);
+  left: calc(50% + 18px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slideCaption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  gap: 0.3rem;
+  white-space: nowrap;
+  opacity: 0;
+  translate: 0 6px;
+  transition: opacity 500ms ease, translate 500ms ease;
+}
+
+.slideCaption.lit {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.slideTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.slideDetail {
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Textos acima do fio, que fica acima da lente. */
+.benefitName,
+.benefitKicker,
+.benefitText,
+.slideCaptions {
+  z-index: 2;
+}
+
+.scene[data-scene="crescimento"] .benefitName {
+  top: 44%;
+}
+
+.benefitKicker {
+  position: absolute;
+  top: 14vh;
+  left: clamp(20px, 6vw, 96px);
+  margin: 0;
+}
+
+.benefitText {
+  position: absolute;
+  bottom: 10vh;
+  left: clamp(20px, 6vw, 96px);
+  max-width: min(34ch, 40vw);
+}
+
+/*
+ * Nos degraus a direita é dos cartões: o texto fica no alto à esquerda, logo
+ * depois da linha que desce pela lateral (8% da largura).
+ */
+.scene[data-scene="crescimento"] .benefitKicker,
+.scene[data-scene="crescimento"] .benefitText {
+  left: calc(8vw + 28px);
+}
+
+.scene[data-scene="crescimento"] .benefitText {
+  top: calc(14vh + 2rem);
+  bottom: auto;
+}
+
+.benefitLine {
+  margin: 0;
+  color: var(--ink-dim);
+  font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+  letter-spacing: -0.01em;
+  transition: color 700ms ease;
+}
+
+.benefitExplain {
+  margin: 0.6rem 0 0;
+  color: var(--ink-dim);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  transition: color 700ms ease 100ms;
+}
+
+.scene.done .benefitExplain {
+  color: var(--ink-muted);
+}
+
+.benefitItems {
+  margin: 0.8rem 0 0;
+  color: var(--ink-dim);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  line-height: 1.8;
+  text-transform: uppercase;
+  transition: color 700ms ease 150ms;
+}
+
+.scene.lit .benefitKicker {
+  color: var(--cyan);
+}
+
+.scene.done .benefitName {
+  background: var(--neon-gradient);
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 18px var(--neon-soft));
+}
+
+.scene.done .benefitLine {
+  color: var(--ink);
+}
+
+.scene.done .benefitItems {
+  color: var(--ink-muted);
+}
+
+/*
+ * Membros: cartões pretos como o da VIA, com a logo do cliente gravada. A
+ * logo é uma máscara: o branco vira uma tinta prata fosca afundada no papel.
+ * Hover (mouse) ou toque vira o cartão e mostra o projeto no verso.
+ */
+.membersSection {
+  padding: 4vh clamp(24px, 8vw, 120px) 18vh;
+}
+
+.members {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 32px);
+  width: min(100%, 820px);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.member {
+  perspective: 1400px;
+}
+
+.memberFlip {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.75;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  transform-style: preserve-3d;
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.memberFlip:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 6px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .member:hover .memberFlip {
+    transform: rotateY(180deg);
+  }
+}
+
+.member.flipped .memberFlip {
+  transform: rotateY(180deg);
+}
+
+.memberFront,
+.memberBack {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  container-type: inline-size;
+}
+
+.memberFront {
+  background: radial-gradient(130% 120% at 30% 0%, #0f1011 0%, #070708 55%, #040404 100%);
+  box-shadow:
+    0 1px 0 #1a1b1c,
+    0 40px 60px -30px rgb(0 0 0 / 95%),
+    inset 0 1px 0 rgb(255 255 255 / 5%);
+}
+
+.memberLogo,
+.memberWord {
+  position: relative;
+  transition: opacity 700ms ease;
+}
+
+.memberLogo {
+  width: 46cqw;
+  height: 30cqw;
+  background: linear-gradient(160deg, #6d7174, #3a3d40 60%, #555a5e);
+  mask: center / contain no-repeat;
+  filter: drop-shadow(0 -1px 0 rgb(0 0 0 / 90%)) drop-shadow(0 1px 0 rgb(255 255 255 / 10%));
+  opacity: 0.35;
+}
+
+.memberWord {
+  color: #4a4e52;
+  font-size: 7cqw;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  text-shadow: 0 -1px 0 rgb(0 0 0 / 90%), 0 1px 0 rgb(255 255 255 / 10%);
+  opacity: 0.35;
+}
+
+.members.lit .memberLogo,
+.members.lit .memberWord {
+  opacity: 1;
+}
+
+.memberNumber,
+.memberName {
+  position: absolute;
+  bottom: 7cqw;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 2.2cqw;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.memberNumber {
+  left: 7cqw;
+}
+
+.memberName {
+  right: 7cqw;
+}
+
+.memberBack {
+  align-items: end;
+  justify-items: start;
+  background: #0b0b0c center / cover no-repeat;
+  transform: rotateY(180deg);
+}
+
+.memberBack::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(0 0 0 / 10%) 20%, rgb(0 0 0 / 92%) 85%);
+  content: "";
+}
+
+.memberBackText {
+  position: relative;
+  display: grid;
+  gap: 0.4rem;
+  padding: 7cqw;
+  text-align: left;
+}
+
+.memberBackName {
+  font-size: 5cqw;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.memberBackTags {
+  color: rgb(255 255 255 / 70%);
+  font-family: var(--mono);
+  font-size: 2.2cqw;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.membersHint {
+  margin: 3rem 0 0;
+  color: #3c4043;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.hintTouch {
+  display: none;
+}
+
+@media (hover: none) {
+  .hintMouse {
+    display: none;
+  }
+
+  .hintTouch {
+    display: inline;
+  }
+}
+
+/* Fim: a linha desenha o cartão do convite */
+
+.finale {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  padding: 20vh 16px 34vh;
+}
+
+.finalCard {
+  position: relative;
+  display: flex;
+  width: min(86vw, 560px);
+  aspect-ratio: 1.75;
+  container-type: inline-size;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3.4cqw;
+  border-radius: calc(min(86vw, 560px) * 0.02);
+  background: transparent;
+  transition: background 900ms ease, box-shadow 900ms ease;
+}
+
+.finalCard > :not(.paper) {
+  position: relative;
+  opacity: 0.12;
+  transition: opacity 700ms ease;
+}
+
+.finalCard .paper {
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.finalCard.lit {
+  background: radial-gradient(130% 120% at 30% 0%, #0f1011 0%, #070708 55%, #040404 100%);
+}
+
+.finalCard.lit .paper {
+  opacity: 0.32;
+}
+
+.finalCard.lit > :not(.paper) {
+  opacity: 1;
+}
+
+.finalLogo {
+  width: 22cqw;
+  overflow: visible;
+}
+
+.finalTitle {
+  margin: 0;
+  font-size: clamp(1.3rem, 6cqw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.85em 1.4em;
+  border-radius: 999px;
+  background: var(--neon-gradient);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 0 24px var(--neon-soft);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 35%);
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+
+.cta:hover,
+.cta:focus-visible {
+  box-shadow: 0 0 40px var(--blue);
+  transform: translateY(-1px);
+}
+
+.mail {
+  /* Exceção: o e-mail continua selecionável para ser copiado. */
+  user-select: text;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+.mail:hover,
+.mail:focus-visible {
+  color: var(--ink);
+}
+
+.fine {
+  margin: 0;
+  color: #34373a;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+@keyframes flicker {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  14% { opacity: 0.2; }
+  22% { opacity: 1; }
+  30% { opacity: 0.35; }
+  38%, 100% { opacity: 1; }
+}
+
+@media (max-width: 760px) {
+  .phrase {
+    max-width: 82vw;
+  }
+
+  .members {
+    grid-template-columns: 1fr;
+  }
+
+  .benefitText {
+    max-width: calc(100vw - 48px);
+  }
+
+  .slideCaption {
+    width: calc(50vw - 34px);
+    white-space: normal;
+  }
+
+  /* Nos degraus, a frase explicativa já cita os serviços: a lista sai
+     para a etapa do caso caber acima da escada. */
+  .scene[data-scene="crescimento"] .benefitItems {
+    display: none;
+  }
+
+  /* Tecnologia no celular: moldura larga; texto acima dela, sem a lista. */
+  .scene[data-scene="tecnologia"] .benefitName {
+    left: 50%;
+  }
+
+  .scene[data-scene="tecnologia"] .benefitText {
+    max-width: calc(100vw - 48px);
+  }
+
+  .scene[data-scene="tecnologia"] .benefitItems {
+    display: none;
+  }
+
+
+  /* No celular não há meio de tela livre para os selos. */
+  .chips {
+    display: none;
+  }
+
+  /* No celular a citação ocupa o alto da tela: o texto da frente sai. */
+  .benefitText {
+    transition: opacity 600ms ease;
+  }
+
+  .scene:has(.quote.lit) .benefitText {
+    opacity: 0;
+  }
+
+  .chapter {
+    padding: 0 40px 0 24px;
+  }
+
+  .chapter[data-side="right"] {
+    padding: 0 24px 0 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phrase.lit .highlight {
+    animation: none;
+  }
+
+  .ambient {
+    display: none;
+  }
+
+}
