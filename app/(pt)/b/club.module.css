@@ -914,6 +914,11 @@
   transition: color 900ms ease, filter 900ms ease, opacity 250ms ease, scale 800ms ease;
 }
 
+/* Presença: a palavra fica no centro da lente, que no celular sobe. */
+.scene[data-scene="presenca"] .benefitName {
+  top: var(--lens-cy, 50%);
+}
+
 /* Quando a galeria começa, a palavra sai da lente para os trabalhos entrarem. */
 .scene.gallery .benefitName {
   opacity: 0;
