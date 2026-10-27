@@ -28,8 +28,8 @@ const benefits = [
     key: "presenca",
     number: "01",
     name: "Presença",
-    line: "Ser visto do jeito certo.",
-    explain: "Criamos a marca e cuidamos de como ela aparece: identidade, conteúdo e redes.",
+    line: "Sua marca bem apresentada.",
+    explain: "A gente cria a identidade visual, produz o conteúdo e cuida das redes sociais.",
     items: ["Marca & identidade", "Conteúdo", "Social media", "Campanhas"],
     // Reels que passam dentro da lente, um por trecho de scroll.
     gallery: [
@@ -57,8 +57,8 @@ const benefits = [
     key: "crescimento",
     number: "02",
     name: "Crescimento",
-    line: "Atenção que vira negócio.",
-    explain: "Planejamos e executamos o que traz cliente: tráfego, performance e processo comercial.",
+    line: "Mais clientes chegando.",
+    explain: "A gente roda o tráfego pago, acompanha os números e ajuda a organizar o comercial.",
     // Dossiê do caso Moikato (história do site principal): um degrau por
     // etapa, a etapa atual em tipografia grande e, no topo, o depoimento na
     // lente, a única imagem da cena.
@@ -67,12 +67,12 @@ const benefits = [
       {
         numeral: "I",
         title: "Marca",
-        text: "Demos forma à essência: posicionamento, identidade e narrativa.",
+        text: "Criamos o posicionamento, a identidade visual e o jeito de contar a história da Moikato.",
       },
       {
         numeral: "II",
         title: "Expansão",
-        text: "Levamos a marca a dois mercados: conteúdo e site bilíngue.",
+        text: "Fizemos o site em português e inglês e o conteúdo pra marca chegar ao Reino Unido.",
       },
       // A última etapa não tem texto no palco: é a lente com o depoimento.
       { numeral: "III", title: "Resultado" },
@@ -106,8 +106,8 @@ const benefits = [
     key: "tecnologia",
     number: "03",
     name: "Tecnologia",
-    line: "O que sustenta, por trás.",
-    explain: "Construímos a estrutura digital do negócio: sites, CRM, automações e IA.",
+    line: "Sites e sistemas que funcionam.",
+    explain: "A gente desenvolve sites e landing pages, configura CRM e cria automações, inclusive com IA.",
     /*
      * Mini navegador dentro da moldura: uma aba por site. `embed` mostra o
      * site ao vivo (só para sites que aceitam ser exibidos em outra página;
@@ -1081,7 +1081,7 @@ export function Club() {
       <section className={styles.hero} aria-labelledby="club-title">
         <div className={styles.sticky}>
           <h1 className={styles.srOnly} id="club-title">
-            VIA. Acesso por convite.
+            VIA — Marketing, conteúdo e tecnologia
           </h1>
 
           <svg className={styles.ambient} aria-hidden="true" focusable="false">
@@ -1173,7 +1173,6 @@ export function Club() {
 
         <section className={styles.chapter} data-side="left">
           <div className={styles.phrase} data-anchor="" data-line="right">
-            <p className={styles.kicker}>I</p>
             <h2 className={styles.title}>
               {opening.lead}
               <span className={styles.highlight}>{opening.highlight}</span>
@@ -1183,9 +1182,8 @@ export function Club() {
 
         <section className={styles.chapter} data-side="right">
           <div className={styles.phrase} data-anchor="" data-line="left">
-            <p className={styles.kicker}>II · O que fazemos</p>
             <h2 className={styles.title}>
-              Três frentes. <span className={styles.highlight}>Um só cliente: você.</span>
+              O que a gente <span className={styles.highlight}>faz.</span>
             </h2>
           </div>
         </section>
@@ -1323,11 +1321,10 @@ export function Club() {
 
         <section className={styles.chapter} data-side="right">
           <div className={styles.phrase} data-anchor="" data-line="left">
-            <p className={styles.kicker}>III</p>
             <h2 className={styles.title}>
-              Sem pacotes. Sem fórmulas. <span className={styles.highlight}>Cada marca, um caminho.</span>
+              Cada projeto é montado <span className={styles.highlight}>pra marca que está na nossa frente.</span>
             </h2>
-            <p className={styles.note}>Cada projeto começa numa conversa, não num formulário.</p>
+            <p className={styles.note}>O primeiro passo é uma conversa no WhatsApp.</p>
           </div>
         </section>
 
@@ -1336,7 +1333,7 @@ export function Club() {
             <span className={styles.paper} />
             <EngravedLogo id={`${logoId}-final`} className={styles.finalLogo} />
             <h2 className={styles.finalTitle} id="convite-title">
-              A próxima marca pode ser a sua.
+              Vamos falar da sua marca?
             </h2>
             <a className={styles.cta} href={whatsappUrl} target="_blank" rel="noreferrer">
               Conversar com a VIA <span aria-hidden="true">→</span>
