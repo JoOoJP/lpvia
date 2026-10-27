@@ -297,8 +297,14 @@ const SAMPLES = 480;
 // de computador, em miniatura.
 const SITE_WIDTH = 1440;
 
+/*
+ * Por padrão o site ao vivo é vitrine: não recebe rolagem nem clique, então
+ * o scroll passa direto para a página. "Explorar o site" liga a navegação
+ * dentro da janela; ela desliga ao sair com o mouse ou trocar de aba.
+ */
 function MiniBrowser({ sites }) {
   const [active, setActive] = useState(0);
+  const [exploring, setExploring] = useState(false);
   const [scale, setScale] = useState(0.5);
   const viewRef = useRef(null);
   const site = sites[active];
@@ -311,14 +317,17 @@ function MiniBrowser({ sites }) {
   }, []);
 
   return (
-    <div className={styles.browser}>
+    <div className={styles.browser} onPointerLeave={() => setExploring(false)}>
       <div className={styles.tabs} role="tablist" aria-label="Sites feitos pela VIA">
         {sites.map((item, index) => (
           <button
             aria-selected={index === active}
             className={styles.tab}
             key={item.name}
-            onClick={() => setActive(index)}
+            onClick={() => {
+              setActive(index);
+              setExploring(false);
+            }}
             role="tab"
             style={{ "--tab": item.color }}
             type="button"
@@ -344,7 +353,13 @@ function MiniBrowser({ sites }) {
             key={site.embed}
             loading="lazy"
             src={site.embed}
-            style={{ width: `${SITE_WIDTH}px`, height: `${100 / scale}%`, transform: `scale(${scale})` }}
+            style={{
+              width: `${SITE_WIDTH}px`,
+              height: `${100 / scale}%`,
+              transform: `scale(${scale})`,
+              pointerEvents: exploring ? "auto" : "none",
+            }}
+            tabIndex={exploring ? 0 : -1}
             title={`Site ${site.name}`}
           />
         ) : site.image ? (
@@ -356,6 +371,15 @@ function MiniBrowser({ sites }) {
             <span />
           </span>
         )}
+        {site.embed ? (
+          <button
+            className={`${styles.explore} ${exploring ? styles.exploring : ""}`}
+            onClick={() => setExploring((value) => !value)}
+            type="button"
+          >
+            {exploring ? "Voltar à página" : "Explorar o site"}
+          </button>
+        ) : null}
       </div>
     </div>
   );
@@ -1204,7 +1228,7 @@ export function Club() {
               {benefit.sites ? (
                 <div className={`${styles.lens} ${styles.screen}`}>
                   <MiniBrowser sites={benefit.sites} />
-                  <p className={styles.browserHint}>Clique nas abas · navegue pelo site</p>
+                  <p className={styles.browserHint}>Clique nas abas · explore os sites</p>
                 </div>
               ) : null}
 
