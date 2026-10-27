@@ -844,7 +844,9 @@ export function Club() {
           scene.chips.forEach((chip) => chip.classList.toggle(styles.lit, reached > Number(chip.dataset.step)));
           scene.panel?.classList.toggle(styles.lit, reached > 0 && reached <= scene.panelSlides.length);
           scene.quote?.classList.toggle(styles.lit, scene.window && progress >= scene.window[0]);
-          const climbing = drawn >= scene.marks[0];
+          // A palavra sai a caminho do primeiro degrau, antes da etapa entrar,
+          // para as duas nunca dividirem a tela, mesmo rolando rápido.
+          const climbing = drawn >= scene.marks[0] * 0.6;
           scene.el.classList.toggle(styles.gallery, climbing);
           symbolDone = climbing;
         }

@@ -616,6 +616,7 @@
 
 .panel.lit {
   opacity: 1;
+  transition-delay: 250ms;
 }
 
 .panelSlide {
@@ -909,7 +910,8 @@
   padding: 0 0.06em 0.08em;
   white-space: nowrap;
   translate: -50% -50%;
-  transition: color 900ms ease, filter 900ms ease, opacity 600ms ease, scale 800ms ease;
+  /* Sai rápido (opacidade em 250ms): o que entra no lugar espera por ela. */
+  transition: color 900ms ease, filter 900ms ease, opacity 250ms ease, scale 800ms ease;
 }
 
 /* Quando a galeria começa, a palavra sai da lente para os trabalhos entrarem. */
@@ -926,8 +928,10 @@
   transition: opacity 700ms ease;
 }
 
+/* Entra depois que a palavra saiu: espera os 250ms da saída dela. */
 .scene.gallery .lens {
   opacity: 1;
+  transition-delay: 250ms;
 }
 
 /* No dossiê a lente só aparece junto com a citação, no fim da escada. */
