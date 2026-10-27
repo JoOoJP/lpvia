@@ -474,9 +474,10 @@
   scrollbar-width: none;
 }
 
+/* Abas não encolhem: quando não cabem, a fileira rola para o lado. */
 .tab {
   display: inline-flex;
-  min-width: 0;
+  flex: none;
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
@@ -938,7 +939,7 @@
 /* Legenda do trabalho: logo abaixo da lente, à direita da linha que sai. */
 .slideCaptions {
   position: absolute;
-  top: calc(50% + var(--lens-r, 200px) + 18px);
+  top: calc(var(--lens-cy, 50%) + var(--lens-r, 200px) + 18px);
   left: calc(50% + 18px);
   margin: 0;
   padding: 0;
@@ -1066,189 +1067,6 @@
   color: var(--ink-muted);
 }
 
-/*
- * Membros: cartões pretos como o da VIA, com a logo do cliente gravada. A
- * logo é uma máscara: o branco vira uma tinta prata fosca afundada no papel.
- * Hover (mouse) ou toque vira o cartão e mostra o projeto no verso.
- */
-.membersSection {
-  padding: 4vh clamp(24px, 8vw, 120px) 18vh;
-}
-
-.members {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(16px, 2.4vw, 32px);
-  width: min(100%, 820px);
-  margin: 0 auto;
-  padding: 0;
-  list-style: none;
-}
-
-.member {
-  perspective: 1400px;
-}
-
-.memberFlip {
-  position: relative;
-  display: block;
-  width: 100%;
-  aspect-ratio: 1.75;
-  padding: 0;
-  border: 0;
-  border-radius: 10px;
-  background: none;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  transform-style: preserve-3d;
-  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.memberFlip:focus-visible {
-  outline: 1px solid var(--cyan);
-  outline-offset: 6px;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .member:hover .memberFlip {
-    transform: rotateY(180deg);
-  }
-}
-
-.member.flipped .memberFlip {
-  transform: rotateY(180deg);
-}
-
-.memberFront,
-.memberBack {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  border-radius: inherit;
-  backface-visibility: hidden;
-  container-type: inline-size;
-}
-
-.memberFront {
-  background: radial-gradient(130% 120% at 30% 0%, #0f1011 0%, #070708 55%, #040404 100%);
-  box-shadow:
-    0 1px 0 #1a1b1c,
-    0 40px 60px -30px rgb(0 0 0 / 95%),
-    inset 0 1px 0 rgb(255 255 255 / 5%);
-}
-
-.memberLogo,
-.memberWord {
-  position: relative;
-  transition: opacity 700ms ease;
-}
-
-.memberLogo {
-  width: 46cqw;
-  height: 30cqw;
-  background: linear-gradient(160deg, #6d7174, #3a3d40 60%, #555a5e);
-  mask: center / contain no-repeat;
-  filter: drop-shadow(0 -1px 0 rgb(0 0 0 / 90%)) drop-shadow(0 1px 0 rgb(255 255 255 / 10%));
-  opacity: 0.35;
-}
-
-.memberWord {
-  color: #4a4e52;
-  font-size: 7cqw;
-  font-weight: 600;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  text-shadow: 0 -1px 0 rgb(0 0 0 / 90%), 0 1px 0 rgb(255 255 255 / 10%);
-  opacity: 0.35;
-}
-
-.members.lit .memberLogo,
-.members.lit .memberWord {
-  opacity: 1;
-}
-
-.memberNumber,
-.memberName {
-  position: absolute;
-  bottom: 7cqw;
-  color: var(--ink-muted);
-  font-family: var(--mono);
-  font-size: 2.2cqw;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-.memberNumber {
-  left: 7cqw;
-}
-
-.memberName {
-  right: 7cqw;
-}
-
-.memberBack {
-  align-items: end;
-  justify-items: start;
-  background: #0b0b0c center / cover no-repeat;
-  transform: rotateY(180deg);
-}
-
-.memberBack::before {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgb(0 0 0 / 10%) 20%, rgb(0 0 0 / 92%) 85%);
-  content: "";
-}
-
-.memberBackText {
-  position: relative;
-  display: grid;
-  gap: 0.4rem;
-  padding: 7cqw;
-  text-align: left;
-}
-
-.memberBackName {
-  font-size: 5cqw;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.memberBackTags {
-  color: rgb(255 255 255 / 70%);
-  font-family: var(--mono);
-  font-size: 2.2cqw;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.membersHint {
-  margin: 3rem 0 0;
-  color: #3c4043;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.24em;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.hintTouch {
-  display: none;
-}
-
-@media (hover: none) {
-  .hintMouse {
-    display: none;
-  }
-
-  .hintTouch {
-    display: inline;
-  }
-}
-
 /* Fim: a linha desenha o cartão do convite */
 
 .finale {
@@ -1353,6 +1171,7 @@
 
 .fine {
   margin: 0;
+  text-align: center;
   color: #34373a;
   font-family: var(--mono);
   font-size: 0.68rem;
@@ -1370,12 +1189,42 @@
 }
 
 @media (max-width: 760px) {
-  .phrase {
-    max-width: 82vw;
+  /* Abertura: cartão de visita em pé, para ocupar a tela vertical. */
+  .root {
+    --card-w: min(64vw, 36vh);
   }
 
-  .members {
-    grid-template-columns: 1fr;
+  .card {
+    aspect-ratio: 1 / 1.75;
+  }
+
+  .logo {
+    width: 54cqw;
+  }
+
+  /* Nas três cenas a frase explicativa já cita os serviços: a lista sai. */
+  .benefitItems {
+    display: none;
+  }
+
+  /* Presença: texto na coluna da esquerda; a linha desce pelo meio e a
+     legenda do reel fica do lado direito dela. */
+  .scene[data-scene="presenca"] .benefitText {
+    max-width: calc(50vw - 36px);
+  }
+
+  /* Tecnologia: a linha contorna o texto pela direita (92% da largura). */
+  .scene[data-scene="tecnologia"] .benefitText {
+    max-width: calc(84vw - 40px);
+  }
+
+  /* No celular a tela fica 14px para dentro do fio. */
+  .browserHint {
+    top: calc(100% + 28px);
+  }
+
+  .phrase {
+    max-width: 82vw;
   }
 
   .benefitText {
@@ -1396,10 +1245,6 @@
   /* Tecnologia no celular: moldura larga; texto acima dela, sem a lista. */
   .scene[data-scene="tecnologia"] .benefitName {
     left: 50%;
-  }
-
-  .scene[data-scene="tecnologia"] .benefitText {
-    max-width: calc(100vw - 48px);
   }
 
   .scene[data-scene="tecnologia"] .benefitItems {

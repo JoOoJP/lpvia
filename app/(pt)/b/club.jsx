@@ -137,35 +137,6 @@ const benefits = [
   },
 ];
 
-// Clientes: logos extraídas das imagens dos cases (public/b/membros). A
-// Moikato ainda não tem logo limpa e aparece como palavra gravada.
-const members = [
-  {
-    name: "In Tha Route",
-    tags: "Rebranding · Direção",
-    logo: "/b/membros/in-tha-route.webp",
-    image: "/projects/route-primary.webp",
-  },
-  {
-    name: "Moikato",
-    tags: "Marca · Site bilíngue",
-    logo: null,
-    image: "/projects/moikato-brand.webp",
-  },
-  {
-    name: "Sephie Tarot",
-    tags: "Logo · Símbolo",
-    logo: "/b/membros/sephie.webp",
-    image: "/projects/artes/sephie-prancha.webp",
-  },
-  {
-    name: "Xangô 7 Cachoeiras",
-    tags: "Identidade",
-    logo: "/b/membros/xango.webp",
-    image: "/projects/tux7c-primary.webp",
-  },
-];
-
 // Gradiente vertical da linha do site. As cenas leem a cor nos pontos de
 // entrada e saída para emendar sem troca de cor.
 const LINE_STOPS = [
@@ -196,9 +167,11 @@ function colorAt(fraction) {
 function benefitPath(key, w, h, word) {
   const cx = w / 2;
   if (key === "presenca") {
-    // Uma lente se abre em volta da palavra: um círculo e meio.
-    const r = Math.min(Math.max(word.width / 2 + 36, word.height * 1.4), h * 0.42, w * 0.46);
-    const cy = h / 2;
+    // Uma lente se abre em volta da palavra: um círculo e meio. No celular a
+    // lente sobe, para o texto caber embaixo sem a linha cruzá-lo.
+    const narrow = w < 760;
+    const r = Math.min(Math.max(word.width / 2 + 36, word.height * 1.4), h * 0.42, w * (narrow ? 0.42 : 0.46));
+    const cy = narrow ? h * 0.42 : h / 2;
     const symbol =
       `M ${cx} 0 V ${cy - r} A ${r} ${r} 0 1 1 ${cx} ${cy + r}` +
       ` A ${r} ${r} 0 1 1 ${cx} ${cy - r} A ${r} ${r} 0 1 1 ${cx} ${cy + r}`;
@@ -254,22 +227,37 @@ function benefitPath(key, w, h, word) {
   const entry = narrow ? cx : w * 0.72;
   const left = narrow ? w * 0.08 : w * 0.28;
   const right = narrow ? w * 0.92 : w * 0.9;
-  const top = narrow ? h * 0.3 : h * 0.14;
-  const bottom = narrow ? h * 0.82 : h * 0.8;
+  const top = narrow ? h * 0.42 : h * 0.14;
+  const bottom = narrow ? h * 0.86 : h * 0.8;
   const close = narrow ? w * 0.42 : w * 0.66;
-  const corners = [
-    [entry, top],
-    [right, top],
-    [right, bottom],
-    [left, bottom],
-    [left, top],
-  ];
+  // No celular o texto fica no alto, em toda a largura: a linha passa por
+  // cima dele (a 8% da altura) e desce pela direita até a moldura.
+  const corners = narrow
+    ? [
+        [entry, h * 0.08],
+        [right, h * 0.08],
+        [right, bottom],
+        [left, bottom],
+        [left, top],
+      ]
+    : [
+        [entry, top],
+        [right, top],
+        [right, bottom],
+        [left, bottom],
+        [left, top],
+      ];
   const symbol = `M ${entry} 0 ${corners.map(([x, y]) => `L ${x} ${y}`).join(" ")} H ${close}`;
   const inset = narrow ? 14 : 26;
   return {
     d: `${symbol} H ${left} V ${h}`,
     hold: symbol,
-    screen: { x: left + inset, y: top + inset, w: right - left - inset * 2, h: bottom - top - inset * 2 },
+    screen: {
+      x: left + inset,
+      y: top + inset,
+      w: right - left - inset * 2,
+      h: bottom - top - inset * 2,
+    },
     corners,
     entry,
     exit: left,
@@ -489,7 +477,6 @@ export function Club() {
       const tip = q(`.${styles.tip}`);
       const anchorEls = gsap.utils.toArray("[data-anchor]", flow);
       const sceneEls = gsap.utils.toArray("[data-scene]", flow);
-      const memberEls = gsap.utils.toArray(`.${styles.member}`, root);
       const finalCard = q(`.${styles.finalCard}`);
 
       /*
@@ -649,6 +636,7 @@ export function Club() {
             height: `${inner * 2}px`,
           });
           scene.el.style.setProperty("--lens-r", `${shape.lens.r}px`);
+          scene.el.style.setProperty("--lens-cy", `${shape.lens.cy}px`);
         }
         if (shape.screen && scene.lens) {
           Object.assign(scene.lens.style, {
@@ -720,9 +708,9 @@ export function Club() {
             const top = narrow ? h * 0.34 : h * 0.14;
             const bottom = narrow ? h * 0.66 : shape.landings[2].y - 28;
             Object.assign(scene.panel.style, {
-              left: `${narrow ? w * 0.08 : w * 0.52}px`,
+              left: `${narrow ? w * 0.08 + 28 : w * 0.52}px`,
               top: `${top}px`,
-              width: `${narrow ? w * 0.84 : w * 0.4}px`,
+              width: `${narrow ? w * 0.84 - 28 : w * 0.4}px`,
               height: `${bottom - top}px`,
             });
           }
@@ -930,7 +918,6 @@ export function Club() {
             drawAll();
             for (const { el } of line.anchors) el.classList.add(styles.lit);
             for (const scene of scenes.values()) renderScene(scene, 1);
-            q(`.${styles.members}`).classList.add(styles.lit);
             finalCard.classList.add(styles.lit);
             snake.draw = 1;
             buildSnake();
@@ -1005,39 +992,6 @@ export function Club() {
           update();
           buildSnake();
 
-          // Clientes: os cartões chegam empilhados e são distribuídos na mesa.
-          const membersGrid = q(`.${styles.members}`);
-          const dealt = (el) => {
-            const grid = membersGrid.getBoundingClientRect();
-            const box = el.getBoundingClientRect();
-            return {
-              x: grid.left + grid.width / 2 - (box.left + box.width / 2),
-              y: grid.top + grid.height / 2 - (box.top + box.height / 2),
-            };
-          };
-          gsap.fromTo(
-            memberEls,
-            {
-              x: (i, el) => dealt(el).x,
-              y: (i, el) => dealt(el).y,
-              rotation: (i) => [-6, 4, -2, 7][i % 4],
-            },
-            {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              ease: "power2.out",
-              stagger: 0.08,
-              scrollTrigger: {
-                trigger: membersGrid,
-                start: "top 85%",
-                end: "top 35%",
-                scrub: true,
-                invalidateOnRefresh: true,
-              },
-            },
-          );
-
           let removeTilt = () => {};
           if (fine) {
             // Inclinação mínima e resposta lenta: o cartão flutua, não persegue o mouse.
@@ -1077,20 +1031,12 @@ export function Club() {
             };
           }
 
-          // Toque vira o cartão no celular; no mouse, o hover já vira.
-          const onMemberTap = (event) => {
-            const card = event.target.closest(`.${styles.member}`);
-            if (card) card.classList.toggle(styles.flipped);
-          };
-          q(`.${styles.members}`).addEventListener("click", onMemberTap);
-
           // Fontes mudam a altura dos textos, e com ela o traçado.
           document.fonts?.ready.then(() => ScrollTrigger.refresh());
 
           return () => {
             lineTrigger.kill();
             removeTilt();
-            q(`.${styles.members}`).removeEventListener("click", onMemberTap);
           };
         },
       );
@@ -1349,52 +1295,9 @@ export function Club() {
           </section>
         ))}
 
-        <section className={styles.chapter} data-side="left">
-          <div className={styles.phrase} data-anchor="" data-line="right">
-            <p className={styles.kicker}>III · Clientes</p>
-            <h2 className={styles.title}>
-              Marcas que <span className={styles.highlight}>caminham com a VIA.</span>
-            </h2>
-          </div>
-        </section>
-
-        <section className={styles.membersSection} aria-label="Clientes">
-          <ul className={styles.members} data-anchor="" data-line="right">
-            {members.map((member, position) => (
-              <li className={styles.member} key={member.name}>
-                <button className={styles.memberFlip} type="button" aria-label={`Ver o projeto ${member.name}`}>
-                  <span className={styles.memberFront}>
-                    <span className={styles.paper} />
-                    {member.logo ? (
-                      <span
-                        className={styles.memberLogo}
-                        style={{ maskImage: `url("${member.logo}")`, WebkitMaskImage: `url("${member.logo}")` }}
-                      />
-                    ) : (
-                      <span className={styles.memberWord}>{member.name}</span>
-                    )}
-                    <span className={styles.memberNumber}>Nº {String(position + 1).padStart(3, "0")}</span>
-                    <span className={styles.memberName}>{member.name}</span>
-                  </span>
-                  <span className={styles.memberBack} style={{ backgroundImage: `url("${member.image}")` }}>
-                    <span className={styles.memberBackText}>
-                      <span className={styles.memberBackName}>{member.name}</span>
-                      <span className={styles.memberBackTags}>{member.tags}</span>
-                    </span>
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-          <p className={styles.membersHint}>
-            <span className={styles.hintMouse}>Passe o cursor para ver o projeto</span>
-            <span className={styles.hintTouch}>Toque para ver o projeto</span>
-          </p>
-        </section>
-
         <section className={styles.chapter} data-side="right">
           <div className={styles.phrase} data-anchor="" data-line="left">
-            <p className={styles.kicker}>IV</p>
+            <p className={styles.kicker}>III</p>
             <h2 className={styles.title}>
               Sem pacotes. Sem fórmulas. <span className={styles.highlight}>Cada marca, um caminho.</span>
             </h2>
