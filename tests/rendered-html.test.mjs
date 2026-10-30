@@ -252,8 +252,8 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(ptHtml, /aria-current="page"[^>]*>Portfólio</);
   assert.match(ptHtml, /href="\/#fazemos"/);
   assert.match(ptHtml, /href="#contato"/);
-  assert.match(ptHtml, /aria-label="Filtrar por tipo de mídia"/);
-  assert.match(ptHtml, /aria-pressed="true"[^>]*>Todos/);
+  assert.doesNotMatch(ptHtml, /aria-label="Filtrar por tipo de mídia"/);
+  assert.match(ptHtml, /Entre um take <span>e outro\.<\/span>/);
   assert.match(ptHtml, /Abrir vídeo: Depoimento — Samuel Moikato/);
   assert.doesNotMatch(ptHtml, /Abrir foto: (Still de produto|Evento ao pôr do sol|Editorial em Londres)/);
   assert.doesNotMatch(ptHtml, /Galáticos FT/);

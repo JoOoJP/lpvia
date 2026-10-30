@@ -19,7 +19,7 @@ export function PortfolioShowreel({ content }) {
       aria-labelledby="showreel-titulo"
     >
       <header className={styles.header}>
-        <p className="dark-kicker">{content.kicker}</p>
+        <p className="mono-label">{content.kicker}</p>
         <h2 id="showreel-titulo">{content.title}</h2>
       </header>
 

@@ -160,14 +160,15 @@ export const en = {
     titleHighlight: "work.",
     gallery: {
       ariaLabel: "VIA's photo and video gallery",
-      filtersAriaLabel: "Filter by media type",
-      filters: { all: "All", photo: "Photos", video: "Videos" },
+      filters: { photo: "Photos", video: "Videos" },
       typeLabels: { photo: "Photo", video: "Video" },
       openLabel: "Open",
       viewerLabel: "Media viewer",
       closeLabel: "Close",
       prevLabel: "Previous item",
       nextLabel: "Next item",
+      photosTitleLead: "Between ",
+      photosTitleHighlight: "takes.",
       videoFallback: "Your browser can't play this video.",
     },
     // Keep this list in sync with pt.js: same ids, files, and order.

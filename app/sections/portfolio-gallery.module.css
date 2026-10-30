@@ -1,230 +1,107 @@
 /*
- * Portfólio — filtros por tipo, uma grade em colunas que respeita a proporção
- * de cada foto ou vídeo e um visualizador em tela cheia.
+ * Portfólio — os vídeos em celulares no escuro, as fotos numa faixa clara e um
+ * visualizador em tela cheia. Preto, branco e cinza: a cor fica para a mídia.
+ * Os tokens (--mono-*) vêm da página, em portfolio-page.module.css.
  */
 
-.gallery {
-  --section-plate: linear-gradient(180deg, rgb(4 5 6 / 80%), rgb(5 6 7 / 76%));
-
-  display: grid;
-  gap: clamp(1.5rem, 3vw, 2.25rem);
-  padding-bottom: clamp(4rem, 8vw, 7rem);
-}
-
-/* ---------- Filtros ---------- */
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.filter {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  min-height: 2.5rem;
-  padding: 0 1rem;
-  border: 1px solid rgb(255 255 255 / 16%);
-  border-radius: 999px;
-  background: rgb(255 255 255 / 3%);
-  color: #c9cdcf;
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 650;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition:
-    border-color var(--duration-fast) ease,
-    background var(--duration-fast) ease,
-    color var(--duration-fast) ease;
-}
-
-.filter span {
-  color: #6f7578;
-  font-size: 0.7rem;
-}
-
-.filter:hover {
-  border-color: rgb(255 255 255 / 32%);
-  color: #f7f7f5;
-}
-
-.filter[aria-pressed="true"] {
-  border-color: #68e49b;
-  background: rgb(104 228 155 / 10%);
-  color: #f7f7f5;
-}
-
-.filter[aria-pressed="true"] span {
-  color: #68e49b;
-}
-
-/* ---------- Grade ---------- */
-
-.group {
-  display: grid;
-  gap: 1.6rem;
-}
-
-.groupTitle {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.heading h2 {
+  max-width: 18ch;
   margin: 0;
-  color: #c9cdcf;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-size: clamp(2rem, 4.4vw, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
   text-transform: uppercase;
 }
 
-.groupTitle::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: rgb(255 255 255 / 12%);
+/* ---------- Vídeos ---------- */
+
+/* O fim da faixa escura já clareia rumo à faixa das fotos. */
+.videos {
+  --section-plate: linear-gradient(
+      180deg,
+      var(--mono-black),
+      #141416 40%,
+      #262628 70%,
+      #3a3a3c
+    )
+    center bottom / 100% var(--mono-fade) no-repeat,
+    var(--mono-black);
+
+  padding-block: var(--mono-section-pad) calc(var(--mono-section-pad) * 0.9);
 }
 
-.groupTitle span {
-  color: #6f7578;
-  font-size: 0.7rem;
+.heading h2 span {
+  font-family: var(--font-editorial-accent);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: none;
 }
 
-.grid {
-  --grid-gap: clamp(0.75rem, 1.6vw, 1.25rem);
-
+.phones {
   display: grid;
-  gap: var(--grid-gap);
-  margin: 0;
-  padding: 0;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(1rem, 2.4vw, 2.5rem);
+  margin: clamp(2rem, 4vw, 3.5rem) 0 0;
+  padding: 2.75rem 0 0;
   list-style: none;
 }
 
-/* Cada grupo tem uma proporção só, então as linhas fecham alinhadas. */
-.videos {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+.work {
+  min-width: 0;
 }
 
-/*
- * As fotos misturam retrato e paisagem. O retrato (4:5) ocupa uma coluna e a
- * paisagem ocupa duas, numa proporção (8:5) que dá quase a mesma altura, então
- * as linhas fecham alinhadas e nenhuma foto é cortada demais. O fluxo "dense"
- * preenche os vãos que a paisagem deixaria.
- */
-.photos {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-flow: dense;
+/* O esmaecer vai nos filhos: a entrada ao rolar anima a opacidade do item. */
+.work > * {
+  transition: opacity 450ms var(--mono-ease);
 }
 
-.photos .item {
-  align-self: stretch;
-}
-
-.photos .item[data-wide] {
-  grid-column: span 2;
-}
-
-.videos .tile {
-  aspect-ratio: 9 / 16;
-}
-
-.photos .tile {
-  height: 100%;
-  aspect-ratio: 4 / 5;
-}
-
-.photos .item[data-wide] .tile {
-  aspect-ratio: 8 / 5;
-}
-
-.photos .tile img {
-  object-position: center 30%;
-}
-
-.photos .item[data-wide] .tile img {
-  object-position: center;
-}
-
-.tile {
+.phone {
   position: relative;
   display: block;
   width: 100%;
-  padding: 0;
-  overflow: hidden;
-  isolation: isolate;
-  border: 1px solid rgb(255 255 255 / 12%);
-  border-radius: clamp(10px, 1.1vw, 16px);
-  background: #0d0f10;
-  box-shadow: 0 34px 60px -38px rgb(0 0 0 / 90%);
+  aspect-ratio: 9 / 18;
+  padding: clamp(4px, 0.5vw, 7px);
+  border: 1px solid #3a3a3d;
+  border-radius: clamp(22px, 2.8vw, 40px);
+  background: linear-gradient(145deg, #2c2c2f, #0d0d0e);
   color: inherit;
   font: inherit;
-  text-align: left;
   cursor: zoom-in;
-  transition: border-color var(--duration-fast) ease;
+  transition:
+    transform 450ms var(--mono-ease),
+    box-shadow 450ms var(--mono-ease),
+    opacity 450ms var(--mono-ease);
 }
 
-.tile img {
-  object-fit: cover;
+.screen {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  border-radius: clamp(18px, 2.3vw, 33px);
+  background: #000;
 }
 
-.tile:hover,
-.tile:focus-visible {
-  border-color: rgb(255 255 255 / 30%);
-}
-
-/*
- * Pop-up: com mouse, o card sob o cursor salta da grade — sobe, cresce com uma
- * mola leve, ganha sombra e um fio de brilho — enquanto os outros recuam e
- * esmaecem. O z-index vai no item da grade porque a animação de entrada faz cada
- * <li> ser seu próprio contexto de empilhamento; na saída ele só desce depois
- * que o card terminou de voltar, senão passaria por baixo dos vizinhos no meio
- * do movimento.
- */
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .item {
-    transition: z-index 0s linear 420ms;
-  }
-
-  .item:hover,
-  .item:focus-within {
-    z-index: 10;
-    transition-delay: 0s;
-  }
-
-  .tile {
-    transition:
-      transform 420ms cubic-bezier(0.34, 1.45, 0.64, 1),
-      box-shadow 420ms ease,
-      border-color 220ms ease,
-      opacity 360ms ease;
-  }
-
-  .tile:hover,
-  .tile:focus-visible {
-    transform: translateY(-8px) scale(1.13);
-    border-color: rgb(255 255 255 / 42%);
-    box-shadow:
-      0 56px 90px -26px rgb(0 0 0 / 92%),
-      0 0 0 1px rgb(255 255 255 / 16%),
-      0 0 70px -14px rgb(104 228 155 / 28%);
-  }
-
-  .gallery:has(.tile:is(:hover, :focus-visible)) .tile:not(:hover, :focus-visible) {
-    opacity: 0.5;
-    transform: scale(0.97);
-  }
-}
-
-/* Véu inferior para a legenda ficar legível sobre qualquer imagem. */
-.tile::after {
+/* A ilha do celular. */
+.screen::before {
   content: "";
   position: absolute;
-  z-index: 1;
-  inset: 45% 0 0;
-  background: linear-gradient(180deg, transparent, rgb(0 0 0 / 78%));
-  pointer-events: none;
+  z-index: 3;
+  top: 2.2%;
+  left: 50%;
+  width: 28%;
+  height: 3.2%;
+  border-radius: 99px;
+  background: #000;
+  translate: -50% 0;
+}
+
+.screen img,
+.preview {
+  object-fit: cover;
 }
 
 .preview {
@@ -232,36 +109,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-
-.tile[data-previewing] .play {
-  opacity: 0;
-}
-
-.badge {
-  position: absolute;
-  z-index: 2;
-  top: 0.75rem;
-  left: 0.75rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid rgb(255 255 255 / 18%);
-  border-radius: 999px;
-  background: rgb(5 6 7 / 62%);
-  backdrop-filter: blur(8px);
-  color: #f7f7f5;
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.badge svg {
-  width: 0.7rem;
-  fill: #68e49b;
+  filter: none;
 }
 
 .play {
@@ -271,51 +119,164 @@
   left: 50%;
   display: grid;
   place-items: center;
-  width: clamp(3.2rem, 18%, 4.5rem);
+  width: clamp(2.6rem, 26%, 3.6rem);
   aspect-ratio: 1;
-  border: 1px solid rgb(255 255 255 / 30%);
+  border: 1px solid rgb(255 255 255 / 70%);
   border-radius: 50%;
-  background: rgb(5 6 7 / 50%);
-  backdrop-filter: blur(10px);
   translate: -50% -50%;
-  transition:
-    scale var(--duration-fast) ease,
-    opacity var(--duration-fast) ease;
+  transition: opacity 300ms ease;
 }
 
 .play svg {
-  width: 38%;
+  width: 36%;
   margin-left: 8%;
-  fill: #f7f7f5;
+  fill: #fff;
 }
 
-.tile:hover .play {
-  scale: 1.08;
+.phone[data-previewing] .play {
+  opacity: 0;
 }
 
-.caption {
-  position: absolute;
-  z-index: 2;
-  right: 0.9rem;
-  bottom: 0.85rem;
-  left: 0.9rem;
+.info {
   display: grid;
-  gap: 0.15rem;
+  gap: 2px;
+  margin: 1.4rem 0 0;
 }
 
-.caption strong {
-  color: #f7f7f5;
-  font-size: 1rem;
-  font-weight: 650;
-  letter-spacing: -0.02em;
+.info small {
+  color: var(--mono-gray);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
 }
 
-.caption span {
-  color: #b5babc;
-  font-size: 0.7rem;
-  font-weight: 650;
-  letter-spacing: 0.12em;
+.info b {
+  color: #fff;
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  font-weight: 500;
+}
+
+.info span {
+  color: var(--mono-gray);
+  font-size: 0.82rem;
+}
+
+.phone:focus-visible {
+  outline: 1px solid #fff;
+  outline-offset: 6px;
+}
+
+/* O celular sob o cursor sobe e acende; os outros recuam. */
+/* Sem mouse não há como acender a tela, então ela já fica acesa. */
+@media (hover: hover) {
+  .screen img {
+    filter: brightness(0.72);
+    transition: filter 450ms var(--mono-ease);
+  }
+
+  .phones:has(.phone:hover) .work:not(:has(.phone:hover)) > * {
+    opacity: 0.42;
+  }
+
+  .phone:hover,
+  .phone:focus-visible {
+    transform: translateY(-32px) scale(1.07);
+    box-shadow: 0 44px 80px -36px rgb(255 255 255 / 22%);
+  }
+
+  .phone:hover .screen img,
+  .phone:focus-visible .screen img {
+    filter: brightness(1);
+  }
+}
+
+/* ---------- Fotos ---------- */
+
+.photos {
+  --section-plate:
+    linear-gradient(180deg, #3a3a3c, #636366 30%, #aeaeb2 65%, var(--mono-paper))
+      center top / 100% var(--mono-fade) no-repeat,
+    linear-gradient(180deg, var(--mono-paper), #aeaeb2 40%, #636366 75%, var(--mono-black))
+      center bottom / 100% var(--mono-fade) no-repeat,
+    var(--mono-paper);
+  --mono-line: rgb(0 0 0 / 14%);
+
+  color: #000;
+  padding-block: calc(var(--mono-section-pad) * 1.1);
+}
+
+.photos .heading h2 {
+  color: #000;
+}
+
+.photos :global(.mono-label) {
+  color: #6e6e73;
+}
+
+/* Colunas que respeitam a proporção de cada foto: nada é cortado. */
+.sheet {
+  columns: 3;
+  column-gap: clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: clamp(2rem, 4vw, 3.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.photo {
+  break-inside: avoid;
+  margin-bottom: clamp(0.5rem, 1.2vw, 1.1rem);
+}
+
+.photoButton {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: #e6e6e8;
+  color: inherit;
+  font: inherit;
+  cursor: zoom-in;
+}
+
+.photoButton img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 1.2s var(--mono-ease);
+}
+
+.photoButton:hover img,
+.photoButton:focus-visible img {
+  transform: scale(1.04);
+}
+
+.photoButton:focus-visible {
+  outline: 1px solid #000;
+  outline-offset: 4px;
+}
+
+.photoCaption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 2.5rem 1rem 0.9rem;
+  background: linear-gradient(180deg, transparent, rgb(0 0 0 / 55%));
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-align: left;
   text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 450ms var(--mono-ease);
+}
+
+.photoButton:hover .photoCaption,
+.photoButton:focus-visible .photoCaption {
+  opacity: 1;
 }
 
 /* ---------- Visualizador ---------- */
@@ -329,7 +290,8 @@
   padding: clamp(3.5rem, 6vw, 4.5rem) clamp(1rem, 6vw, 5.5rem);
   border: 0;
   background: transparent;
-  color: #f7f7f5;
+  color: #fff;
+  cursor: zoom-out;
 }
 
 .viewer[open] {
@@ -338,8 +300,7 @@
 }
 
 .viewer::backdrop {
-  background: rgb(3 4 5 / 94%);
-  backdrop-filter: blur(6px);
+  background: rgb(0 0 0 / 95%);
 }
 
 .stage {
@@ -349,6 +310,7 @@
   max-width: 100%;
   max-height: 100%;
   margin: 0;
+  cursor: auto;
 }
 
 .stageMedia {
@@ -357,7 +319,6 @@
   max-width: 100%;
   height: auto;
   max-height: calc(100dvh - 10rem);
-  border-radius: 12px;
   background: #000;
 }
 
@@ -366,18 +327,17 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.35rem 0.75rem;
-  color: #b5babc;
-  font-size: 0.85rem;
+  color: var(--mono-gray);
+  font-size: 0.82rem;
   text-align: center;
 }
 
 .stage figcaption strong {
-  color: #f7f7f5;
-  font-weight: 650;
+  color: #fff;
+  font-weight: 500;
 }
 
 .stage figcaption .counter {
-  color: #6f7578;
   font-variant-numeric: tabular-nums;
 }
 
@@ -389,23 +349,23 @@
   width: 2.75rem;
   height: 2.75rem;
   padding: 0;
-  border: 1px solid rgb(255 255 255 / 18%);
+  border: 1px solid rgb(255 255 255 / 40%);
   border-radius: 50%;
-  background: rgb(255 255 255 / 6%);
-  color: #f7f7f5;
+  background: transparent;
+  color: #fff;
   font: inherit;
   font-size: 1.15rem;
   line-height: 1;
   cursor: pointer;
   transition:
-    border-color var(--duration-fast) ease,
-    background var(--duration-fast) ease;
+    background 450ms var(--mono-ease),
+    color 450ms var(--mono-ease);
 }
 
 .close:hover,
 .nav:hover {
-  border-color: #68e49b;
-  background: rgb(104 228 155 / 12%);
+  background: #fff;
+  color: #000;
 }
 
 .close {
@@ -427,7 +387,51 @@
   right: clamp(0.5rem, 2vw, 1.5rem);
 }
 
+/* Entrada ao rolar, só onde o navegador sabe amarrá-la à rolagem. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .work,
+    .photo {
+      animation: item-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 38%;
+    }
+  }
+}
+
+@keyframes item-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Por largura ---------- */
+
+@media (max-width: 1080px) {
+  .phones {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 3rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .sheet {
+    columns: 2;
+  }
+}
+
 @media (max-width: 620px) {
+  .phones {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-top: 0;
+  }
+
   /* No celular as setas descem para não cobrir a mídia. */
   .viewer {
     padding-bottom: 4.5rem;
@@ -445,55 +449,5 @@
 
   .next {
     right: calc(50% - 3.25rem);
-  }
-}
-
-/* Entrada ao rolar, só onde o navegador sabe amarrá-la à rolagem. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .item {
-      animation: item-in linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 38%;
-    }
-  }
-}
-
-@keyframes item-in {
-  from {
-    opacity: 0;
-    transform: translateY(26px);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* ---------- Grade por largura ---------- */
-
-@media (max-width: 1080px) {
-  .videos {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .photos {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 620px) {
-  .videos,
-  .photos {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .videos .caption strong {
-    font-size: 0.88rem;
-  }
-
-  .videos .caption span {
-    font-size: 0.62rem;
   }
 }

@@ -162,14 +162,15 @@ export const pt = {
     titleHighlight: "selecionados.",
     gallery: {
       ariaLabel: "Galeria de fotos e vídeos da VIA",
-      filtersAriaLabel: "Filtrar por tipo de mídia",
-      filters: { all: "Todos", photo: "Fotos", video: "Vídeos" },
+      filters: { photo: "Fotos", video: "Vídeos" },
       typeLabels: { photo: "Foto", video: "Vídeo" },
       openLabel: "Abrir",
       viewerLabel: "Visualizador de mídia",
       closeLabel: "Fechar",
       prevLabel: "Mídia anterior",
       nextLabel: "Próxima mídia",
+      photosTitleLead: "Entre um take ",
+      photosTitleHighlight: "e outro.",
       videoFallback: "Seu navegador não reproduz este vídeo.",
     },
     // Para incluir uma mídia, coloque o arquivo em /public/portfolio e adicione

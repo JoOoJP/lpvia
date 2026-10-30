@@ -62,60 +62,53 @@ function CheckIcon() {
   );
 }
 
-// Mesma anatomia do botão de contato do site (texto à esquerda, célula de
-// ação à direita), em versão neutra: o WhatsApp é a ação principal.
+// O e-mail vira um botão pílula que copia o endereço; a dica embaixo confirma.
 function EmailButton({ cta, email }) {
   const [copied, copy] = useCopy(email);
 
   return (
-    <button
-      type="button"
-      className={styles.emailButton}
-      data-copied={copied || undefined}
-      onClick={copy}
-    >
-      <span className={styles.emailCopy}>
-        <span className={styles.emailNote} aria-live="polite">
-          {copied ? `${cta.copiedLabel} ✓` : `${cta.emailLabel} · ${cta.copyHint}`}
-        </span>
-        <span className={styles.emailLabel}>{email}</span>
-      </span>
-      <span className={styles.emailCell}>{copied ? <CheckIcon /> : <CopyIcon />}</span>
-    </button>
+    <>
+      <button
+        type="button"
+        className={styles.pill}
+        data-copied={copied || undefined}
+        onClick={copy}
+      >
+        {email}
+        {copied ? <CheckIcon /> : <CopyIcon />}
+      </button>
+      <p className={styles.hint} aria-live="polite">
+        {copied ? `${cta.copiedLabel} ✓` : `${cta.emailLabel} · ${cta.copyHint}`}
+      </p>
+    </>
   );
 }
 
 /*
- * Fechamento da aba de portfólio: o convite à esquerda e, à direita, os dois
- * canais em linhas numeradas. O WhatsApp abre a conversa; o e-mail copia.
+ * Fechamento da aba de portfólio: o convite em caixa alta, uma linha de apoio
+ * e os dois canais em pílulas. O WhatsApp abre a conversa; o e-mail copia.
  */
 export function PortfolioContact({ id, cta, whatsappUrl, email }) {
   return (
     <section id={id} className={`${styles.contact} section`}>
-      <div>
-        <p className="dark-kicker">{cta.kicker}</p>
-        <h2 className={styles.headline}>
-          {cta.titleLine1}
-          <br />
-          {cta.titleLine2Lead}
-          <span>{cta.titleLine2Highlight}</span>
-        </h2>
-      </div>
+      <p className="mono-label">{cta.kicker}</p>
+      <h2 className={styles.headline}>
+        {cta.titleLine1}
+        <br />
+        {cta.titleLine2Lead}
+        <span>{cta.titleLine2Highlight}</span>
+      </h2>
+      <p className={styles.note}>{cta.ctaNote}</p>
 
       <div className={styles.actions}>
         <a
-          className="contact-module-cta"
+          className={`${styles.pill} ${styles.primary}`}
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
         >
-          <span className="contact-module-copy">
-            <span className="contact-module-note">{cta.ctaNote}</span>
-            <span className="contact-module-label">{cta.ctaLabel}</span>
-          </span>
-          <span className="contact-module-arrow">
-            <Arrow />
-          </span>
+          {cta.ctaLabel}
+          <Arrow />
         </a>
         <EmailButton cta={cta} email={email} />
       </div>

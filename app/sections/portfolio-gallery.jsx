@@ -4,15 +4,8 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import styles from "./portfolio-gallery.module.css";
 
-const FILTERS = ["all", "photo", "video"];
-// Vídeos primeiro: são o que mais pesa no portfólio, e a ordem do visualizador
-// segue a da tela.
-const GROUP_ORDER = ["video", "photo"];
-const TILE_SIZES = {
-  video: "(max-width: 620px) 50vw, (max-width: 1080px) 33vw, 20vw",
-  photo: "(max-width: 620px) 50vw, (max-width: 1080px) 33vw, 25vw",
-  wide: "(max-width: 620px) 100vw, (max-width: 1080px) 66vw, 50vw",
-};
+const VIDEO_SIZES = "(max-width: 620px) 45vw, (max-width: 1080px) 30vw, 18vw";
+const PHOTO_SIZES = "(max-width: 620px) 50vw, (max-width: 1080px) 50vw, 33vw";
 
 function PlayIcon() {
   return (
@@ -22,7 +15,7 @@ function PlayIcon() {
   );
 }
 
-// Com o mouse em cima, o vídeo roda mudo no próprio card, como nos portfólios
+// Com o mouse em cima, o vídeo roda mudo dentro do celular, como nos portfólios
 // de filmmakers. O <video> só é montado no hover, então nada baixa antes disso.
 function wantsPreview(event) {
   return (
@@ -31,86 +24,111 @@ function wantsPreview(event) {
   );
 }
 
-function Tile({ item, typeLabel, openLabel, onOpen }) {
-  const isVideo = item.type === "video";
-  // Foto em paisagem ocupa duas colunas; retrato ocupa uma.
-  const isWide = !isVideo && item.width / item.height > 1.2;
+function openLabelFor(content, item) {
+  return `${content.openLabel} ${content.typeLabels[item.type].toLowerCase()}: ${item.title} — ${item.client}`;
+}
+
+// Cada vídeo vertical aparece dentro de um celular, com a ficha embaixo.
+function VideoTile({ item, number, content, onOpen }) {
   const [previewing, setPreviewing] = useState(false);
 
   return (
-    <li className={styles.item} data-wide={isWide || undefined}>
+    <li className={styles.work}>
       <button
         type="button"
-        className={styles.tile}
+        className={styles.phone}
         onClick={onOpen}
         onPointerEnter={(event) => {
-          if (isVideo && wantsPreview(event)) setPreviewing(true);
+          if (wantsPreview(event)) setPreviewing(true);
         }}
         onPointerLeave={() => setPreviewing(false)}
         data-previewing={previewing || undefined}
-        aria-label={`${openLabel} ${typeLabel.toLowerCase()}: ${item.title} — ${item.client}`}
+        aria-label={openLabelFor(content, item)}
       >
-        <Image
-          src={isVideo ? item.poster : item.src}
-          alt=""
-          fill
-          sizes={TILE_SIZES[isWide ? "wide" : item.type]}
-        />
-        {previewing ? (
-          <video
-            className={styles.preview}
-            src={item.preview ?? item.src}
-            autoPlay
-            muted
-            loop
-            playsInline
-            aria-hidden="true"
-          />
-        ) : null}
-        <span className={styles.badge}>
-          {isVideo ? <PlayIcon /> : null}
-          {typeLabel}
-          {isVideo && item.duration ? ` · ${item.duration}` : null}
-        </span>
-        {isVideo ? (
+        <span className={styles.screen}>
+          <Image src={item.poster} alt="" fill sizes={VIDEO_SIZES} />
+          {previewing ? (
+            <video
+              className={styles.preview}
+              src={item.preview ?? item.src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-hidden="true"
+            />
+          ) : null}
           <span className={styles.play} aria-hidden="true">
             <PlayIcon />
           </span>
-        ) : null}
-        <span className={styles.caption}>
-          <strong>{item.title}</strong>
-          <span>{item.client}</span>
+        </span>
+      </button>
+      <p className={styles.info} aria-hidden="true">
+        <small>
+          {String(number).padStart(2, "0")}
+          {item.duration ? ` — ${item.duration}` : null}
+        </small>
+        <b>{item.title}</b>
+        <span>{item.client}</span>
+      </p>
+    </li>
+  );
+}
+
+function PhotoTile({ item, content, onOpen }) {
+  return (
+    <li className={styles.photo}>
+      <button
+        type="button"
+        className={styles.photoButton}
+        onClick={onOpen}
+        aria-label={openLabelFor(content, item)}
+      >
+        <Image
+          src={item.src}
+          alt=""
+          width={item.width}
+          height={item.height}
+          sizes={PHOTO_SIZES}
+        />
+        <span className={styles.photoCaption} aria-hidden="true">
+          {item.title} · {item.client}
         </span>
       </button>
     </li>
   );
 }
 
+function Heading({ kicker, count, lead, highlight }) {
+  return (
+    <header className={styles.heading}>
+      <p className="mono-label">
+        {kicker}
+        {count ? <span aria-hidden="true">{count}</span> : null}
+      </p>
+      <h2>
+        {lead}
+        <span>{highlight}</span>
+      </h2>
+    </header>
+  );
+}
+
 /*
- * Galeria do portfólio: fotos e vídeos numa grade em colunas, filtráveis por
- * tipo. Cada peça abre num visualizador em tela cheia (um <dialog> nativo, que
- * já cuida do foco e do Esc); o vídeo só é montado ali, então fechar para tudo.
+ * Galeria do portfólio em duas faixas: os vídeos em celulares, no escuro, e as
+ * fotos numa faixa clara, em colunas que respeitam a proporção de cada uma.
+ * Cada peça abre num visualizador em tela cheia (um <dialog> nativo, que já
+ * cuida do foco e do Esc); o vídeo só é montado ali, então fechar para tudo.
  */
-export function PortfolioGallery({ content, items, children }) {
-  const [filter, setFilter] = useState("all");
+export function PortfolioGallery({ content, items, heading }) {
   const [openIndex, setOpenIndex] = useState(null);
   const dialogRef = useRef(null);
 
-  const groups = GROUP_ORDER.filter(
-    (type) => filter === "all" || filter === type,
-  )
-    .map((type) => ({
-      type,
-      items: items.filter((item) => item.type === type),
-    }))
-    .filter((group) => group.items.length > 0)
-    .map((group, index, all) => ({
-      ...group,
-      start: all
-        .slice(0, index)
-        .reduce((total, previous) => total + previous.items.length, 0),
-    }));
-  const visible = groups.flatMap((group) => group.items);
+  // Vídeos primeiro: são o que mais pesa no portfólio, e a ordem do
+  // visualizador segue a da tela.
+  const videos = items.filter((item) => item.type === "video");
+  const photos = items.filter((item) => item.type === "photo");
+  const visible = [...videos, ...photos];
   const current = openIndex === null ? null : visible[openIndex];
 
   useEffect(() => {
@@ -131,57 +149,56 @@ export function PortfolioGallery({ content, items, children }) {
   }
 
   return (
-    <section
-      className={`${styles.gallery} section`}
-      aria-label={content.ariaLabel}
-    >
-      {children}
-
-      <div
-        className={styles.filters}
-        role="group"
-        aria-label={content.filtersAriaLabel}
-      >
-        {FILTERS.map((key) => {
-          const count =
-            key === "all"
-              ? items.length
-              : items.filter((item) => item.type === key).length;
-
-          return (
-            <button
-              type="button"
-              key={key}
-              className={styles.filter}
-              aria-pressed={filter === key}
-              onClick={() => setFilter(key)}
-            >
-              {content.filters[key]}
-              <span aria-hidden="true">{count}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {groups.map((group) => (
-        <div className={styles.group} key={group.type}>
-          <h3 className={styles.groupTitle}>
-            {content.filters[group.type]}
-            <span aria-hidden="true">{group.items.length}</span>
-          </h3>
-          <ul className={`${styles.grid} ${styles[`${group.type}s`]}`}>
-            {group.items.map((item, index) => (
-              <Tile
+    <>
+      {videos.length > 0 ? (
+        <section
+          className={`${styles.videos} section`}
+          id="videos"
+          aria-label={content.filters.video}
+        >
+          <Heading
+            kicker={heading.kicker}
+            lead={heading.titleLead}
+            highlight={heading.titleHighlight}
+          />
+          <ul className={styles.phones}>
+            {videos.map((item, index) => (
+              <VideoTile
                 key={item.id}
                 item={item}
-                typeLabel={content.typeLabels[item.type]}
-                openLabel={content.openLabel}
-                onOpen={() => setOpenIndex(group.start + index)}
+                number={index + 1}
+                content={content}
+                onOpen={() => setOpenIndex(index)}
               />
             ))}
           </ul>
-        </div>
-      ))}
+        </section>
+      ) : null}
+
+      {photos.length > 0 ? (
+        <section
+          className={`${styles.photos} section`}
+          id="fotos"
+          aria-label={content.filters.photo}
+        >
+          <Heading
+            kicker={content.filters.photo}
+            count={photos.length}
+            lead={content.photosTitleLead}
+            highlight={content.photosTitleHighlight}
+          />
+          <ul className={styles.sheet}>
+            {photos.map((item, index) => (
+              <PhotoTile
+                key={item.id}
+                item={item}
+                content={content}
+                onOpen={() => setOpenIndex(videos.length + index)}
+              />
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <dialog
         ref={dialogRef}
@@ -262,6 +279,6 @@ export function PortfolioGallery({ content, items, children }) {
           </>
         ) : null}
       </dialog>
-    </section>
+    </>
   );
 }

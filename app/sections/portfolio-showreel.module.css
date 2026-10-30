@@ -1,6 +1,4 @@
 .showreel {
-  --section-plate: linear-gradient(180deg, rgb(4 5 6 / 80%), rgb(5 6 7 / 72%));
-
   display: grid;
   gap: clamp(1.25rem, 3vw, 2rem);
   padding-bottom: clamp(3.5rem, 7vw, 6rem);
@@ -10,19 +8,17 @@
   margin: 1rem 0 0;
   color: var(--color-text-via-dark);
   font-size: clamp(1.9rem, 4.2vw, 3.4rem);
-  font-weight: 650;
-  letter-spacing: -0.05em;
-  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  text-transform: uppercase;
 }
 
 .frame {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 14%);
-  border-radius: clamp(14px, 1.6vw, 22px);
   background: #000;
-  box-shadow: 0 50px 90px -50px rgb(0 0 0 / 95%);
 }
 
 .video {
@@ -74,6 +70,6 @@
 
 .play:hover .playIcon,
 .play:focus-visible .playIcon {
-  border-color: #68e49b;
+  border-color: #fff;
   scale: 1.06;
 }
