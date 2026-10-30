@@ -237,10 +237,10 @@ test("publica a aba de portfólio em português e inglês", async () => {
 
   assert.match(ptHtml, /<title>Portfólio — VIA<\/title>/i);
   assert.match(ptHtml, /href="#contato"[^>]*>(?:(?!<\/a>)[\s\S])*Cobertura de eventos/);
-  assert.match(ptHtml, /<h1[^>]*>Desde os 10 anos, deixando tudo <span>mais bonito\.<\/span><\/h1>/);
-  assert.match(ptHtml, /Oi, eu sou a Sté:/);
-  assert.match(ptHtml, /Aos 10 anos eu tinha um blog do Justin Bieber/);
-  assert.match(ptHtml, /videomaker, fotógrafa e sócia da VIA/);
+  assert.match(ptHtml, /<h1[^>]*>Criar sempre foi minha forma de <span>ver o mundo\.<\/span><\/h1>/);
+  assert.match(ptHtml, /Oii, eu sou a Sté e faço parte do pilar criativo da V\.IA/);
+  assert.match(ptHtml, /Aos 10 anos, escrevia em blogs/);
+  assert.match(ptHtml, /No fundo, continuo fazendo o que sempre amei: criando\./);
   assert.match(ptHtml, /Cobertura de eventos/);
   assert.doesNotMatch(ptHtml, /Marcas que já trabalharam com a VIA/);
   assert.match(ptHtml, /Falar com a Sté/);
@@ -281,7 +281,7 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.match(enHtml, /<html[^>]*lang="en"/);
   assert.match(enHtml, /<title>Portfolio — VIA<\/title>/i);
   assert.match(enHtml, /href="#contato"[^>]*>(?:(?!<\/a>)[\s\S])*Event coverage/);
-  assert.match(enHtml, /Hi, I&#x27;m Sté:|Hi, I'm Sté:/);
+  assert.match(enHtml, /Hii, I&#x27;m Sté|Hii, I'm Sté/);
   assert.match(enHtml, /Open video: Testimonial — Samuel Moikato/);
   assert.match(enHtml, /Open video: Beauty reels — Hair salon/);
   assert.match(enHtml, /Open photo: Garden waterfall — Landscapes/);

@@ -92,12 +92,15 @@ export const en = {
       "Hi, Sté! I saw your portfolio on VIA's site and I'd like to talk about a photo or video production.",
     about: {
       skills: ["Directing", "Shooting", "Photography", "Editing & color"],
-      titleLead: "Since I was 10, making things ",
-      titleHighlight: "look better.",
-      greeting: "Hi, I'm Sté: videomaker, photographer, and VIA partner.",
+      titleLead: "Creating has always been my way of ",
+      titleHighlight: "seeing the world.",
+      greeting: "Hii, I'm Sté, and I'm part of V.IA's creative pillar",
       paragraphs: [
-        "At 10, I had a Justin Bieber blog and tinkered with HTML just to make everything look better. Lol. That urge never went away, it just changed tools.",
-        "Today I film, photograph, and edit for brands, events, and people. I take care of every step, from the brief to delivery, with the same eye from start to finish.",
+        "Before I ever held a camera, I was already finding a thousand ways to create.",
+        "At 10, I wrote blogs. Then came drawings, paintings, texts, and everything that let me turn an idea into something real.",
+        "I graduated in Business Administration, but creativity is where I've always recognized myself. Somehow, I found in marketing and audiovisual a place where my creative eye and my strategic vision meet.",
+        "Today, I tell stories through images, movement, and creative direction. From the first idea to the last color adjustment, I like to be present in every detail.",
+        "Deep down, I keep doing what I've always loved: creating.",
       ],
       image: {
         src: "/portfolio/stephani.webp",

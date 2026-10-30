@@ -57,7 +57,7 @@
 }
 
 .intro h1 {
-  max-width: 15ch;
+  max-width: 19ch;
   margin: 0;
   color: #fff;
   font-size: clamp(2.8rem, 7.4vw, 7rem);
@@ -123,6 +123,11 @@
   font-size: clamp(1.02rem, 1.25vw, 1.15rem);
   line-height: 1.65;
   text-wrap: pretty;
+}
+
+/* A última frase fecha o texto: branca, como o "oi" que o abre. */
+.lead:last-of-type {
+  color: #fff;
 }
 
 /* Ofícios da Sté como créditos de ficha técnica. */

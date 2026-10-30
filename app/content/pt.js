@@ -92,12 +92,15 @@ export const pt = {
       "Oi, Sté! Vi seu portfólio na VIA e quero conversar sobre uma produção de foto ou vídeo.",
     about: {
       skills: ["Direção", "Captação", "Fotografia", "Edição & cor"],
-      titleLead: "Desde os 10 anos, deixando tudo ",
-      titleHighlight: "mais bonito.",
-      greeting: "Oi, eu sou a Sté: videomaker, fotógrafa e sócia da VIA.",
+      titleLead: "Criar sempre foi minha forma de ",
+      titleHighlight: "ver o mundo.",
+      greeting: "Oii, eu sou a Sté e faço parte do pilar criativo da V.IA",
       paragraphs: [
-        "Aos 10 anos eu tinha um blog do Justin Bieber e mexia no HTML só para deixar tudo mais bonito. Kkk. A vontade nunca passou, só trocou de ferramenta.",
-        "Hoje eu filmo, fotografo e edito para marcas, eventos e pessoas. Cuido de cada etapa, da pauta à entrega, com o mesmo olhar do começo ao fim.",
+        "Antes de ter uma câmera nas mãos, eu já encontrava mil maneiras de criar.",
+        "Aos 10 anos, escrevia em blogs. Depois vieram os desenhos, as pinturas, os textos e tudo aquilo que me permitia transformar uma ideia em algo real.",
+        "Me formei em Administração, mas foi na criatividade que sempre me reconheci. E, de alguma forma, encontrei no marketing e no audiovisual um lugar onde meu olhar criativo e minha visão estratégica se encontram.",
+        "Hoje, conto histórias através de imagens, movimento e direção criativa. Da primeira ideia ao último ajuste de cor, gosto de estar presente em cada detalhe.",
+        "No fundo, continuo fazendo o que sempre amei: criando.",
       ],
       image: {
         src: "/portfolio/stephani.webp",
