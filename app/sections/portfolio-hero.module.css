@@ -1,0 +1,133 @@
+/*
+ * Abertura em tela cheia: a montagem dos reels no fundo e, embaixo, o nome, o
+ * ofício e uma linha com a frase e o convite para ver os trabalhos.
+ */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: min(100% - (2 * var(--layout-gutter)), var(--layout-max));
+  min-height: 560px;
+  height: 100svh;
+  margin-inline: auto;
+  padding-bottom: clamp(2.5rem, 9vh, 6rem);
+}
+
+/* A mídia sangra até as bordas da tela, além da largura do conteúdo. */
+.media {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  overflow: hidden;
+  background: radial-gradient(120% 90% at 70% 30%, #242426, #0a0a0a 55%, #000);
+  translate: -50% 0;
+}
+
+/* Véu: escurece o topo para o menu e a base para o nome. */
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(0 0 0 / 55%),
+    rgb(0 0 0 / 10%) 35%,
+    rgb(0 0 0 / 88%)
+  );
+}
+
+.clip {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) brightness(0.62) contrast(1.08);
+  animation: clip-in 900ms var(--mono-ease) both;
+}
+
+@keyframes clip-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.copy h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(3.4rem, 11vw, 10rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.role {
+  margin: clamp(0.9rem, 2vw, 1.75rem) 0 0 0.2em;
+  color: #fff;
+  font-size: clamp(0.72rem, 1.3vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: clamp(1.75rem, 5vw, 4rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--mono-line);
+}
+
+.row p {
+  max-width: 26ch;
+  margin: 0;
+  color: var(--mono-paper);
+  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  padding: 0 1.9rem;
+  border: 1px solid #fff;
+  border-radius: 99px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background 450ms var(--mono-ease),
+    color 450ms var(--mono-ease);
+}
+
+.cta:hover,
+.cta:focus-visible {
+  background: #fff;
+  color: #000;
+}
+
+@media (max-width: 480px) {
+  .row p {
+    font-size: 1.05rem;
+  }
+
+  .cta {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

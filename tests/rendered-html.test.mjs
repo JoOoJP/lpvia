@@ -237,7 +237,8 @@ test("publica a aba de portfólio em português e inglês", async () => {
 
   assert.match(ptHtml, /<title>Portfólio — VIA<\/title>/i);
   assert.match(ptHtml, /Fotos e vídeos que/);
-  assert.match(ptHtml, /<h1[^>]*>Oi, eu sou a <span>Sté\.<\/span><\/h1>/);
+  assert.match(ptHtml, /<h1[^>]*>Stephani<\/h1>/);
+  assert.match(ptHtml, /<h2[^>]*>Oi, eu sou a <span>Sté\.<\/span><\/h2>/);
   assert.match(ptHtml, /Aos 10 anos, eu já tinha um blog do Justin Bieber no Blogspot/);
   assert.match(ptHtml, /VIDEOMAKER &amp; FOTÓGRAFA/);
   assert.match(ptHtml, /Cobertura de eventos/);

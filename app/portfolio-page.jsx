@@ -3,6 +3,7 @@ import Image from "next/image";
 import { buildWhatsappUrl, email } from "./contact";
 import { PortfolioContact, PortfolioFooter } from "./sections/portfolio-contact";
 import { PortfolioGallery } from "./sections/portfolio-gallery";
+import { PortfolioHero } from "./sections/portfolio-hero";
 import { PortfolioShowreel } from "./sections/portfolio-showreel";
 import { SiteHeader } from "./sections/site-header";
 import styles from "./portfolio-page.module.css";
@@ -53,6 +54,11 @@ export function PortfolioPage({ content }) {
   const whatsappUrl = buildWhatsappUrl(content.contact.whatsappMessage);
   // O convite do fim já chega na conversa como pedido de produção para a Sté.
   const productionWhatsappUrl = buildWhatsappUrl(portfolio.whatsappMessage);
+  // A montagem da abertura usa os trechos leves dos reels, os mesmos do hover.
+  const heroClips = portfolio.hero.clips
+    .map((id) => portfolio.items.find((item) => item.id === id))
+    .filter((item) => item?.preview)
+    .map((item) => ({ src: item.preview, poster: item.poster }));
   const header = {
     ...content.header,
     langSwitch: { ...content.header.langSwitch, href: portfolio.langHref },
@@ -71,9 +77,19 @@ export function PortfolioPage({ content }) {
         currentPage="portfolio"
       />
 
+      <PortfolioHero content={portfolio.hero} clips={heroClips} />
+
+      <PortfolioShowreel content={portfolio.showreel} />
+
+      <PortfolioGallery
+        content={portfolio.gallery}
+        items={portfolio.items}
+        heading={portfolio}
+      />
+
       <section
         className={`${styles.intro} section`}
-        id="inicio"
+        id="sobre"
         aria-labelledby="sobre-titulo"
       >
         <div className={styles.portrait}>
@@ -83,15 +99,14 @@ export function PortfolioPage({ content }) {
             width={about.image.width}
             height={about.image.height}
             sizes="(max-width: 760px) 100vw, 40vw"
-            priority
           />
         </div>
         <div className={styles.aboutCopy}>
           <p className="mono-label">{about.kicker}</p>
-          <h1 id="sobre-titulo">
+          <h2 id="sobre-titulo">
             {about.titleLead}
             <span>{about.titleHighlight}</span>
-          </h1>
+          </h2>
           {about.paragraphs.map((paragraph) => (
             <p className={styles.lead} key={paragraph}>
               {paragraph}
@@ -105,7 +120,6 @@ export function PortfolioPage({ content }) {
         </div>
       </section>
 
-      <PortfolioShowreel content={portfolio.showreel} />
 
       <section
         className={`${styles.specialties} section`}
@@ -131,11 +145,6 @@ export function PortfolioPage({ content }) {
         </ol>
       </section>
 
-      <PortfolioGallery
-        content={portfolio.gallery}
-        items={portfolio.items}
-        heading={portfolio}
-      />
 
       <PortfolioContact
         id="contato"
