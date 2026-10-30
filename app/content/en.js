@@ -104,10 +104,11 @@ export const en = {
       ],
     },
     about: {
-      kicker: "VIDEOMAKER & PHOTOGRAPHER · VIA PARTNER",
+      kicker: "ABOUT · VIA PARTNER",
       skills: ["Directing", "Shooting", "Photography", "Editing & color"],
-      titleLead: "Hi, I'm ",
-      titleHighlight: "Sté.",
+      titleLead: "Since I was 10, making things ",
+      titleHighlight: "look better.",
+      greeting: "Hi, I'm Sté.",
       paragraphs: [
         "My story with marketing began before I even knew what marketing was. At 10, I already had a Justin Bieber blog on Blogspot and I was dabbling in HTML to make everything look prettier. Little did I know it already said a lot about my future. Lol",
         "Today, I'm a digital strategist, passionate about turning ideas into strategies and stories that connect brands and people.",

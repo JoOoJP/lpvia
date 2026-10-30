@@ -104,10 +104,11 @@ export const pt = {
       ],
     },
     about: {
-      kicker: "VIDEOMAKER & FOTÓGRAFA · SÓCIA DA VIA",
+      kicker: "SOBRE · SÓCIA DA VIA",
       skills: ["Direção", "Captação", "Fotografia", "Edição & cor"],
-      titleLead: "Oi, eu sou a ",
-      titleHighlight: "Sté.",
+      titleLead: "Desde os 10 anos, deixando tudo ",
+      titleHighlight: "mais bonito.",
+      greeting: "Oi, eu sou a Sté.",
       paragraphs: [
         "Minha história com o marketing começou antes mesmo de eu saber o que era marketing. Aos 10 anos, eu já tinha um blog do Justin Bieber no Blogspot e me aventurava no HTML para deixar tudo mais bonito. Mal sabia eu que aquilo já dizia muito sobre o meu futuro. Kkk",
         "Hoje, sou estrategista digital, apaixonada por transformar ideias em estratégias e histórias que conectam marcas e pessoas.",

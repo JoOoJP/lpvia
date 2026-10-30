@@ -79,6 +79,42 @@ export function PortfolioPage({ content }) {
 
       <PortfolioHero content={portfolio.hero} clips={heroClips} />
 
+      <section
+        className={`${styles.intro} section`}
+        id="sobre"
+        aria-labelledby="sobre-titulo"
+      >
+        <p className="mono-label">{about.kicker}</p>
+        <h2 id="sobre-titulo">
+          {about.titleLead}
+          <span>{about.titleHighlight}</span>
+        </h2>
+        <div className={styles.aboutGrid}>
+          <div className={styles.portrait}>
+            <Image
+              src={about.image.src}
+              alt={about.image.alt}
+              width={about.image.width}
+              height={about.image.height}
+              sizes="(max-width: 820px) 100vw, 42vw"
+            />
+          </div>
+          <div className={styles.aboutCopy}>
+            <p className={styles.greeting}>{about.greeting}</p>
+            {about.paragraphs.map((paragraph) => (
+              <p className={styles.lead} key={paragraph}>
+                {paragraph}
+              </p>
+            ))}
+            <ul className={styles.skills}>
+              {about.skills.map((skill) => (
+                <li key={skill}>{skill}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <PortfolioShowreel content={portfolio.showreel} />
 
       <PortfolioGallery
@@ -87,38 +123,6 @@ export function PortfolioPage({ content }) {
         heading={portfolio}
       />
 
-      <section
-        className={`${styles.intro} section`}
-        id="sobre"
-        aria-labelledby="sobre-titulo"
-      >
-        <div className={styles.portrait}>
-          <Image
-            src={about.image.src}
-            alt={about.image.alt}
-            width={about.image.width}
-            height={about.image.height}
-            sizes="(max-width: 760px) 100vw, 40vw"
-          />
-        </div>
-        <div className={styles.aboutCopy}>
-          <p className="mono-label">{about.kicker}</p>
-          <h2 id="sobre-titulo">
-            {about.titleLead}
-            <span>{about.titleHighlight}</span>
-          </h2>
-          {about.paragraphs.map((paragraph) => (
-            <p className={styles.lead} key={paragraph}>
-              {paragraph}
-            </p>
-          ))}
-          <ul className={styles.skills}>
-            {about.skills.map((skill) => (
-              <li key={skill}>{skill}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
 
 
       <section
