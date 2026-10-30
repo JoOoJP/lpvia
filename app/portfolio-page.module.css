@@ -42,7 +42,6 @@
 
 /* Título com o fim em serifada itálica, sem caixa alta. */
 .intro h1,
-.testimonials h2,
 .specialties h2 {
   margin: 0;
   color: #fff;
@@ -53,7 +52,6 @@
 }
 
 .intro h1 span,
-.testimonials h2 span,
 .specialties h2 span {
   font-family: var(--font-editorial-accent);
   font-style: italic;
@@ -148,94 +146,6 @@
   .portrait {
     max-width: 28rem;
   }
-}
-
-/* ---------- Depoimentos ---------- */
-
-.testimonials {
-  padding-block: var(--mono-section-pad);
-}
-
-.testimonials h2 {
-  max-width: 20ch;
-  font-size: clamp(2rem, 4.4vw, 4rem);
-}
-
-.quotes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-  gap: clamp(1.5rem, 4vw, 4rem);
-  margin: clamp(2rem, 5vw, 4.5rem) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.quotes li {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 2.5rem;
-  padding-top: 1.75rem;
-  border-top: 1px solid var(--mono-line);
-}
-
-.quotes blockquote {
-  margin: 0;
-  color: var(--mono-paper);
-  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
-  font-weight: 300;
-  line-height: 1.45;
-}
-
-.quotes blockquote::before {
-  content: "“";
-}
-
-.quotes blockquote::after {
-  content: "”";
-}
-
-/* Enquanto houver um depoimento só, ele ocupa a linha inteira e cresce. */
-.quotes li:only-child blockquote {
-  max-width: 22ch;
-  font-size: clamp(1.8rem, 3.6vw, 3.2rem);
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-}
-
-.person {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-}
-
-.avatar {
-  position: relative;
-  flex: none;
-  width: 3rem;
-  height: 3rem;
-  overflow: hidden;
-  border: 1px solid #333;
-  border-radius: 50%;
-  background: #151516;
-}
-
-.avatar img {
-  object-fit: cover;
-  object-position: center 20%;
-  filter: grayscale(1);
-}
-
-.person b {
-  display: block;
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.person span span {
-  color: var(--mono-gray);
-  font-size: 0.82rem;
 }
 
 /* ---------- Especialidades ---------- */

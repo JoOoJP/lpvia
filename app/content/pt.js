@@ -120,20 +120,6 @@ export const pt = {
       loopSrc: null,
       poster: null,
     },
-    // Só depoimentos reais, com nome. Para incluir outro, adicione um item.
-    testimonials: {
-      kicker: "DEPOIMENTOS",
-      titleLead: "Quem já gravou com ela, ",
-      titleHighlight: "recomenda.",
-      items: [
-        {
-          quote: "Eles acreditaram no meu trabalho.",
-          name: "Samuel",
-          role: "Moikato · Empresário em Londres",
-          avatar: "/depoimento-samuel-moikato.jpg",
-        },
-      ],
-    },
     specialties: {
       kicker: "SERVIÇOS",
       titleLead: "Da pauta à ",
