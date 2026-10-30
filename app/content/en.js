@@ -131,6 +131,20 @@ export const en = {
       loopSrc: null,
       poster: null,
     },
+    // Real, named testimonials only. To add one, add an item.
+    testimonials: {
+      kicker: "TESTIMONIALS",
+      titleLead: "People who've filmed with her ",
+      titleHighlight: "recommend her.",
+      items: [
+        {
+          quote: "They believed in my work.",
+          name: "Samuel",
+          role: "Moikato · Entrepreneur in London",
+          avatar: "/depoimento-samuel-moikato.jpg",
+        },
+      ],
+    },
     specialties: {
       kicker: "SPECIALTIES",
       titleLead: "From the brief to the ",

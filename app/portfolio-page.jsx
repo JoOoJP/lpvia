@@ -50,7 +50,7 @@ export function portfolioMetadata(content, languages) {
 
 export function PortfolioPage({ content }) {
   const { portfolio } = content;
-  const { about, specialties } = portfolio;
+  const { about, specialties, testimonials } = portfolio;
   const whatsappUrl = buildWhatsappUrl(content.contact.whatsappMessage);
   // O convite do fim já chega na conversa como pedido de produção para a Sté.
   const productionWhatsappUrl = buildWhatsappUrl(portfolio.whatsappMessage);
@@ -124,6 +124,33 @@ export function PortfolioPage({ content }) {
       />
 
 
+
+      <section
+        className={`${styles.testimonials} section`}
+        aria-labelledby="depoimentos-titulo"
+      >
+        <p className="mono-label">{testimonials.kicker}</p>
+        <h2 id="depoimentos-titulo">
+          {testimonials.titleLead}
+          <span>{testimonials.titleHighlight}</span>
+        </h2>
+        <ul className={styles.quotes}>
+          {testimonials.items.map((item) => (
+            <li key={item.name + item.role}>
+              <blockquote>{item.quote}</blockquote>
+              <div className={styles.person}>
+                <span className={styles.avatar}>
+                  <Image src={item.avatar} alt="" fill sizes="48px" />
+                </span>
+                <span>
+                  <b>{item.name}</b>
+                  <span>{item.role}</span>
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section
         className={`${styles.specialties} section`}
