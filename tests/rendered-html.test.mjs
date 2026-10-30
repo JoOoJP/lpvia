@@ -236,7 +236,7 @@ test("publica a aba de portfólio em português e inglês", async () => {
   const ptHtml = await (await fetch(`${pageUrl}portfolio`)).text();
 
   assert.match(ptHtml, /<title>Portfólio — VIA<\/title>/i);
-  assert.match(ptHtml, /Fotos e vídeos que/);
+  assert.match(ptHtml, /href="#contato"[^>]*>Cobertura de eventos/);
   assert.match(ptHtml, /<h1[^>]*>Stephani<\/h1>/);
   assert.match(ptHtml, /<h2[^>]*>Desde os 10 anos, deixando tudo <span>mais bonito\.<\/span><\/h2>/);
   assert.match(ptHtml, /Oi, eu sou a Sté\./);
@@ -281,7 +281,7 @@ test("publica a aba de portfólio em português e inglês", async () => {
   assert.equal(enResponse.status, 200);
   assert.match(enHtml, /<html[^>]*lang="en"/);
   assert.match(enHtml, /<title>Portfolio — VIA<\/title>/i);
-  assert.match(enHtml, /Photos and videos that/);
+  assert.match(enHtml, /href="#contato"[^>]*>Event coverage/);
   assert.match(enHtml, /Hi, I&#x27;m Sté\.|Hi, I'm Sté\./);
   assert.match(enHtml, /Open video: Testimonial — Samuel Moikato/);
   assert.match(enHtml, /Open video: Beauty reels — Hair salon/);

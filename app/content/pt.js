@@ -148,30 +148,14 @@ export const pt = {
       ],
     },
     specialties: {
-      kicker: "ESPECIALIDADES",
+      kicker: "SERVIÇOS",
       titleLead: "Da pauta à ",
       titleHighlight: "edição final.",
       items: [
-        {
-          icon: "camera",
-          title: "Cobertura de eventos",
-          text: "Fotos e vídeos que contam o evento enquanto ele acontece, com entregas rápidas para as redes no mesmo dia.",
-        },
-        {
-          icon: "film",
-          title: "Filmes de marca",
-          text: "Institucionais, depoimentos e bastidores com roteiro, direção, captação e edição sob o mesmo olhar.",
-        },
-        {
-          icon: "phone",
-          title: "Reels e conteúdo vertical",
-          text: "Vídeos curtos feitos para o feed: gancho nos primeiros segundos, ritmo, legenda e trilha.",
-        },
-        {
-          icon: "image",
-          title: "Produto, retrato e editorial",
-          text: "Stills e retratos com direção de luz e de arte, prontos para site, campanha e catálogo.",
-        },
+        { title: "Cobertura de eventos" },
+        { title: "Filmes de marca" },
+        { title: "Reels e conteúdo vertical" },
+        { title: "Produto, retrato e editorial" },
       ],
     },
     finalCta: {

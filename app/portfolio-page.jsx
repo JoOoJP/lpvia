@@ -166,11 +166,12 @@ export function PortfolioPage({ content }) {
         <ol className={styles.specialtyList}>
           {specialties.items.map((item, index) => (
             <li key={item.title}>
-              <span className={styles.specialtyNumber} aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
+              <a href="#contato">
+                {item.title}
+                <small aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </small>
+              </a>
             </li>
           ))}
         </ol>

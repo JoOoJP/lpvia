@@ -146,30 +146,14 @@ export const en = {
       ],
     },
     specialties: {
-      kicker: "SPECIALTIES",
+      kicker: "SERVICES",
       titleLead: "From the brief to the ",
       titleHighlight: "final cut.",
       items: [
-        {
-          icon: "camera",
-          title: "Event coverage",
-          text: "Photos and videos that tell the event as it happens, with same-day deliveries for social media.",
-        },
-        {
-          icon: "film",
-          title: "Brand films",
-          text: "Corporate films, testimonials, and behind-the-scenes, with script, direction, shooting, and editing under one eye.",
-        },
-        {
-          icon: "phone",
-          title: "Reels and vertical content",
-          text: "Short videos made for the feed: a hook in the first seconds, rhythm, captions, and soundtrack.",
-        },
-        {
-          icon: "image",
-          title: "Product, portrait, and editorial",
-          text: "Stills and portraits with lighting and art direction, ready for websites, campaigns, and catalogs.",
-        },
+        { title: "Event coverage" },
+        { title: "Brand films" },
+        { title: "Reels and vertical content" },
+        { title: "Product, portrait, and editorial" },
       ],
     },
     finalCta: {

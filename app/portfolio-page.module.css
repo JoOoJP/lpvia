@@ -248,79 +248,48 @@
   font-size: clamp(2rem, 4.4vw, 4rem);
 }
 
-/* Linhas grandes que acendem no hover, como uma lista de créditos. */
+/* Só o nome de cada serviço, em linhas grandes que levam ao contato. */
 .specialtyList {
   margin: clamp(2rem, 5vw, 4.5rem) 0 0;
   padding: 0;
   list-style: none;
 }
 
-.specialtyList li {
-  display: grid;
-  grid-template-columns: 3.5rem minmax(0, 1.2fr) minmax(0, 1fr);
+.specialtyList a {
+  display: flex;
   align-items: baseline;
-  gap: clamp(1rem, 3vw, 3rem);
-  padding: clamp(1.25rem, 2.4vw, 2.1rem) 0;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: clamp(1.1rem, 2.4vw, 2.1rem) 0;
   border-top: 1px solid var(--mono-line);
-  transition: padding-left 500ms var(--mono-ease);
+  color: var(--mono-gray);
+  font-size: clamp(1.4rem, 3.4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    color 500ms var(--mono-ease),
+    padding-left 500ms var(--mono-ease);
 }
 
-.specialtyList li:last-child {
+.specialtyList li:last-child a {
   border-bottom: 1px solid var(--mono-line);
 }
 
-.specialtyNumber {
-  color: var(--mono-gray);
+.specialtyList small {
+  flex: none;
   font-size: 0.75rem;
+  font-weight: 400;
   letter-spacing: 0.14em;
   font-variant-numeric: tabular-nums;
 }
 
-.specialtyList h3 {
-  margin: 0;
-  color: var(--mono-gray);
-  font-size: clamp(1.4rem, 3vw, 2.6rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
-  text-transform: uppercase;
-  transition: color 500ms var(--mono-ease);
-}
-
-.specialtyList p {
-  max-width: 40ch;
-  margin: 0;
-  color: var(--mono-gray);
-  font-size: 0.92rem;
-  font-weight: 300;
-  line-height: 1.6;
-}
-
-@media (hover: hover) {
-  .specialtyList li:hover {
-    padding-left: clamp(0.5rem, 1.6vw, 1.5rem);
-  }
-
-  .specialtyList li:hover h3 {
-    color: #fff;
-  }
-}
-
-@media (hover: none) {
-  .specialtyList h3 {
-    color: #fff;
-  }
-}
-
-@media (max-width: 760px) {
-  .specialtyList li {
-    grid-template-columns: 2.5rem minmax(0, 1fr);
-    row-gap: 0.6rem;
-  }
-
-  .specialtyList p {
-    grid-column: 2;
-  }
+.specialtyList a:hover,
+.specialtyList a:focus-visible {
+  padding-left: clamp(0.5rem, 1.6vw, 1.5rem);
+  color: #fff;
 }
 
 /* O véu roxo do contato da home não entra aqui. */
