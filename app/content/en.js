@@ -90,21 +90,8 @@ export const en = {
     },
     whatsappMessage:
       "Hi, Sté! I saw your portfolio on VIA's site and I'd like to talk about a photo or video production.",
-    hero: {
-      name: "Stephani",
-      role: "Videomaker & Photographer",
-      tagline: "Stories of brands and people, told camera in hand.",
-      ctaLabel: "See the work",
-      // Ordem dos trechos da montagem do fundo (ids dos vídeos em items).
-      clips: [
-        "reels-galaticos-ft",
-        "reels-mundo-egipcio",
-        "reels-salao-de-beleza",
-        "reels-segredo-crianca-colaborar",
-      ],
-    },
     about: {
-      kicker: "ABOUT · VIA PARTNER",
+      kicker: "VIDEOMAKER & PHOTOGRAPHER · VIA PARTNER",
       skills: ["Directing", "Shooting", "Photography", "Editing & color"],
       titleLead: "Since I was 10, making things ",
       titleHighlight: "look better.",

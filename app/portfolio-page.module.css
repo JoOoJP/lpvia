@@ -41,7 +41,7 @@
 }
 
 /* Título com o fim em serifada itálica, sem caixa alta. */
-.intro h2,
+.intro h1,
 .testimonials h2,
 .specialties h2 {
   margin: 0;
@@ -52,7 +52,7 @@
   text-transform: uppercase;
 }
 
-.intro h2 span,
+.intro h1 span,
 .testimonials h2 span,
 .specialties h2 span {
   font-family: var(--font-editorial-accent);
@@ -65,11 +65,12 @@
 /* ---------- Sobre ---------- */
 
 /* Rótulo e frase em largura total; embaixo, a foto ao lado do texto. */
+/* Abre a página: o respiro de cima desconta o menu fixo. */
 .intro {
-  padding-block: var(--mono-section-pad);
+  padding-block: clamp(8rem, 14vw, 11.5rem) var(--mono-section-pad);
 }
 
-.intro h2 {
+.intro h1 {
   max-width: 20ch;
   font-size: clamp(2rem, 4.4vw, 4rem);
 }

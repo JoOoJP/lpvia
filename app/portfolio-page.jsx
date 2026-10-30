@@ -3,7 +3,6 @@ import Image from "next/image";
 import { buildWhatsappUrl, email } from "./contact";
 import { PortfolioContact, PortfolioFooter } from "./sections/portfolio-contact";
 import { PortfolioGallery } from "./sections/portfolio-gallery";
-import { PortfolioHero } from "./sections/portfolio-hero";
 import { PortfolioShowreel } from "./sections/portfolio-showreel";
 import { SiteHeader } from "./sections/site-header";
 import styles from "./portfolio-page.module.css";
@@ -54,11 +53,6 @@ export function PortfolioPage({ content }) {
   const whatsappUrl = buildWhatsappUrl(content.contact.whatsappMessage);
   // O convite do fim já chega na conversa como pedido de produção para a Sté.
   const productionWhatsappUrl = buildWhatsappUrl(portfolio.whatsappMessage);
-  // A montagem da abertura usa os trechos leves dos reels, os mesmos do hover.
-  const heroClips = portfolio.hero.clips
-    .map((id) => portfolio.items.find((item) => item.id === id))
-    .filter((item) => item?.preview)
-    .map((item) => ({ src: item.preview, poster: item.poster }));
   const header = {
     ...content.header,
     langSwitch: { ...content.header.langSwitch, href: portfolio.langHref },
@@ -77,18 +71,16 @@ export function PortfolioPage({ content }) {
         currentPage="portfolio"
       />
 
-      <PortfolioHero content={portfolio.hero} clips={heroClips} />
-
       <section
         className={`${styles.intro} section`}
-        id="sobre"
+        id="inicio"
         aria-labelledby="sobre-titulo"
       >
         <p className="mono-label">{about.kicker}</p>
-        <h2 id="sobre-titulo">
+        <h1 id="sobre-titulo">
           {about.titleLead}
           <span>{about.titleHighlight}</span>
-        </h2>
+        </h1>
         <div className={styles.aboutGrid}>
           <div className={styles.portrait}>
             <Image
@@ -97,6 +89,7 @@ export function PortfolioPage({ content }) {
               width={about.image.width}
               height={about.image.height}
               sizes="(max-width: 820px) 100vw, 42vw"
+              priority
             />
           </div>
           <div className={styles.aboutCopy}>
