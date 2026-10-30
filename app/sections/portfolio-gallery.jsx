@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import styles from "./portfolio-gallery.module.css";
 
-const VIDEO_SIZES = "(max-width: 620px) 45vw, (max-width: 1080px) 30vw, 18vw";
+const VIDEO_SIZES = "(max-width: 620px) 50vw, (max-width: 1080px) 33vw, 20vw";
 const PHOTO_SIZES = "(max-width: 620px) 50vw, (max-width: 1080px) 50vw, 33vw";
 
 function PlayIcon() {
@@ -28,7 +28,7 @@ function openLabelFor(content, item) {
   return `${content.openLabel} ${content.typeLabels[item.type].toLowerCase()}: ${item.title} — ${item.client}`;
 }
 
-// Cada vídeo vertical aparece dentro de um celular, com a ficha embaixo.
+// Cada vídeo vertical num quadro limpo, com a ficha embaixo.
 function VideoTile({ item, number, content, onOpen }) {
   const [previewing, setPreviewing] = useState(false);
 
@@ -36,7 +36,7 @@ function VideoTile({ item, number, content, onOpen }) {
     <li className={styles.work}>
       <button
         type="button"
-        className={styles.phone}
+        className={styles.reel}
         onClick={onOpen}
         onPointerEnter={(event) => {
           if (wantsPreview(event)) setPreviewing(true);
@@ -45,29 +45,29 @@ function VideoTile({ item, number, content, onOpen }) {
         data-previewing={previewing || undefined}
         aria-label={openLabelFor(content, item)}
       >
-        <span className={styles.screen}>
-          <Image src={item.poster} alt="" fill sizes={VIDEO_SIZES} />
-          {previewing ? (
-            <video
-              className={styles.preview}
-              src={item.preview ?? item.src}
-              autoPlay
-              muted
-              loop
-              playsInline
-              aria-hidden="true"
-            />
-          ) : null}
-          <span className={styles.play} aria-hidden="true">
-            <PlayIcon />
+        <Image src={item.poster} alt="" fill sizes={VIDEO_SIZES} />
+        {previewing ? (
+          <video
+            className={styles.preview}
+            src={item.preview ?? item.src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-hidden="true"
+          />
+        ) : null}
+        {item.duration ? (
+          <span className={styles.duration} aria-hidden="true">
+            {item.duration}
           </span>
+        ) : null}
+        <span className={styles.play} aria-hidden="true">
+          <PlayIcon />
         </span>
       </button>
       <p className={styles.info} aria-hidden="true">
-        <small>
-          {String(number).padStart(2, "0")}
-          {item.duration ? ` — ${item.duration}` : null}
-        </small>
+        <small>{String(number).padStart(2, "0")}</small>
         <b>{item.title}</b>
         <span>{item.client}</span>
       </p>

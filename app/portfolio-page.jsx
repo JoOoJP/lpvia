@@ -3,6 +3,7 @@ import Image from "next/image";
 import { buildWhatsappUrl, email } from "./contact";
 import { PortfolioContact, PortfolioFooter } from "./sections/portfolio-contact";
 import { PortfolioGallery } from "./sections/portfolio-gallery";
+import { PortfolioServices } from "./sections/portfolio-services";
 import { PortfolioShowreel } from "./sections/portfolio-showreel";
 import { SiteHeader } from "./sections/site-header";
 import styles from "./portfolio-page.module.css";
@@ -76,7 +77,6 @@ export function PortfolioPage({ content }) {
         id="inicio"
         aria-labelledby="sobre-titulo"
       >
-        <p className="mono-label">{about.kicker}</p>
         <h1 id="sobre-titulo">
           {about.titleLead}
           <span>{about.titleHighlight}</span>
@@ -118,30 +118,7 @@ export function PortfolioPage({ content }) {
 
 
 
-      <section
-        className={`${styles.specialties} section`}
-        aria-labelledby="especialidades-titulo"
-      >
-        <header>
-          <p className="mono-label">{specialties.kicker}</p>
-          <h2 id="especialidades-titulo">
-            {specialties.titleLead}
-            <span>{specialties.titleHighlight}</span>
-          </h2>
-        </header>
-        <ol className={styles.specialtyList}>
-          {specialties.items.map((item, index) => (
-            <li key={item.title}>
-              <a href="#contato">
-                {item.title}
-                <small aria-hidden="true">
-                  {String(index + 1).padStart(2, "0")}
-                </small>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </section>
+      <PortfolioServices content={specialties} />
 
 
       <PortfolioContact

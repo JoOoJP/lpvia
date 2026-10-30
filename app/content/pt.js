@@ -91,15 +91,13 @@ export const pt = {
     whatsappMessage:
       "Oi, Sté! Vi seu portfólio na VIA e quero conversar sobre uma produção de foto ou vídeo.",
     about: {
-      kicker: "VIDEOMAKER & FOTÓGRAFA · SÓCIA DA VIA",
       skills: ["Direção", "Captação", "Fotografia", "Edição & cor"],
       titleLead: "Desde os 10 anos, deixando tudo ",
       titleHighlight: "mais bonito.",
-      greeting: "Oi, eu sou a Sté.",
+      greeting: "Oi, eu sou a Sté: videomaker, fotógrafa e sócia da VIA.",
       paragraphs: [
-        "Minha história com o marketing começou antes mesmo de eu saber o que era marketing. Aos 10 anos, eu já tinha um blog do Justin Bieber no Blogspot e me aventurava no HTML para deixar tudo mais bonito. Mal sabia eu que aquilo já dizia muito sobre o meu futuro. Kkk",
-        "Hoje, sou estrategista digital, apaixonada por transformar ideias em estratégias e histórias que conectam marcas e pessoas.",
-        "Tenho um olhar especial para o design, a edição e a construção de narrativas visuais. Gosto de explorar como estética, criatividade e tecnologia podem trabalhar juntas para dar vida a ideias e fortalecer marcas.",
+        "Aos 10 anos eu tinha um blog do Justin Bieber e mexia no HTML só para deixar tudo mais bonito. Kkk. A vontade nunca passou, só trocou de ferramenta.",
+        "Hoje eu filmo, fotografo e edito para marcas, eventos e pessoas. Cuido de cada etapa, da pauta à entrega, com o mesmo olhar do começo ao fim.",
       ],
       image: {
         src: "/portfolio/stephani.webp",
@@ -125,10 +123,22 @@ export const pt = {
       titleLead: "Da pauta à ",
       titleHighlight: "edição final.",
       items: [
-        { title: "Cobertura de eventos" },
-        { title: "Filmes de marca" },
-        { title: "Reels e conteúdo vertical" },
-        { title: "Produto, retrato e editorial" },
+        {
+          title: "Cobertura de eventos",
+          image: { src: "/portfolio/galaticos-bastidor.webp", width: 1066, height: 1600 },
+        },
+        {
+          title: "Filmes de marca",
+          image: { src: "/depoimento-samuel-moikato.jpg", width: 464, height: 832 },
+        },
+        {
+          title: "Reels e conteúdo vertical",
+          image: { src: "/portfolio/salao-de-beleza-poster.webp", width: 720, height: 1280 },
+        },
+        {
+          title: "Produto, retrato e editorial",
+          image: { src: "/portfolio/retrato-salao.webp", width: 1066, height: 1600 },
+        },
       ],
     },
     finalCta: {

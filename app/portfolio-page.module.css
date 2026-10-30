@@ -7,10 +7,14 @@
   --mono-black: #000;
   --mono-paper: #f5f5f7;
   --mono-gray: #86868b;
+  --mono-text: #a8a8ad;
   --mono-line: rgb(255 255 255 / 14%);
   --mono-ease: cubic-bezier(0.22, 0.7, 0.2, 1);
-  --mono-section-pad: clamp(6rem, 13vw, 12rem);
+  --mono-section-pad: clamp(5rem, 10vw, 9rem);
   --mono-fade: clamp(96px, 15vw, 200px);
+  --mono-h2: clamp(2.2rem, 5vw, 4.4rem);
+  /* Coluna mais larga que a da home: a mídia é a protagonista aqui. */
+  --layout-max: 1480px;
   /* O token global é resolvido em :root, onde --font-editorial não existe;
      aqui ele encontra a serifada que esta página carrega. */
   --font-editorial-accent: var(--font-editorial), Georgia, serif;
@@ -40,45 +44,45 @@
   color: #fff;
 }
 
-/* Título com o fim em serifada itálica, sem caixa alta. */
-.intro h1,
-.specialties h2 {
-  margin: 0;
-  color: #fff;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 0.98;
-  text-transform: uppercase;
-}
-
-.intro h1 span,
-.specialties h2 span {
-  font-family: var(--font-editorial-accent);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  text-transform: none;
+/* O véu roxo do contato da home não entra aqui. */
+.page > :global(#contato) {
+  --section-plate: transparent;
 }
 
 /* ---------- Sobre ---------- */
 
-/* Rótulo e frase em largura total; embaixo, a foto ao lado do texto. */
-/* Abre a página: o respiro de cima desconta o menu fixo. */
+/* A página abre direto na frase; o respiro de cima desconta o menu fixo. */
 .intro {
-  padding-block: clamp(8rem, 14vw, 11.5rem) var(--mono-section-pad);
+  padding-block: clamp(8.5rem, 15vw, 12rem) var(--mono-section-pad);
 }
 
 .intro h1 {
-  max-width: 20ch;
-  font-size: clamp(2rem, 4.4vw, 4rem);
+  max-width: 15ch;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.8rem, 7.4vw, 7rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  text-wrap: balance;
 }
 
+.intro h1 span {
+  font-family: var(--font-editorial-accent);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  text-transform: none;
+}
+
+/* Foto e texto começam na mesma linha; o texto não boia mais pela base. */
 .aboutGrid {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-  align-items: end;
-  gap: clamp(2rem, 7vw, 7.5rem);
-  margin-top: clamp(2.5rem, 6vw, 5.5rem);
+  align-items: start;
+  gap: clamp(2rem, 7vw, 7rem);
+  margin-top: clamp(3rem, 7vw, 6rem);
 }
 
 .portrait {
@@ -95,22 +99,30 @@
   object-fit: cover;
 }
 
-/* O "oi" é a primeira coisa que ela diz: branco e maior que o resto. */
+.aboutCopy {
+  display: grid;
+  align-content: start;
+  gap: 1.4rem;
+  max-width: 34rem;
+}
+
+/* O "oi" é a primeira coisa que ela diz: branco e bem maior que o resto. */
 .greeting {
-  margin: 0;
+  margin: 0 0 0.6rem;
   color: #fff;
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
   font-weight: 500;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  text-wrap: balance;
 }
 
 .lead {
-  max-width: 40ch;
-  margin: 1.1em 0 0;
-  color: var(--mono-gray);
-  font-size: clamp(0.92rem, 1.1vw, 1rem);
-  font-weight: 300;
-  line-height: 1.6;
+  margin: 0;
+  color: var(--mono-text);
+  font-size: clamp(1.02rem, 1.25vw, 1.15rem);
+  line-height: 1.65;
+  text-wrap: pretty;
 }
 
 /* Ofícios da Sté como créditos de ficha técnica. */
@@ -118,7 +130,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem 0;
-  margin: clamp(1.75rem, 3vw, 2.5rem) 0 0;
+  margin: 1rem 0 0;
   padding: 1.25rem 0 0;
   border-top: 1px solid var(--mono-line);
   list-style: none;
@@ -146,64 +158,4 @@
   .portrait {
     max-width: 28rem;
   }
-}
-
-/* ---------- Especialidades ---------- */
-
-.specialties {
-  padding-block: 0 var(--mono-section-pad);
-}
-
-.specialties h2 {
-  max-width: 18ch;
-  font-size: clamp(2rem, 4.4vw, 4rem);
-}
-
-/* Só o nome de cada serviço, em linhas grandes que levam ao contato. */
-.specialtyList {
-  margin: clamp(2rem, 5vw, 4.5rem) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.specialtyList a {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1.25rem;
-  padding: clamp(1.1rem, 2.4vw, 2.1rem) 0;
-  border-top: 1px solid var(--mono-line);
-  color: var(--mono-gray);
-  font-size: clamp(1.4rem, 3.4vw, 3rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition:
-    color 500ms var(--mono-ease),
-    padding-left 500ms var(--mono-ease);
-}
-
-.specialtyList li:last-child a {
-  border-bottom: 1px solid var(--mono-line);
-}
-
-.specialtyList small {
-  flex: none;
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  font-variant-numeric: tabular-nums;
-}
-
-.specialtyList a:hover,
-.specialtyList a:focus-visible {
-  padding-left: clamp(0.5rem, 1.6vw, 1.5rem);
-  color: #fff;
-}
-
-/* O véu roxo do contato da home não entra aqui. */
-.page > :global(#contato) {
-  --section-plate: transparent;
 }

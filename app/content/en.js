@@ -91,15 +91,13 @@ export const en = {
     whatsappMessage:
       "Hi, Sté! I saw your portfolio on VIA's site and I'd like to talk about a photo or video production.",
     about: {
-      kicker: "VIDEOMAKER & PHOTOGRAPHER · VIA PARTNER",
       skills: ["Directing", "Shooting", "Photography", "Editing & color"],
       titleLead: "Since I was 10, making things ",
       titleHighlight: "look better.",
-      greeting: "Hi, I'm Sté.",
+      greeting: "Hi, I'm Sté: videomaker, photographer, and VIA partner.",
       paragraphs: [
-        "My story with marketing began before I even knew what marketing was. At 10, I already had a Justin Bieber blog on Blogspot and I was dabbling in HTML to make everything look prettier. Little did I know it already said a lot about my future. Lol",
-        "Today, I'm a digital strategist, passionate about turning ideas into strategies and stories that connect brands and people.",
-        "I have a special eye for design, editing, and building visual narratives. I like exploring how aesthetics, creativity, and technology can work together to bring ideas to life and strengthen brands.",
+        "At 10, I had a Justin Bieber blog and tinkered with HTML just to make everything look better. Lol. That urge never went away, it just changed tools.",
+        "Today I film, photograph, and edit for brands, events, and people. I take care of every step, from the brief to delivery, with the same eye from start to finish.",
       ],
       image: {
         src: "/portfolio/stephani.webp",
@@ -123,10 +121,22 @@ export const en = {
       titleLead: "From the brief to the ",
       titleHighlight: "final cut.",
       items: [
-        { title: "Event coverage" },
-        { title: "Brand films" },
-        { title: "Reels and vertical content" },
-        { title: "Product, portrait, and editorial" },
+        {
+          title: "Event coverage",
+          image: { src: "/portfolio/galaticos-bastidor.webp", width: 1066, height: 1600 },
+        },
+        {
+          title: "Brand films",
+          image: { src: "/depoimento-samuel-moikato.jpg", width: 464, height: 832 },
+        },
+        {
+          title: "Reels and vertical content",
+          image: { src: "/portfolio/salao-de-beleza-poster.webp", width: 720, height: 1280 },
+        },
+        {
+          title: "Product, portrait, and editorial",
+          image: { src: "/portfolio/retrato-salao.webp", width: 1066, height: 1600 },
+        },
       ],
     },
     finalCta: {
