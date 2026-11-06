@@ -416,11 +416,8 @@ a.dir:hover {
   color: var(--tech-muted);
 }
 
-.siteAssets {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1ch;
-  margin-top: 0.35rem;
+.siteLink {
+  margin-top: 0.2rem;
 }
 
 /* experiencia.log */

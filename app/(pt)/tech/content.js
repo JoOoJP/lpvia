@@ -85,7 +85,15 @@ export const tech = {
         {
           term: "Problema",
           items: [
-            { text: "[que problema de pedidos e despesas o sistema resolve]", placeholder: true },
+            "Pedidos de prazo longo se perdiam e se desorganizavam até a entrega.",
+          ],
+        },
+        {
+          term: "O que resolve",
+          items: [
+            "Acompanhamento organizado dos pedidos do início à entrega",
+            "Organização das notas fiscais para conferência",
+            "Organização da compra de produtos",
           ],
         },
         {
@@ -97,21 +105,33 @@ export const tech = {
     },
     {
       id: "sites",
-      name: "Sites e landing pages",
-      summary: "Páginas para um evento real e para uma marca conceito.",
+      name: "Sites, landing pages e e-commerce",
+      summary: "Uma loja virtual completa, sites e landing pages em produção, e um projeto conceito.",
+      // `href` vazio mostra o link como pendente.
       sites: [
         {
+          name: "Moikato",
+          description: "E-commerce completo: começou como página e virou a loja inteira.",
+          href: "https://moikato.com",
+        },
+        {
           name: "Tardinha",
-          description: "Landing page de um evento real.",
-          link: "[link do site]",
-          image: "[imagem]",
+          description: "Landing pages para venda de ingressos de um evento.",
+          href: "https://xn--tardinhariosolimes-82b.com/",
+          display: "tardinhariosolimões.com",
+        },
+        {
+          name: "Camila Bresciani",
+          dir: "drcamilabresciani",
+          description: "[o que é o site]",
+          descriptionPending: true,
+          href: null,
         },
         {
           name: "Fermenta",
           tag: "Projeto conceito",
           description: "Site de uma padaria fictícia, criado como projeto conceito.",
-          link: "[link do site]",
-          image: "[imagem]",
+          href: null,
         },
       ],
     },

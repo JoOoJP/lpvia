@@ -222,13 +222,25 @@ export default function Page() {
                 {sites.sites.map((site) => (
                   <li key={site.name}>
                     <h4 className={styles.siteName}>
-                      <span className={styles.dir}>{site.name.toLowerCase()}/</span>
+                      <span className={styles.dir}>{site.dir ?? site.name.toLowerCase()}/</span>
                       {site.tag && <span className={styles.tag}>{site.tag}</span>}
                     </h4>
-                    <p>{site.description}</p>
-                    <p className={styles.siteAssets}>
-                      <Pending>{site.link}</Pending>
-                      <Pending>{site.image}</Pending>
+                    <p>
+                      {site.descriptionPending ? (
+                        <Pending>{site.description}</Pending>
+                      ) : (
+                        site.description
+                      )}
+                    </p>
+                    <p className={styles.siteLink}>
+                      <Arrow />{" "}
+                      {site.href ? (
+                        <ExternalLink href={site.href}>
+                          {site.display ?? shortUrl(site.href)}
+                        </ExternalLink>
+                      ) : (
+                        <Pending>[link do site]</Pending>
+                      )}
                     </p>
                   </li>
                 ))}
