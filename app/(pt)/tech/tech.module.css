@@ -1,0 +1,521 @@
+/*
+ * Portfólio técnico do João: a mesma noite da VIA, sem o tabuleiro e sem
+ * cartões. A página se lê como um documento — índice à esquerda, conteúdo à
+ * direita, fios finos entre os blocos. O gradiente fica só no nome; o verde
+ * marca o que está em produção. Rótulos em monoespaçada do sistema, que não
+ * custa download.
+ *
+ * Contraste sobre #060707: texto #f7f7f5 (19:1), apoio #9ea4a7 (8:1),
+ * verde #39d67a (10:1), ciano #37d4e5 (11:1).
+ */
+
+.page {
+  --tech-bg: var(--color-surface-via-dark);
+  --tech-text: var(--color-text-via-dark);
+  --tech-muted: var(--color-text-via-muted);
+  --tech-line: var(--color-border-via-dark);
+  --tech-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
+  --tech-gutter: 16px;
+
+  min-height: 100vh;
+  background: var(--tech-bg);
+  color: var(--tech-text);
+  font-family: var(--font-sans);
+  line-height: var(--leading-body);
+}
+
+.shell {
+  width: min(100% - (2 * var(--tech-gutter)), 1080px);
+  margin-inline: auto;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- Links ---------- */
+
+.link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3em;
+  color: var(--tech-text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--via-green);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  transition: text-decoration-thickness var(--duration-fast) ease;
+}
+
+.link:hover {
+  text-decoration-thickness: 3px;
+}
+
+.arrow {
+  color: var(--via-green);
+  font-size: 0.85em;
+}
+
+/* Pendente visível: o que ainda depende do João aparece entre colchetes. */
+.pending {
+  display: inline-block;
+  padding: 0.05em 0.45em;
+  border: 1px dashed var(--via-cyan-bright);
+  border-radius: var(--radius-sm);
+  color: var(--via-cyan-bright);
+  font-family: var(--tech-mono);
+  font-size: 0.82em;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ---------- Topo ---------- */
+
+.intro {
+  padding-block: clamp(4rem, 14vw, 9rem) clamp(3rem, 8vw, 5.5rem);
+  border-bottom: 1px solid var(--tech-line);
+}
+
+.path {
+  margin-bottom: 1.5rem;
+  color: var(--tech-muted);
+  font-family: var(--tech-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.intro h1 {
+  width: fit-content;
+  margin: 0;
+  background: var(--gradient-brand-text);
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(3rem, 12vw, 7.5rem);
+  font-weight: 650;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+  padding-bottom: 0.06em;
+}
+
+.role {
+  margin-top: 1.25rem;
+  font-size: clamp(1.2rem, 3.2vw, 1.75rem);
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.summary {
+  max-width: 46ch;
+  margin-top: 0.75rem;
+  color: var(--tech-muted);
+  font-size: var(--text-lead);
+}
+
+.introLinks {
+  margin: 2rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  list-style: none;
+}
+
+.introLinks li {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+/* ---------- Seções ---------- */
+
+.section {
+  padding-block: clamp(3rem, 8vw, 5.5rem);
+  border-bottom: 1px solid var(--tech-line);
+}
+
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.index {
+  color: var(--via-green);
+  font-family: var(--tech-mono);
+  font-size: 0.8rem;
+}
+
+.sectionHead h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  font-weight: 620;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+.sectionBody {
+  min-width: 0;
+}
+
+/* No desktop o título vira coluna de índice e fica preso enquanto se lê. */
+@media (min-width: 900px) {
+  .section {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .sectionHead {
+    position: sticky;
+    top: 2rem;
+    align-self: start;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0;
+  }
+}
+
+/* ---------- Projetos ---------- */
+
+.project + .project {
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+  padding-top: clamp(3rem, 7vw, 4.5rem);
+  border-top: 1px solid var(--tech-line);
+}
+
+.projectHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 0.9rem;
+}
+
+.projectIndex {
+  color: var(--tech-muted);
+  font-family: var(--tech-mono);
+  font-size: 0.85rem;
+}
+
+.projectIndex::after {
+  content: ")";
+}
+
+.projectHead h3 {
+  margin: 0;
+  font-size: clamp(1.45rem, 3.6vw, 2rem);
+  font-weight: 620;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  color: var(--via-green);
+  font-family: var(--tech-mono);
+  font-size: 0.78rem;
+}
+
+.status::before {
+  content: "";
+  width: 0.5em;
+  height: 0.5em;
+  background: currentColor;
+}
+
+.projectSummary {
+  max-width: 60ch;
+  margin-top: 0.75rem;
+  color: var(--tech-muted);
+  font-size: var(--text-lead);
+}
+
+.details {
+  margin: 1.75rem 0 0;
+}
+
+.detailRow {
+  display: grid;
+  gap: 0.35rem;
+  padding-block: 0.9rem;
+  border-top: 1px solid var(--tech-line);
+}
+
+.detailRow dt {
+  color: var(--tech-muted);
+  font-family: var(--tech-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.detailRow dd {
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .detailRow {
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .detailRow dt {
+    padding-top: 0.2rem;
+  }
+}
+
+.plainList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plainList li + li {
+  margin-top: 0.2rem;
+}
+
+/* Stack em linha: itens separados por barra, sem chips. */
+.inlineList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inlineList li {
+  display: inline;
+}
+
+.inlineList li:not(:last-child)::after {
+  content: " / ";
+  color: var(--tech-muted);
+}
+
+.decisions {
+  margin-top: 1.75rem;
+  padding: 1.25rem 0 0 1.25rem;
+  border-left: 2px solid var(--via-green);
+}
+
+.decisions h4 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.decisions ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: decision;
+}
+
+.decisions li {
+  position: relative;
+  padding-left: 2.25rem;
+  counter-increment: decision;
+}
+
+.decisions li + li {
+  margin-top: 0.6rem;
+}
+
+.decisions li::before {
+  content: counter(decision, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  color: var(--tech-muted);
+  font-family: var(--tech-mono);
+  font-size: 0.8rem;
+}
+
+.demo {
+  margin-top: 1.5rem;
+  color: var(--tech-muted);
+  font-family: var(--tech-mono);
+  font-size: 0.85rem;
+}
+
+/* Sites: imagem e texto lado a lado, alternando a ordem para não virar grade. */
+.sites {
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site {
+  display: grid;
+  gap: 1rem;
+  padding-block: 1.25rem;
+  border-top: 1px solid var(--tech-line);
+}
+
+.siteMedia {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--tech-line);
+  border-radius: var(--radius-sm);
+}
+
+.siteCopy h4 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+  font-weight: 620;
+}
+
+.siteCopy p {
+  color: var(--tech-muted);
+}
+
+.siteCopy p + p {
+  margin-top: 0.5rem;
+}
+
+.tag {
+  padding: 0.1em 0.5em;
+  border: 1px solid var(--tech-muted);
+  border-radius: var(--radius-sm);
+  color: var(--tech-muted);
+  font-family: var(--tech-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 640px) {
+  .site {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .site:nth-child(even) .siteMedia {
+    order: 2;
+  }
+}
+
+/* ---------- Experiência ---------- */
+
+.timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline li {
+  padding-block: 1rem;
+  border-top: 1px solid var(--tech-line);
+}
+
+.timeline li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.jobLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.75rem;
+}
+
+.jobLine strong {
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.jobMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.75rem;
+  margin-top: 0.15rem;
+  color: var(--tech-muted);
+}
+
+.jobMeta span:first-child {
+  font-family: var(--tech-mono);
+  font-size: 0.85rem;
+  line-height: 1.9;
+}
+
+.background {
+  margin: 1.5rem 0 0;
+}
+
+/* ---------- Stack ---------- */
+
+.stack {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0;
+  list-style: none;
+  font-size: clamp(1.1rem, 2.6vw, 1.45rem);
+  font-weight: 560;
+  letter-spacing: -0.015em;
+}
+
+.stack li:not(:last-child)::after {
+  content: "/";
+  margin-inline: 0.6em;
+  color: var(--tech-muted);
+  font-weight: 400;
+}
+
+/* ---------- Contato ---------- */
+
+.contactTitle {
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  font-weight: 620;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.contactLinks {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  list-style: none;
+  font-size: 1.1rem;
+}
+
+/* ---------- Rodapé ---------- */
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 2rem 3rem;
+  color: var(--tech-muted);
+  font-size: 0.9rem;
+}
+
+.footerMark {
+  display: block;
+  width: 2.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+}

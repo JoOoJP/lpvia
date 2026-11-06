@@ -302,6 +302,25 @@ test("o rodapé não repete o slogan growth company", async () => {
   assert.doesNotMatch(footer, /growth company/i);
 });
 
+test("publica o portfólio técnico em /tech", async () => {
+  const response = await fetch(new URL("/tech", pageUrl));
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /<title>João Pombo, desenvolvedor full stack<\/title>/);
+  assert.match(html, /<html lang="pt-BR"/);
+  assert.match(html, /rel="canonical" href="[^"]*\/tech"/);
+  assert.doesNotMatch(html, /hrefLang="en"/i);
+  assert.match(html, /property="og:image" content="[^"]*\/tech\/opengraph-image/);
+  assert.match(html, /name="twitter:image" content="[^"]*\/tech\/twitter-image/);
+  assert.doesNotMatch(html, /og-via\.jpg/);
+  assert.match(html, /Desenvolvedor full stack, com foco em back-end\./);
+  assert.match(html, /ViaClientes/);
+  assert.match(html, /Demo pública em preparação/);
+  assert.match(html, /linkedin\.com\/in\/joaopombo-dev/);
+  assert.doesNotMatch(html, /TimeDecor/i);
+});
+
 function findAvailablePort() {
   return new Promise((resolve, reject) => {
     const listener = net.createServer();

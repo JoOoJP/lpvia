@@ -18,5 +18,17 @@ export default function sitemap() {
       },
     }));
 
-  return [...pair("/", "/en", 1), ...pair("/portfolio", "/en/portfolio", 0.8)];
+  // /tech é só em português: entra sem par de idioma.
+  const tech = {
+    url: `${siteUrl}/tech`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  };
+
+  return [
+    ...pair("/", "/en", 1),
+    ...pair("/portfolio", "/en/portfolio", 0.8),
+    tech,
+  ];
 }
