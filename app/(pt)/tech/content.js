@@ -14,16 +14,10 @@ export const tech = {
     summary:
       "Construo e opero sistemas em produção: financeiro, CRM, tarefas e portal do cliente.",
     links: [
-      { label: "GitHub", href: "https://github.com/JoOoJP", external: true },
+      { label: "GitHub", href: "https://github.com/JoOoJP" },
       {
         label: "LinkedIn",
         href: "https://www.linkedin.com/in/joaopombo-dev",
-        external: true,
-      },
-      {
-        label: "Currículo em PDF",
-        href: "/curriculo-joao-pombo.pdf",
-        note: "[arquivo do currículo]",
       },
     ],
   },
@@ -173,8 +167,6 @@ export const tech = {
   contact: {
     title: "Vamos conversar",
     linkedin: "https://www.linkedin.com/in/joaopombo-dev",
-    // Troque pelo endereço real; enquanto for null, a página mostra o pendente.
-    email: null,
-    emailPlaceholder: "[e-mail]",
+    email: "jpombo2001@hotmail.com",
   },
 };

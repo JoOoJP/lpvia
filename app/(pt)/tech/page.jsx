@@ -152,14 +152,7 @@ export default function Page() {
           <ul className={styles.introLinks}>
             {intro.links.map((link) => (
               <li key={link.label}>
-                {link.external ? (
-                  <ExternalLink href={link.href}>{link.label}</ExternalLink>
-                ) : (
-                  <a href={link.href} className={styles.link}>
-                    {link.label}
-                  </a>
-                )}
-                {link.note && <Pending>{link.note}</Pending>}
+                <ExternalLink href={link.href}>{link.label}</ExternalLink>
               </li>
             ))}
           </ul>
@@ -234,13 +227,9 @@ export default function Page() {
                 <ExternalLink href={contact.linkedin}>LinkedIn</ExternalLink>
               </li>
               <li>
-                {contact.email ? (
-                  <a href={`mailto:${contact.email}`} className={styles.link}>
-                    {contact.email}
-                  </a>
-                ) : (
-                  <Pending>{contact.emailPlaceholder}</Pending>
-                )}
+                <a href={`mailto:${contact.email}`} className={styles.link}>
+                  {contact.email}
+                </a>
               </li>
             </ul>
           </div>
