@@ -37,10 +37,6 @@ export const metadata = {
 
 const shortUrl = (href) => href.replace(/^https?:\/\/(www\.)?/, "");
 
-function Pending({ children }) {
-  return <span className={styles.pending}>{children}</span>;
-}
-
 function ExternalLink({ href, children }) {
   return (
     <a href={href} className={styles.link} target="_blank" rel="noopener noreferrer">
@@ -48,11 +44,6 @@ function ExternalLink({ href, children }) {
       <span className={styles.visuallyHidden}> (abre em nova aba)</span>
     </a>
   );
-}
-
-function Item({ item }) {
-  if (typeof item === "string") return item;
-  return item.placeholder ? <Pending>{item.text}</Pending> : item.text;
 }
 
 function Arrow() {
@@ -119,10 +110,8 @@ function Readme({ project }) {
         <div key={detail.term} className={styles.mdSection}>
           <MdHeading level={2}>{detail.term}</MdHeading>
           <ul className={detail.inline ? styles.inlineList : styles.bullets}>
-            {detail.items.map((item, i) => (
-              <li key={i}>
-                <Item item={item} />
-              </li>
+            {detail.items.map((item) => (
+              <li key={item}>{item}</li>
             ))}
           </ul>
         </div>
@@ -223,24 +212,13 @@ export default function Page() {
                   <li key={site.name}>
                     <h4 className={styles.siteName}>
                       <span className={styles.dir}>{site.dir ?? site.name.toLowerCase()}/</span>
-                      {site.tag && <span className={styles.tag}>{site.tag}</span>}
                     </h4>
-                    <p>
-                      {site.descriptionPending ? (
-                        <Pending>{site.description}</Pending>
-                      ) : (
-                        site.description
-                      )}
-                    </p>
+                    <p>{site.description}</p>
                     <p className={styles.siteLink}>
                       <Arrow />{" "}
-                      {site.href ? (
-                        <ExternalLink href={site.href}>
-                          {site.display ?? shortUrl(site.href)}
-                        </ExternalLink>
-                      ) : (
-                        <Pending>[link do site]</Pending>
-                      )}
+                      <ExternalLink href={site.href}>
+                        {site.display ?? shortUrl(site.href)}
+                      </ExternalLink>
                     </p>
                   </li>
                 ))}

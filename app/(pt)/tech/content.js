@@ -1,5 +1,4 @@
-// Tudo o que a página diz mora aqui. Um item com `placeholder: true` aparece
-// na tela marcado como pendente, para não ir ao ar passando por definitivo.
+// Tudo o que a página diz mora aqui.
 
 export const tech = {
   meta: {
@@ -97,8 +96,29 @@ export const tech = {
           ],
         },
         {
+          term: "Detalhes técnicos",
+          items: [
+            "Autenticação própria: senhas derivadas e sessões revogáveis no banco",
+            "Comprovantes privados no Vercel Blob, entregues por rota autenticada",
+            "Leitura do XML das notas fiscais",
+            "Migrações rodam no build de produção; se falharem, a versão anterior continua no ar",
+            "Avisos por web push e resumos agendados (cron)",
+          ],
+        },
+        {
           term: "Stack",
-          items: [{ text: "[stack do sistema]", placeholder: true }],
+          items: [
+            "TypeScript",
+            "Next.js (App Router)",
+            "React",
+            "Drizzle ORM",
+            "PostgreSQL (Neon)",
+            "Zod",
+            "Vercel Blob",
+            "Tailwind CSS",
+            "Vitest e Playwright",
+            "Deploy na Vercel",
+          ],
           inline: true,
         },
       ],
@@ -106,8 +126,7 @@ export const tech = {
     {
       id: "sites",
       name: "Sites, landing pages e e-commerce",
-      summary: "Uma loja virtual completa, sites e landing pages em produção, e um projeto conceito.",
-      // `href` vazio mostra o link como pendente.
+      summary: "Uma loja virtual completa, um site de conversão e landing pages, todos em produção.",
       sites: [
         {
           name: "Moikato",
@@ -121,17 +140,10 @@ export const tech = {
           display: "tardinhariosolimões.com",
         },
         {
-          name: "Camila Bresciani",
-          dir: "drcamilabresciani",
-          description: "[o que é o site]",
-          descriptionPending: true,
-          href: null,
-        },
-        {
-          name: "Fermenta",
-          tag: "Projeto conceito",
-          description: "Site de uma padaria fictícia, criado como projeto conceito.",
-          href: null,
+          name: "Dra. Camila Bresciani",
+          dir: "camilabresciani",
+          description: "Site de conversão para ortodontista.",
+          href: "https://camilabresciani.viamkt.com/",
         },
       ],
     },

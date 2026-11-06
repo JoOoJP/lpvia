@@ -234,16 +234,6 @@
   text-decoration: none;
 }
 
-/* Pendente visível: o que ainda depende do João aparece entre colchetes. */
-.pending {
-  display: inline-block;
-  padding: 0 0.4em;
-  border: 1px dashed var(--tech-cyan);
-  border-radius: var(--radius-sm);
-  color: var(--tech-cyan);
-  font-size: 0.9em;
-}
-
 /* whoami */
 
 .name {
@@ -397,19 +387,6 @@ a.dir:hover {
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0 1.5ch;
-}
-
-.tag {
-  color: var(--tech-lilac);
-  font-size: 0.85em;
-}
-
-.tag::before {
-  content: "[";
-}
-
-.tag::after {
-  content: "]";
 }
 
 .sites p {
