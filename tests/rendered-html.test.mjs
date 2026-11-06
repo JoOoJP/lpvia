@@ -316,6 +316,9 @@ test("publica o portfólio técnico em /tech", async () => {
   assert.doesNotMatch(html, /og-via\.jpg/);
   assert.match(html, /Desenvolvedor full stack, com foco em back-end\./);
   assert.match(html, /ViaClientes/);
+  assert.match(html, /cat viaclientes\/README\.md/);
+  assert.match(html, /jpombo2001@hotmail\.com/);
+  assert.doesNotMatch(html, /curriculo-joao-pombo\.pdf/);
   assert.match(html, /Demo pública em preparação/);
   assert.match(html, /linkedin\.com\/in\/joaopombo-dev/);
   assert.doesNotMatch(html, /TimeDecor/i);
