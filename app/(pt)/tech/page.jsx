@@ -1,4 +1,5 @@
 import { JetBrains_Mono } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
 import { ViaMark } from "../../ui/via-mark";
 import { tech } from "./content";
@@ -35,7 +36,7 @@ export const metadata = {
   },
 };
 
-const shortUrl = (href) => href.replace(/^https?:\/\/(www\.)?/, "");
+const shortUrl = (href) => href.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
 function ExternalLink({ href, children }) {
   return (
@@ -142,6 +143,38 @@ function Readme({ project }) {
   );
 }
 
+// Print do computador numa janela com a barra de endereço, e o do celular
+// sobreposto no canto: o mesmo site nas duas telas, de relance.
+function Shots({ site }) {
+  const domain = site.display ?? shortUrl(site.href);
+
+  return (
+    <figure className={styles.shots}>
+      <div className={styles.browser}>
+        <div className={styles.addressBar} aria-hidden="true">
+          {domain}
+        </div>
+        <Image
+          src={`/tech/${site.shots}-desktop.webp`}
+          alt={`Página inicial do site ${site.name} no computador`}
+          width={1600}
+          height={1000}
+          sizes="(max-width: 640px) 90vw, 600px"
+        />
+      </div>
+      <div className={styles.phone}>
+        <Image
+          src={`/tech/${site.shots}-mobile.webp`}
+          alt={`Página inicial do site ${site.name} no celular`}
+          width={600}
+          height={1298}
+          sizes="(max-width: 640px) 26vw, 150px"
+        />
+      </div>
+    </figure>
+  );
+}
+
 export default function Page() {
   const { intro, projects, experience, background, stack, contact } = tech;
   const readmes = projects.filter((project) => !project.sites);
@@ -209,17 +242,20 @@ export default function Page() {
               <p className={styles.comment}># {sites.summary}</p>
               <ul className={styles.sites}>
                 {sites.sites.map((site) => (
-                  <li key={site.name}>
-                    <h4 className={styles.siteName}>
-                      <span className={styles.dir}>{site.dir ?? site.name.toLowerCase()}/</span>
-                    </h4>
-                    <p>{site.description}</p>
-                    <p className={styles.siteLink}>
-                      <Arrow />{" "}
-                      <ExternalLink href={site.href}>
-                        {site.display ?? shortUrl(site.href)}
-                      </ExternalLink>
-                    </p>
+                  <li key={site.name} className={styles.site}>
+                    <div className={styles.siteCopy}>
+                      <h4 className={styles.siteName}>
+                        <span className={styles.dir}>{site.dir ?? site.name.toLowerCase()}/</span>
+                      </h4>
+                      <p>{site.description}</p>
+                      <p className={styles.siteLink}>
+                        <Arrow />{" "}
+                        <ExternalLink href={site.href}>
+                          {site.display ?? shortUrl(site.href)}
+                        </ExternalLink>
+                      </p>
+                    </div>
+                    <Shots site={site} />
                   </li>
                 ))}
               </ul>

@@ -127,23 +127,28 @@ export const tech = {
       id: "sites",
       name: "Sites, landing pages e e-commerce",
       summary: "Uma loja virtual completa, um site de conversão e landing pages, todos em produção.",
+      // `shots` aponta para public/tech/<nome>-desktop.webp e -mobile.webp,
+      // prints da página inicial pública de cada site.
       sites: [
         {
           name: "Moikato",
           description: "E-commerce completo: começou como página e virou a loja inteira.",
           href: "https://moikato.com",
+          shots: "moikato",
         },
         {
           name: "Tardinha",
           description: "Landing pages para venda de ingressos de um evento.",
           href: "https://xn--tardinhariosolimes-82b.com/",
           display: "tardinhariosolimões.com",
+          shots: "tardinha",
         },
         {
           name: "Dra. Camila Bresciani",
           dir: "camilabresciani",
           description: "Site de conversão para ortodontista.",
           href: "https://camilabresciani.viamkt.com/",
+          shots: "camilabresciani",
         },
       ],
     },
