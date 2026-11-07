@@ -40,6 +40,11 @@
   }
 }
 
+/* O body do site é claro; aqui ele acompanha a página até o fim da rolagem. */
+:global(body):has(.page) {
+  background: var(--color-surface-via-dark);
+}
+
 .visuallyHidden {
   position: absolute;
   width: 1px;
@@ -77,6 +82,20 @@
   box-shadow:
     0 0 0 1px rgb(0 0 0 / 60%),
     0 40px 120px -40px rgb(91 18 209 / 35%);
+}
+
+/* No celular a moldura só ocupava largura: a janela encosta nas bordas. */
+@media (max-width: 639px) {
+  .page {
+    padding-inline: 0;
+    padding-top: 0;
+  }
+
+  .window {
+    border-inline: 0;
+    border-top: 0;
+    border-radius: 0;
+  }
 }
 
 .titleBar {
@@ -228,6 +247,14 @@
   overflow-wrap: anywhere;
 }
 
+/* Alvo de toque de pelo menos 24px sem mudar o desenho da linha. */
+@media (pointer: coarse) {
+  .link,
+  a.dir {
+    padding-block: 0.35em;
+  }
+}
+
 .link:hover {
   background: var(--tech-green);
   color: var(--color-on-brand-green);
@@ -269,6 +296,22 @@
 
 .links .key {
   min-width: 8ch;
+}
+
+/* Em tela estreita o endereço não cabe ao lado da chave: vai para baixo,
+   sempre, para github e linkedin quebrarem igual. */
+@media (max-width: 479px) {
+  .links {
+    gap: 0.75rem;
+  }
+
+  .links li {
+    flex-direction: column;
+  }
+
+  .links .arrow {
+    display: none;
+  }
 }
 
 /* ls */
@@ -388,7 +431,7 @@ a.dir:hover {
 }
 
 /* Texto de um lado, prints do outro, trocando de lado a cada site. */
-@media (min-width: 760px) {
+@media (min-width: 1000px) {
   .site {
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr);
     align-items: center;
@@ -418,6 +461,7 @@ a.dir:hover {
 
 .shots {
   position: relative;
+  max-width: 640px;
   margin: 0;
   /* Espaço para o celular sair da janela sem cortar nada. */
   padding: 0 11% 9% 0;
@@ -451,12 +495,18 @@ a.dir:hover {
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 25%;
+  width: 28%;
   overflow: hidden;
   border: 3px solid #1c1f22;
   border-radius: 14px;
   background: #000;
   box-shadow: 0 18px 40px -12px rgb(0 0 0 / 80%);
+}
+
+@media (min-width: 640px) {
+  .phone {
+    width: 25%;
+  }
 }
 
 .shots img {
@@ -550,6 +600,7 @@ a.dir:hover {
 .footerMark {
   display: block;
   width: 2.5rem;
+  padding-block: 0.5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

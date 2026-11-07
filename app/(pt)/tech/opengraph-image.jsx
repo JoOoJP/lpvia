@@ -21,8 +21,10 @@ export default function Image() {
           color: "#f7f7f5",
         }}
       >
-        <div style={{ display: "flex", fontSize: 26, color: "#9ea4a7" }}>
-          viamkt.com/tech
+        <div style={{ display: "flex", fontSize: 34 }}>
+          <span style={{ color: "#37d4e5" }}>~</span>
+          <span style={{ color: "#39d67a", marginLeft: 14, marginRight: 14 }}>$</span>
+          <span>whoami</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
@@ -39,11 +41,16 @@ export default function Image() {
           >
             {tech.intro.name}
           </div>
+          {/* Com espaço comum o gerador abre um vão duplo antes de "full";
+              o espaço inquebrável mantém o espaçamento certo. */}
           <div style={{ display: "flex", marginTop: 28, fontSize: 44 }}>
-            {tech.intro.role}
+            {tech.intro.role.replace(/ /g, "\u00a0")}
           </div>
         </div>
-        <div style={{ display: "flex", height: 6, width: 160, background: "#39d67a" }} />
+        <div style={{ display: "flex", alignItems: "center", fontSize: 28, color: "#9ea4a7" }}>
+          <span>viamkt.com/tech</span>
+          <span style={{ width: 16, height: 34, marginLeft: 14, background: "#39d67a" }} />
+        </div>
       </div>
     ),
     size,
