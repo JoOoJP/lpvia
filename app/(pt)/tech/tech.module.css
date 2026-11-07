@@ -506,8 +506,8 @@ a.dir:hover {
   margin: 0;
 }
 
-/* O detalhe é mais estreito que o quadro: não estica para a largura toda. */
-.screenshot + .screenshot {
+/* Tela vertical (um modal, por exemplo) não estica para a largura toda. */
+.screenshotNarrow {
   max-width: 600px;
 }
 

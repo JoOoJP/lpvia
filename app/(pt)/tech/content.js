@@ -80,6 +80,25 @@ export const tech = {
         name: "Integração com a Meta Ads",
         summary:
           "Módulo do ViaClientes que lê as campanhas de anúncio dos clientes direto da API da Meta e transforma os números em gestão para a equipe e em relatório para o cliente.",
+        // Prints reais com nomes, campanhas, valores e contadores borrados.
+        screenshots: [
+          {
+            src: "/tech/meta-quadro.webp",
+            width: 1590,
+            height: 843,
+            label: "marketing/campanhas",
+            alt: "Quadro de campanhas com as colunas acima da meta, no ritmo, abaixo da meta e parada ou sem entrega, seletor de dia, semana e mês e alternância entre quadro e tabela; nomes e números aparecem borrados",
+            caption: "Cada campanha na coluna do seu ritmo, com avisos e custo por lead.",
+          },
+          {
+            src: "/tech/meta-relatorio.webp",
+            width: 1222,
+            height: 758,
+            label: "marketing/relatorio",
+            alt: "Relatório de campanhas com indicadores de leads, custo por lead, investimento e CTR, gráfico de leads por dia e lista de campanhas da que mais trouxe lead para a que menos trouxe; números e nomes aparecem borrados",
+            caption: "Relatório do período: leads, custo, investimento, CTR e campanhas.",
+          },
+        ],
         details: [
           {
             term: "O que faz",
@@ -129,6 +148,7 @@ export const tech = {
           label: "pedido",
           alt: "Detalhe de um pedido com as abas resumo, atividades, itens, orçamentos, notas e recibos e histórico, indicadores de itens, entregas, custo, margem e entrega prevista, e o campo para anexar nota, PIX ou recibo; código, cliente e valores aparecem borrados",
           caption: "Um pedido por dentro: itens, orçamentos, notas e recibos e histórico.",
+          narrow: true,
         },
       ],
       details: [

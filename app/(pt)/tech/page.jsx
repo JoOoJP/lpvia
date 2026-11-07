@@ -111,7 +111,10 @@ function Readme({ project }) {
       {project.screenshots && (
         <div className={styles.screenshots}>
           {project.screenshots.map((shot) => (
-            <figure key={shot.src} className={styles.screenshot}>
+            <figure
+              key={shot.src}
+              className={`${styles.screenshot} ${shot.narrow ? styles.screenshotNarrow : ""}`}
+            >
               <div className={styles.browser}>
                 <div className={`${styles.addressBar} ${styles.addressBarPlain}`} aria-hidden="true">
                   {shot.label}
