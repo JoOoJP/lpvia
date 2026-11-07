@@ -317,6 +317,7 @@ test("publica o portfólio técnico em /tech", async () => {
   assert.match(html, /Desenvolvedor full stack, com foco em back-end\./);
   assert.match(html, /ViaClientes/);
   assert.match(html, /cat viaclientes\/README\.md/);
+  assert.match(html, /cat viaclientes\/integracao-meta\.md/);
   assert.match(html, /jpombo2001@hotmail\.com/);
   assert.match(html, /moikato-desktop\.webp/);
   assert.match(html, /alt="Página inicial do site Moikato no celular"/);

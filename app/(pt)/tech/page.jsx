@@ -1,5 +1,6 @@
 import { JetBrains_Mono } from "next/font/google";
 import Image from "next/image";
+import { Fragment } from "react";
 import Link from "next/link";
 import { ViaMark } from "../../ui/via-mark";
 import { tech } from "./content";
@@ -242,16 +243,28 @@ export default function Page() {
           </Block>
 
           {readmes.map((project) => (
-            <Block
-              key={project.id}
-              id={project.id}
-              cwd="~/projetos"
-              command={`cat ${project.id}/README.md`}
-              title={project.name}
-              as="h3"
-            >
-              <Readme project={project} />
-            </Block>
+            <Fragment key={project.id}>
+              <Block
+                id={project.id}
+                cwd="~/projetos"
+                command={`cat ${project.id}/README.md`}
+                title={project.name}
+                as="h3"
+              >
+                <Readme project={project} />
+              </Block>
+              {project.deepDive && (
+                <Block
+                  id={`${project.id}-${project.deepDive.file.replace(/\.md$/, "")}`}
+                  cwd="~/projetos"
+                  command={`cat ${project.id}/${project.deepDive.file}`}
+                  title={project.deepDive.name}
+                  as="h3"
+                >
+                  <Readme project={project.deepDive} />
+                </Block>
+              )}
+            </Fragment>
           ))}
 
           {sites && (

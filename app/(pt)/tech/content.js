@@ -73,6 +73,37 @@ export const tech = {
       },
       // Quando a demo existir, troque por { label: "Ver a demo pública", href: "https://..." }.
       demo: { label: "Demo pública em preparação" },
+      // Mergulho num módulo do projeto: vira um `cat` próprio logo depois do
+      // README. Tudo conferido no código do módulo meta-ads.
+      deepDive: {
+        file: "integracao-meta.md",
+        name: "Integração com a Meta Ads",
+        summary:
+          "Módulo do ViaClientes que lê as campanhas de anúncio dos clientes direto da API da Meta e transforma os números em gestão para a equipe e em relatório para o cliente.",
+        details: [
+          {
+            term: "O que faz",
+            items: [
+              "Quadro de campanhas por ritmo: acima da meta, no ritmo, abaixo da meta, parada ou sem entrega",
+              "Avisos em cada campanha: custo por lead subiu ou caiu, meta batida, sem entrega, atrasada",
+              "Meta de leads por dia definida pela equipe; sem ela, o ritmo é medido contra a média dos últimos 7 dias",
+              "Relatório no portal do cliente, com comparação com o período anterior e os anúncios que mais trouxeram leads",
+            ],
+          },
+        ],
+        decisions: {
+          title: "Decisões técnicas",
+          items: [
+            "Campanhas, gasto e leads são lidos ao vivo da Insights API, com cache de 15 minutos; só a meta de leads mora no banco.",
+            "O token da Meta fica no servidor e nunca entra no DTO da página.",
+            "Paginação com teto de páginas, para a consulta não virar um laço sem fim.",
+            "O período personalizado nasce da URL, então é validado e limitado a 90 dias antes de virar consulta.",
+            "A Meta entrega as imagens dos criativos em URLs que expiram: o sistema baixa cada uma para um Blob privado depois da resposta, e só as que a tela mostra.",
+            "A conta de anúncio sai do acesso conferido no servidor, não da URL: trocar o id no endereço não abre a conta de outro cliente.",
+            "Ritmo, comparação de períodos e custo por lead são funções puras, cobertas por testes.",
+          ],
+        },
+      },
     },
     {
       id: "pedidos-despesas",
