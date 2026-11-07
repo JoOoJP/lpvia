@@ -107,22 +107,27 @@ function Readme({ project }) {
       </p>
       <p className={styles.muted}>{project.summary}</p>
 
-      {project.screenshot && (
-        <figure className={styles.screenshot}>
-          <div className={styles.browser}>
-            <div className={`${styles.addressBar} ${styles.addressBarPlain}`} aria-hidden="true">
-              {project.screenshot.label}
-            </div>
-            <Image
-              src={project.screenshot.src}
-              alt={project.screenshot.alt}
-              width={project.screenshot.width}
-              height={project.screenshot.height}
-              sizes="(max-width: 980px) 100vw, 900px"
-            />
-          </div>
-          <figcaption className={styles.comment}># {project.screenshot.caption}</figcaption>
-        </figure>
+      {project.screenshots && (
+        <div className={styles.screenshots}>
+          {project.screenshots.map((shot) => (
+            <figure key={shot.src} className={styles.screenshot}>
+              <div className={styles.browser}>
+                <div className={`${styles.addressBar} ${styles.addressBarPlain}`} aria-hidden="true">
+                  {shot.label}
+                </div>
+                <Image
+                  src={shot.src}
+                  alt={shot.alt}
+                  width={shot.width}
+                  height={shot.height}
+                  sizes="(max-width: 980px) 100vw, 900px"
+                />
+              </div>
+              <figcaption className={styles.comment}># {shot.caption}</figcaption>
+            </figure>
+          ))}
+          <p className={styles.comment}># Dados do cliente borrados.</p>
+        </div>
       )}
 
       {project.details.map((detail) => (

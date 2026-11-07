@@ -496,8 +496,19 @@ a.dir:hover {
   content: none;
 }
 
+.screenshots {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+
 .screenshot {
-  margin: 1.25rem 0 0;
+  margin: 0;
+}
+
+/* O detalhe é mais estreito que o quadro: não estica para a largura toda. */
+.screenshot + .screenshot {
+  max-width: 600px;
 }
 
 .screenshot img {

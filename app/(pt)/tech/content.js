@@ -80,16 +80,26 @@ export const tech = {
       kind: "Em produção",
       summary:
         "Sistema interno em produção para uma empresa de iluminação e decoração.",
-      // Print do sistema real com tudo o que identifica o cliente borrado:
-      // nomes, valores, contadores, logo e usuário.
-      screenshot: {
-        src: "/tech/pedidos-kanban.webp",
-        width: 1600,
-        height: 748,
-        label: "kanban",
-        alt: "Quadro kanban do sistema com os pedidos divididos nas etapas orçamento, negociação, fechado, em obra, compras, instalação e finalizado; nomes e valores aparecem borrados",
-        caption: "Pedidos por etapa, do orçamento à entrega. Dados do cliente borrados.",
-      },
+      // Prints do sistema real com tudo o que identifica o cliente borrado:
+      // nomes, códigos, valores, contadores, logo e usuário.
+      screenshots: [
+        {
+          src: "/tech/pedidos-kanban.webp",
+          width: 1600,
+          height: 748,
+          label: "kanban",
+          alt: "Quadro kanban do sistema com os pedidos divididos nas etapas orçamento, negociação, fechado, em obra, compras, instalação e finalizado; nomes e valores aparecem borrados",
+          caption: "Pedidos por etapa, do orçamento à entrega.",
+        },
+        {
+          src: "/tech/pedidos-detalhe.webp",
+          width: 878,
+          height: 722,
+          label: "pedido",
+          alt: "Detalhe de um pedido com as abas resumo, atividades, itens, orçamentos, notas e recibos e histórico, indicadores de itens, entregas, custo, margem e entrega prevista, e o campo para anexar nota, PIX ou recibo; código, cliente e valores aparecem borrados",
+          caption: "Um pedido por dentro: itens, orçamentos, notas e recibos e histórico.",
+        },
+      ],
       details: [
         {
           term: "Problema",
