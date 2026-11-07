@@ -218,7 +218,9 @@ export default function Page() {
         </div>
 
         <div className={styles.screen}>
-          <Block id="quem" cwd="~" command="whoami" title="Apresentação">
+          {/* O nome é o h1 e precisa ser o primeiro título da página: aqui o
+              prompt não vira título. */}
+          <Block id="quem" cwd="~" command="whoami" title="Apresentação" as="p">
             <h1 className={styles.name}>{intro.name}</h1>
             <p className={styles.role}>{intro.role}</p>
             <p className={styles.muted}>{intro.summary}</p>
