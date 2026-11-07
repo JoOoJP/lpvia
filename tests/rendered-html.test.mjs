@@ -322,7 +322,6 @@ test("publica o portfólio técnico em /tech", async () => {
   assert.match(html, /moikato-desktop\.webp/);
   assert.match(html, /alt="Página inicial do site Moikato no celular"/);
   assert.doesNotMatch(html, /curriculo-joao-pombo\.pdf/);
-  assert.match(html, /Demo pública em preparação/);
   assert.match(html, /linkedin\.com\/in\/joaopombo-dev/);
   assert.doesNotMatch(html, /TimeDecor/i);
 });

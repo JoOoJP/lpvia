@@ -71,8 +71,7 @@ export const tech = {
           "Situação financeira derivada, em vez de guardada.",
         ],
       },
-      // Quando a demo existir, troque por { label: "Ver a demo pública", href: "https://..." }.
-      demo: { label: "Demo pública em preparação" },
+      // Quando a demo existir: demo: { label: "Ver a demo pública", href: "https://..." },
       // Mergulho num módulo do projeto: vira um `cat` próprio logo depois do
       // README. Tudo conferido no código do módulo meta-ads.
       deepDive: {
