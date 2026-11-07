@@ -491,6 +491,26 @@ a.dir:hover {
   color: var(--tech-green);
 }
 
+/* Print de sistema interno: sem endereço, só o nome da tela. */
+.addressBarPlain::before {
+  content: none;
+}
+
+.screenshot {
+  margin: 1.25rem 0 0;
+}
+
+.screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.screenshot figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85em;
+}
+
 .phone {
   position: absolute;
   right: 0;
