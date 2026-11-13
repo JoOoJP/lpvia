@@ -28,9 +28,11 @@
   color: #11131c;
 }
 
+/* As colunas começam alinhadas com o título do topo e correm até a borda
+   direita, sangrando como o tabuleiro. */
 .fronts ul {
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 max(var(--layout-gutter), calc((100% - var(--layout-max)) / 2));
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   list-style: none;
@@ -38,8 +40,8 @@
 
 .fronts li {
   position: relative;
-  min-height: 168px;
-  padding: 2rem clamp(1rem, 2.2vw, 2rem);
+  min-height: clamp(190px, 13vw, 250px);
+  padding: 2rem clamp(1rem, 2.4vw, 2.75rem);
   overflow: hidden;
 }
 
@@ -51,24 +53,36 @@
   border-left: 1px solid #d7d9e0;
 }
 
-.fronts li > span {
+.fronts li > span,
+.fronts li > p {
   position: relative;
   z-index: 1;
+}
+
+.fronts li > span {
   display: block;
   max-width: 11em;
   color: #11131c;
   font-family: var(--font-montserrat), var(--font-sans);
-  font-size: clamp(1.05rem, 1.55vw, 1.35rem);
+  font-size: clamp(1.05rem, 1.45vw, 1.5rem);
   font-weight: 400;
   line-height: 1.25;
+}
+
+.fronts li > p {
+  max-width: 17em;
+  margin-top: 0.75rem;
+  color: #5a6070;
+  font-size: 0.98rem;
+  line-height: 1.5;
 }
 
 /* A peça é textura: grande, lilás bem claro, saindo pelo pé da coluna. */
 .frontPiece {
   position: absolute;
-  right: 0.5rem;
-  bottom: -1.6rem;
-  width: clamp(84px, 8vw, 118px);
+  right: clamp(0.5rem, 1.5vw, 1.75rem);
+  bottom: -2.2rem;
+  width: clamp(80px, 6.6vw, 130px);
   height: auto;
   fill: #e3dcf5;
 }
@@ -362,7 +376,12 @@
 
 @media (max-width: 980px) {
   .fronts ul {
+    padding: 0 var(--layout-gutter);
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fronts li > p {
+    font-size: 0.92rem;
   }
 
   .fronts li {

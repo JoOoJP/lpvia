@@ -59,10 +59,26 @@ export const pt = {
     // Cada frente tem uma peça: o rei decide o jogo (venda), a torre é
     // estrutura, o cavalo é o movimento criativo e o bispo tem alcance longo.
     items: [
-      { label: "Comercial", piece: "king" },
-      { label: "Site e ferramentas", piece: "rook" },
-      { label: "Redes sociais e captação", piece: "knight" },
-      { label: "Tráfego pago", piece: "bishop" },
+      {
+        label: "Comercial",
+        piece: "king",
+        text: "Oferta, roteiro e processo para transformar contato em venda.",
+      },
+      {
+        label: "Site e ferramentas",
+        piece: "rook",
+        text: "Site, landing page, CRM e automações trabalhando juntos.",
+      },
+      {
+        label: "Redes sociais e captação",
+        piece: "knight",
+        text: "Gestão de redes, conteúdo e produção de foto e vídeo.",
+      },
+      {
+        label: "Tráfego pago",
+        piece: "bishop",
+        text: "Anúncios acompanhados de perto e ajustados pelo que traz cliente.",
+      },
     ],
   },
 

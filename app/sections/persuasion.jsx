@@ -21,11 +21,12 @@ function SectionHead({ kicker, title, description }) {
 
 export function Fronts({ content }) {
   return (
-    <section className={`${styles.fronts} section`} id="frentes" aria-label={content.ariaLabel}>
+    <section className={styles.fronts} id="frentes" aria-label={content.ariaLabel}>
       <ul>
         {content.items.map((item) => (
           <li key={item.label}>
             <span>{item.label}</span>
+            {item.text ? <p>{item.text}</p> : null}
             <ChessPiece name={item.piece} className={styles.frontPiece} />
           </li>
         ))}
