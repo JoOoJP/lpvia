@@ -426,6 +426,15 @@
 }
 
 @media (max-width: 720px) {
+  /* No celular a frente fica só com o nome e a peça. */
+  .fronts li > p {
+    display: none;
+  }
+
+  .fronts li {
+    min-height: 120px;
+  }
+
   .painList,
   .methodSteps,
   .howSteps {
