@@ -10,6 +10,9 @@
   padding-top: 1.5rem;
   background: #eceef2;
   color: #11131c;
+  /* O topo é vitrine: arrastar o mouse não pinta o título de roxo. */
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .scene {
