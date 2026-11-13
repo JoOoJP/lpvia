@@ -129,7 +129,11 @@
 /* Computador: a cena vira o fundo da seção, com o rei à direita. */
 @media (min-width: 721px) {
   .hero {
-    min-height: clamp(560px, 48vw, 860px);
+    /* A tela inteira, para nada da próxima seção aparecer na primeira dobra.
+       Em telas em pé (tablet) a altura para em 70% da largura: além disso o
+       corte da cena tiraria o rei de vista. */
+    min-height: max(560px, min(100vh, 70vw));
+    min-height: max(560px, min(100svh, 70vw));
     display: grid;
     align-items: center;
     padding-block: 6rem 3rem;
