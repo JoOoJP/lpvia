@@ -1433,3 +1433,20 @@
 .via-dark-site .dark-footer .via-mark g {
   stroke: #f3efff;
 }
+
+/* Fora de cena enquanto o topo está na tela; desce quando o visitante rola. */
+.via-light-top .site-header {
+  transition:
+    background var(--duration-normal) ease,
+    transform var(--duration-normal) var(--ease-out),
+    visibility 0s linear 0s;
+}
+
+.via-light-top .site-header-away {
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition:
+    background var(--duration-normal) ease,
+    transform var(--duration-normal) var(--ease-out),
+    visibility 0s linear var(--duration-normal);
+}

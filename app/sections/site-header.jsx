@@ -26,9 +26,12 @@ export function SiteHeader({
   pageBase = "",
   localAnchors = null,
   currentPage = null,
+  hideOverHero = false,
 }) {
   const navItems = content.nav;
   const [scrolled, setScrolled] = useState(false);
+  // Na home clara o topo já traz logo e ações: o cabeçalho só entra depois.
+  const [overHero, setOverHero] = useState(hideOverHero);
   const [activeId, setActiveId] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const panelRef = useRef(null);
@@ -38,11 +41,15 @@ export function SiteHeader({
   const returnFocusRef = useRef(true);
 
   useEffect(() => {
-    const readScroll = () => setScrolled(window.scrollY > 24);
+    const hero = hideOverHero ? document.getElementById("inicio") : null;
+    const readScroll = () => {
+      setScrolled(window.scrollY > 24);
+      if (hero) setOverHero(hero.getBoundingClientRect().bottom > 140);
+    };
     readScroll();
     window.addEventListener("scroll", readScroll, { passive: true });
     return () => window.removeEventListener("scroll", readScroll);
-  }, []);
+  }, [hideOverHero]);
 
   useEffect(() => {
     const sections = navItems
@@ -140,6 +147,7 @@ export function SiteHeader({
     "site-header",
     scrolled ? "site-header-solid" : "",
     menuOpen ? "site-header-open" : "",
+    overHero && !menuOpen ? "site-header-away" : "",
   ]
     .filter(Boolean)
     .join(" ");

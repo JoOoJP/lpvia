@@ -7,13 +7,31 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-top: calc(72px + clamp(2rem, 6vw, 3rem));
+  padding-top: 1.5rem;
   background: #eceef2;
   color: #11131c;
 }
 
 .scene {
   display: block;
+}
+
+.logo {
+  position: relative;
+  z-index: 2;
+  display: block;
+  color: #11131c;
+}
+
+.logo .via-mark,
+.logo svg {
+  width: 58px;
+  height: auto;
+}
+
+/* O logo do topo vai numa cor só, como no cabeçalho. */
+.logo svg g {
+  stroke: #11131c;
 }
 
 .scene img {
@@ -24,7 +42,7 @@
 
 .copy {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: grid;
   gap: 1.75rem;
 }
@@ -77,12 +95,22 @@
 @media (max-width: 720px) {
   .hero {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+  }
+
+  .logo {
+    order: 0;
+    margin-bottom: 2.75rem;
+  }
+
+  .copy {
+    order: 1;
   }
 
   /* O alto da imagem é só fundo: sobe por baixo dos botões para o rei
      ficar perto deles. */
   .scene {
+    order: 2;
     margin-top: -34%;
   }
 
@@ -104,25 +132,32 @@
     min-height: clamp(560px, 48vw, 860px);
     display: grid;
     align-items: center;
-    padding-block: 72px 0;
+    padding-block: 6rem 3rem;
+  }
+
+  .logo {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    right: 0;
   }
 
   .scene {
     position: absolute;
-    z-index: -2;
+    z-index: 0;
     inset: 0;
   }
 
   .scene img {
     height: 100%;
     object-fit: cover;
-    object-position: 74% 100%;
+    object-position: 74% 50%;
   }
 
   .hero::after {
     content: "";
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     inset: 0;
     pointer-events: none;
     background: linear-gradient(
@@ -139,6 +174,6 @@
 
   .title {
     max-width: 13ch;
-    font-size: clamp(3rem, 5.4vw, 5.6rem);
+    font-size: clamp(2.8rem, 4.6vw, 4.9rem);
   }
 }

@@ -1,4 +1,4 @@
-import { getImageProps } from "next/image";
+import { ViaMark } from "../ui/via-mark";
 import styles from "./chess-hero.module.css";
 
 /*
@@ -7,32 +7,35 @@ import styles from "./chess-hero.module.css";
  * (rei à direita, espaço para o texto à esquerda) e alta para o celular (rei
  * abaixo dos botões). O fundo da imagem é a mesma cor da seção, então a borda
  * não aparece.
+ *
+ * As imagens vão direto, sem o otimizador do next/image: já saem do render em
+ * WebP de alta qualidade, e a segunda compressão borrava o tabuleiro e a borda
+ * da peça em telas grandes.
  */
 export function ChessHero({ content, whatsappUrl }) {
-  const common = { alt: "", sizes: "100vw" };
-  const {
-    props: { srcSet: desktop },
-  } = getImageProps({
-    ...common,
-    src: "/hero/hero-xadrez.webp",
-    width: 2400,
-    height: 1200,
-  });
-  const {
-    props: { srcSet: mobile, ...image },
-  } = getImageProps({
-    ...common,
-    src: "/hero/hero-xadrez-mobile.webp",
-    width: 1080,
-    height: 1210,
-  });
-
   return (
     <section className={styles.hero} id="inicio">
       <picture className={styles.scene}>
-        <source media="(min-width: 721px)" srcSet={desktop} />
-        <img {...image} alt="" srcSet={mobile} fetchPriority="high" loading="eager" />
+        <source
+          media="(min-width: 721px)"
+          srcSet="/hero/hero-xadrez.webp"
+          width={3840}
+          height={1600}
+        />
+        <img
+          src="/hero/hero-xadrez-mobile.webp"
+          alt=""
+          width={1440}
+          height={1613}
+          fetchPriority="high"
+          decoding="async"
+        />
       </picture>
+
+      {/* O cabeçalho fixo some enquanto o topo está na tela; o logo fica aqui. */}
+      <a className={`${styles.logo} section`} href="#inicio" aria-label={content.logoLabel}>
+        <ViaMark />
+      </a>
 
       <div className={`${styles.copy} section`}>
         <h1 className={styles.title} aria-label={content.headlineAriaLabel}>

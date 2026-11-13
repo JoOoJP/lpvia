@@ -44,6 +44,7 @@ export const pt = {
   },
 
   hero: {
+    logoLabel: "VIA, início",
     headlineAriaLabel: "Você cuida do negócio. A gente cuida do marketing.",
     headlineLead: "Você cuida do negócio.",
     headlineHighlight: "A gente cuida do marketing.",

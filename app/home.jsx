@@ -54,7 +54,11 @@ export function Home({ content }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
-      <SiteHeader content={content.header} whatsappUrl={whatsappUrl} />
+      <SiteHeader
+        content={content.header}
+        whatsappUrl={whatsappUrl}
+        hideOverHero={Boolean(content.fronts)}
+      />
       {content.fronts ? (
         <>
           <ChessHero content={content.hero} whatsappUrl={whatsappUrl} />
