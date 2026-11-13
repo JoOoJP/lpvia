@@ -2,6 +2,14 @@ import { buildWhatsappUrl, phoneE164 } from "./contact";
 import { Hero } from "./sections/hero";
 import { Capabilities } from "./sections/capabilities";
 import { FinalCta } from "./sections/final-cta";
+import {
+  Faq,
+  HowItWorks,
+  Method,
+  Pain,
+  Partners,
+  Results,
+} from "./sections/persuasion";
 import { SiteFooter } from "./sections/site-footer";
 import { SiteHeader } from "./sections/site-header";
 import { System } from "./sections/system";
@@ -43,9 +51,18 @@ export function Home({ content }) {
         content={content.hero}
         coverflowContent={content.coverflow}
         projects={content.caseProjects}
+        whatsappUrl={whatsappUrl}
       />
-      <Capabilities content={content.capabilities} />
+      {/* O roteiro de convencimento só existe em pt.js; o site em inglês segue
+          com hero, serviços, case e contato. */}
+      {content.pain ? <Pain content={content.pain} /> : null}
+      {content.method ? <Method content={content.method} /> : null}
+      {content.results ? <Results content={content.results} /> : null}
       <System content={content.system} />
+      <Capabilities content={content.capabilities} />
+      {content.partners ? <Partners content={content.partners} /> : null}
+      {content.howItWorks ? <HowItWorks content={content.howItWorks} /> : null}
+      {content.faq ? <Faq content={content.faq} /> : null}
       <FinalCta content={content.finalCta} whatsappUrl={whatsappUrl} />
       <SiteFooter content={content.footer} whatsappUrl={whatsappUrl} />
     </main>

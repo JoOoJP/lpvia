@@ -4,10 +4,10 @@ export const pt = {
   path: "/",
 
   meta: {
-    title: "VIA — Estratégia que ganha forma",
+    title: "VIA — Marketing para pequenos negócios e clínicas",
     description:
-      "Estratégia, marca, marketing, comercial e tecnologia conectados para construir negócios em movimento.",
-    ogImageAlt: "VIA — estratégia que ganha forma.",
+      "Marca, conteúdo, site e tráfego pago num time só, para o dono que ainda toca a operação. Peça um diagnóstico gratuito com prévia de criativo.",
+    ogImageAlt: "VIA — marketing para pequenos negócios e clínicas.",
   },
 
   skipLinkLabel: "Ir para o conteúdo",
@@ -21,18 +21,18 @@ export const pt = {
     navAriaLabel: "Navegação principal",
     navCompactAriaLabel: "Navegação principal, versão compacta",
     nav: [
-      { id: "fazemos", label: "O que fazemos" },
-      { id: "moikato", label: "Moikato" },
-      { id: "trabalhos", label: "Trabalhos" },
+      { id: "metodo", label: "Método" },
+      { id: "moikato", label: "Cases" },
+      { id: "fazemos", label: "Serviços" },
+      { id: "socios", label: "Quem somos" },
       { id: "portfolio", label: "Portfólio", href: "/portfolio" },
-      { id: "contato", label: "Contato" },
     ],
-    ctaLabel: "Fale com a VIA",
+    ctaLabel: "Diagnóstico gratuito",
     menuAriaLabel: "Menu",
     openMenuLabel: "Abrir menu",
     closeMenuLabel: "Fechar menu",
-    menuContactNote: "Tem um projeto em mente?",
-    menuContactLabel: "Fale com a VIA",
+    menuContactNote: "Sem custo, pelo WhatsApp",
+    menuContactLabel: "Quero meu diagnóstico",
     langSwitch: {
       groupAriaLabel: "Idioma",
       current: "PT",
@@ -44,10 +44,155 @@ export const pt = {
   },
 
   hero: {
-    kicker: "VIA / GROWTH COMPANY",
-    headlineAriaLabel: "VIA — estratégia que ganha forma.",
-    headlineLead: "Estratégia que ",
-    headlineHighlight: "ganha forma.",
+    kicker: "MARKETING PARA PEQUENOS NEGÓCIOS E CLÍNICAS",
+    headlineAriaLabel: "Você cuida do negócio. A gente traz o cliente.",
+    headlineLead: "Você cuida do negócio. ",
+    headlineHighlight: "A gente traz o cliente.",
+    support:
+      "Marca, conteúdo, site e tráfego pago num time só, para o dono que ainda toca a operação e não tem tempo de cuidar disso.",
+    ctaLabel: "Quero meu diagnóstico gratuito",
+    ctaNote: "Diagnóstico + prévia de criativo para o seu negócio. Sem custo.",
+  },
+
+  pain: {
+    kicker: "SE ISSO PARECE FAMILIAR",
+    title: "Você atende, vende e resolve. O marketing fica para depois.",
+    items: [
+      "“Posto quando sobra tempo, e quase nunca sobra.”",
+      "“Já paguei anúncio e não sei se trouxe cliente.”",
+      "“Minha marca não mostra o negócio que eu tenho.”",
+      "“Cada fornecedor faz uma parte e ninguém conversa.”",
+    ],
+    closing:
+      "A VIA assume essa frente inteira, para você voltar a cuidar do que só você faz.",
+  },
+
+  method: {
+    kicker: "O MÉTODO VIA",
+    title: "Marketing se joga como xadrez: cada movimento prepara o próximo.",
+    description:
+      "Nada de post solto ou anúncio no escuro. Trabalhamos em três fases, e você sabe sempre em qual delas o seu negócio está.",
+    steps: [
+      {
+        piece: "♙",
+        phase: "Abertura",
+        title: "Diagnóstico e posicionamento",
+        text: "Entendemos o negócio, o cliente e a concorrência. Definimos para quem você vende e por que escolhem você.",
+      },
+      {
+        piece: "♘",
+        phase: "Meio-jogo",
+        title: "Marca, site e conteúdo",
+        text: "Montamos a estrutura: identidade, site ou landing page, perfil e linha de conteúdo prontos para receber cliente.",
+      },
+      {
+        piece: "♔",
+        phase: "Final",
+        title: "Tráfego e vendas",
+        text: "Ligamos o tráfego pago, medimos o que traz cliente e ajustamos o atendimento para transformar contato em venda.",
+      },
+    ],
+  },
+
+  /*
+   * Resultados dos cases. Cada item é { value, label, client }: value é o
+   * número em destaque ("+180%", "3x", "R$ 40 mil"), label diz o que ele mede
+   * e em quanto tempo, client diz de quem é. Item sem value não vai ao ar; no
+   * `npm run dev` ele aparece como espaço reservado, para ver onde vai cair.
+   * A seção inteira some em produção enquanto nenhum item tiver value.
+   */
+  results: {
+    kicker: "RESULTADOS",
+    title: "Números de clientes reais.",
+    description: "Cada número vem de um projeto da VIA, com autorização do cliente.",
+    placeholderLabel: "Número a preencher",
+    items: [
+      { value: null, label: "", client: "Moikato" },
+      { value: null, label: "", client: "A Tardinha" },
+      { value: null, label: "", client: "Clínicas na área da saúde" },
+      { value: null, label: "", client: "In Tha Route" },
+    ],
+  },
+
+  /*
+   * Sócios. Para trocar a foto, coloque o arquivo em /public e aponte
+   * image.src para ele; sem image, entra um monograma com as iniciais.
+   */
+  partners: {
+    kicker: "QUEM ATENDE VOCÊ",
+    title: "Você fala direto com quem faz.",
+    description:
+      "Sem gerente de contas no meio. Os dois sócios estão em todos os projetos, do diagnóstico à entrega.",
+    people: [
+      {
+        name: "Stephani",
+        initials: "S",
+        role: "Sócia · Criação e audiovisual",
+        text: "Dirige, filma e fotografa. Cuida da marca, do conteúdo e de tudo o que o seu cliente vê.",
+        image: {
+          src: "/portfolio/stephani.webp",
+          alt: "Stephani, sócia da VIA, com a câmera na mão durante um evento",
+        },
+      },
+      {
+        name: "João Pombo",
+        initials: "JP",
+        role: "Sócio · Tecnologia e performance",
+        text: "Cuida de site, tráfego, dados e automação: a parte que transforma atenção em cliente.",
+        image: null,
+      },
+    ],
+  },
+
+  howItWorks: {
+    kicker: "COMO FUNCIONA",
+    title: "Do primeiro contato ao diagnóstico, sem compromisso.",
+    steps: [
+      {
+        title: "Você chama no WhatsApp",
+        text: "Conta em poucas linhas o que faz e o que quer melhorar. Leva um minuto.",
+      },
+      {
+        title: "A gente estuda o seu negócio",
+        text: "Antes da conversa, olhamos seu perfil, seu site, seus anúncios e a concorrência.",
+      },
+      {
+        title: "Diagnóstico + prévia de criativo",
+        text: "Mostramos o que está travando o crescimento e uma peça criada para o seu negócio. Fica com você, fechando ou não.",
+      },
+    ],
+  },
+
+  faq: {
+    kicker: "PERGUNTAS FREQUENTES",
+    title: "Antes de chamar.",
+    items: [
+      {
+        question: "O diagnóstico é pago?",
+        answer:
+          "Não. O diagnóstico e a prévia de criativo são gratuitos e não obrigam você a contratar nada.",
+      },
+      {
+        question: "Quanto custa trabalhar com a VIA?",
+        answer:
+          "Depende do que o seu negócio precisa. Depois do diagnóstico, enviamos uma proposta com escopo e valor fechados.",
+      },
+      {
+        question: "Preciso contratar tudo de uma vez?",
+        answer:
+          "Não. Dá para começar por uma frente, como marca, site ou tráfego, e somar as outras quando fizer sentido.",
+      },
+      {
+        question: "Vocês trabalham com clínicas?",
+        answer:
+          "Sim. Fazemos estratégia, conteúdo e tráfego para clínicas e profissionais da saúde.",
+      },
+      {
+        question: "Atendem fora da minha cidade?",
+        answer:
+          "Sim. O atendimento é online, e hoje temos clientes no Brasil e no Reino Unido.",
+      },
+    ],
   },
 
   coverflow: {
@@ -353,10 +498,10 @@ export const pt = {
   },
 
   capabilities: {
-    kicker: "DA IDEIA À OPERAÇÃO",
-    title: "A VIA pensa e faz.",
+    kicker: "AS PEÇAS DO JOGO",
+    title: "Tudo o que o seu marketing precisa, num time só.",
     description:
-      "Estratégia e execução caminham juntas para transformar ideias em marcas, experiências e crescimento real.",
+      "Você não precisa juntar cinco fornecedores. A VIA cuida de cada frente e faz todas trabalharem juntas.",
     items: [
       {
         accent: "purple",
@@ -441,12 +586,12 @@ export const pt = {
 
   finalCta: {
     kicker: "PRÓXIMO MOVIMENTO",
-    titleLine1: "Vamos construir",
-    titleLine2Lead: "o que ",
-    titleLine2Highlight: "vem a seguir.",
-    description: "Soluções digitais de estratégia, criatividade e tecnologia.",
-    ctaNote: "Tem um projeto em mente?",
-    ctaLabel: "Fale com a VIA",
+    titleLine1: "Sua vez de jogar.",
+    titleLine2Lead: "Peça o seu ",
+    titleLine2Highlight: "diagnóstico.",
+    description: "Diagnóstico + prévia de criativo para o seu negócio. Sem custo e sem compromisso.",
+    ctaNote: "Resposta pelo WhatsApp",
+    ctaLabel: "Quero meu diagnóstico",
     emailPrompt: "Prefere e-mail?",
   },
 
@@ -458,7 +603,8 @@ export const pt = {
   },
 
   contact: {
-    whatsappMessage: "Olá, conheci o trabalho da VIA e quero conversar sobre um projeto.",
+    whatsappMessage:
+      "Olá! Vi o site da VIA e quero o diagnóstico gratuito com a prévia de criativo para o meu negócio.",
   },
 
   caseProjects: [
