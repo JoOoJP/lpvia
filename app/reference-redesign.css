@@ -267,12 +267,12 @@
 }
 
 .dark-button-primary {
-  background: #39d67a;
-  color: #062b1d;
+  background: #ffffff;
+  color: #11131c;
 }
 
 .dark-button-primary .arrow {
-  color: #062b1d;
+  color: #11131c;
 }
 
 .dark-button-secondary {
@@ -307,14 +307,14 @@
   grid-template-columns: minmax(0, 1fr) 62px;
   border-radius: 3px;
   overflow: hidden;
-  background: #39d67a;
-  color: #062b1d;
+  background: #ffffff;
+  color: #11131c;
   text-decoration: none;
   transition: background-color var(--duration-fast) ease;
 }
 
 .contact-module-cta:hover {
-  background: #4fe08b;
+  background: #eceef2;
 }
 
 .contact-module-copy {
@@ -327,7 +327,7 @@
 }
 
 .contact-module-note {
-  color: #0d4a2c;
+  color: #5a6070;
   font-size: 0.8rem;
   font-weight: 600;
   line-height: 1.2;
@@ -343,9 +343,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid rgb(6 43 29 / 16%);
-  background: rgb(6 43 29 / 6%);
-  color: #062b1d;
+  border-left: 1px solid rgb(17 19 28 / 12%);
+  background: transparent;
+  color: #11131c;
   font-size: 1.3rem;
 }
 
@@ -1039,7 +1039,8 @@
   font-size: 0.88rem;
 }
 
-.dark-contact .contact-module-cta { margin-top: 2rem; }
+.dark-contact .contact-module-cta,
+.dark-contact .dark-contact-cta { margin-top: 2rem; }
 
 /* Largura folgada o bastante para o kicker caber em uma linha: em caixa alta e
    com entreletra, "TEM UM PROJETO EM MENTE?" é bem mais largo que a frase em
@@ -1344,26 +1345,47 @@
 
 /* ---------- Ação principal ---------- */
 
-/* Botão verde da home: reto, sólido, sem brilho. Verde é "pode seguir", e
-   leva ao WhatsApp. */
+/* Ação principal da home: barra larga, texto à esquerda e seta na ponta.
+   Preta no fundo claro; branca (via-cta-light) no fundo escuro. */
 .via-cta {
-  min-height: 52px;
-  padding: 0.9rem 1.35rem;
+  min-width: min(100%, 340px);
+  min-height: 60px;
+  padding: 0 1.4rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
+  justify-content: space-between;
+  gap: 2rem;
   border-radius: 3px;
-  background: #39d67a;
-  color: #062b1d;
-  font-size: 0.95rem;
+  background: #11131c;
+  color: #ffffff;
+  font-size: 1rem;
   font-weight: 650;
   line-height: 1;
   white-space: nowrap;
   transition: background-color var(--duration-fast) ease;
 }
 
+.via-cta > span {
+  font-size: 1.2rem;
+  font-weight: 400;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
 .via-cta:hover {
-  background: #4fe08b;
+  background: #262a38;
+}
+
+.via-cta:hover > span {
+  transform: translateX(4px);
+}
+
+.via-cta-light {
+  background: #ffffff;
+  color: #11131c;
+}
+
+.via-cta-light:hover {
+  background: #eceef2;
 }
 
 /* ---------- Topo claro da home ---------- */
@@ -1449,4 +1471,19 @@
     background var(--duration-normal) ease,
     transform var(--duration-normal) var(--ease-out),
     visibility 0s linear var(--duration-normal);
+}
+
+/* No menu claro do celular o contato vira barra preta, como no topo. */
+.via-light-top .menu-panel .contact-module-cta {
+  background: #11131c;
+  color: #ffffff;
+}
+
+.via-light-top .menu-panel .contact-module-note {
+  color: #b9bdc8;
+}
+
+.via-light-top .menu-panel .contact-module-arrow {
+  border-color: rgb(255 255 255 / 14%);
+  color: #ffffff;
 }

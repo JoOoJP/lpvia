@@ -1,5 +1,4 @@
 import { email, emailUrl } from "../contact";
-import { Arrow } from "../ui/arrow";
 
 export function FinalCta({ content, whatsappUrl }) {
   return (
@@ -14,18 +13,13 @@ export function FinalCta({ content, whatsappUrl }) {
         </h2>
         <p>{content.description}</p>
         <a
-          className="contact-module-cta"
+          className="via-cta via-cta-light dark-contact-cta"
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
         >
-          <span className="contact-module-copy">
-            <span className="contact-module-note">{content.ctaNote}</span>
-            <span className="contact-module-label">{content.ctaLabel}</span>
-          </span>
-          <span className="contact-module-arrow">
-            <Arrow />
-          </span>
+          {content.ctaLabel}
+          <span aria-hidden="true">→</span>
         </a>
         <p className="dark-contact-email">
           {content.emailPrompt} <a href={emailUrl}>{email}</a>

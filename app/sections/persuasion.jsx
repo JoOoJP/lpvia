@@ -37,7 +37,7 @@ export function OfferBand({ content, whatsappUrl }) {
   return (
     <section className={`${styles.offer} section`} aria-label={content.ariaLabel}>
       <p>{content.text}</p>
-      <a className="via-cta" href={whatsappUrl} target="_blank" rel="noreferrer">
+      <a className="via-cta via-cta-light" href={whatsappUrl} target="_blank" rel="noreferrer">
         {content.ctaLabel}
         <span aria-hidden="true">→</span>
       </a>

@@ -49,6 +49,7 @@ export function ChessHero({ content, whatsappUrl }) {
           </a>
           <a className={styles.secondary} href={content.secondaryHref}>
             {content.secondaryLabel}
+            <span aria-hidden="true">→</span>
           </a>
         </div>
       </div>
