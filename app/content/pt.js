@@ -56,7 +56,14 @@ export const pt = {
 
   fronts: {
     ariaLabel: "As quatro frentes da VIA",
-    items: ["Comercial", "Site e ferramentas", "Redes sociais e captação", "Tráfego pago"],
+    // Cada frente tem uma peça: o rei decide o jogo (venda), a torre é
+    // estrutura, o cavalo é o movimento criativo e o bispo tem alcance longo.
+    items: [
+      { label: "Comercial", piece: "king" },
+      { label: "Site e ferramentas", piece: "rook" },
+      { label: "Redes sociais e captação", piece: "knight" },
+      { label: "Tráfego pago", piece: "bishop" },
+    ],
   },
 
   offer: {

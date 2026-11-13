@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ChessPiece } from "../ui/chess-pieces";
 import styles from "./persuasion.module.css";
 
 /*
@@ -23,9 +24,9 @@ export function Fronts({ content }) {
     <section className={`${styles.fronts} section`} id="frentes" aria-label={content.ariaLabel}>
       <ul>
         {content.items.map((item) => (
-          <li key={item}>
-            <i aria-hidden="true" />
-            {item}
+          <li key={item.label}>
+            <span>{item.label}</span>
+            <ChessPiece name={item.piece} className={styles.frontPiece} />
           </li>
         ))}
       </ul>

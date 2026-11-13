@@ -37,16 +37,10 @@
 }
 
 .fronts li {
-  min-height: 112px;
-  padding: 1.75rem clamp(1rem, 2.2vw, 2rem);
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  color: #11131c;
-  font-family: var(--font-montserrat), var(--font-sans);
-  font-size: clamp(1rem, 1.45vw, 1.25rem);
-  font-weight: 400;
-  line-height: 1.25;
+  position: relative;
+  min-height: 168px;
+  padding: 2rem clamp(1rem, 2.2vw, 2rem);
+  overflow: hidden;
 }
 
 .fronts li:first-child {
@@ -57,17 +51,35 @@
   border-left: 1px solid #d7d9e0;
 }
 
-.fronts i {
-  flex: none;
-  width: 14px;
-  height: 14px;
-  background: #5b12d1;
+.fronts li > span {
+  position: relative;
+  z-index: 1;
+  display: block;
+  max-width: 11em;
+  color: #11131c;
+  font-family: var(--font-montserrat), var(--font-sans);
+  font-size: clamp(1.05rem, 1.55vw, 1.35rem);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+/* A peça é textura: grande, lilás bem claro, saindo pelo pé da coluna. */
+.frontPiece {
+  position: absolute;
+  right: 0.5rem;
+  bottom: -1.6rem;
+  width: clamp(84px, 8vw, 118px);
+  height: auto;
+  fill: #e3dcf5;
 }
 
 /* ---------- Faixa do convite ---------- */
 
 .offer {
-  --section-plate: #170b33;
+  /* Casas de xadrez discretas à direita, sumindo para o roxo liso. */
+  --section-plate:
+    linear-gradient(90deg, #170b33 50%, rgb(23 11 51 / 0%) 85%),
+    repeating-conic-gradient(#1f1045 0 25%, #170b33 0 50%) right top / 72px 72px;
   padding-block: clamp(2.75rem, 5vw, 4rem);
   display: flex;
   align-items: center;
@@ -354,11 +366,7 @@
   }
 
   .fronts li {
-    min-height: 88px;
-  }
-
-  .fronts li:first-child {
-    padding-left: clamp(1rem, 2.2vw, 2rem);
+    min-height: 132px;
   }
 
   .fronts li:nth-child(odd) {
@@ -368,6 +376,12 @@
 
   .fronts li:nth-child(n + 3) {
     border-top: 1px solid #d7d9e0;
+  }
+
+  .frontPiece {
+    right: 0.25rem;
+    bottom: -1.2rem;
+    width: 78px;
   }
 
   .offer {
