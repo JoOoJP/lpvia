@@ -28,11 +28,11 @@
   color: #11131c;
 }
 
-/* As colunas começam alinhadas com o título do topo e correm até a borda
-   direita, sangrando como o tabuleiro. */
+/* As quatro colunas dividem a largura toda, com a mesma margem nas duas
+   pontas: alinhar a primeira ao título deixava um vazio grande à esquerda. */
 .fronts ul {
   margin: 0;
-  padding: 0 0 0 max(var(--layout-gutter), calc((100% - var(--layout-max)) / 2));
+  padding: 0 var(--layout-gutter);
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   list-style: none;
@@ -47,6 +47,10 @@
 
 .fronts li:first-child {
   padding-left: 0;
+}
+
+.fronts li:last-child {
+  padding-right: 0;
 }
 
 .fronts li + li {
@@ -391,6 +395,10 @@
   .fronts li:nth-child(odd) {
     padding-left: 0;
     border-left: 0;
+  }
+
+  .fronts li:nth-child(even) {
+    padding-right: 0;
   }
 
   .fronts li:nth-child(n + 3) {
