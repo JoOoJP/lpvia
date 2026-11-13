@@ -18,6 +18,33 @@ function SectionHead({ kicker, title, description }) {
   );
 }
 
+export function Fronts({ content }) {
+  return (
+    <section className={`${styles.fronts} section`} aria-label={content.ariaLabel}>
+      <ul>
+        {content.items.map((item) => (
+          <li key={item}>
+            <i aria-hidden="true" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+export function OfferBand({ content, whatsappUrl }) {
+  return (
+    <section className={`${styles.offer} section`} aria-label={content.ariaLabel}>
+      <p>{content.text}</p>
+      <a className="via-cta" href={whatsappUrl} target="_blank" rel="noreferrer">
+        {content.ctaLabel}
+        <span aria-hidden="true">→</span>
+      </a>
+    </section>
+  );
+}
+
 export function Pain({ content }) {
   return (
     <section className={`${styles.block} section`} id="dor">

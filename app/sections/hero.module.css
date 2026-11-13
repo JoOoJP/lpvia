@@ -82,35 +82,6 @@
   color: transparent;
 }
 
-/* O destaque vira a segunda linha: a promessa lê como duas jogadas. */
-.headline span {
-  display: block;
-}
-
-.offer {
-  display: grid;
-  gap: 1.1rem;
-}
-
-.support {
-  max-width: 36rem;
-  color: #b9bdc0;
-  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
-  line-height: 1.55;
-}
-
-.action {
-  display: grid;
-  justify-items: start;
-  gap: 0.6rem;
-}
-
-.ctaNote {
-  color: #8a9093;
-  font-size: 0.8rem;
-  line-height: 1.4;
-}
-
 /* ---------- Escala por largura ---------- */
 
 @media (min-width: 721px) {
@@ -147,19 +118,7 @@
 
 
   .headline {
-    font-size: clamp(2.4rem, 3.6vw, 4rem);
+    font-size: clamp(2.6rem, 3.9vw, 4.4rem);
     white-space: nowrap;
-  }
-
-  /* Apoio e ação lado a lado, para o coverflow continuar dentro da dobra. */
-  .pitch {
-    width: min(76rem, 100%);
-  }
-
-  .offer {
-    grid-template-columns: minmax(0, 36rem) auto;
-    align-items: center;
-    justify-content: start;
-    column-gap: 2.5rem;
   }
 }

@@ -1,11 +1,14 @@
 import { buildWhatsappUrl, phoneE164 } from "./contact";
 import { Hero } from "./sections/hero";
 import { Capabilities } from "./sections/capabilities";
+import { ChessHero } from "./sections/chess-hero";
 import { FinalCta } from "./sections/final-cta";
 import {
   Faq,
+  Fronts,
   HowItWorks,
   Method,
+  OfferBand,
   Pain,
   Partners,
   Results,
@@ -41,18 +44,30 @@ export function Home({ content }) {
   const organizationSchema = buildOrganizationSchema(content);
 
   return (
-    <main className="via-dark-site" id="conteudo-principal">
+    // O topo claro com o tabuleiro só existe em pt.js; o site em inglês segue
+    // com o carrossel de projetos no topo escuro.
+    <main
+      className={content.fronts ? "via-dark-site via-light-top" : "via-dark-site"}
+      id="conteudo-principal"
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
       <SiteHeader content={content.header} whatsappUrl={whatsappUrl} />
-      <Hero
-        content={content.hero}
-        coverflowContent={content.coverflow}
-        projects={content.caseProjects}
-        whatsappUrl={whatsappUrl}
-      />
+      {content.fronts ? (
+        <>
+          <ChessHero content={content.hero} whatsappUrl={whatsappUrl} />
+          <Fronts content={content.fronts} />
+          <OfferBand content={content.offer} whatsappUrl={whatsappUrl} />
+        </>
+      ) : (
+        <Hero
+          content={content.hero}
+          coverflowContent={content.coverflow}
+          projects={content.caseProjects}
+        />
+      )}
       {/* O roteiro de convencimento só existe em pt.js; o site em inglês segue
           com hero, serviços, case e contato. */}
       {content.pain ? <Pain content={content.pain} /> : null}

@@ -3,13 +3,12 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
-import { Arrow } from "../ui/arrow";
 import { ProjectCoverflow } from "./project-coverflow";
 import styles from "./hero.module.css";
 
 gsap.registerPlugin(useGSAP);
 
-export function Hero({ content, coverflowContent, projects, whatsappUrl }) {
+export function Hero({ content, coverflowContent, projects }) {
   const heroRef = useRef(null);
 
   useGSAP(
@@ -48,23 +47,6 @@ export function Hero({ content, coverflowContent, projects, whatsappUrl }) {
             {content.headlineLead}
             <span>{content.headlineHighlight}</span>
           </h1>
-          {content.support ? (
-            <div className={styles.offer}>
-              <p className={styles.support}>{content.support}</p>
-              <div className={styles.action}>
-                <a
-                  className="dark-button dark-button-primary"
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {content.ctaLabel}
-                  <Arrow />
-                </a>
-                <p className={styles.ctaNote}>{content.ctaNote}</p>
-              </div>
-            </div>
-          ) : null}
         </div>
       </div>
 

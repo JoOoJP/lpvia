@@ -1,0 +1,144 @@
+/*
+ * Topo claro com luz lateral. No computador a cena ocupa a seção inteira e um
+ * véu à esquerda protege o título; no celular ela desce para baixo dos botões.
+ */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: calc(72px + clamp(2rem, 6vw, 3rem));
+  background: #eceef2;
+  color: #11131c;
+}
+
+.scene {
+  display: block;
+}
+
+.scene img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1.75rem;
+}
+
+.title {
+  margin: 0;
+  color: #11131c;
+  font-family: var(--font-archivo), "Arial Narrow", Arial, sans-serif;
+  font-size: clamp(2.5rem, 11vw, 3.4rem);
+  font-weight: 760;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.title span {
+  display: block;
+}
+
+.title .titleAccent {
+  color: #5b12d1;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.secondary {
+  min-height: 52px;
+  padding: 0.9rem 1.35rem;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #11131c;
+  border-radius: 3px;
+  background: rgb(255 255 255 / 40%);
+  color: #11131c;
+  font-size: 0.95rem;
+  font-weight: 650;
+  line-height: 1;
+  transition: background-color var(--duration-fast) ease;
+}
+
+.secondary:hover {
+  background: rgb(255 255 255 / 80%);
+}
+
+/* Celular: o rei entra logo abaixo dos botões, sem disputar espaço com eles. */
+@media (max-width: 720px) {
+  .hero {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  /* O alto da imagem é só fundo: sobe por baixo dos botões para o rei
+     ficar perto deles. */
+  .scene {
+    margin-top: -34%;
+  }
+
+  .actions {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .actions > a {
+    min-height: 50px;
+    padding-inline: 0.95rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Computador: a cena vira o fundo da seção, com o rei à direita. */
+@media (min-width: 721px) {
+  .hero {
+    min-height: clamp(560px, 48vw, 860px);
+    display: grid;
+    align-items: center;
+    padding-block: 72px 0;
+  }
+
+  .scene {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+  }
+
+  .scene img {
+    height: 100%;
+    object-fit: cover;
+    object-position: 74% 100%;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgb(236 238 242 / 94%) 0%,
+      rgb(236 238 242 / 62%) 38%,
+      rgb(236 238 242 / 0%) 60%
+    );
+  }
+
+  .copy {
+    gap: 2.25rem;
+  }
+
+  .title {
+    max-width: 13ch;
+    font-size: clamp(3rem, 5.4vw, 5.6rem);
+  }
+}

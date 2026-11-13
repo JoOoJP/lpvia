@@ -4,10 +4,10 @@ export const pt = {
   path: "/",
 
   meta: {
-    title: "VIA — Marketing para pequenos negócios e clínicas",
+    title: "VIA — Você cuida do negócio. A gente cuida do marketing.",
     description:
-      "Marca, conteúdo, site e tráfego pago num time só, para o dono que ainda toca a operação. Peça um diagnóstico gratuito com prévia de criativo.",
-    ogImageAlt: "VIA — marketing para pequenos negócios e clínicas.",
+      "Comercial, site, redes sociais e tráfego pago num time só, para o empresário que ainda toca a operação. Peça um diagnóstico gratuito com prévia de criativo.",
+    ogImageAlt: "VIA — você cuida do negócio, a gente cuida do marketing.",
   },
 
   skipLinkLabel: "Ir para o conteúdo",
@@ -44,18 +44,27 @@ export const pt = {
   },
 
   hero: {
-    kicker: "MARKETING PARA PEQUENOS NEGÓCIOS E CLÍNICAS",
-    headlineAriaLabel: "Você cuida do negócio. A gente traz o cliente.",
-    headlineLead: "Você cuida do negócio. ",
-    headlineHighlight: "A gente traz o cliente.",
-    support:
-      "Marca, conteúdo, site e tráfego pago num time só, para o dono que ainda toca a operação e não tem tempo de cuidar disso.",
-    ctaLabel: "Quero meu diagnóstico gratuito",
-    ctaNote: "Diagnóstico + prévia de criativo para o seu negócio. Sem custo.",
+    headlineAriaLabel: "Você cuida do negócio. A gente cuida do marketing.",
+    headlineLead: "Você cuida do negócio.",
+    headlineHighlight: "A gente cuida do marketing.",
+    ctaLabel: "Quero meu diagnóstico",
+    secondaryLabel: "Ver cases",
+    secondaryHref: "#moikato",
+  },
+
+  fronts: {
+    ariaLabel: "As quatro frentes da VIA",
+    items: ["Comercial", "Site e ferramentas", "Redes sociais e captação", "Tráfego pago"],
+  },
+
+  offer: {
+    ariaLabel: "Diagnóstico gratuito",
+    text: "Diagnóstico gratuito e uma prévia de criativo para o seu negócio.",
+    ctaLabel: "Chamar no WhatsApp",
   },
 
   pain: {
-    kicker: "SE ISSO PARECE FAMILIAR",
+    kicker: "Se isso parece familiar",
     title: "Você atende, vende e resolve. O marketing fica para depois.",
     items: [
       "“Posto quando sobra tempo, e quase nunca sobra.”",
@@ -68,7 +77,7 @@ export const pt = {
   },
 
   method: {
-    kicker: "O MÉTODO VIA",
+    kicker: "O método VIA",
     title: "Marketing se joga como xadrez: cada movimento prepara o próximo.",
     description:
       "Nada de post solto ou anúncio no escuro. Trabalhamos em três fases, e você sabe sempre em qual delas o seu negócio está.",
@@ -102,7 +111,7 @@ export const pt = {
    * A seção inteira some em produção enquanto nenhum item tiver value.
    */
   results: {
-    kicker: "RESULTADOS",
+    kicker: "Resultados",
     title: "Números de clientes reais.",
     description: "Cada número vem de um projeto da VIA, com autorização do cliente.",
     placeholderLabel: "Número a preencher",
@@ -119,7 +128,7 @@ export const pt = {
    * image.src para ele; sem image, entra um monograma com as iniciais.
    */
   partners: {
-    kicker: "QUEM ATENDE VOCÊ",
+    kicker: "Quem atende você",
     title: "Você fala direto com quem faz.",
     description:
       "Sem gerente de contas no meio. Os dois sócios estão em todos os projetos, do diagnóstico à entrega.",
@@ -145,7 +154,7 @@ export const pt = {
   },
 
   howItWorks: {
-    kicker: "COMO FUNCIONA",
+    kicker: "Como funciona",
     title: "Do primeiro contato ao diagnóstico, sem compromisso.",
     steps: [
       {
@@ -164,7 +173,7 @@ export const pt = {
   },
 
   faq: {
-    kicker: "PERGUNTAS FREQUENTES",
+    kicker: "Perguntas frequentes",
     title: "Antes de chamar.",
     items: [
       {
@@ -498,7 +507,7 @@ export const pt = {
   },
 
   capabilities: {
-    kicker: "AS PEÇAS DO JOGO",
+    kicker: "O que a VIA faz",
     title: "Tudo o que o seu marketing precisa, num time só.",
     description:
       "Você não precisa juntar cinco fornecedores. A VIA cuida de cada frente e faz todas trabalharem juntas.",
@@ -545,34 +554,34 @@ export const pt = {
   system: {
     videoAriaLabel: "Depoimento em vídeo de Samuel, da Moikato, sobre o trabalho da VIA",
     videoFallback: "Seu navegador não consegue reproduzir este vídeo.",
-    videoBadge: "DEPOIMENTO REAL · LONDRES",
-    quoteKicker: "RESULTADO EM PRIMEIRA PESSOA",
+    videoBadge: "Depoimento real · Londres",
+    quoteKicker: "Resultado em primeira pessoa",
     quote: "“Eles acreditaram no meu trabalho.”",
     quoteAttribution: "Samuel · Moikato · Empresário em Londres",
-    caseKicker: "CASE / MOIKATO / BRASIL → REINO UNIDO",
+    caseKicker: "Case Moikato · Brasil → Reino Unido",
     title: "Uma história brasileira, contada por quem a vive.",
     description:
       "A Moikato cresceu do Brasil para o Reino Unido. A VIA conectou origem, marca e experiência digital para acompanhar esse movimento.",
     storyAriaLabel: "A história do projeto em três momentos",
     story: [
       {
-        step: "01 · ORIGEM",
+        step: "01 · Origem",
         title: "Preservar a essência.",
         text: "Artesanato sustentável e uma identidade conectada à natureza.",
       },
       {
-        step: "02 · CONSTRUÇÃO",
+        step: "02 · Construção",
         title: "Dar forma à marca.",
         text: "Posicionamento, narrativa, conteúdo e experiência digital alinhados.",
       },
       {
-        step: "03 · EXPANSÃO",
+        step: "03 · Expansão",
         title: "Atravessar fronteiras.",
         text: "Um site bilíngue e uma comunicação preparados para dois mercados.",
       },
     ],
-    visualBrandLabel: "MARCA / ORIGEM",
-    visualSiteLabel: "SITE / INTERNACIONALIZAÇÃO",
+    visualBrandLabel: "Marca e origem",
+    visualSiteLabel: "Site e internacionalização",
     creditsAriaLabel: "Entregas realizadas pela VIA para a Moikato",
     deliveries: [
       { number: "01", title: "Posicionamento" },
@@ -585,7 +594,7 @@ export const pt = {
   },
 
   finalCta: {
-    kicker: "PRÓXIMO MOVIMENTO",
+    kicker: "Próximo movimento",
     titleLine1: "Sua vez de jogar.",
     titleLine2Lead: "Peça o seu ",
     titleLine2Highlight: "diagnóstico.",

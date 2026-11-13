@@ -5,7 +5,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
-  scrollbar-color: #745cff #070809;
+  scrollbar-color: #4a4658 #0c0b11;
   scrollbar-gutter: stable;
   scrollbar-width: thin;
 }
@@ -23,11 +23,11 @@ html::-webkit-scrollbar-thumb {
   min-height: 72px;
   border: 3px solid #070809;
   border-radius: 999px;
-  background: linear-gradient(180deg, #745cff 0%, #20b7e4 52%, #59e895 100%);
+  background: #4a4658;
 }
 
 html::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #8d79ff 0%, #32c8ee 52%, #6df0a6 100%);
+  background: #615c72;
 }
 
 body {
@@ -204,13 +204,12 @@ figure {
   height: 2px;
   transform: scaleX(0);
   transform-origin: left;
-  background: var(--gradient-brand);
+  background: currentColor;
   transition: transform var(--duration-fast) var(--ease-out);
 }
 
-.site-nav a:hover::after,
-.site-nav a[aria-current="true"]::after,
-.site-nav a[aria-current="page"]::after {
+/* Só o hover sublinha: nenhum item do menu fica marcado como selecionado. */
+.site-nav a:hover::after {
   transform: scaleX(1);
 }
 
@@ -260,7 +259,7 @@ figure {
   height: 1.5px;
   transform: scaleX(0);
   transform-origin: left;
-  background: var(--gradient-brand);
+  background: currentColor;
   transition: transform var(--duration-fast) var(--ease-out);
 }
 
