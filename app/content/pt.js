@@ -51,6 +51,7 @@ export const pt = {
     ctaLabel: "Quero meu diagnóstico",
     secondaryLabel: "Ver cases",
     secondaryHref: "#moikato",
+    scrollLabel: "Descer para as frentes da VIA",
   },
 
   fronts: {

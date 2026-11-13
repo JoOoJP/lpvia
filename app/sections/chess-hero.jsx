@@ -53,6 +53,12 @@ export function ChessHero({ content, whatsappUrl }) {
           </a>
         </div>
       </div>
+
+      <a className={styles.scrollCue} href="#frentes" aria-label={content.scrollLabel}>
+        <svg viewBox="0 0 24 14" aria-hidden="true" focusable="false">
+          <path d="M2 2 L12 12 L22 2" />
+        </svg>
+      </a>
     </section>
   );
 }

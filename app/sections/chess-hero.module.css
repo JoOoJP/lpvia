@@ -96,11 +96,64 @@
   transform: translateX(3px);
 }
 
+/* Seta para baixo no pé do topo: avisa que a página continua. */
+.scrollCue {
+  position: absolute;
+  z-index: 2;
+  bottom: 1.25rem;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  color: #11131c;
+  opacity: 0.7;
+  translate: -50% 0;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.scrollCue:hover {
+  opacity: 1;
+}
+
+.scrollCue svg {
+  width: 26px;
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scrollCue svg {
+    animation: cue-drift 2.2s ease-in-out infinite;
+  }
+}
+
+@keyframes cue-drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
+}
+
 /* Celular: o rei entra logo abaixo dos botões, sem disputar espaço com eles. */
 @media (max-width: 720px) {
   .hero {
     display: flex;
     flex-direction: column;
+  }
+
+  /* No celular o rei ocupa o pé do topo e as frentes já vêm logo abaixo. */
+  .scrollCue {
+    display: none;
   }
 
   .logo {

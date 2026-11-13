@@ -20,7 +20,7 @@ function SectionHead({ kicker, title, description }) {
 
 export function Fronts({ content }) {
   return (
-    <section className={`${styles.fronts} section`} aria-label={content.ariaLabel}>
+    <section className={`${styles.fronts} section`} id="frentes" aria-label={content.ariaLabel}>
       <ul>
         {content.items.map((item) => (
           <li key={item}>
